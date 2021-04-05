@@ -12,10 +12,13 @@
             </ul>
             
             @if(Auth::check())
-                <a href="#">Logout</a>
+                <a href="{{ route('logout') }}">Logout</a>
             @else
-                <a href="{{ route('login') }}"><i class='fas fa-sign-in-alt'> Login</i></a>&nbsp;&nbsp;&nbsp;&nbsp;
-                <a href="{{ route('signUp') }}"><i class='fas fa-user-plus'> Sign up</i></a>&nbsp;&nbsp;
+                @if(Request::url() == route('login'))
+                    <a href="{{ route('signUp') }}"><i class='fas fa-user-plus'> Sign up</i></a>
+                @elseif(Request::url() == route('signUp'))
+                    <a href="{{ route('login') }}"><i class='fas fa-sign-in-alt'> Login</i></a>
+                @endif
             @endif
         </div>
     </div>

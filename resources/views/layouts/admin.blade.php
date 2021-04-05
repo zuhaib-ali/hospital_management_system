@@ -23,5 +23,7 @@
         <x-navbar/>
         @yield('content')
         <script src="{{ asset('./js/bootstrap.min.js') }}"></script>
+        <script src="{{ asset('./js/jquery.min.js') }}"></script>
+        @yield('jquery')
     </body>
 </html>

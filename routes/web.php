@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\User;
+use App\Http\Controllers\UserController;
 
 /*
 |--------------------------------------------------------------------------
@@ -14,10 +14,22 @@ use App\Http\Controllers\User;
 |
 */
 
+// index view
 Route::get('/', function () {
     return view('welcome');
-})->middleware('user_authenticate');
+})->middleware('user_authenticate')->name('index');
 
-
+// login view
 Route::view('/login', 'login')->name('login');
+
+// signup view
 Route::view('/sign_up', 'sign_up')->name('signUp');
+
+// sign post
+Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');
+
+// login post
+Route::post('/login', [UserController::class, 'loginUser'])->name('login');
+
+// logout
+Route::get('/logout', [UserController::class, 'logoutUser'])->name('logout');
