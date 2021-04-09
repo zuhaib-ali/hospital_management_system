@@ -21,23 +21,6 @@
         <x-sidebar/>    
         <div class="col-sm-9">
             <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
-            <h2>hello world!</h2><br><br><br><br><br>
         </div>
     </div>
 </div>

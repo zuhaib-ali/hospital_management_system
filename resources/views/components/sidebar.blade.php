@@ -2,7 +2,12 @@
     <div>
         <center>
             <img src="{{ asset('profile_image.jpg') }}" alt="proifle" width='180' height='180' style='border-radius:50%'><br>
-            <p>admin name</p>
+            <p>
+                @if(Session::has('user'))
+                    {{ Session::get('user.name')}}
+                @endif
+            
+            </p>
         </center>
         
     </div>

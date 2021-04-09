@@ -16,14 +16,30 @@ use App\Http\Controllers\UserController;
 
 // index view
 Route::get('/', function () {
-    return view('welcome');
-})->middleware('user_authenticate')->name('index');
+    if(Session::has('user')){
+        return view('welcome');    
+    }else{
+        return redirect()->route('login');
+    }
+})->name('index');
 
 // login view
-Route::view('/login', 'login')->name('login');
+Route::get('/login', function(){
+    if(Session::has('user')){
+        return back();
+    }else{
+        return view('login');
+    }
+})->name('login');
 
 // signup view
-Route::view('/sign_up', 'sign_up')->name('signUp');
+Route::get('/sign_up', function(){
+    if(Session::has('user')){
+        return back();
+    }else{
+        return view('sign_up');
+    }
+})->name('signUp');
 
 // sign post
 Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');

@@ -11,7 +11,7 @@
                 </li>
             </ul>
             
-            @if(Auth::check())
+            @if(Session::has('user'))
                 <a href="{{ route('logout') }}">Logout</a>
             @else
                 @if(Request::url() == route('login'))

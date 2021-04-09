@@ -61,15 +61,15 @@ class UserController extends Controller
         $user_password = Hash::check($request->password, $user[0]->password);
 
         if($user_password){
-            Auth::loginUsingId($user[0]->id);
-            return route('index');
+            $request->session()->put('user', $user[0]);
+            return redirect()->route('index');
         }
     }
 
 
     // Loging out user.
     public function logoutUser(Request $request){
-        Auth::logout();
+        $request->session()->forget('user');
         return redirect()->route('login');
     }
 }
