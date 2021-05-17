@@ -12,29 +12,31 @@ class UserController extends Controller
     public function create_user(Request $request){
         // validating inputs to create user.
         $request->validate([
-            'full_name' => ['required', 'min:7','max:30'],
-            'e_mail' => ['required', 'email', 'unique'],
+            'first_name' => ['required', 'min:3','max:15'],
+            'last_name' => ['required', 'min:3','max:15'],
+            'e_mail' => ['required', 'email'],
             'mobile' => ['required', 'min:11','max:13',],
             'cnic' =>  ['required', 'min:13', 'max:13'],
             'age' => 'required',
             'blood_group' => 'required',
             'address' => 'required',
-            'password1' =>  ['required', 'min:15','max:25', 'password'],
-            'password2' => ['required', 'min:15','max:25', 'same:password1'],
+            'password' =>  ['required', 'min:15','max:25'],
+            'confirm_password' => ['required', 'min:15','max:25', 'same:password'],
             'dob' => 'required',
             'gender' => 'required',
         ]);
 
         // Inserting new user.
         $user_created = User::create([
-            'name' => $request->full_name,
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
             'email' => $request->e_mail,
             'mobile' => $request->mobile,
             'cnic' => $request->cnic,
             'age' => $request->age,
             'blood_group' => $request->blood_group,
             'address' => $request->address,
-            'password' => Hash::make($request->password2),
+            'password' => Hash::make($request->confirm_password),
             'dob' => $request->dob,
             'gender' => $request->gender,
         ]);
@@ -57,13 +59,27 @@ class UserController extends Controller
         ]);
 
         // getting user if email exists to belonging user.
-        $user = User::get()->where('email', $request->e_mail);
-        $user_password = Hash::check($request->password, $user[0]->password);
+        $user = User::get()->where('email', $request->e_mail)->first();
+        
+        if($user){
+            $user_password = Hash::check($request->password, $user->password);
+            if($user_password){
+                $request->session()->put('user', $user);
+                return redirect()->route('index');
+            }else{
+                return back()->with('login_failed', 'The email or password does not match!');
+            }
+        }else{
+            return back()->with('login_failed', $request->e_mail.' does not eixts');
 
-        if($user_password){
-            $request->session()->put('user', $user[0]);
-            return redirect()->route('index');
         }
+
+        // if($user_password){
+        //     $request->session()->put('user', $user);
+        //     return redirect()->route('index');
+        // }else{
+        //     return back()->with('login_failed', 'The email or password does not match!');
+        // }
     }
 
 

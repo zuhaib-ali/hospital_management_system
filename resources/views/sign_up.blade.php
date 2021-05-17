@@ -1,189 +1,160 @@
-@extends('layouts.admin')
-@section('title', 'Sign up')
+<!doctype html>
+<html lang="en">
+  <head>
+  	<title>Sign up</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
-@section('admin_custom_css')
-<style>
-    .card{
-        margin:50px 0px;        
-        box-shadow:0px 0px 3px lightgrey;
-        border:1px solid rgba(255,0,0,0.1);
-    }
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
-    .form-group{
-        margin:20px 0px;
-    }
-</style>
-@endsection
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{{ asset('css/signup_css/style.css') }}">
+    
 
-@section('content')
-<main class="container-fluid">
-    <div class="row">
-        <div class="col-sm-4 mx-auto">
-            @if(strlen(session()->has('success')) > 0)
-                <p class='text-center text-white mt-5 py-2' style='background-color:lightgreen; font-weight:bold;'>Successfully Inserted</p>
-            @elseif(strlen(session()->has('failed')) > 0)
-                <p class='text-center text-white mt-5 py-2' style='background-color:lightgreen; font-weight:bold;'>Successfully Inserted</p>
-            @endif
-            
-            <div class="card">
-                <!-- Login card header -->
-                <div class="card-header" style='color:blue;'>
-                    <h2><i class='fas fa-user-plus'> Sign up</i></h2>
-                </div>
+	</head>
+	<body style="background-image: url({{ asset('login.jpg') }}); background-repeat:no-repeat; background-size:100% 100%;">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Sign Up</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<a href="{{ route('login') }}"><h3 class="mb-4 text-center">Have an account?</h3></a>
+		      	<form method="POST" action="{{ route('sign_up') }}" class="signin-form">
+					@csrf
+                    <!-- First Name -->
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+		      		</div>
 
-                <!-- Login card body -->
-                <div class="card-body">
+                    <!-- Last Name -->
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+		      		</div>
 
-                    <!-- Login form -->
-                    <form class="form" method='POST' action='{{ route("sign_up") }}'>
-                        @csrf
+                    <!-- E-Mail -->
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" required>
+		      		</div>
 
-                        <!-- Full Name -->
-                        <div class="form-group">
-                            <input type="text" class="form-control" name='full_name' placeholder='Full Name'>
-                            @error('full_name') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
+                    <!-- Mobile -->
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="Mobile" name="mobile" required>
+		      		</div>
+
+                    <!-- CNIN -->
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="CNIC" name="cnic" required>
+		      		</div>
+
+                    <!-- Age -->
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="Age" name="age" required>
+		      		</div>
+
+                    <!-- Blood group -->
+		      		<div class="form-group">
+						<select name="blood_group" id="blood_group" class='form-control py-1' name="blood_group" required>
+							<option value="a+">A+</option>
+							<option value="a-">A-</option>
+							<option value="b+">B+</option>
+							<option value="b-">B-</option>
+							<option value="o+">O+</option>
+							<option value="o-">O-</option>
+							<option value="ab+">AB+</option>
+							<option value="ab-">AB-</option>
+						</select>
+		      		</div>
+
+                    <!-- Address -->
+		      		<div class="form-group">
+						Address
+						<textarea name="address" id="address" cols="50" rows="10" class='form-control'></textarea>
+		      		</div>
+
+                    <!-- Date of Birth -->
+		      		<div class="form-group">
+		      			<input type="date" class="form-control" placeholder="Date of Birth" name="dob" required>
+		      		</div>
+
+                    <!-- Password 1 -->
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Password" name="password" required>
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </div>
+
+                    <!-- Password 2 -->
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" required>
+                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                    </div>
+                    
+                    <!-- Gender -->
+					<div class="form-row d-flex flex-wrap justify-content-around">
+						<div class="form-group">
+							<input type="radio" class="form-input-control" name="gender" value="male" required>Male
+						</div>	
+						<div class="form-group">
+							<input type="radio" class="form-input-control" name="gender" value='female' required>Female
+						</div>	
+						<div class="form-group">
+							<input type="radio" class="form-input-control" name="gender" value='other' required>Other
+						</div>	
+					</div>
+
+                    <!-- Sign up button -->
+                    <div class="form-group">
+                        <button type="submit" class="form-control btn btn-primary submit px-3">Sign Up</button>
+                    </div>
+
+                    <div class="form-group d-md-flex">
+                        <div class="w-50">
+                            <label class="checkbox-wrap checkbox-primary">Remember Me
+                            <input type="checkbox" checked>
+                            <span class="checkmark"></span>
+                            </label>
                         </div>
-                        
-
-                        <!-- E-Mail -->
-                        <div class="form-group">
-                            <input type="email" class="form-control" name='e_mail' placeholder='E-Mail'>
-                            @error('e_mail') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
+                        <div class="w-50 text-md-right">
+                            <a href="#" style="color: #fff">Forgot Password</a>
                         </div>
+                    </div>
+	          </form>
+	          <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+	          <div class="social d-flex text-center">
+	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
+	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+	          </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+    
+    <script src="{{ asset('js/signup_js/jquery.min.js') }}"></script>
+    <script src="{{ asset('js/signup_js/popper.js') }}"></script>
+    <script src="{{ asset('js/signup_js/bootstrap.min.js') }}"></script>
+    <script src="{{ asset('js/signup_js/main.js') }}"></script>
+	<script>
+		@if($errors->any())
+			@foreach($errors->all() as $error)
+				alert("{{ $error }}");
+			@endforeach
+		@endif
 
-                        <!-- Mobile Number -->
-                        <div class="form-group">
-                            <input type="text" class="form-control" name='mobile' placeholder='Mobile'>
-                            @error('mobile') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                        </div>
+		@if(session()->has('success'))
+			alert('user created successfully');
+		@elseif(session()->has('failed'))
+			alert('user created successfully');
+		@endif
+	</script>
+    
+    
 
-                        <!-- CNIC -->
-                        <div class="form-group">
-                            <input type="text" class="form-control" name='cnic' placeholder='CNIC (without dashes "-")'>
-                            @error('cnic') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                        </div>
+	</body>
+</html>
 
-                        <!-- Age -->
-                        <div class="form-group">
-                            <input type="text" class="form-control" name='age' placeholder='Age'>
-                            @error('age') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Blood Group -->
-                        <select name="blood_group" id="blood_group" class="form-select"  aria-label="Default select example">
-                            <option>Blood Group</option>
-                            <option value="A+" selected>A+</option>
-                            <option value="A-" selected>A-</option>
-                            <option value="B+" selected>B+</option>
-                            <option value="B-" selected>B-</option>
-                            <option value="AB+" selected>AB+</option>
-                            <option value="AB-" selected>AB-</option>
-                            <option value="O+" selected>O+</option>
-                            <option value="O-" selected>O-</option>
-                            
-                        </select>
-                        @error('blood_group') 
-                            <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                        @enderror
-
-                        <!-- Address -->
-                        <div class="form-group">
-                            Address
-                            <textarea name="address" id="" cols="30" rows="10" class='form-control'></textarea>
-                            @error('address') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Password -->
-                        <div class="form-group">
-                            <input type="password" class="form-control" name='password1' placeholder='Password' id='password1'>
-                            @error('password1') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Confirm Password -->
-                        <div class="form-group">
-                            <input type="password" class="form-control" name='password2' placeholder='Confirm Password' id='password2'>
-                            @error('password2') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                            <p id='match_password' style='color:red; font-style:italic;'></p>
-                        </div>
-
-                        <!-- Date of Birth -->
-                        <div class="form-group">
-                            <label for="dob">Date of Birth</label>
-                            <input type="date" class="form-control" name='dob'>
-                            @error('dob') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Gender -->
-                        <div class='d-flex flex-wrap justify-content-around'>
-                            <div class="form-check">
-                                Male <input type="radio" class="form-check-input" name='gender' value='male' checked>
-                            </div>
-                            <div class="form-check">
-                                Female<input type="radio" class="form-check-input" name='gender' value='female'>
-                            </div>
-                            <div class="form-check">
-                                Other<input type="radio" class="form-check-input" name='gender' value='other'>
-                            </div>
-                            @error('gender') 
-                                <p class='' style='color:red; font-style:italic;'>{{$message}}</p>
-                            @enderror
-                        </div>
-
-                        <!-- Sign up button -->
-                        <div class="form-group">
-                            <input type="submit" class="form-control btn btn-outline-primary" value="SIGN UP" >
-                        </div>
-                    </form>
-                    <hr>
-                    <!-- Forgot password  or  create account -->
-                    <section class="d-flex flex-wrap justify-content-around">
-                        <a href="#" style='color:red;'><i class='fas fa-key'> Forgot password ?</i></a>
-                        <a href="{{ route('login') }}" ><i class='fas fa-sign-in-alt'> Sign in</i></a>
-                    </section>    
-                </div>
-            </div>
-        </div>
-    </div>
-</main>
-
-@section('jquery')
-<script>
-
-    var pass1 = null;
-    var pass2 = null;
-    $(document).ready(function(){
-        $('#match_password').hide();
-        $('#password2').keyup(function(){
-            if($('#password1').val() == $('#password2').val() && $('#password2').val() != 0){
-                $('#match_password').show();
-                $('#match_password').text('Password matched!');
-                $('#match_password').css('color','blue');
-            }else{
-                $('#match_password').show();
-                $('#match_password').text('Password not matched.');
-                $('#match_password').css('color','red');
-            }
-        });
-    });
-</script>
-@endsection
-
-@endsection

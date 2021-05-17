@@ -25,7 +25,7 @@
 				<div class="row justify-content-center">
 					<div class="col-md-6 col-lg-4">
 						<div class="login-wrap p-0">
-					<h3 class="mb-4 text-center">Have an account?</h3>
+						<a href="{{ route('sign_up') }}"><h3 class="mb-4 text-center">Create an account?</h3></a>
 
 					<!-- Login Form -->
 					<form method='POST' action="{{ route('login') }}" class="signin-form">
@@ -75,6 +75,13 @@
 		<script src="{{ asset('js/login_js//popper.js') }}"></script>
 		<script src="{{ asset('js/login_js/main.js') }}"></script>
 		<script src="{{ asset('js/login_js/bootstrap.min.js') }}"></script>
+
+		<script>
+			$(document).ready(function(){
+				if("{{ session()->has('login_failed') }}"){
+					alert("{{ session()->get('login_failed') }}");
+				}
+			});
+		</script>
 	</body>
 </html>
-

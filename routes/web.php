@@ -14,14 +14,38 @@ use App\Http\Controllers\UserController;
 |
 */
 
-// index view
+// index 1
 Route::get('/', function () {
     if(Session::has('user')){
-        return view('welcome');    
+        return view('admin.index');    
     }else{
         return redirect()->route('login');
     }
 })->name('index');
+
+// index 2
+Route::get('/index2', function(){
+    if(Session::has('user')){
+        return view('admin.index2');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('index2');
+
+
+// index 3
+Route::get('/index3', function(){
+    // if(Session::has('user')){
+    //     return view('admin.index3');
+    // }else{
+    //     return redirect()->route('login');
+    // }
+    if(Session::has('user')){
+        return view('admin.index3');
+    }
+    return 'index 3';
+})->name('index3');
+
 
 // login view
 Route::get('/login', function(){
@@ -41,7 +65,7 @@ Route::get('/sign_up', function(){
     }
 })->name('signUp');
 
-// sign post
+// signup post
 Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');
 
 // login post

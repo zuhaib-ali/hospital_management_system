@@ -10,6 +10,9 @@
         <link href="{{ asset('./css/bootstrap.min.css') }}" rel="stylesheet">
         <link href="{{ asset('./font-awesome/css/all.min.css') }}" rel="stylesheet">
 
+        <!-- External Stylesheet -->
+        @yield('external_stylesheet')
+
         <!-- Styles -->
         @yield('admin_custom_css')
 
