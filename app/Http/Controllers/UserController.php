@@ -16,7 +16,7 @@ class UserController extends Controller
             'last_name' => ['required', 'min:3','max:15'],
             'e_mail' => ['required', 'email'],
             'mobile' => ['required', 'min:11','max:13',],
-            'cnic' =>  ['required', 'min:13', 'max:13'],
+            'cnic' =>  ['required', 'min:13', 'max:13', 'unique:users,cnic'],
             'age' => 'required',
             'blood_group' => 'required',
             'address' => 'required',
@@ -24,7 +24,7 @@ class UserController extends Controller
             'confirm_password' => ['required', 'min:15','max:25', 'same:password'],
             'dob' => 'required',
             'gender' => 'required',
-            'profile_img' => ['required', 'mimes:jpeg, jpg, png', 'max:1000'],
+            'profile_img' => ['required', 'mimes:jpeg, jpg, png, PNG, JPG, JPEG', 'max:1000'],
         ]);
 
         // Image new name
