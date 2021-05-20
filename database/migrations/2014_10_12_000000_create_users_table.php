@@ -18,7 +18,7 @@ class CreateUsersTable extends Migration
             $table->string('first_name')->default('NA');
             $table->string('last_name')->default('NA');
             $table->string('email');
-            $table->string('mobile')->unique()->default('NA');
+            $table->string('mobile')->default('NA');
             $table->string('cnic')->unique()->default('NA');
             $table->unsignedInteger('age')->default(0);
             $table->string('blood_group')->default('NA');
@@ -26,6 +26,7 @@ class CreateUsersTable extends Migration
             $table->string('password')->unique()->default('NA');
             $table->string('dob')->default('NA');
             $table->string('gender')->default('NA');
+            $table->string('profile_img')->default('NA');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
             $table->timestamps();

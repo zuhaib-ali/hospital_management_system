@@ -25,7 +25,7 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 		      	<a href="{{ route('login') }}"><h3 class="mb-4 text-center">Have an account?</h3></a>
-		      	<form method="POST" action="{{ route('sign_up') }}" class="signin-form">
+		      	<form method="POST" action="{{ route('sign_up') }}" class="signin-form" enctype='multipart/form-data'>
 					@csrf
                     <!-- First Name -->
 		      		<div class="form-group">
@@ -80,6 +80,11 @@
                     <!-- Date of Birth -->
 		      		<div class="form-group">
 		      			<input type="date" class="form-control" placeholder="Date of Birth" name="dob" required>
+		      		</div>
+
+					<!-- Picture -->
+		      		<div class="form-group">
+		      			<input type="file" class="form-control" placeholder="Picture" name="profile_img" required>
 		      		</div>
 
                     <!-- Password 1 -->

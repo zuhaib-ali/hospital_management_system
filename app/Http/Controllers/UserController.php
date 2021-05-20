@@ -10,7 +10,7 @@ use App\Models\User;
 class UserController extends Controller
 {
     public function create_user(Request $request){
-        // validating inputs to create user.
+        // validating inputs
         $request->validate([
             'first_name' => ['required', 'min:3','max:15'],
             'last_name' => ['required', 'min:3','max:15'],
@@ -24,9 +24,16 @@ class UserController extends Controller
             'confirm_password' => ['required', 'min:15','max:25', 'same:password'],
             'dob' => 'required',
             'gender' => 'required',
+            'profile_img' => ['required', 'mimes:jpeg, jpg, png', 'max:1000'],
         ]);
 
-        // Inserting new user.
+        // Image new name
+        $image_new_name = time().'-'.$request->first_name.'.'.$request->profile_img->extension();
+        
+        
+        
+        
+        // User creating.
         $user_created = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
@@ -39,10 +46,13 @@ class UserController extends Controller
             'password' => Hash::make($request->confirm_password),
             'dob' => $request->dob,
             'gender' => $request->gender,
+            'profile_img' => $image_new_name,                
         ]);
 
         // Check if user successfully created.
         if($user_created){
+            // moving image to public folder
+            $request->profile_img->move(public_path('images'), $image_new_name);
             return back()->with('success', 'Successfully Inserted');
         }else{
             return back()->with('failed', 'Failed to Insert');
@@ -50,7 +60,7 @@ class UserController extends Controller
     }
 
 
-    // Authenticating and loging in user.
+    // Login User and Authentication
     public function loginUser(Request $request){
         // validating inputs to login.
         $request->validate([
@@ -73,13 +83,6 @@ class UserController extends Controller
             return back()->with('login_failed', $request->e_mail.' does not eixts');
 
         }
-
-        // if($user_password){
-        //     $request->session()->put('user', $user);
-        //     return redirect()->route('index');
-        // }else{
-        //     return back()->with('login_failed', 'The email or password does not match!');
-        // }
     }
 
 
