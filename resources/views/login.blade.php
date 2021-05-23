@@ -17,6 +17,28 @@
 	<body class="" style="background-image: url({{ asset('login.jpg') }}); background-size:100%;">
 		<section class="ftco-section">
 			<div class="container">
+			<center>
+			@if(session('success')) 
+                <div class="alert alert-success alert-dismissible col-lg-6" id="divs">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{session('success')}}
+                </div>
+                @endif
+
+				@if(session('login_failed')) 
+                <div class="alert alert-danger alert-dismissible col-lg-6" id="divs">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{session('login_failed')}}
+                </div>
+                @endif
+
+				@if(session('logout')) 
+                <div class="alert alert-warning alert-dismissible col-lg-6" id="divs">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{session('logout')}}
+                </div>
+                @endif
+			</center>
 				<div class="row justify-content-center">
 					<div class="col-md-6 text-center mb-5">
 						<h2 class="heading-section">Login</h2>
@@ -78,9 +100,8 @@
 
 		<script>
 			$(document).ready(function(){
-				if("{{ session()->has('login_failed') }}"){
-					alert("{{ session()->get('login_failed') }}");
-				}
+				
+				$('#divs').fadeOut(4000);
 			});
 		</script>
 	</body>

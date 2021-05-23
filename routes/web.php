@@ -72,4 +72,4 @@ Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up')
 Route::post('/login', [UserController::class, 'loginUser'])->name('login');
 
 // logout
-Route::get('/logout', [UserController::class, 'logoutUser'])->name('logout');
+Route::get('logout', [UserController::class, 'logoutUser']);

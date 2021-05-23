@@ -16,6 +16,14 @@
 	<body style="background-image: url({{ asset('login.jpg') }}); background-repeat:no-repeat; background-size:100% 100%;">
 	<section class="ftco-section">
 		<div class="container">
+			<center>
+				@if(session('failed')) 
+				<div class="alert alert-danger alert-dismissible col-lg-6" id="divs">
+					<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+					{{session('failed')}}
+				</div>
+				@endif
+			</center>
 			<div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
 					<h2 class="heading-section">Sign Up</h2>
@@ -29,37 +37,37 @@
 					@csrf
                     <!-- First Name -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="First Name" name="first_name" required>
+		      			<input type="text" class="form-control" placeholder="First Name" name="first_name" >
 		      		</div>
 
                     <!-- Last Name -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Last Name" name="last_name" required>
+		      			<input type="text" class="form-control" placeholder="Last Name" name="last_name" >
 		      		</div>
 
                     <!-- E-Mail -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" required>
+		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" >
 		      		</div>
 
                     <!-- Mobile -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Mobile" name="mobile" required>
+		      			<input type="text" class="form-control" placeholder="Mobile" name="mobile" >
 		      		</div>
 
                     <!-- CNIN -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="CNIC" name="cnic" required>
+		      			<input type="text" class="form-control" placeholder="CNIC" name="cnic" >
 		      		</div>
 
                     <!-- Age -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Age" name="age" required>
+		      			<input type="text" class="form-control" placeholder="Age" name="age" >
 		      		</div>
 
                     <!-- Blood group -->
 		      		<div class="form-group">
-						<select name="blood_group" id="blood_group" class='form-control py-1' name="blood_group" required>
+						<select name="blood_group" id="blood_group" class='form-control py-1' name="blood_group" >
 							<option value="a+">A+</option>
 							<option value="a-">A-</option>
 							<option value="b+">B+</option>
@@ -79,36 +87,36 @@
 
                     <!-- Date of Birth -->
 		      		<div class="form-group">
-		      			<input type="date" class="form-control" placeholder="Date of Birth" name="dob" required>
+		      			<input type="date" class="form-control" placeholder="Date of Birth" name="dob" >
 		      		</div>
 
 					<!-- Picture -->
 		      		<div class="form-group">
-		      			<input type="file" class="form-control" placeholder="Picture" name="profile_img" required>
+		      			<input type="file" class="form-control" placeholder="Picture" name="profile_img" >
 		      		</div>
 
                     <!-- Password 1 -->
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Password" name="password" required>
+                        <input type="password" class="form-control" placeholder="Password" name="password" >
                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     </div>
 
                     <!-- Password 2 -->
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" required>
+                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" >
                         <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     </div>
                     
                     <!-- Gender -->
 					<div class="form-row d-flex flex-wrap justify-content-around">
 						<div class="form-group">
-							<input type="radio" class="form-input-control" name="gender" value="male" required>Male
+							<input type="radio" class="form-input-control" name="gender" value="male" >Male
 						</div>	
 						<div class="form-group">
-							<input type="radio" class="form-input-control" name="gender" value='female' required>Female
+							<input type="radio" class="form-input-control" name="gender" value='female' >Female
 						</div>	
 						<div class="form-group">
-							<input type="radio" class="form-input-control" name="gender" value='other' required>Other
+							<input type="radio" class="form-input-control" name="gender" value='other' >Other
 						</div>	
 					</div>
 
@@ -145,17 +153,8 @@
     <script src="{{ asset('js/signup_js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/signup_js/main.js') }}"></script>
 	<script>
-		@if($errors->any())
-			@foreach($errors->all() as $error)
-				alert("{{ $error }}");
-			@endforeach
-		@endif
-
-		@if(session()->has('success'))
-			alert('user created successfully');
-		@elseif(session()->has('failed'))
-			alert('user created successfully');
-		@endif
+	$('#divs').fadeOut(3000);
+		
 	</script>
     
     

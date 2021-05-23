@@ -15,16 +15,16 @@ class UserController extends Controller
             'first_name' => ['required', 'min:3','max:15'],
             'last_name' => ['required', 'min:3','max:15'],
             'e_mail' => ['required', 'email'],
-            'mobile' => ['required', 'min:11','max:13',],
-            'cnic' =>  ['required', 'min:13', 'max:13', 'unique:users,cnic'],
+            'mobile' => ['required', 'min:11','max:16',],
+            'cnic' =>  ['required', 'min:13', 'max:14', 'unique:users,cnic'],
             'age' => 'required',
             'blood_group' => 'required',
             'address' => 'required',
-            'password' =>  ['required', 'min:15','max:25'],
-            'confirm_password' => ['required', 'min:15','max:25', 'same:password'],
+            'password' =>  ['required', 'min:5','max:25'],
+            'confirm_password' => ['required', 'min:5','max:25', 'same:password'],
             'dob' => 'required',
             'gender' => 'required',
-            'profile_img' => ['required', 'mimes:jpeg, jpg, png, PNG, JPG, JPEG', 'max:1000'],
+            'profile_img' => ['required', 'mimes:jpeg, jpg, png, PNG, JPG, JPEG', 'max:3000'],
         ]);
 
         // Image new name
@@ -53,7 +53,8 @@ class UserController extends Controller
         if($user_created){
             // moving image to public folder
             $request->profile_img->move(public_path('images'), $image_new_name);
-            return back()->with('success', 'Successfully Inserted');
+            $request->session()->flash('success', 'Successfully Inserted');
+            return redirect()->route('login');
         }else{
             return back()->with('failed', 'Failed to Insert');
         }
@@ -71,15 +72,16 @@ class UserController extends Controller
         // getting user if email exists to belonging user.
         $user = User::get()->where('email', $request->e_mail)->first();
         
-        if($user){
+        if($user == TRUE){
             $user_password = Hash::check($request->password, $user->password);
-            if($user_password){
+            if($user_password != NULL){
                 $request->session()->put('user', $user);
                 return redirect()->route('index');
             }else{
                 return back()->with('login_failed', 'The email or password does not match!');
             }
         }else{
+            
             return back()->with('login_failed', $request->e_mail.' does not eixts');
 
         }
@@ -89,6 +91,6 @@ class UserController extends Controller
     // Loging out user.
     public function logoutUser(Request $request){
         $request->session()->forget('user');
-        return redirect()->route('login');
+        return redirect('login')->with('logout','Logout Successfull');
     }
 }
