@@ -37,6 +37,7 @@ class UserController extends Controller
         $user_created = User::create([
             'first_name' => $request->first_name,
             'last_name' => $request->last_name,
+            'username' => $request->username,
             'email' => $request->e_mail,
             'mobile' => $request->mobile,
             'cnic' => $request->cnic,
@@ -64,26 +65,34 @@ class UserController extends Controller
     // Login User and Authentication
     public function loginUser(Request $request){
         // validating inputs to login.
-        $request->validate([
-            'e_mail' => ['required', 'email'],
-            'password' => 'required',
-        ]);
+        if($request->username || $request->password != NULL){
 
-        // getting user if email exists to belonging user.
-        $user = User::get()->where('email', $request->e_mail)->first();
-        
-        if($user == TRUE){
-            $user_password = Hash::check($request->password, $user->password);
-            if($user_password != NULL){
-                $request->session()->put('user', $user);
-                return redirect()->route('index');
-            }else{
-                return back()->with('login_failed', 'The email or password does not match!');
-            }
-        }else{
+            $request->validate([
+                'username' => 'required',
+                'password' => 'required',
+            ]);
+    
+            // getting user if username exists to belonging user.
+            $user = User::get()->where('username', $request->username)->first();
             
-            return back()->with('login_failed', $request->e_mail.' does not eixts');
+            if($user == TRUE){
+                $user_password = Hash::check($request->password, $user->password);
+                if($user_password != NULL){
+                    $request->session()->put('user', $user);
+                    return redirect()->route('index');
+                }else{
+                    return back()->with('login_failed', 'The Username Or Password does not match!');
+                }
+            }
+            
+            else{
+                
+                return back()->with('login_failed', $request->username.' does not eixts');
+            }
+        }
 
+        else{
+            return back()->with('null', 'Enter Your Username & Password!'); 
         }
     }
 

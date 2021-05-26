@@ -45,6 +45,11 @@
 		      			<input type="text" class="form-control" placeholder="Last Name" name="last_name" >
 		      		</div>
 
+					  <!-- Username -->
+		      		<div class="form-group">
+		      			<input type="text" class="form-control" placeholder="Username" name="username" >
+		      		</div>
+
                     <!-- E-Mail -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" >

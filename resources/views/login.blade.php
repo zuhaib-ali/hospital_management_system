@@ -32,6 +32,13 @@
                 </div>
                 @endif
 
+				@if(session('null')) 
+                <div class="alert alert-primary alert-dismissible col-lg-6" id="divs">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{session('null')}}
+                </div>
+                @endif
+
 				@if(session('logout')) 
                 <div class="alert alert-warning alert-dismissible col-lg-6" id="divs">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -55,12 +62,12 @@
 
 						<!-- E-Mail field -->
 						<div class="form-group">
-							<input type="text" name='e_mail' class="form-control" placeholder="E-Mail" required>
+							<input type="text" name='username' class="form-control" placeholder="Username" >
 						</div>
 						
 						<!-- Password field -->
 						<div class="form-group">
-							<input id="password-field" name='password' type="password" class="form-control" placeholder="Password" required>
+							<input id="password-field" name='password' type="password" class="form-control" placeholder="Password" >
 						<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						</div>
 						<div class="form-group">
