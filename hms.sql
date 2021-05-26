@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 23, 2021 at 09:36 AM
+-- Generation Time: May 26, 2021 at 09:35 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -57,7 +57,9 @@ CREATE TABLE `migrations` (
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
-(3, '2019_08_19_000000_create_failed_jobs_table', 1);
+(3, '2019_08_19_000000_create_failed_jobs_table', 1),
+(4, '2021_05_26_063946_add_username_to_users_table', 2),
+(5, '2021_05_26_073242_add_username_to_users_table', 3);
 
 -- --------------------------------------------------------
 
@@ -95,15 +97,16 @@ CREATE TABLE `users` (
   `remember_token` varchar(100) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL
+  `deleted_at` timestamp NULL DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NA'
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 --
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'Admin', 'Admin', 'admin@gmail.com', '03123741655', '4120426112931', 22, 'o-', 'Sindh', '$2y$10$QOO0HXTZzXm9Gz3nz94itOMBgkN4gYIhFVv8/bdJPpVxZTenSFjsi', '1997-06-24', 'male', '1621752389-Admin.jpg', NULL, NULL, '2021-05-23 01:46:29', '2021-05-23 01:46:29', NULL);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `username`) VALUES
+(1, 'Admin', 'Admin', 'admin@gmail.com', '03123741655', '4120426112931', 22, 'o-', 'Sindh', '$2y$10$QOO0HXTZzXm9Gz3nz94itOMBgkN4gYIhFVv8/bdJPpVxZTenSFjsi', '1997-06-24', 'male', '1621752389-Admin.jpg', NULL, NULL, '2021-05-23 01:46:29', '2021-05-23 01:46:29', NULL, 'admin');
 
 --
 -- Indexes for dumped tables
@@ -150,7 +153,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

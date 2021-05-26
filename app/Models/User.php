@@ -12,7 +12,6 @@ class User extends Authenticatable
 {
     use HasFactory, Notifiable, SoftDeletes;
     
-    protected $dates=['deleted_at'];
     /**
      * The attributes that are mass assignable.
      *
@@ -32,6 +31,8 @@ class User extends Authenticatable
         'gender',
         'profile_img',
     ];
+
+    public $timestamps = false;
 
     /**
      * The attributes that should be hidden for arrays.
