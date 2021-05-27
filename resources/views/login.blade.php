@@ -13,6 +13,13 @@
 	<link rel="stylesheet" href="{{ asset('css/login_css/style.css') }}">
 	<!-- <link rel="stylesheet" href="{{ asset('css/login_css/bootstrap.min.css') }}"> -->
 
+	<!-- Internal Styling -->
+	<style rel="stylesheet">
+		::placeholder{
+			font-style:italic;
+		}
+	</style>
+
 	</head>
 	<body class="" style="background-image: url({{ asset('login.jpg') }}); background-size:100%;">
 		<section class="ftco-section">
@@ -68,11 +75,14 @@
 						<!-- Password field -->
 						<div class="form-group">
 							<input id="password-field" name='password' type="password" class="form-control" placeholder="Password" >
-						<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+							<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						</div>
+
+						<!-- Sign in button -->
 						<div class="form-group">
 							<input type="submit" class="form-control btn btn-primary submit px-3" value='Sign In'>
 						</div>
+
 					<div class="form-group d-md-flex">
 
 						<!-- Remember me -->

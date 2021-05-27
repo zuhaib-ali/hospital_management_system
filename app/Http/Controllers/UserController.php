@@ -31,9 +31,6 @@ class UserController extends Controller
         // Image new name
         $image_new_name = time().'-'.$request->first_name.'.'.$request->profile_img->extension();
         
-        
-        
-        
         // User creating.
         $user_created = User::create([
             'first_name' => $request->first_name,

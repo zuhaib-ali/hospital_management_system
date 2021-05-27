@@ -33,15 +33,91 @@
       <!-- Sidebar Menu -->
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-        
-        <li class="nav-item">
-              <a href="logout" class="nav-link">
-                <i class="fas fa-sign-out-alt"></i>
-                  <p>
-                    Logout
-                  </p>
-              </a>
-            </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-columns"></i>
+                <p>Dashboard</p>
+            </a>
+          </li>
+
+          
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-clinic-medical"></i>
+                <p>Departments</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user-md"></i>
+                <p>Doctors</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user-nurse"></i>
+                <p>Nurses</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-wheelchair"></i>
+                <p>Patients</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-first-aid"></i>
+                <p>Phramacists</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user-alt"></i>
+                <p>Laboratorists</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i>
+                <p>Acountants</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-receipt"></i>
+                <p>Receptionists</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-info"></i>
+                <p>Nocitce Board</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-cog"></i>
+                <p>Settings</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="logout" class="nav-link">
+              <i class="fas fa-sign-out-alt"></i>
+                <p>Logout</p>
+            </a>
+          </li>
 
         </ul>
       </nav>
