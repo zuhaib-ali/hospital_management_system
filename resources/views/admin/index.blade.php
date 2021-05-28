@@ -39,3 +39,9 @@
   <!-- /.content-wrapper -->
 
 @include('include.footer')
+
+@if(session('user'))
+  <script>
+    toastr.success("Welcome To Online Hospital Management System");
+  </script>
+@endif
