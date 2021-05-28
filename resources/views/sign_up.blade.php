@@ -10,7 +10,13 @@
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
 	
 	<link rel="stylesheet" href="{{ asset('css/signup_css/style.css') }}">
-    
+
+    <style rel="stylesheet">
+		::placeholder{
+			font-style:italic;
+			font-family:arial;
+		}
+	</style>
 
 	</head>
 	<body style="background-image: url({{ asset('login.jpg') }}); background-repeat:no-repeat; background-size:100% 100%;">
@@ -33,7 +39,9 @@
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
 		      	<a href="{{ route('login') }}"><h3 class="mb-4 text-center">Have an account?</h3></a>
-		      	<form method="POST" action="{{ route('sign_up') }}" class="signin-form" enctype='multipart/form-data'>
+
+				<!-- SIGNUP FORM -->
+		      	<form method="POST" action="{{ route('sign_up') }}" class="signup-form" enctype='multipart/form-data' autocomplete="off">
 					@csrf
                     <!-- First Name -->
 		      		<div class="form-group">
@@ -52,7 +60,7 @@
 
                     <!-- E-Mail -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" >
+		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" autocomplete="off">
 		      		</div>
 
                     <!-- Mobile -->
@@ -102,14 +110,14 @@
 
                     <!-- Password 1 -->
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Password" name="password" >
-                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        <input type="password" class="form-control" placeholder="Password" name="password" id='password-field1'>
+                        <span toggle="#password-field1" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     </div>
 
                     <!-- Password 2 -->
                     <div class="form-group">
-                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password" >
-                        <span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+                        <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password"  id="password-field2">
+                        <span toggle="#password-field2" class="fa fa-fw fa-eye field-icon toggle-password"></span>
                     </div>
                     
                     <!-- Gender -->
