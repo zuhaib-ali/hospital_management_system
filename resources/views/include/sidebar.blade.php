@@ -35,7 +35,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="index" class="nav-link">
               <i class="fas fa-columns"></i>
                 <p>Dashboard</p>
             </a>
@@ -43,7 +43,7 @@
 
           
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="departments" class="nav-link">
               <i class="fas fa-clinic-medical"></i>
                 <p>Departments</p>
             </a>

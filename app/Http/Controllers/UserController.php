@@ -77,7 +77,7 @@ class UserController extends Controller
                 $user_password = Hash::check($request->password, $user->password);
                 if($user_password != NULL){
                     $request->session()->put('user', $user);
-                    return redirect()->route('index');
+                    return redirect('index');
                 }else{
                     return back()->with('login_failed', 'The Username Or Password does not match!');
                 }
