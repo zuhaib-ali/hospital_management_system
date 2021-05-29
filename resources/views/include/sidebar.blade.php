@@ -35,7 +35,11 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
+<<<<<<< HEAD
             <a href="index" class="nav-link">
+=======
+            <a href="{{ route('index') }}" class="nav-link @if(Request::url() == Request::is('/')) active @endif()">
+>>>>>>> 18418afa982e8ce8f4e74f639878c87e982a42fe
               <i class="fas fa-columns"></i>
                 <p>Dashboard</p>
             </a>
@@ -43,21 +47,25 @@
 
           
           <li class="nav-item">
+<<<<<<< HEAD
             <a href="departments" class="nav-link">
+=======
+            <a href="{{ route('departments') }}" class="nav-link @if(Request::url() == Request::is('departments')) active @endif()">
+>>>>>>> 18418afa982e8ce8f4e74f639878c87e982a42fe
               <i class="fas fa-clinic-medical"></i>
                 <p>Departments</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
               <i class="fas fa-user-md"></i>
                 <p>Doctors</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @if(Request::url() == Request::is('nurses')) active @endif()">
               <i class="fas fa-user-nurse"></i>
                 <p>Nurses</p>
             </a>
