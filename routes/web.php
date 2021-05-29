@@ -16,15 +16,12 @@ use App\Http\Controllers\components;
 */
 
 // index 1
-Route::get('index', function () {
+Route::get('/', function () {
     if(Session::has('user')){
         return view('admin.index');    
     }else{
         return redirect()->route('login');
     }
-<<<<<<< HEAD
-});
-=======
 })->name('index');
 
 Route::get('/departments', function () {
@@ -65,7 +62,6 @@ Route::get('/doctors', function () {
 //     }
 //     return 'index 3';
 // })->name('index3');
->>>>>>> 18418afa982e8ce8f4e74f639878c87e982a42fe
 
 
 // login view
@@ -86,10 +82,7 @@ Route::get('/sign_up', function(){
     }
 })->name('signUp');
 
-Route::get('departments', function()
-{
-    return view('components.departments');
-});
+
 
 // signup post
 Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');
@@ -101,6 +94,6 @@ Route::post('/login', [UserController::class, 'loginUser'])->name('login');
 Route::get('logout', [UserController::class, 'logoutUser']);
 
 
-Route::get('departments', [components::class, 'departments']);
+
 
 Route::get('settings', [components::class, 'settings']);

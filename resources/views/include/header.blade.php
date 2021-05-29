@@ -3,10 +3,19 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png"/>
+
   @if( request()->is('index') )
     <title> Dashboard </title>
     @elseif( request()->is('departments') )
       <title> Departments </title>
+      @elseif( request()->is('doctors') )
+      <title> Doctors </title>
+      @elseif( request()->is('nurses') )
+      <title> Nurses </title>
+      @elseif( request()->is('patients') )
+      <title> Patients </title>
   @endif
 
   <!-- Google Font: Source Sans Pro -->

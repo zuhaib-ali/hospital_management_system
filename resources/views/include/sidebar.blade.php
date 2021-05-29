@@ -1,10 +1,5 @@
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
-    <!-- Brand Logo -->
-    <a href="index3.html" class="brand-link">
-      <img src="{{ asset('dist/img/AdminLTELogo.png') }}" alt="AdminLTE Logo" class="brand-image img-circle elevation-3" style="opacity: .8">
-      <span class="brand-text font-weight-light">AdminLTE 3</span>
-    </a>
 
     <!-- Sidebar -->
     <div class="sidebar">
@@ -35,11 +30,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-<<<<<<< HEAD
-            <a href="index" class="nav-link">
-=======
             <a href="{{ route('index') }}" class="nav-link @if(Request::url() == Request::is('/')) active @endif()">
->>>>>>> 18418afa982e8ce8f4e74f639878c87e982a42fe
               <i class="fas fa-columns"></i>
                 <p>Dashboard</p>
             </a>
@@ -47,11 +38,7 @@
 
           
           <li class="nav-item">
-<<<<<<< HEAD
-            <a href="departments" class="nav-link">
-=======
             <a href="{{ route('departments') }}" class="nav-link @if(Request::url() == Request::is('departments')) active @endif()">
->>>>>>> 18418afa982e8ce8f4e74f639878c87e982a42fe
               <i class="fas fa-clinic-medical"></i>
                 <p>Departments</p>
             </a>
