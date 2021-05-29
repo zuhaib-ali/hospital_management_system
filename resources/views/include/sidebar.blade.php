@@ -35,7 +35,7 @@
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('index') }}" class="nav-link @if(Request::url() == Request::is('/')) active @endif()">
               <i class="fas fa-columns"></i>
                 <p>Dashboard</p>
             </a>
@@ -43,21 +43,21 @@
 
           
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('departments') }}" class="nav-link @if(Request::url() == Request::is('departments')) active @endif()">
               <i class="fas fa-clinic-medical"></i>
                 <p>Departments</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
               <i class="fas fa-user-md"></i>
                 <p>Doctors</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @if(Request::url() == Request::is('nurses')) active @endif()">
               <i class="fas fa-user-nurse"></i>
                 <p>Nurses</p>
             </a>

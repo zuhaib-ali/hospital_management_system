@@ -30,6 +30,7 @@ class User extends Authenticatable
         'dob',
         'gender',
         'profile_img',
+        'username',
     ];
 
     public $timestamps = false;

@@ -23,28 +23,44 @@ Route::get('/', function () {
     }
 })->name('index');
 
-// index 2
-Route::get('/index2', function(){
+Route::get('/departments', function () {
     if(Session::has('user')){
-        return view('admin.index2');
+        return view('admin.departments');    
     }else{
         return redirect()->route('login');
     }
-})->name('index2');
+})->name('departments');
+
+Route::get('/doctors', function () {
+    if(Session::has('user')){
+        return view('admin.doctors');    
+    }else{
+        return redirect()->route('login');
+    }
+})->name('doctors');
+
+// index 2
+// Route::get('/index2', function(){
+//     if(Session::has('user')){
+//         return view('admin.index2');
+//     }else{
+//         return redirect()->route('login');
+//     }
+// })->name('index2');
 
 
 // index 3
-Route::get('/index3', function(){
-    // if(Session::has('user')){
-    //     return view('admin.index3');
-    // }else{
-    //     return redirect()->route('login');
-    // }
-    if(Session::has('user')){
-        return view('admin.index3');
-    }
-    return 'index 3';
-})->name('index3');
+// Route::get('/index3', function(){
+//     // if(Session::has('user')){
+//     //     return view('admin.index3');
+//     // }else{
+//     //     return redirect()->route('login');
+//     // }
+//     if(Session::has('user')){
+//         return view('admin.index3');
+//     }
+//     return 'index 3';
+// })->name('index3');
 
 
 // login view
