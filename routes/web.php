@@ -24,21 +24,21 @@ Route::get('/', function () {
     }
 })->name('index');
 
-Route::get('/departments', function () {
+Route::get('/appointments', function () {
     if(Session::has('user')){
-        return view('admin.departments');    
+        return view('admin.appointments');    
     }else{
         return redirect()->route('login');
     }
-})->name('departments');
+})->name('appointments');
 
-Route::get('/doctors', function () {
+Route::get('/locations', function () {
     if(Session::has('user')){
-        return view('admin.doctors');    
+        return view('admin.locations');    
     }else{
         return redirect()->route('login');
     }
-})->name('doctors');
+})->name('locations');
 
 // index 2
 // Route::get('/index2', function(){

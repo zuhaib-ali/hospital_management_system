@@ -38,23 +38,16 @@
 
           
           <li class="nav-item">
-            <a href="{{ route('departments') }}" class="nav-link @if(Request::url() == Request::is('departments')) active @endif()">
+            <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif()">
               <i class="fas fa-clinic-medical"></i>
-                <p>Departments</p>
+                <p>Appointments</p>
             </a>
           </li>
 
           <li class="nav-item">
-            <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
+            <a href="{{ route('locations') }}" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
               <i class="fas fa-user-md"></i>
-                <p>Doctors</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link @if(Request::url() == Request::is('nurses')) active @endif()">
-              <i class="fas fa-user-nurse"></i>
-                <p>Nurses</p>
+                <p>Locations</p>
             </a>
           </li>
 
@@ -75,28 +68,14 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-user-alt"></i>
-                <p>Laboratorists</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-sign-out-alt"></i>
-                <p>Acountants</p>
+                <p>Laboratories</p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-receipt"></i>
-                <p>Receptionists</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-info"></i>
-                <p>Nocitce Board</p>
+                <p>Reports</p>
             </a>
           </li>
 

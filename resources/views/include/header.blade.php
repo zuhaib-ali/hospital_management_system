@@ -8,14 +8,14 @@
 
   @if( request()->is('index') )
     <title> Dashboard </title>
-    @elseif( request()->is('departments') )
-      <title> Departments </title>
-      @elseif( request()->is('doctors') )
-      <title> Doctors </title>
-      @elseif( request()->is('nurses') )
-      <title> Nurses </title>
+    @elseif( request()->is('appointments') )
+      <title> Appointments </title>
+      @elseif( request()->is('locations') )
+      <title> Locations </title>
       @elseif( request()->is('patients') )
       <title> Patients </title>
+      @elseif( request()->is('phramacists') )
+      <title> Phramacists </title>
   @endif
 
   <!-- Google Font: Source Sans Pro -->
