@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\components;
 
 /*
 |--------------------------------------------------------------------------
@@ -23,21 +24,21 @@ Route::get('/', function () {
     }
 })->name('index');
 
-Route::get('/departments', function () {
+Route::get('/appointments', function () {
     if(Session::has('user')){
-        return view('admin.departments');    
+        return view('admin.appointments');    
     }else{
         return redirect()->route('login');
     }
-})->name('departments');
+})->name('appointments');
 
-Route::get('/doctors', function () {
+Route::get('/locations', function () {
     if(Session::has('user')){
-        return view('admin.doctors');    
+        return view('admin.locations');    
     }else{
         return redirect()->route('login');
     }
-})->name('doctors');
+})->name('locations');
 
 // index 2
 // Route::get('/index2', function(){
@@ -81,6 +82,8 @@ Route::get('/sign_up', function(){
     }
 })->name('signUp');
 
+
+
 // signup post
 Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');
 
@@ -88,4 +91,13 @@ Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up')
 Route::post('/login', [UserController::class, 'loginUser'])->name('login');
 
 // logout
+<<<<<<< HEAD
 Route::get('logout', [UserController::class, 'logoutUser'])->name('logout');
+=======
+Route::get('logout', [UserController::class, 'logoutUser']);
+
+
+
+
+Route::get('settings', [components::class, 'settings']);
+>>>>>>> 99155f79b92c7155d0be55ba7b842764a78d670c

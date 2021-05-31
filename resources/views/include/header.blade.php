@@ -3,7 +3,20 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Dashboard</title>
+
+  <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png"/>
+
+  @if( request()->is('index') )
+    <title> Dashboard </title>
+    @elseif( request()->is('appointments') )
+      <title> Appointments </title>
+      @elseif( request()->is('locations') )
+      <title> Locations </title>
+      @elseif( request()->is('patients') )
+      <title> Patients </title>
+      @elseif( request()->is('phramacists') )
+      <title> Phramacists </title>
+  @endif
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -26,6 +39,10 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 
+<<<<<<< HEAD
+=======
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+>>>>>>> 99155f79b92c7155d0be55ba7b842764a78d670c
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
