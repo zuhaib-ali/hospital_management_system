@@ -1,9 +1,41 @@
 @include('include.header')
 
+<style rel="stylesheet">
+
+  .cards{
+    display:flex;
+    flex-wrap:wrap;
+    justify-content:space-between;
+  }
+
+  .card{
+    background-color:#6699CC;
+    width:300px;
+    height:150px;
+    padding:20px 0px;
+    line-height:50px;
+    box-shadow:2px 1px 0px grey;
+    color:white;
+    font-size:18px;
+    user-select:none;
+    border-radius:20px;
+  }
+
+  .card:hover{
+    background-color:	#6085ab;
+    text-shadow:1px 0px 0px darkblue;
+  }
+
+  .card:active{
+    background-color:#4a6886;
+  }
+
+</style>
+
 @include('include.navbar')    
 
 @include('include.sidebar')
-
+  
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -28,8 +60,78 @@
     <section class="content">
       <div class="container-fluid">
         <!-- Main row -->
-        <div class="row">
-        
+        <div class="row text-center">
+          <div class="col-sm-12">
+            <div class="cards">
+              
+              <div class="card">
+                <h2>DEPARTMENTS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>DOCTORS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>NURSES</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>DEPARTMENTS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>PATIENTS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>PHARMACISTS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>LABORTARIANTS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>ACOOUNTANTS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              <div class="card">
+                <h2>RECEPTIONISTS</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              
+
+
+            </div>
+          </div>
         </div>
         <!-- /.row (main row) -->
       </div><!-- /.container-fluid -->

@@ -11,12 +11,16 @@
 	
 	<!-- <link rel="stylesheet" href="css/style.css"> -->
 	<link rel="stylesheet" href="{{ asset('css/login_css/style.css') }}">
+
+	<script src="https://code.iconify.design/1/1.0.7/iconify.min.js"></script>
+
 	<!-- <link rel="stylesheet" href="{{ asset('css/login_css/bootstrap.min.css') }}"> -->
 
 	<!-- Internal Styling -->
 	<style rel="stylesheet">
 		::placeholder{
 			font-style:italic;
+			font-weight:bold;
 		}
 	</style>
 
@@ -53,12 +57,16 @@
                 </div>
                 @endif
 			</center>
+
+				
 				<div class="row justify-content-center">
 					<div class="col-md-6 text-center mb-5">
 						<h2 class="heading-section">Login</h2>
 					</div>
 				</div>
-				<div class="row justify-content-center">
+
+				<!-- main content -->
+				<div class="row justify-content-center  main_content">
 					<div class="col-md-6 col-lg-4">
 						<div class="login-wrap p-0">
 						<a href="{{ route('sign_up') }}"><h3 class="mb-4 text-center">Create an account?</h3></a>
@@ -69,18 +77,18 @@
 
 						<!-- E-Mail field -->
 						<div class="form-group">
-							<input type="text" name='username' class="form-control" placeholder="Username" >
+							<input type="text" name='username' class="form-control" placeholder="Username"  style="border:2px solid white;">
 						</div>
 						
 						<!-- Password field -->
 						<div class="form-group">
-							<input id="password-field" name='password' type="password" class="form-control" placeholder="Password" >
+							<input id="password-field" name='password' type="password" class="form-control" placeholder="Password"   style="border:2px solid white;">
 							<span toggle="#password-field" class="fa fa-fw fa-eye field-icon toggle-password"></span>
 						</div>
 
 						<!-- Sign in button -->
 						<div class="form-group">
-							<input type="submit" class="form-control btn btn-primary submit px-3" value='Sign In'>
+							<input type="submit" class="form-control btn btn-dark submit px-3" value='Sign In' style="background-color:black; font-weight:bold;">
 						</div>
 
 					<div class="form-group d-md-flex">
@@ -102,8 +110,8 @@
 
 				<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
 				<div class="social d-flex text-center">
-					<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
-					<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
+					<a href="#" class="px-2 py-2 mr-md-1 rounded" style="background-color:#4267B2; color:white;"><span class="ion-logo-facebook mr-2"></span><span class="iconify" data-icon="ion-logo-facebook" data-inline="false"></span> Facebook</a>
+					<a href="#" class="px-2 py-2 ml-md-1 rounded" style="background-color:#1DA1F2; color:white;"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
 				</div>
 				</div>
 					</div>

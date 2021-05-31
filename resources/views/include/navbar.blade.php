@@ -58,5 +58,7 @@
         </a>
       </li>
     </ul>
+
+    <a href="{{ route('logout') }}" class="btn btn-dark text-bold" style="margin:20px;">LOGOUT</a>
   </nav>
   <!-- /.navbar -->
