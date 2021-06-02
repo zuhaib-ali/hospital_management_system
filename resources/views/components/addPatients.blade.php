@@ -58,6 +58,7 @@
             <div class="row">
               <div class="col-md-6">
               <form method="post" action="addPatient">
+                @csrf
               
                 <div class="form-group">
                   <label>first Name</label>

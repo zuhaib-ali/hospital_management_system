@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class Patient extends Model
 {
     use HasFactory;
+    public $timestamps = false;
 
     protected $fillable = [
         'firstname',
@@ -18,5 +19,5 @@ class Patient extends Model
         'address'
     ];
 
-    protected $timestamp = false;
+    
 }

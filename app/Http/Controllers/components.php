@@ -21,6 +21,7 @@ class components extends Controller
         $patient->address       =   $request->post('address');
 
         $add = $patient->save();
+
         if($add == true)
         {
             return back()->with('success', 'Patient Added Successfully');
