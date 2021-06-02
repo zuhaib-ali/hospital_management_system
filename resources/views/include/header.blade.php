@@ -14,6 +14,10 @@
       <title> Locations </title>
       @elseif( request()->is('patients') )
       <title> Patients </title>
+      @elseif( request()->is('addPatients') )
+      <title> Add Patients </title>
+      @elseif( request()->is('patients') )
+      <title> Patients </title>
       @elseif( request()->is('phramacists') )
       <title> Phramacists </title>
   @endif
@@ -21,7 +25,12 @@
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
   <!-- Font Awesome -->
-  <link rel="stylesheet" href="plugins/fontawesome-free/css/all.min.css">
+  <link rel="stylesheet" href="{{ asset('plugins/fontawesome-free/css/all.min.css') }}">
+
+  <link rel="stylesheet" href="{{ asset('font-awesome/fonts/feather/style.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('font-awesome/fonts/font-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset('font-awesome/fonts/simple-line-icons/style.css') }}">
+
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
   <!-- Tempusdominus Bootstrap 4 -->
@@ -39,10 +48,7 @@
   <!-- summernote -->
   <link rel="stylesheet" href="{{ asset('plugins/summernote/summernote-bs4.min.css') }}">
 
-<<<<<<< HEAD
-=======
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css" integrity="sha512-vKMx8UnXk60zUwyUnUPM3HbQo8QfmNx7+ltw8Pm5zLusl1XIfwcxo8DbWCqMGKaWeNxWA8yrx5v3SaVpMvR3CA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
->>>>>>> 99155f79b92c7155d0be55ba7b842764a78d670c
 </head>
 <body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">

@@ -26,15 +26,31 @@ Route::get('/', function () {
 
 Route::get('/appointments', function () {
     if(Session::has('user')){
-        return view('admin.appointments');    
+        return view('components.appointments');    
     }else{
         return redirect()->route('login');
     }
 })->name('appointments');
 
+Route::get('/addPatients', function () {
+    if(Session::has('user')){
+        return view('components.addPatients');    
+    }else{
+        return redirect()->route('login');
+    }
+})->name('addPatients');
+
+Route::get('/patients', function () {
+    if(Session::has('user')){
+        return view('components.patients');    
+    }else{
+        return redirect()->route('login');
+    }
+})->name('patients');
+
 Route::get('/locations', function () {
     if(Session::has('user')){
-        return view('admin.locations');    
+        return view('components.locations');    
     }else{
         return redirect()->route('login');
     }
@@ -90,14 +106,13 @@ Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up')
 // login post
 Route::post('/login', [UserController::class, 'loginUser'])->name('login');
 
+// Add Patient
+Route::post('addPatient', [components::class, 'addPatient'] );
+
 // logout
-<<<<<<< HEAD
-Route::get('logout', [UserController::class, 'logoutUser'])->name('logout');
-=======
 Route::get('logout', [UserController::class, 'logoutUser']);
 
 
 
 
 Route::get('settings', [components::class, 'settings']);
->>>>>>> 99155f79b92c7155d0be55ba7b842764a78d670c

@@ -63,65 +63,44 @@
         <div class="row text-center">
           <div class="col-sm-12">
             <div class="cards">
-              
+
               <div class="card">
-                <h2>DEPARTMENTS</h2>
+                <h2>Locations</h2>
                 <div class="container">
                   <p>0</p>
                 </div>
               </div>
 
               <div class="card">
-                <h2>DOCTORS</h2>
+                <h2>Appointments</h2>
                 <div class="container">
                   <p>0</p>
                 </div>
               </div>
 
               <div class="card">
-                <h2>NURSES</h2>
+                <h2>Patients</h2>
                 <div class="container">
                   <p>0</p>
                 </div>
               </div>
 
               <div class="card">
-                <h2>DEPARTMENTS</h2>
+                <h2>Phramacists</h2>
                 <div class="container">
                   <p>0</p>
                 </div>
               </div>
 
               <div class="card">
-                <h2>PATIENTS</h2>
+                <h2>Laboratories</h2>
                 <div class="container">
                   <p>0</p>
                 </div>
               </div>
 
               <div class="card">
-                <h2>PHARMACISTS</h2>
-                <div class="container">
-                  <p>0</p>
-                </div>
-              </div>
-
-              <div class="card">
-                <h2>LABORTARIANTS</h2>
-                <div class="container">
-                  <p>0</p>
-                </div>
-              </div>
-
-              <div class="card">
-                <h2>ACOOUNTANTS</h2>
-                <div class="container">
-                  <p>0</p>
-                </div>
-              </div>
-
-              <div class="card">
-                <h2>RECEPTIONISTS</h2>
+                <h2>Reports</h2>
                 <div class="container">
                   <p>0</p>
                 </div>

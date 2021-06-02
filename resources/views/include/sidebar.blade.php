@@ -36,25 +36,31 @@
             </a>
           </li>
 
+          <li class="nav-item">
+            <a href="{{ route('addPatients') }}" class="nav-link @if(Request::url() == Request::is('addPatients')) active @endif()">
+              <i class="ft-user-plus"></i>
+                <p>Add Patients</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()">
+              <i class="ft-users"></i>
+                <p>Patients</p>
+            </a>
+          </li>
           
           <li class="nav-item">
             <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif()">
-              <i class="fas fa-clinic-medical"></i>
+              <i class="ft-layers"></i>
                 <p>Appointments</p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="{{ route('locations') }}" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
-              <i class="fas fa-user-md"></i>
+              <i class="ft-map-pin"></i>
                 <p>Locations</p>
-            </a>
-          </li>
-
-          <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-wheelchair"></i>
-                <p>Patients</p>
             </a>
           </li>
 
@@ -75,8 +81,19 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-receipt"></i>
-                <p>Reports</p>
+              <p>
+                Reports
+                <i class="fas fa-angle-left right"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Weekly Tracking Sheet</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">
