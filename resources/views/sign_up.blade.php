@@ -14,7 +14,11 @@
     <style rel="stylesheet">
 		::placeholder{
 			font-style:italic;
-			font-family:arial;
+			font-weight:bold;
+		}
+
+		.form-control{
+			border:2px solid white;
 		}
 	</style>
 
@@ -94,7 +98,7 @@
 
                     <!-- Address -->
 		      		<div class="form-group">
-						Address
+						<strong>Address</strong>
 						<textarea name="address" id="address" cols="50" rows="10" class='form-control'></textarea>
 		      		</div>
 
@@ -135,7 +139,7 @@
 
                     <!-- Sign up button -->
                     <div class="form-group">
-                        <button type="submit" class="form-control btn btn-primary submit px-3">Sign Up</button>
+                        <button type="submit" class="form-control btn btn-dark submit px-3" style="color:white; background-color:black; font-weight:bold; border:none;">Sign Up</button>
                     </div>
 
                     <div class="form-group d-md-flex">
