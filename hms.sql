@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: May 26, 2021 at 09:35 AM
+-- Generation Time: Jun 02, 2021 at 09:54 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -59,7 +59,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2021_05_26_063946_add_username_to_users_table', 2),
-(5, '2021_05_26_073242_add_username_to_users_table', 3);
+(5, '2021_05_26_073242_add_username_to_users_table', 3),
+(6, '2021_05_29_080319_create_departments_table', 4),
+(7, '2021_06_02_063849_create_patients_table', 4);
 
 -- --------------------------------------------------------
 
@@ -71,6 +73,22 @@ CREATE TABLE `password_resets` (
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `token` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `patients`
+--
+
+CREATE TABLE `patients` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `number` int(11) NOT NULL,
+  `dob` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
 -- --------------------------------------------------------
@@ -106,7 +124,8 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `created_at`, `updated_at`, `deleted_at`, `username`) VALUES
-(1, 'Admin', 'Admin', 'admin@gmail.com', '03123741655', '4120426112931', 22, 'o-', 'Sindh', '$2y$10$QOO0HXTZzXm9Gz3nz94itOMBgkN4gYIhFVv8/bdJPpVxZTenSFjsi', '1997-06-24', 'male', '1621752389-Admin.jpg', NULL, NULL, '2021-05-23 01:46:29', '2021-05-23 01:46:29', NULL, 'admin');
+(1, 'Admin', 'Admin', 'admin@gmail.com', '03123741655', '4120426112931', 22, 'o-', 'Sindh', '$2y$10$QOO0HXTZzXm9Gz3nz94itOMBgkN4gYIhFVv8/bdJPpVxZTenSFjsi', '1997-06-24', 'male', '1621752389-Admin.jpg', NULL, NULL, '2021-05-23 01:46:29', '2021-05-23 01:46:29', NULL, 'admin'),
+(2, 'Bilal', 'ALi', 'bilal@gmail.com', '03488305189', '4120426112932', 22, 'b+', 'sindh', '$2y$10$xvrYEiDzgUZTgaY7S7ZuROUXLXyKMPbDXNGc/ujOUKWIisEpn7ycC', '2021-05-21', 'male', '1622014668-Bilal.jpg', NULL, NULL, NULL, NULL, NULL, 'bilal');
 
 --
 -- Indexes for dumped tables
@@ -132,6 +151,12 @@ ALTER TABLE `password_resets`
   ADD KEY `password_resets_email_index` (`email`);
 
 --
+-- Indexes for table `patients`
+--
+ALTER TABLE `patients`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -153,13 +178,19 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+
+--
+-- AUTO_INCREMENT for table `patients`
+--
+ALTER TABLE `patients`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
