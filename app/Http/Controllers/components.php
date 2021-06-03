@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Models\Patient;
+use DB;
 
 class components extends Controller
 {
@@ -29,6 +30,18 @@ class components extends Controller
             
         }
         
+    }
+
+    public function dicharge($id)
+    {
+        $discharge  =   DB::table('patients')->where('id', $id)->update(['status' => 'discharged']);
+
+        if($discharge == true)
+        {
+            return back()->with('dicharged','Patients Has Discharged');
+        }else {
+            return back()->with('failed','Failed To Discharged');
+        }
     }
     
 }

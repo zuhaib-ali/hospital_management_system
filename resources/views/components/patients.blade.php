@@ -20,6 +20,12 @@
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
+        @if(session('dicharged')) 
+                <div class="alert alert-warning alert-dismissible col-lg-6" id="divs">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    {{session('dicharged')}}
+                </div>
+                @endif
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -52,7 +58,7 @@
                         <td> {{$patient->number}} </td>
                         <td> {{$patient->address}} </td>
                         <td> <span class="badge badge-success"> {{ $patient->status }} </span> </td>
-                        <td> <a href="" class="btn btn-danger"> Discharge </a> </td>
+                        <td> <a href="dicharge/{{$patient->id}}" class="btn btn-danger"> Discharge </button> </td>
                     </tr>
                   @endforeach                       
                  </tbody>
@@ -71,3 +77,9 @@
   <!-- /.content-wrapper -->
 
 @include('include.footer')
+
+@if(session('success'))
+<script>
+  toastr.success("{{ session('dicharged') }}");
+</script>
+@endif

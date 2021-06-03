@@ -126,6 +126,9 @@ Route::post('/login', [UserController::class, 'loginUser'])->name('login');
 // Add Patient
 Route::post('addPatient', [components::class, 'addPatient'] );
 
+// Discharge Patient
+Route::get('dicharge/{id}', [components::class, 'dicharge'] );
+
 // logout
 Route::get('logout', [UserController::class, 'logoutUser']);
 

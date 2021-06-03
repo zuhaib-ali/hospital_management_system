@@ -67,6 +67,11 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
+<script>
+  $(document).ready(function () {
+    $('#divs').fadeOut(4000);
+  });
+</script>
 </body>
 </html>
 
