@@ -129,6 +129,11 @@ Route::post('addPatient', [components::class, 'addPatient'] );
 // Discharge Patient
 Route::get('dicharge/{id}', [components::class, 'dicharge'] );
 
+//Erase Patient Record
+Route::get('erase/{id}', [components::class, 'erase'] );
+
+
+
 // logout
 Route::get('logout', [UserController::class, 'logoutUser']);
 

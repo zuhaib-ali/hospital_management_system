@@ -42,6 +42,7 @@
                     <th>Mobile/Contact</th>
                     <th>Address</th>
                     <th>Status</th>
+                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,6 +52,7 @@
                         <td> {{$patient->number}} </td>
                         <td> {{$patient->address}} </td>
                         <td> <span class="badge badge-warning"> {{ $patient->status }} </span> </td>
+                        <td> <a href="erase/{{ $patient->id }}" class="btn btn-info"> Erase Record </a> </td>
                     </tr>
                   @endforeach                       
                  </tbody>
@@ -69,3 +71,9 @@
   <!-- /.content-wrapper -->
 
 @include('include.footer')
+
+@if(session('erased'))
+<script>
+  toastr.warning("{{ session('erased') }}");
+</script>
+@endif

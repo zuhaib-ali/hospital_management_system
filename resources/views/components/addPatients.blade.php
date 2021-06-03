@@ -124,6 +124,6 @@
 
 @if(session('success'))
 <script>
-  toastr.danger("{{ session('failed') }}");
+  toastr.error("{{ session('failed') }}");
 </script>
 @endif
