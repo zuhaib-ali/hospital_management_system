@@ -12,23 +12,10 @@
         <div class="row mb-2">
           <div class="col-sm-6">
             <h1 class="m-0">Add Patients</h1>
-            @if(session('success')) 
-                <div class="alert alert-success alert-dismissible col-lg-6" id="divs">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{session('success')}}
-                </div>
-                @endif
-
-                @if(session('failed')) 
-                <div class="alert alert-success alert-dismissible col-lg-6" id="divs">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{session('failed')}}
-                </div>
-                @endif
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
               <li class="breadcrumb-item active">Add Patients</li>
             </ol>
           </div><!-- /.col -->
@@ -128,3 +115,15 @@
   <!-- /.content-wrapper -->
 
 @include('include.footer')
+
+@if(session('success'))
+<script>
+  toastr.success("{{ session('success') }}");
+</script>
+@endif
+
+@if(session('success'))
+<script>
+  toastr.danger("{{ session('failed') }}");
+</script>
+@endif

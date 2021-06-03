@@ -44,11 +44,31 @@
           </li>
 
           <li class="nav-item">
-            <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()">
+            <a href="#" class="nav-link">
               <i class="ft-users"></i>
-                <p>Patients</p>
+              <p>
+              Patients
+                <i class="fas fa-angle-left right"></i>
+              </p>
             </a>
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admitted Patients</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('dpatients') }}" class="nav-link @if(Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Discharged Patients</p>
+                </a>
+              </li>
+            </ul>
           </li>
+
+          
           
           <li class="nav-item">
             <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif()">

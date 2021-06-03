@@ -11,18 +11,16 @@ class components extends Controller
     //
     public function addPatient(Request $request)
     {
-        $patient = new Patient;
-        
-        $patient->firstname     =   $request->post('firstname');
-        $patient->lastname      =   $request->post('lastname');
-        $patient->number        =   $request->post('number');
-        $patient->dob           =   $request->post('dob');
-        $patient->email         =   $request->post('email');
-        $patient->address       =   $request->post('address');
+        $addPatient =  Patient::create([
+            'firstname'         =>  $request->firstname,
+            'lastname'          =>  $request->lastname,
+            'number'            =>  $request->number,
+            'dob'               =>  $request->dob,
+            'email'             =>  $request->email,
+            'address'           =>  $request->address
+        ]);
 
-        $add = $patient->save();
-
-        if($add == true)
+        if($addPatient == true)
         {
             return back()->with('success', 'Patient Added Successfully');
         }else

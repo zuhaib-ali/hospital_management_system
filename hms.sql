@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 02, 2021 at 09:54 AM
+-- Generation Time: Jun 03, 2021 at 10:10 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -61,7 +61,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (4, '2021_05_26_063946_add_username_to_users_table', 2),
 (5, '2021_05_26_073242_add_username_to_users_table', 3),
 (6, '2021_05_29_080319_create_departments_table', 4),
-(7, '2021_06_02_063849_create_patients_table', 4);
+(7, '2021_06_02_063849_create_patients_table', 4),
+(8, '2021_06_03_064305_change_number_datatype_in_patients_table', 5),
+(9, '2021_06_03_070943_add_status_to_patients_table', 6);
 
 -- --------------------------------------------------------
 
@@ -85,11 +87,23 @@ CREATE TABLE `patients` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `number` int(11) NOT NULL,
+  `number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dob` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci NOT NULL
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`id`, `firstname`, `lastname`, `number`, `dob`, `email`, `address`, `status`) VALUES
+(1, 'Bilal', 'Ali', '303', '2021-06-05', 'bilal.ali11@gmail.com', 'sindh', 'admitted'),
+(2, 'Zuhailb', 'Ali', '3033', '2021-06-16', 'zuhaib@gmail.com', 'Larakan', 'admitted'),
+(3, 'Suhail', 'Ali', '0303026415', '2021-06-03', 'sohailaliwaris123@gmail.com', 'Kotri', 'discharged'),
+(4, 'Bisal', 'Bhatti', '03123741655', '2021-06-25', 'bisal.bhatti@gmail.com', 'Larkana', 'discharged'),
+(5, 'Hassan', 'Ali', '12312312123', '2021-06-09', 'ali@admin.com', 'Jamshoro', 'admitted');
 
 -- --------------------------------------------------------
 
@@ -178,13 +192,13 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=10;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
 
 --
 -- AUTO_INCREMENT for table `users`

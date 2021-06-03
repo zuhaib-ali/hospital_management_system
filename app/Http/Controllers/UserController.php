@@ -49,7 +49,7 @@ class UserController extends Controller
         ]);
 
         // Check if user successfully created.
-        if($user_created){
+        if($user_created == true){
             // moving image to public folder
             $request->profile_img->move(public_path('images'), $image_new_name);
             $request->session()->flash('success', 'Successfully Inserted');

@@ -18,7 +18,10 @@ use App\Http\Controllers\components;
 // index 1
 Route::get('/', function () {
     if(Session::has('user')){
-        return view('admin.index');    
+        $patients = DB::table('patients')->get();
+        return view('admin.index')->with([
+            'patients'  =>  $patients
+        ]);    
     }else{
         return redirect()->route('login');
     }
@@ -42,11 +45,25 @@ Route::get('/addPatients', function () {
 
 Route::get('/patients', function () {
     if(Session::has('user')){
-        return view('components.patients');    
+        $patients = DB::table('patients')->where('status','admitted')->get();
+        return view('components.patients')->with([
+            'patients'  =>  $patients,
+        ]);    
     }else{
         return redirect()->route('login');
     }
 })->name('patients');
+
+Route::get('/dpatients', function () {
+    if(Session::has('user')){
+        $patients = DB::table('patients')->where('status','discharged')->get();
+        return view('components.dPatients')->with([
+            'patients'  =>  $patients,
+        ]);    
+    }else{
+        return redirect()->route('login');
+    }
+})->name('dpatients');
 
 Route::get('/locations', function () {
     if(Session::has('user')){

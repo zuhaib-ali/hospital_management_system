@@ -81,7 +81,7 @@
               <div class="card">
                 <h2>Patients</h2>
                 <div class="container">
-                  <p>0</p>
+                  <p>{{ $patients->count() }}</p>
                 </div>
               </div>
 

@@ -13,7 +13,9 @@
       @elseif( request()->is('locations') )
       <title> Locations </title>
       @elseif( request()->is('patients') )
-      <title> Patients </title>
+      <title> Admitted Patients </title>
+      @elseif( request()->is('dpatients') )
+      <title> Discharged Patients </title>
       @elseif( request()->is('addPatients') )
       <title> Add Patients </title>
       @elseif( request()->is('patients') )

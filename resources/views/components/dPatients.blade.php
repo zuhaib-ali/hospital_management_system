@@ -42,7 +42,6 @@
                     <th>Mobile/Contact</th>
                     <th>Address</th>
                     <th>Status</th>
-                    <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
@@ -51,8 +50,7 @@
                         <td> {{$patient->firstname}} {{$patient->lastname}} </td>
                         <td> {{$patient->number}} </td>
                         <td> {{$patient->address}} </td>
-                        <td> <span class="badge badge-success"> {{ $patient->status }} </span> </td>
-                        <td> <a href="" class="btn btn-danger"> Discharge </a> </td>
+                        <td> <span class="badge badge-warning"> {{ $patient->status }} </span> </td>
                     </tr>
                   @endforeach                       
                  </tbody>
