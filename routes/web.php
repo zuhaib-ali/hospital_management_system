@@ -3,6 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\components;
+use App\Http\Controllers\LocationController;
 
 /*
 |--------------------------------------------------------------------------
@@ -65,13 +66,13 @@ Route::get('/dpatients', function () {
     }
 })->name('dpatients');
 
-Route::get('/locations', function () {
-    if(Session::has('user')){
-        return view('components.locations');    
-    }else{
-        return redirect()->route('login');
-    }
-})->name('locations');
+// Route::get('/locations', function () {
+//     if(Session::has('user')){
+//         return view('components.locations');    
+//     }else{
+//         return redirect()->route('login');
+//     }
+// })->name('locations');
 
 // index 2
 // Route::get('/index2', function(){
@@ -132,12 +133,9 @@ Route::get('dicharge/{id}', [components::class, 'dicharge'] );
 //Erase Patient Record
 Route::get('erase/{id}', [components::class, 'erase'] );
 
-
-
 // logout
 Route::get('logout', [UserController::class, 'logoutUser']);
 
-
-
-
 Route::get('settings', [components::class, 'settings']);
+
+Route::post('/addLocation', [LocationController::class, 'addLocation'])->name('addLocation');

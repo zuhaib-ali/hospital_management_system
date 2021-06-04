@@ -43,6 +43,7 @@
             </a>
           </li>
 
+          <!-- PATIENTS -->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="ft-users"></i>
@@ -75,13 +76,37 @@
               <i class="ft-layers"></i>
                 <p>Appointments</p>
             </a>
-          </li>
-
+          </li> 
+          <!-- LOCATIONS -->
           <li class="nav-item">
-            <a href="{{ route('locations') }}" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
+            <a href="" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
               <i class="ft-map-pin"></i>
                 <p>Locations</p>
+                <span class="fas fa-angle-left right"></span>
             </a>
+            <!-- CITY NAMES -->
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
+                  <i class="fas fa-plus nav-icon"></i>
+                  <p id="add_locations">Add Location</p>
+                </a>
+              </li>
+              <?php 
+                use App\Models\Location;
+                $locations = Location::all();
+              ?>
+              @foreach($locations as $location)
+                <li class="nav-item">
+                  <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
+                    <i class="far fa-circle nav-icon"></i>
+                    <p>{{ $location->city}}</p>
+                  </a>
+                </li>
+              @endforeach
+              
+              
+            </ul>
           </li>
 
           <li class="nav-item">
@@ -136,3 +161,29 @@
     </div>
     <!-- /.sidebar -->
   </aside>
+
+        <!-- ADD LOCATION / Modal -->
+        <div id="myModal" class="modal fade" role="dialog">
+          <div class="modal-dialog">
+
+            <!-- Modal content-->
+            <div class="modal-content">
+              <!-- MODAL BODY -->
+              <div class="modal-body">
+                <form class="form" action="{{ route('addLocation') }}" method="POST">
+                  @csrf
+                  <div class="form-group">
+                    <input name="city" type="text" placeholder="City Name..." class="form-control" required>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-dark" value="ADD CITY">
+                  </div>
+                </form>
+              </div>
+              <!-- MODAL0FOOTER -->
+              <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              </div>
+            </div>
+          </div>
+        </div>

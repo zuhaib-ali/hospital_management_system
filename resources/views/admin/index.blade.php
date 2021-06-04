@@ -102,13 +102,9 @@
               <div class="card">
                 <h2>Reports</h2>
                 <div class="container">
-                  <p>0</p>
+                  <p id="reports">0</p>
                 </div>
               </div>
-
-              
-
-
             </div>
           </div>
         </div>
