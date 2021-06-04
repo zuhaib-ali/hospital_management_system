@@ -43,5 +43,17 @@ class components extends Controller
             return back()->with('failed','Failed To Discharged');
         }
     }
+
+    public function erase($id)
+    {
+        $erase  =   DB::table('patients')->where('id', $id)->delete();
+
+        if($erase == true)
+        {
+            return back()->with('erased',"Patient's Data Has Deleted");
+        }else {
+            return back()->with('failed','Failed To Delete');
+        }
+    }
     
 }

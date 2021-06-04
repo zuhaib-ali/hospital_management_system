@@ -20,12 +20,6 @@
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
-        @if(session('dicharged')) 
-                <div class="alert alert-warning alert-dismissible col-lg-6" id="divs">
-                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                    {{session('dicharged')}}
-                </div>
-                @endif
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
@@ -78,8 +72,8 @@
 
 @include('include.footer')
 
-@if(session('success'))
+@if(session('dicharged'))
 <script>
-  toastr.success("{{ session('dicharged') }}");
+  toastr.info("{{ session('dicharged') }}");
 </script>
 @endif
