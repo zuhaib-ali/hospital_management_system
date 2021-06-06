@@ -27,6 +27,7 @@ class CreateUsersTable extends Migration
             $table->string('dob')->default('NA');
             $table->string('gender')->default('NA');
             $table->string('profile_img')->default('NA');
+            $table->string('role')->default('patient');
             $table->timestamp('email_verified_at')->nullable();
             $table->rememberToken();
         });

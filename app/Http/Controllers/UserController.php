@@ -25,6 +25,7 @@ class UserController extends Controller
             'confirm_password' => ['required', 'min:5','max:25', 'same:password'],
             'dob' => 'required',
             'gender' => 'required',
+            'role' => 'required',
             'profile_img' => ['required', 'mimes:jpeg, jpg, png, PNG, JPG, JPEG', 'max:3000'],
         ]);
 
@@ -45,6 +46,7 @@ class UserController extends Controller
             'password' => Hash::make($request->confirm_password),
             'dob' => $request->dob,
             'gender' => $request->gender,
+            'role' => $request->role,
             'profile_img' => $image_new_name,                
         ]);
 
@@ -76,8 +78,18 @@ class UserController extends Controller
             if($user == TRUE){
                 $user_password = Hash::check($request->password, $user->password);
                 if($user_password != NULL){
+
+                    // putting user in session
                     $request->session()->put('user', $user);
-                    return redirect()->route('index');
+
+                    if($user->role == 'admin'){
+                        return redirect()->route('index');
+                    }else if($user->role == 'doctor'){
+                        return redirect()->route('index2');
+                    }else{
+                        return redirect()->route('index3');
+                    }
+                    
                 }else{
                     return back()->with('login_failed', 'The Username Or Password does not match!');
                 }
@@ -94,6 +106,34 @@ class UserController extends Controller
         }
     }
 
+    // UPDATING USER PROFILE
+    public function editProfile(Request $request){
+        // FINDING USER BY ID
+        $user = User::find($request->user_id);
+
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->email = $request->e_mail;
+        $user->mobile = $request->mobile;
+        $user->cnic = $request->cnic;
+        $user->address = $request->address;
+        $user->blood_group = $request->blood_group;
+        $user->dob = $request->dob;
+        $user->gender = $request->gender;
+
+        // SAVING UPDATED
+        $updated = $user->update();     
+
+        if($updated == true){
+            if($request->session()->has('user')){
+                $request->session()->forget('user');
+            }
+            $request->session()->put('user', $user);
+            return back()->with('updated', 'Record Failed To Update');
+        }else{
+            return back()->with('failed', 'Record Failed To Update');
+        }
+    }
 
     // Loging out user.
     public function logoutUser(Request $request){

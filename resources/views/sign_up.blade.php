@@ -136,6 +136,21 @@
 							<input type="radio" class="form-input-control" name="gender" value='other' >Other
 						</div>	
 					</div>
+					<hr>
+					<!-- ROLE -->
+					<div class="form-row d-flex flex-wrap justify-content-around">
+						<div class="form-group">
+							<input type="radio" class="form-input-control" name="role" value="admin" >ADMIN
+						</div>	
+						<div class="form-group">
+							<input type="radio" class="form-input-control" name="role" value='doctor' >DOCTOR
+						</div>	
+						<div class="form-group">
+							<input type="radio" class="form-input-control" name="role" value='patient' >PATIENT
+						</div>	
+					</div>
+
+					<hr>
 
                     <!-- Sign up button -->
                     <div class="form-group">
@@ -170,8 +185,7 @@
     <script src="{{ asset('js/signup_js/bootstrap.min.js') }}"></script>
     <script src="{{ asset('js/signup_js/main.js') }}"></script>
 	<script>
-	$('#divs').fadeOut(3000);
-		
+		$('#divs').fadeOut(3000);
 	</script>
     
     

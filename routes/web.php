@@ -16,7 +16,7 @@ use App\Http\Controllers\LocationController;
 |
 */
 
-// index 1
+// INDEX 2 FOR ADMIN 
 Route::get('/', function () {
     if(Session::has('user')){
         $patients = DB::table('patients')->get();
@@ -74,28 +74,24 @@ Route::get('/dpatients', function () {
 //     }
 // })->name('locations');
 
-// index 2
-// Route::get('/index2', function(){
-//     if(Session::has('user')){
-//         return view('admin.index2');
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('index2');
+// INDEX 2 FOR DOCTOR 
+Route::get('/index2', function(){
+    if(Session::has('user')){
+        return view('doctor.index');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('index2');
 
 
-// index 3
-// Route::get('/index3', function(){
-//     // if(Session::has('user')){
-//     //     return view('admin.index3');
-//     // }else{
-//     //     return redirect()->route('login');
-//     // }
-//     if(Session::has('user')){
-//         return view('admin.index3');
-//     }
-//     return 'index 3';
-// })->name('index3');
+// INDEX 3 FOR PATIENT 
+Route::get('/index3', function(){
+    if(Session::has('user')){
+        return view('patient.index');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('index3');
 
 
 // login view
@@ -116,6 +112,24 @@ Route::get('/sign_up', function(){
     }
 })->name('signUp');
 
+Route::get('/doctors', function(){
+    if(Session::has('user')){
+        return view('components.doctors');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('doctors');
+
+Route::get('/edit_profile', function(){
+    if(Session::has('user')){
+        return view('components.edit_profile');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('edit_profile');
+
+
+Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
 
 
 // signup post

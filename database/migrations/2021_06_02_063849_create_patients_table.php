@@ -3,6 +3,7 @@
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
+use Illuminate\Database\Elequote\softDeletes;
 
 class CreatePatientsTable extends Migration
 {
@@ -18,9 +19,13 @@ class CreatePatientsTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->integer('number');
+            $table->unsignedInteger('bed_no');
+            $table->unsignedInteger('doctor_id');
+            $table->string('city');
             $table->string('dob');
             $table->string('email');
             $table->text('address');
+            $table->softDeletes();
         });
     }
 

@@ -6,7 +6,6 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
-#use Illuminate\Database\Eloquent\SoftDeletes;
 
 class User extends Authenticatable
 {
@@ -17,24 +16,27 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $fillable = [
-        'first_name',
-        'last_name',
-        'email',
-        'mobile',
-        'cnic',
-        'age',
-        'blood_group',
-        'address',
-        'password',
-        'dob',
-        'gender',
-        'profile_img',
-        'username',
-    ];
+
+    protected $guarded = [];
+
+    // protected $fillable = [
+    //     'first_name',
+    //     'last_name',
+    //     'email',
+    //     'mobile',
+    //     'cnic',
+    //     'age',
+    //     'blood_group',
+    //     'address',
+    //     'password',
+    //     'dob',
+    //     'gender',
+    //     'profile_img',
+    //     'username',
+    //     'role',
+    // ];
 
     public $timestamps = false;
-
     /**
      * The attributes that should be hidden for arrays.
      *

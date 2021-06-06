@@ -1,3 +1,9 @@
+<!-- IMPORTING LOCATION MODEL -->
+<?php 
+  use App\Models\Location;
+  $locations = Location::all(); 
+?>
+
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
@@ -32,23 +38,35 @@
           <li class="nav-item">
             <a href="{{ route('index') }}" class="nav-link @if(Request::url() == Request::is('/')) active @endif()">
               <i class="fas fa-columns"></i>
-                <p>Dashboard</p>
+                <p>DASHBOARD</p>
             </a>
           </li>
 
+          <!-- DOCTORS -->
+          <li class="nav-item">
+            <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
+              <i class="fas fa-columns"></i>
+              <p>DOCTORS</p>
+            </a>
+          </li>
+
+          @if(Session::get('user')->role == "admin")
           <li class="nav-item">
             <a href="{{ route('addPatients') }}" class="nav-link @if(Request::url() == Request::is('addPatients')) active @endif()">
               <i class="ft-user-plus"></i>
-                <p>Add Patients</p>
+                <p>ADD PATIENT</p>
             </a>
           </li>
+          @endif
 
+
+          @if(Session::get('user')->role == "admin" || Session::get('user')->role == "doctor")
           <!-- PATIENTS -->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="ft-users"></i>
               <p>
-              Patients
+              PATIENTS
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -56,27 +74,30 @@
               <li class="nav-item">
                 <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Admitted Patients</p>
+                  <p>admitted</p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="{{ route('dpatients') }}" class="nav-link @if(Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>Discharged Patients</p>
+                  <p>discharged</p>
                 </a>
               </li>
             </ul>
           </li>
-
+          @endif
           
           
           <li class="nav-item">
             <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif()">
               <i class="ft-layers"></i>
-                <p>Appointments</p>
+                <p>APPOINTMENTS</p>
             </a>
           </li> 
+
+          
+          @if(Session::get('user')->role == "admin")
           <!-- LOCATIONS -->
           <li class="nav-item">
             <a href="" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
@@ -89,37 +110,33 @@
               <li class="nav-item">
                 <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
                   <i class="fas fa-plus nav-icon"></i>
-                  <p id="add_locations">Add Location</p>
+                  <p id="add_locations">ADD LOCATION</p>
                 </a>
               </li>
-              <?php 
-                use App\Models\Location;
-                $locations = Location::all();
-              ?>
+              <!-- DISPLAY ALL LOCATIONS -->
               @foreach($locations as $location)
                 <li class="nav-item">
-                  <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
+                  <a href="#" class="nav-link">
                     <i class="far fa-circle nav-icon"></i>
                     <p>{{ $location->city}}</p>
                   </a>
                 </li>
               @endforeach
-              
-              
             </ul>
           </li>
+          @endif
 
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-first-aid"></i>
-                <p>Phramacists</p>
+                <p>PHARMACISTS</p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-user-alt"></i>
-                <p>Laboratories</p>
+                <p>LABORATARIANS</p>
             </a>
           </li>
 
@@ -127,7 +144,7 @@
             <a href="#" class="nav-link">
               <i class="fas fa-receipt"></i>
               <p>
-                Reports
+                REPORTS
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -142,16 +159,26 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @if(Request::url() == Request::is('edit_profile')) active @endif">
               <i class="fas fa-cog"></i>
-                <p>Settings</p>
+              <p>SETTINGS</p>
+              <span class="fas fa-angle-left right"></span>
             </a>
+
+            <ul class="nav nav-treeview">
+              <li class="nav-item">
+                <a href="{{ route('edit_profile') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Edit Profile</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">
             <a href="logout" class="nav-link">
               <i class="fas fa-sign-out-alt"></i>
-                <p>Logout</p>
+                <p>LOGOUT</p>
             </a>
           </li>
 
