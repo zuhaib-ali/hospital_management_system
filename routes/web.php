@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\components;
-use App\Http\Controllers\LocationController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -66,14 +66,6 @@ Route::get('/dpatients', function () {
     }
 })->name('dpatients');
 
-// Route::get('/locations', function () {
-//     if(Session::has('user')){
-//         return view('components.locations');    
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('locations');
-
 // INDEX 2 FOR DOCTOR 
 Route::get('/index2', function(){
     if(Session::has('user')){
@@ -128,6 +120,18 @@ Route::get('/edit_profile', function(){
     }
 })->name('edit_profile');
 
+Route::get('/locations', function(){
+    if(Session::has('user')){
+        $locations = DB::table('locations')->get();
+        return view('components.locations')->with(['locations'=>$locations]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('locations');
+
+
+
+
 
 Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
 
@@ -147,9 +151,20 @@ Route::get('dicharge/{id}', [components::class, 'dicharge'] );
 //Erase Patient Record
 Route::get('erase/{id}', [components::class, 'erase'] );
 
+// Add Location
+Route::post('addLocation', [components::class, 'addLocation'] );
+
+// Delete Location
+Route::get('delLocation/{id}', [components::class, 'delLocation'] );
+
+
+
+
+
 // logout
 Route::get('logout', [UserController::class, 'logoutUser']);
 
-Route::get('settings', [components::class, 'settings']);
 
-Route::post('/addLocation', [LocationController::class, 'addLocation'])->name('addLocation');
+
+
+Route::get('settings', [components::class, 'settings']);

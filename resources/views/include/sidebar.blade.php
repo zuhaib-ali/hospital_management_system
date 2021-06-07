@@ -1,8 +1,3 @@
-<!-- IMPORTING LOCATION MODEL -->
-<?php 
-  use App\Models\Location;
-  $locations = Location::all(); 
-?>
 
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
@@ -60,7 +55,7 @@
           @endif
 
 
-          @if(Session::get('user')->role == "admin" || Session::get('user')->role == "doctor")
+          @if(Session::get('user')->role == "admin")
           <!-- PATIENTS -->
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -74,14 +69,14 @@
               <li class="nav-item">
                 <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>admitted</p>
+                  <p>Admitted</p>
                 </a>
               </li>
 
               <li class="nav-item">
                 <a href="{{ route('dpatients') }}" class="nav-link @if(Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>discharged</p>
+                  <p>Discharged</p>
                 </a>
               </li>
             </ul>
@@ -98,31 +93,11 @@
 
           
           @if(Session::get('user')->role == "admin")
-          <!-- LOCATIONS -->
           <li class="nav-item">
-            <a href="" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
+            <a href="{{ route('locations') }}" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
               <i class="ft-map-pin"></i>
                 <p>Locations</p>
-                <span class="fas fa-angle-left right"></span>
             </a>
-            <!-- CITY NAMES -->
-            <ul class="nav nav-treeview">
-              <li class="nav-item">
-                <a href="#" class="nav-link" data-toggle="modal" data-target="#myModal">
-                  <i class="fas fa-plus nav-icon"></i>
-                  <p id="add_locations">ADD LOCATION</p>
-                </a>
-              </li>
-              <!-- DISPLAY ALL LOCATIONS -->
-              @foreach($locations as $location)
-                <li class="nav-item">
-                  <a href="#" class="nav-link">
-                    <i class="far fa-circle nav-icon"></i>
-                    <p>{{ $location->city}}</p>
-                  </a>
-                </li>
-              @endforeach
-            </ul>
           </li>
           @endif
 
@@ -188,29 +163,3 @@
     </div>
     <!-- /.sidebar -->
   </aside>
-
-        <!-- ADD LOCATION / Modal -->
-        <div id="myModal" class="modal fade" role="dialog">
-          <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-              <!-- MODAL BODY -->
-              <div class="modal-body">
-                <form class="form" action="{{ route('addLocation') }}" method="POST">
-                  @csrf
-                  <div class="form-group">
-                    <input name="city" type="text" placeholder="City Name..." class="form-control" required>
-                  </div>
-                  <div class="form-group">
-                    <input type="submit" class="btn btn-dark" value="ADD CITY">
-                  </div>
-                </form>
-              </div>
-              <!-- MODAL0FOOTER -->
-              <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-              </div>
-            </div>
-          </div>
-        </div>

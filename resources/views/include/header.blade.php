@@ -6,7 +6,7 @@
 
   <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png"/>
 
-  @if( request()->is('index') )
+  @if( request()->is('/') )
     <title> Dashboard </title>
     @elseif( request()->is('appointments') )
       <title> Appointments </title>
