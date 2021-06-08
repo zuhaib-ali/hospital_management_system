@@ -84,6 +84,14 @@ class UserController extends Controller
                    
                     // putting user in session
                     $request->session()->put('user', $user);
+
+                    if($user->role == 'admin'){
+                        return redirect()->route('index');
+                    }else if($user->role == 'user'){
+                        return redirect()->route('index2');
+                    }else{
+                        return redirect()->route('index3');
+                    }
                     
                     // REDIRECTING AFTER AUTHENTICATING
                     return redirect()->route('index');

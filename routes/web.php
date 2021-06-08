@@ -3,8 +3,6 @@
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\components;
-use App\Http\Controllers\LocationController;
-use App\Models\Patient;
 
 /*
 |--------------------------------------------------------------------------
@@ -67,13 +65,25 @@ Route::get('/dpatients', function () {
     }
 })->name('dpatients');
 
-// Route::get('/locations', function () {
-//     if(Session::has('user')){
-//         return view('components.locations');    
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('locations');
+// INDEX 2 FOR DOCTOR 
+Route::get('/index2', function(){
+    if(Session::has('user')){
+        return view('doctor.index');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('index2');
+
+
+// INDEX 3 FOR PATIENT 
+Route::get('/index3', function(){
+    if(Session::has('user')){
+        return view('patient.index');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('index3');
+
 
 // login view
 Route::get('/login', function(){
@@ -104,8 +114,20 @@ Route::get('/doctors', function(){
 // EDIT PROFILE GET
 Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
 
-// UPDATE PROFILE POST
-Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
+Route::get('/locations', function(){
+    if(Session::has('user')){
+        $locations = DB::table('locations')->get();
+        return view('components.locations')->with(['locations'=>$locations]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('locations');
+
+
+
+
+
+Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
 
 
 // signup post
@@ -129,9 +151,20 @@ Route::get('dicharge/{id}', [components::class, 'dicharge'] );
 //Erase Patient Record
 Route::get('erase/{id}', [components::class, 'erase'] );
 
+// Add Location
+Route::post('addLocation', [components::class, 'addLocation'] );
+
+// Delete Location
+Route::get('delLocation/{id}', [components::class, 'delLocation'] );
+
+
+
+
+
 // logout
 Route::get('logout', [UserController::class, 'logoutUser']);
 
-Route::get('settings', [components::class, 'settings']);
 
-Route::post('/addLocation', [LocationController::class, 'addLocation'])->name('addLocation');
+
+
+Route::get('settings', [components::class, 'settings']);

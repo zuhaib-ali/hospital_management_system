@@ -137,20 +137,7 @@
 						</div>	
 					</div>
 					<hr>
-					<!-- ROLE -->
-					<div class="form-row d-flex flex-wrap justify-content-around">
-						<div class="form-group">
-							<input type="radio" class="form-input-control" name="role" value="admin" >ADMIN
-						</div>	
-						<div class="form-group">
-							<input type="radio" class="form-input-control" name="role" value='doctor' >DOCTOR
-						</div>	
-						<div class="form-group">
-							<input type="radio" class="form-input-control" name="role" value='patient' >PATIENT
-						</div>	
-					</div>
-
-					<hr>
+					<input type="hidden" name="role" value="user">
 
                     <!-- Sign up button -->
                     <div class="form-group">
