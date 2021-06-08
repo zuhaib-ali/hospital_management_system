@@ -45,7 +45,7 @@
           <!-- DOCTORS -->
           <li class="nav-item">
             <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
-              <i class="fas fa-columns"></i>
+              <i class="fas fa-medical-user"></i>
               <p>DOCTORS</p>
             </a>
           </li>
@@ -71,30 +71,42 @@
               </p>
             </a>
             <ul class="nav nav-treeview">
+              
+              <!-- ALL PATIENTS -->
               <li class="nav-item">
-                <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
+                <a href="{{ route('all_patients') }}" class="nav-link @if(Request::url() == Request::is('all_patients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>admitted</p>
+                  <p>All Patients</p>
                 </a>
               </li>
 
+              <!-- ADMITTED PATIENTS -->
+              <li class="nav-item">
+                <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Admitted</p>
+                </a>
+              </li>
+
+              <!-- DISCHARGED PATIENTS -->
               <li class="nav-item">
                 <a href="{{ route('dpatients') }}" class="nav-link @if(Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
-                  <p>discharged</p>
+                  <p>Discharged</p>
                 </a>
               </li>
             </ul>
           </li>
           @endif
           
-          
+          @if(Session::get('user')->role == 'admin' || Session::get('user')->user == 'doctor')
           <li class="nav-item">
             <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif()">
               <i class="ft-layers"></i>
                 <p>APPOINTMENTS</p>
             </a>
           </li> 
+          @endif
 
           
           @if(Session::get('user')->role == "admin")
@@ -102,7 +114,7 @@
           <li class="nav-item">
             <a href="" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
               <i class="ft-map-pin"></i>
-                <p>Locations</p>
+                <p>LOCATIONS</p>
                 <span class="fas fa-angle-left right"></span>
             </a>
             <!-- CITY NAMES -->
@@ -126,6 +138,7 @@
           </li>
           @endif
 
+          @if(Session::get('user')->role == 'admin' || Session::get('user')->user == 'doctor')
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-first-aid"></i>
@@ -139,6 +152,7 @@
                 <p>LABORATARIANS</p>
             </a>
           </li>
+          @endif
 
           <li class="nav-item">
             <a href="#" class="nav-link">

@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
+use App\Models\Patient;
 
 /*
 |--------------------------------------------------------------------------
@@ -16,7 +17,7 @@ use App\Http\Controllers\LocationController;
 |
 */
 
-// INDEX 2 FOR ADMIN 
+// INDEX VIEW
 Route::get('/', function () {
     if(Session::has('user')){
         $patients = DB::table('patients')->get();
@@ -74,26 +75,6 @@ Route::get('/dpatients', function () {
 //     }
 // })->name('locations');
 
-// INDEX 2 FOR DOCTOR 
-Route::get('/index2', function(){
-    if(Session::has('user')){
-        return view('doctor.index');
-    }else{
-        return redirect()->route('login');
-    }
-})->name('index2');
-
-
-// INDEX 3 FOR PATIENT 
-Route::get('/index3', function(){
-    if(Session::has('user')){
-        return view('patient.index');
-    }else{
-        return redirect()->route('login');
-    }
-})->name('index3');
-
-
 // login view
 Route::get('/login', function(){
     if(Session::has('user')){
@@ -120,16 +101,11 @@ Route::get('/doctors', function(){
     }
 })->name('doctors');
 
-Route::get('/edit_profile', function(){
-    if(Session::has('user')){
-        return view('components.edit_profile');
-    }else{
-        return redirect()->route('login');
-    }
-})->name('edit_profile');
+// EDIT PROFILE GET
+Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
 
-
-Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
+// UPDATE PROFILE POST
+Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
 
 
 // signup post
@@ -140,6 +116,12 @@ Route::post('/login', [UserController::class, 'loginUser'])->name('login');
 
 // Add Patient
 Route::post('addPatient', [components::class, 'addPatient'] );
+
+// ALL PATIENTS
+Route::get('/all_patients', function(){
+    $patients = Patient::all();
+    return view('components.allPatients', ['patients'=>$patients]);
+})->name('all_patients');
 
 // Discharge Patient
 Route::get('dicharge/{id}', [components::class, 'dicharge'] );

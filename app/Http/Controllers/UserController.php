@@ -72,31 +72,25 @@ class UserController extends Controller
                 'password' => 'required',
             ]);
     
-            // getting user if username exists to belonging user.
+            // RETRIVING USER.
             $user = User::get()->where('username', $request->username)->first();
             
+            // LOGIN IF USER EXISTS.
             if($user == TRUE){
+                
+                // IF USER PASSWORD MATCHES.
                 $user_password = Hash::check($request->password, $user->password);
                 if($user_password != NULL){
-
+                   
                     // putting user in session
                     $request->session()->put('user', $user);
-
-                    if($user->role == 'admin'){
-                        return redirect()->route('index');
-                    }else if($user->role == 'doctor'){
-                        return redirect()->route('index2');
-                    }else{
-                        return redirect()->route('index3');
-                    }
                     
+                    // REDIRECTING AFTER AUTHENTICATING
+                    return redirect()->route('index');
                 }else{
                     return back()->with('login_failed', 'The Username Or Password does not match!');
                 }
-            }
-            
-            else{
-                
+            }else{   
                 return back()->with('login_failed', $request->username.' does not eixts');
             }
         }
@@ -106,11 +100,19 @@ class UserController extends Controller
         }
     }
 
-    // UPDATING USER PROFILE
+    // EDIT PROFILE
     public function editProfile(Request $request){
-        // FINDING USER BY ID
-        $user = User::find($request->user_id);
+        if($request->session()->has('user') == true){
+            $user = $request->session()->get('user');
+            return view('components.edit_profile', ['user'=>$user]);
+        }
+    }
 
+    // UPDATING PROFILE
+    public function updateProfile(Request $request){
+        
+        // FINDING USER BY ID
+        $user = User::get()->find($request->user_id);
         $user->first_name = $request->first_name;
         $user->last_name = $request->last_name;
         $user->email = $request->e_mail;
@@ -119,11 +121,12 @@ class UserController extends Controller
         $user->address = $request->address;
         $user->blood_group = $request->blood_group;
         $user->dob = $request->dob;
+        $user->age = $request->age;
         $user->gender = $request->gender;
 
-        // SAVING UPDATED
-        $updated = $user->update();     
 
+        // SAVING UPDATED
+        $updated = $user->update();
         if($updated == true){
             if($request->session()->has('user')){
                 $request->session()->forget('user');
