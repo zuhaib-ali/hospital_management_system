@@ -60,7 +60,7 @@
                         <th> {{ $location->email }} </th>
                         <th> {{ $location->address }} </th>
                         <th>
-                            <a href="" class="btn btn-sm btn-primary"> 
+                            <a href="{{ route('edit_location', $location->id)}}" class="btn btn-sm btn-primary" name="id"> 
                               <i class="ft-edit-2"> Edit </i>
                             </a>
                             <a href="delLocation/{{$location->id}}" class="btn btn-sm btn-danger">

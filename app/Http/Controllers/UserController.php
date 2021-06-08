@@ -87,10 +87,6 @@ class UserController extends Controller
 
                     if($user->role == 'admin'){
                         return redirect()->route('index');
-                    }else if($user->role == 'user'){
-                        return redirect()->route('index2');
-                    }else{
-                        return redirect()->route('index3');
                     }
                     
                     // REDIRECTING AFTER AUTHENTICATING

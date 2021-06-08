@@ -18,4 +18,6 @@ class location extends Controller
         ]);
 
     }
+
 }
+

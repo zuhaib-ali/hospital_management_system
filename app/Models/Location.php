@@ -16,6 +16,5 @@ class Location extends Model
         'logo'
 
     ];
-
     public $timestamps = false;
 }

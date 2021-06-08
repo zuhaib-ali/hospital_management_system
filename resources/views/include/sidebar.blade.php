@@ -6,9 +6,17 @@
     <div class="sidebar">
       <!-- Sidebar user panel (optional) -->
       <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+
+        <!-- USER PROFILE IMAGE -->
         <div class="image">
+          @if(Session::get('user')->profile_img)
           <img src="{{ asset('images/'.Session::get('user')->profile_img) }}" class="img-circle elevation-2" alt="User Image" style='width:50px; height:50px'>
+          @else
+          <img src="{{ asset('images/user.png') }}" class="img-circle elevation-2" alt="User Image" style='width:50px; height:50px'>
+          @endif
         </div>
+        
+        <!-- USER FIRST AND LAST NAME -->
         <div class="info">
           <a href="#" class="d-block mt-2 text-white" style='text-transform:uppercase'>{{ Session::get('user')->first_name }} {{ Session::get('user')->last_name }}</a>
         </div>
@@ -108,7 +116,7 @@
           <li class="nav-item">
             <a href="{{ route('locations') }}" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
               <i class="ft-map-pin"></i>
-                <p>Locations</p>
+                <p>LOCATIONS</p>
             </a>
           </li>
           @endif
