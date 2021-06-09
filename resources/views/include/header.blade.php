@@ -12,6 +12,10 @@
       <title> Appointments </title>
       @elseif( request()->is('locations') )
       <title> Locations </title>
+      @elseif( request()->is('aUsers') )
+      <title> Users </title>
+      @elseif( request()->is('users') )
+      <title> Users </title>
       @elseif( request()->is('patients') )
       <title> Admitted Patients </title>
       @elseif( request()->is('dpatients') )

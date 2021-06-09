@@ -4,6 +4,8 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\adminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -109,6 +111,26 @@ Route::get('/locations', function(){
 })->name('locations');
 
 
+Route::get('/aUsers', function(){
+    if(Session::has('user')){
+        $users = DB::table('users')->where('role','admin')->get();
+        return view('components.users')->with(['users'=>$users]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('aUsers');
+
+
+Route::get('/users', function(){
+    if(Session::has('user')){
+        $users = DB::table('users')->where('role','user')->get();
+        return view('components.users2')->with(['users'=>$users]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('users');
+
+
 
 
 
@@ -126,7 +148,7 @@ Route::post('addPatient', [components::class, 'addPatient'] );
 
 // ALL PATIENTS
 Route::get('/all_patients', function(){
-    $patients = Patient::all();
+    $patients = DB::table('patients')->get();
     return view('components.allPatients', ['patients'=>$patients]);
 })->name('all_patients');
 
@@ -147,6 +169,9 @@ Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->n
 
 Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
 
+
+// Add User As Admin
+Route::post('addAdmin', [adminController::class, 'addAdmin'] );
 
 
 // logout
