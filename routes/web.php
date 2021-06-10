@@ -101,6 +101,7 @@ Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_
 // UPDATE PROFILE POST
 Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
 
+//Admin Locations
 Route::get('/locations', function(){
     if(Session::has('user')){
         $locations = DB::table('locations')->get();
@@ -109,6 +110,16 @@ Route::get('/locations', function(){
         return redirect()->route('login');
     }
 })->name('locations');
+
+//User Locations
+Route::get('/uLocations', function(){
+    if(Session::has('user')){
+        $locations = DB::table('locations')->get();
+        return view('components.uLocations')->with(['locations'=>$locations]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('uLocations');
 
 
 Route::get('/aUsers', function(){
@@ -163,6 +174,10 @@ Route::post('addLocation', [components::class, 'addLocation'] );
 
 // Delete Location
 Route::get('delLocation/{id}', [components::class, 'delLocation'] );
+
+//View Location
+Route::get('viewLocation', [components::class, 'viewLocation'] );
+
 
 // EDIT LOCATION
 Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');

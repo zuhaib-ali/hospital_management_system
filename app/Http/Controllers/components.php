@@ -87,5 +87,12 @@ class components extends Controller
             return back()->with('failed','Failed To Delete');
         }
     }
+
+    public function viewLocation(Request $request)
+    {
+        $id    =   $request->post(id);
+        $view  =   DB::table('locations')->where('id', $id)->get();
+        return json_encode($view);
+    }
     
 }

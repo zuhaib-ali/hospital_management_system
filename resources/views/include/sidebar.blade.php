@@ -151,10 +151,10 @@
           </li>
 
           @elseif(Session::get('user')->role == 'user')
-          <!--User Can Use Locations To Set Appointment-->
+          <!--User Can Use Locations To Fix Appointment-->
 
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ route('uLocations') }}" class="nav-link @if(Request::url() == Request::is('uLocations')) active @endif()">
               <i class="ft-map-pin"></i>
                 <p>LOCATIONS</p>
             </a>
