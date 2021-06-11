@@ -130,6 +130,10 @@
 
 @include('include.footer')
 
+@if(Session::get('update_message'))
+  <script> console.log('updated')</script>
+@endif
+
 @if(session('success'))
 <script>
   toastr.info("{{ session('success') }}");

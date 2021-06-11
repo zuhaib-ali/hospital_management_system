@@ -150,7 +150,7 @@ Route::post('update_location', [LocationController::class, 'updateLocation'])->n
 
 
 // logout
-Route::get('logout', [UserController::class, 'logoutUser']);
+Route::get('logout', [UserController::class, 'logoutUser'])->name('logout');
 
 // SETTINGS
 Route::get('settings', [components::class, 'settings']);

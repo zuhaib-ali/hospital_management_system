@@ -6,6 +6,9 @@
 
   <link rel="icon" href="{{ asset('images/favicon.png') }}" type="image/png"/>
 
+  <!-- SWEET ALERT -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
   @if( request()->is('/') )
     <title> Dashboard </title>
     @elseif( request()->is('appointments') )

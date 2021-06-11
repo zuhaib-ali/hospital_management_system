@@ -48,7 +48,7 @@
           <!-- DOCTORS -->
           <li class="nav-item">
             <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
-              <i class="fas fa-medical-user"></i>
+              <i class="fas fa-user-md"></i>
               <p>DOCTORS</p>
             </a>
           </li>
@@ -173,7 +173,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="logout" class="nav-link">
+            <a href="{{ route('logout') }}" class="nav-link">
               <i class="fas fa-sign-out-alt"></i>
                 <p>LOGOUT</p>
             </a>

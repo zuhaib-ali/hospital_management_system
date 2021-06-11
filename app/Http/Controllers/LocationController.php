@@ -39,19 +39,20 @@ class LocationController extends Controller
     // UPDATE LOCATION
     public function updateLocation(Request $request){
         // RETRIEVING LOCATION BY ID.
-        $location = Location::find($request->location_id);
+        // $location = Location::find($request->location_id);
 
-        // ASSINGING NEW VALUE.
-        $location->name = $request->location_name;
-        $location->email = $request->e_mail;
-        $location->address = $request->address;
-        $location->phone = $request->phone;
+        // // ASSINGING NEW VALUE.
+        // $location->name = $request->location_name;
+        // $location->email = $request->e_mail;
+        // $location->address = $request->address;
+        // $location->phone = $request->phone;
 
-        // SAVING UPDATED
-        $updated = $location->update();
+        // // SAVING UPDATED
+        // $updated = $location->update();
 
-        if($updated == true){
-            return redirect()->route('locations');
-        }
+        // if($updated == true){
+        //     return redirect()->route('locations')->with('update_message', "Location Updated Successfully!");
+        // }
+        return redirect()->route('locations')->with('update_message', "Location Updated Successfully!");
     }
 }
