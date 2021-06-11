@@ -97,10 +97,10 @@
             </div>
             <!-- /.row -->
             <center>
-            <button type="submit" class="btn btn-success col-lg-6"> 
-            <i class="fas fa-plus"></i> 
-            Add Patient 
-            </button>
+              <button type="submit" class="btn btn-success col-lg-6"> 
+                <i class="fas fa-plus"></i> 
+                Add Patient 
+              </button>
             </center>
             </form>
           </div>

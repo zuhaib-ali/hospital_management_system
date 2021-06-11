@@ -2,8 +2,11 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Login;
 use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
+use App\Http\Controllers\adminController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -99,6 +102,7 @@ Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_
 // UPDATE PROFILE POST
 Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
 
+//Admin Locations
 Route::get('/locations', function(){
     if(Session::has('user')){
         $locations = DB::table('locations')->get();
@@ -107,6 +111,36 @@ Route::get('/locations', function(){
         return redirect()->route('login');
     }
 })->name('locations');
+
+//User Locations
+Route::get('/uLocations', function(){
+    if(Session::has('user')){
+        $locations = DB::table('locations')->get();
+        return view('components.uLocations')->with(['locations'=>$locations]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('uLocations');
+
+
+Route::get('/aUsers', function(){
+    if(Session::has('user')){
+        $users = DB::table('users')->where('role','admin')->get();
+        return view('components.users')->with(['users'=>$users]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('aUsers');
+
+
+Route::get('/users', function(){
+    if(Session::has('user')){
+        $users = DB::table('users')->where('role','user')->get();
+        return view('components.users2')->with(['users'=>$users]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('users');
 
 
 
@@ -119,14 +153,14 @@ Route::get('/locations', function(){
 Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');
 
 // login post
-Route::post('/login', [UserController::class, 'loginUser'])->name('login');
+Route::post('/login', [Login::class, 'loginUser'])->name('login');
 
 // Add Patient
 Route::post('addPatient', [components::class, 'addPatient'] );
 
 // ALL PATIENTS
 Route::get('/all_patients', function(){
-    $patients = Patient::all();
+    $patients = DB::table('patients')->get();
     return view('components.allPatients', ['patients'=>$patients]);
 })->name('all_patients');
 
@@ -142,11 +176,18 @@ Route::post('addLocation', [components::class, 'addLocation'] );
 // Delete Location
 Route::get('delLocation/{id}', [components::class, 'delLocation'] );
 
+//View Location
+Route::get('viewLocation', [components::class, 'viewLocation'] );
+
+
 // EDIT LOCATION
 Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');
 
 Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
 
+
+// Add User As Admin
+Route::post('addAdmin', [adminController::class, 'addAdmin'] );
 
 
 // logout

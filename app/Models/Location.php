@@ -13,7 +13,6 @@ class Location extends Model
         'email',
         'address',
         'phone',
-        'logo'
 
     ];
     public $timestamps = false;

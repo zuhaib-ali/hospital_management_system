@@ -25,7 +25,7 @@
 	</style>
 
 	</head>
-	<body class="" style="background-image: url({{ asset('login.jpg') }}); background-size:100%;">
+	<body class="" style="background-image: url( {{ asset('login.jpg') }} ); background-size:100%;">
 		<section class="ftco-section">
 			<div class="container">
 			<center>

@@ -45,6 +45,7 @@
             </a>
           </li>
 
+<<<<<<< HEAD
           <!-- DOCTORS -->
           <li class="nav-item">
             <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
@@ -53,6 +54,8 @@
             </a>
           </li>
 
+=======
+>>>>>>> 3895ef96a3fe71de6defc9b3afd99914d4f6c0bc
           @if(Session::get('user')->role == "admin")
           <li class="nav-item">
             <a href="{{ route('addPatients') }}" class="nav-link @if(Request::url() == Request::is('addPatients')) active @endif()">
@@ -102,9 +105,19 @@
           </li>
           @endif
           
-          @if(Session::get('user')->role == 'admin' || Session::get('user')->user == 'doctor')
+          @if(Session::get('user')->role == 'admin')
+          <!--Admin Can Add Appointments-->
           <li class="nav-item">
             <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif()">
+              <i class="ft-layers"></i>
+                <p>APPOINTMENTS</p>
+            </a>
+          </li>
+
+          @elseif(Session::get('user')->role == 'user')
+          <!--User Can Fix Appointments-->
+          <li class="nav-item">
+            <a href="" class="nav-link">
               <i class="ft-layers"></i>
                 <p>APPOINTMENTS</p>
             </a>
@@ -113,15 +126,55 @@
 
           
           @if(Session::get('user')->role == "admin")
+          <!--Admin Can Add LOCATIONS-->
           <li class="nav-item">
             <a href="{{ route('locations') }}" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
               <i class="ft-map-pin"></i>
                 <p>LOCATIONS</p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="ft-user"></i>
+              <p>
+                USERS
+                <i class="fas fa-angle-left right"></i>
+              </p>
+            </a>
+            <ul class="nav nav-treeview">
+              
+              <li class="nav-item">
+                <a href="{{ route('aUsers') }}" class="nav-link @if(Request::url() == Request::is('aUsers')) active @endif()">
+                  <i class="far fa-circle nav-icon"></i>
+                    <p>Staff/Admins</p>
+                  </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('users') }}" class="nav-link @if(Request::url() == Request::is('users')) active @endif()">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p> Users </p>
+                </a>
+              </li>
+
+            </ul>
+          </li>
+
+          @elseif(Session::get('user')->role == 'user')
+          <!--User Can Use Locations To Fix Appointment-->
+
+          <li class="nav-item">
+            <a href="{{ route('uLocations') }}" class="nav-link @if(Request::url() == Request::is('uLocations')) active @endif()">
+              <i class="ft-map-pin"></i>
+                <p>LOCATIONS</p>
+            </a>
+          </li>
+
           @endif
 
-          @if(Session::get('user')->role == 'admin' || Session::get('user')->user == 'doctor')
+          @if(Session::get('user')->role == 'admin')
+          <!--Admin Can Add PHARMACISTS & LABORATARIES-->
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-first-aid"></i>
@@ -132,10 +185,9 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-user-alt"></i>
-                <p>LABORATARIANS</p>
+                <p>LABORATARIES</p>
             </a>
           </li>
-          @endif
 
           <li class="nav-item">
             <a href="#" class="nav-link">
@@ -154,6 +206,23 @@
               </li>
             </ul>
           </li>
+
+          @elseif(Session::get('user')->role == 'user')
+          <!--User Can Check PHARMACISTS & LABORATARIES-->
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-first-aid"></i>
+                <p>PHARMACISTS</p>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="#" class="nav-link">
+              <i class="fas fa-user-alt"></i>
+                <p>LABORATARIES</p>
+            </a>
+          </li>
+          @endif
 
           <li class="nav-item">
             <a href="#" class="nav-link @if(Request::url() == Request::is('edit_profile')) active @endif">

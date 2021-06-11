@@ -32,11 +32,7 @@
                 <div class="card">
               <div class="card-header">
                 <h1>
-                Locations
-                <button class="btn btn-sm btn-success bold pull-right" data-toggle="modal" data-target="#add"> 
-                <i class="fa fa-plus"></i>
-                Add New Location
-                </button>
+                  All Locations
                 </h1>
               </div>
               <!-- /.card-header -->
@@ -61,13 +57,9 @@
                         <th> {{ $location->email }} </th>
                         <th> {{ $location->address }} </th>
                         <th>
-                            <a href="{{ route('edit_location', $location->id)}}" class="btn btn-sm btn-primary" name="id"> 
-                              <i class="ft-edit-2"></i>
-                              Edit
-                            </a>
-                            <a href="delLocation/{{$location->id}}" class="btn btn-sm btn-danger">
-                              <i class="ft-x"></i>
-                              Delete
+                            <a href="javascript:void(0)" class="btn btn-sm btn-success"> 
+                              <i class="ft-eye"></i>
+                              View
                             </a>
                         </th>
                     </tr>
@@ -87,65 +79,10 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <form method="post" action="addLocation">
-  @csrf
-			<!-- Modal -->
-			<div class="modal fade" id="add" aria-hidden="true">
-				<div class="modal-dialog" role="document">
-				    <div class="modal-content">
-						<div class="modal-header">
-							<h5 class="modal-title">Add Location</h5>
-							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-						  	<span aria-hidden="true">&times;</span>
-							</button>
-						</div>
-				      	<div class="modal-body">
-				        	<div class="form-group">
-							    <label>Name</label>
-							    <input type="text" class="form-control" name="name">
-							</div>
-							<div class="form-group">
-								<label>Email</label>
-							    <input type="email" class="form-control" name="email">
-							</div>
-							<div class="form-group">
-							    <label>Address</label>
-							    <textarea rows="3" cols="3" class="form-control" name="address"></textarea>
-							</div>
-
-              <div class="form-group">
-							    <label>Phone</label>
-							    <input type="text" class="form-control" name="phone">
-							</div>
-				      	</div>
-				      	<div class="modal-footer">
-				        	<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">
-                  <i class="ft-x"> Close </i>
-                  </button>
-				        	<button type="submit" class="btn btn-primary">
-                  <i class="fa fa-plus"> Save </i> 
-                  </button>
-				      	</div>
-				    </div>
-				</div>
-			</div>
-		</form>
-
 @include('include.footer')
-
-@if(Session::get('update_message'))
-  <script> console.log('updated')</script>
-@endif
 
 @if(session('success'))
 <script>
   toastr.info("{{ session('success') }}");
-</script>
-@endif
-
-
-@if(session('delLoc'))
-<script>
-  toastr.error("{{ session('delLoc') }}");
 </script>
 @endif
