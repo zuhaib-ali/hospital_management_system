@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\Login;
 use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\adminController;
@@ -152,7 +153,7 @@ Route::get('/users', function(){
 Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');
 
 // login post
-Route::post('/login', [UserController::class, 'loginUser'])->name('login');
+Route::post('/login', [Login::class, 'loginUser'])->name('login');
 
 // Add Patient
 Route::post('addPatient', [components::class, 'addPatient'] );
