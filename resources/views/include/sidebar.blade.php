@@ -45,17 +45,6 @@
             </a>
           </li>
 
-<<<<<<< HEAD
-          <!-- DOCTORS -->
-          <li class="nav-item">
-            <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('doctors')) active @endif()">
-              <i class="fas fa-user-md"></i>
-              <p>DOCTORS</p>
-            </a>
-          </li>
-
-=======
->>>>>>> 3895ef96a3fe71de6defc9b3afd99914d4f6c0bc
           @if(Session::get('user')->role == "admin")
           <li class="nav-item">
             <a href="{{ route('addPatients') }}" class="nav-link @if(Request::url() == Request::is('addPatients')) active @endif()">
