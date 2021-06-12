@@ -69,7 +69,7 @@
 				<div class="row justify-content-center  main_content">
 					<div class="col-md-6 col-lg-4">
 						<div class="login-wrap p-0">
-						<a href="{{ route('sign_up') }}"><h3 class="mb-4 text-center">Create an account?</h3></a>
+						<a href="{{ route('sign_up') }}"><h3 class="mb-4 text-center" style="color:#c30000;">Don't have an account?</h3></a>
 
 					<!-- Login Form -->
 					<form method='POST' action="{{ route('login') }}" class="signin-form">
@@ -95,15 +95,15 @@
 
 						<!-- Remember me -->
 						<div class="w-50">
-							<label class="checkbox-wrap checkbox-primary">Remember Me
-								<input type="checkbox" checked>
+							<label class="checkbox-wrap checkbox" style="color:#1c0694; font-weight:bold;">Remember Me
+								<input type="checkbox" checked >
 								<span class="checkmark"></span>
 							</label>
 						</div>
 
 						<!-- Forgort password -->
 						<div class="w-50 text-md-right">
-							<a href="#" style="color: #fff">Forgot Password</a>
+							<a href="#" style="color:#c30000; font-weight:bold;">Forgot Password</a>
 						</div>
 					</div>
 				</form>

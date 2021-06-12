@@ -42,7 +42,7 @@
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-		      	<a href="{{ route('login') }}"><h3 class="mb-4 text-center">Have an account?</h3></a>
+		      	<a href="{{ route('login') }}"><h3 class="mb-4 text-center" style="color:#c30000;">Have an account?</h3></a>
 
 				<!-- SIGNUP FORM -->
 		      	<form method="POST" action="{{ route('sign_up') }}" class="signup-form" enctype='multipart/form-data' autocomplete="off">
@@ -146,13 +146,13 @@
 
                     <div class="form-group d-md-flex">
                         <div class="w-50">
-                            <label class="checkbox-wrap checkbox-primary">Remember Me
-                            <input type="checkbox" checked>
+                            <label class="checkbox-wrap checkbox" style="color:#1c0694; font-weight:bold;">Remember Me
+                            <input type="checkbox" style="color:white; background-color:white;" checked>
                             <span class="checkmark"></span>
                             </label>
                         </div>
                         <div class="w-50 text-md-right">
-                            <a href="#" style="color: #fff">Forgot Password</a>
+                            <a href="#"  style="color:#c30000; font-weight:bold;">Forgot Password</a>
                         </div>
                     </div>
 	          </form>

@@ -6,6 +6,8 @@ use App\Http\Controllers\Login;
 use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\adminController;
+use App\Http\Controllers\AppointmentController;
+use App\Models\Location;
 
 
 /*
@@ -143,7 +145,20 @@ Route::get('/users', function(){
 })->name('users');
 
 
+// FIX APPOITMENT VIEW
+Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
 
+// APPOINTMENT POST
+Route::post('/add_appointment', [AppointmentController::class, 'addAppointment'])->name('add_appointment');
+
+// APPOITMENT LIST VIEW
+Route::get('/appointment_list', function(){
+    if(Session::has('user')){
+        return view('components.appointment_list');
+    }else{
+        return redirect()->route('login');
+    }
+})->name('appointment_list');
 
 
 #Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');

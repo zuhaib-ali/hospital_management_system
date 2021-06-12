@@ -58,10 +58,10 @@
           @if(Session::get('user')->role == "admin")
           <!-- PATIENTS -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="#" class="nav-link @if(Request::url() == Request::is('all_patients') || Request::url() == Request::is('patients') || Request::url() == Request::is('dpatients')) active @endif()">
               <i class="ft-users"></i>
               <p>
-              PATIENTS
+                PATIENTS
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -94,21 +94,47 @@
           </li>
           @endif
           
+          
           @if(Session::get('user')->role == 'admin')
           <!--Admin Can Add Appointments-->
           <li class="nav-item">
-            <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif()">
+            <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('add_appointment') || Request::url() == Request::is('appointment_list') ) active @endif()">
               <i class="ft-layers"></i>
-                <p>APPOINTMENTS</p>
+                <p>
+                  APPOINTMENTS
+                  <i class="fas fa-angle-left right"></i>
+                </p>
             </a>
+
+            <!-- APPOINTMENT DROPDOWN MENU -->
+            <ul class="nav nav-treeview">
+
+              <!-- ADD APPOINTMENT -->
+              <li class="nav-item">
+                <a href="#" class="nav-link @if(Request::url() == Request::is('add_appointment')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Appointment</p>
+                </a>
+              </li>
+
+              <!-- APPOINTMENT LIST -->
+              <li class="nav-item">
+                <a href="{{ route('appointment_list') }}" class="nav-link @if(Request::url() == Request::is('appointment_list')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Appointment List</p>
+                </a>
+              </li>
+
+            </ul>
           </li>
 
+          <!-- APPOINTMENT FOR USER -->
           @elseif(Session::get('user')->role == 'user')
           <!--User Can Fix Appointments-->
           <li class="nav-item">
-            <a href="" class="nav-link">
+            <a href="{{ route('fix_appointment') }}" class="nav-link @if(Request::url() == Request::is('add_appointment')) active @endif">
               <i class="ft-layers"></i>
-                <p>APPOINTMENTS</p>
+                <p>APPOINTMENT</p>
             </a>
           </li> 
           @endif
@@ -216,8 +242,11 @@
           <li class="nav-item">
             <a href="#" class="nav-link @if(Request::url() == Request::is('edit_profile')) active @endif">
               <i class="fas fa-cog"></i>
-              <p>SETTINGS</p>
-              <span class="fas fa-angle-left right"></span>
+              <p>
+                SETTINGS
+                <i class="fas fa-angle-left right"></i>
+              </p>
+              
             </a>
 
             <ul class="nav nav-treeview">

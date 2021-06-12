@@ -8,5 +8,6 @@ use Illuminate\Database\Eloquent\softDeletes;
 
 class Appointment extends Model
 {
+    protected $guarded = [];
     use HasFactory, softDeletes;
 }
