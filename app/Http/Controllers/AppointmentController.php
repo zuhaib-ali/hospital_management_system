@@ -16,7 +16,7 @@ class AppointmentController extends Controller
 
         if($request->session()->has('user')){
             return view('components.add_appointment', [
-                'locations'=>$locations,
+                'locations' =>$locations,
                 'patient'   =>$patient
             ]);
         }else{
@@ -42,7 +42,7 @@ class AppointmentController extends Controller
             'note' => $request->form_note,
         ]);   
 
-        if(false){
+        if($appointment == true){
             return back()->with('success', 'APPOINTMENT SUCCESSFULLY CREATED');
         }else{
             return back()->with('failed', 'UNSUCCESSFULL TO CREATE APPOINTMENT');

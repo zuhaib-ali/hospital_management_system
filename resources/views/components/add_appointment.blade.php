@@ -23,13 +23,13 @@
       </div><!-- /.container-fluid -->
     </div>
 
-    @if(Session::has('success'))
+    @if(session('success'))
     <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
-      {{Session::get('success')}}
+      {{session('success')}}
     </div>
-    @elseif(Session::has('failed'))
+    @elseif(session('failed'))
       <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
-        {{Session::get('failed')}}
+        {{session('failed')}}
       </div>
     @endif
     <main class="m-3">
@@ -67,7 +67,10 @@
 
             <!-- SUBMIT APPOINTMENT BUTTON -->
             <div class="form-group mb-3">
-              <input type="submit" class="btn btn-primary" value="SUBMIT APPOINTMENT">
+              <button type="submit" class="btn btn-sm btn-primary">
+                <i class="fa fa-plus"> </i>
+                Submit Appointment
+              </button>
             </div>
 
           </form>  
@@ -110,8 +113,14 @@
 
             <!-- FOOTER -->
             <div class="modal-footer">
-              <button type="button" class="btn btn-danger" data-bs-dismiss="modal">CLOSE</button>
-              <button type="button" class="btn btn-primary" id="select_checkup_type" data-bs-dismiss="modal">SELECT</button>
+              <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                <i class="ft-x"></i>
+                Close
+              </button>
+              <button type="button" class="btn btn-sm btn-success" id="select_checkup_type" data-bs-dismiss="modal">
+                <i class="fa fa-plus"></i>
+                Add
+              </button>
             </div>
 
           </div>
