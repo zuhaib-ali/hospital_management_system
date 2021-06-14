@@ -157,7 +157,7 @@ Route::get('/users', function(){
 Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
 
 // APPOINTMENT POST
-Route::post('/add_appointment', [AppointmentController::class, 'addAppointment'])->name('add_appointment');
+Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
 
 
 // APPOITMENT LIST VIEW

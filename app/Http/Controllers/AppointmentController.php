@@ -24,14 +24,12 @@ class AppointmentController extends Controller
         }
     }
     
-    // ADD APPOINTMENT
-    public function addAppointment(Request $request){
+    // SUBMIT APPOINTMENT
+    public function submitAppointment(Request $request){
         $request->validate([
-            'type' => 'required',
-            'patient_id' => 'required',
-            'patientname' => 'required',
+            'appointment_type' => 'required',
             'location' => 'required',
-            'type' => 'required',
+            'form_note' => 'required',
         ]);
 
         $appointment = Appointment::create([
@@ -43,9 +41,9 @@ class AppointmentController extends Controller
         ]);   
 
         if($appointment == true){
-            return back()->with('success', 'APPOINTMENT SUCCESSFULLY CREATED');
+            return back()->with('success', 'Your appointment successfully added!');
         }else{
-            return back()->with('failed', 'UNSUCCESSFULL TO CREATE APPOINTMENT');
+            return back()->with('failed', 'Failed to sent appointment!');
         }
 
     } 

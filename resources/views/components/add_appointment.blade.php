@@ -23,7 +23,7 @@
       </div><!-- /.container-fluid -->
     </div>
 
-    @if(session('success'))
+    <!-- @if(session('success'))
     <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
       {{session('success')}}
     </div>
@@ -31,12 +31,12 @@
       <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
         {{session('failed')}}
       </div>
-    @endif
+    @endif -->
     <main class="m-3">
       <card class="card">
         <card class="card-body">
 
-          <form action="{{ route('add_appointment') }}" method="POST">
+          <form action="{{ route('submit_appointment') }}" method="POST">
             @csrf 
             <!-- LOCATIONS DROPDOWN -->
             <div class="form-group mb-3">
@@ -131,8 +131,9 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <!-- SWEET ALERT -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 @include('include.footer')
-<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
   $(document).ready(function(){
@@ -163,6 +164,24 @@
       
     // });
     
-    
   });
+</script>
+
+<!-- SWEET ALERT -->
+<script>
+  @if(Session::has('success'))
+    swal({
+      title: "SENT",
+      text: "{{ Session::get('success') }}",
+      icon: "success",
+      button: "CLOSE",
+    });
+  @elseif(Session::has('failed'))
+    swal({
+      title: "FAILED",
+      text: "{{ Session::get('failed') }}",
+      icon: "error",
+      button: "CLOSE",
+    });
+  @endif
 </script>
