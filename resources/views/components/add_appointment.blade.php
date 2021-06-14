@@ -23,6 +23,15 @@
       </div><!-- /.container-fluid -->
     </div>
 
+    @if(Session::has('success'))
+    <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
+      {{Session::get('success')}}
+    </div>
+    @elseif(Session::has('failed'))
+      <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
+        {{Session::get('failed')}}
+      </div>
+    @endif
     <main class="m-3">
       <card class="card">
         <card class="card-body">
@@ -31,29 +40,30 @@
             @csrf 
             <!-- LOCATIONS DROPDOWN -->
             <div class="form-group mb-3">
-              <label for="location">SELECT BY LOCATION</label>
+
+              <label for="location"><span style="color:red;">*</span> SELECT BY LOCATION</label>
               <select class="form-select form-control col-sm-4" aria-label="Default select example" name="location" id="location">
-                <option selected style="font-weight:bold;">ALL</option>
-                
+                <option selected style="font-weight:bold;">NONE</option>    
                 <!-- ALL LOCATIONS -->
                 @foreach($locations as $location)
                   <option value="{{ $location->name }}" id="option" data="{{ $location->name }}">
                     {{ $location->name }}
                   </option>
                 @endforeach
-
               </select>
             </div>
-
-            <!-- <div class="form-group">
-              <input type="text" name="first_name" placeholder="first name" id="first_name">
-            </div> -->
 
             <!-- CHECKUP TYPE VALUE -->
             <input type="hidden" name="appointment_type" value="" id="appointment_type">
 
             <!-- USER/PATIENT ID -->
             <input type="hidden" name="user_id" value="{{ Session::get('user')->id }}">
+
+            <!-- PATIENT NAME -->
+            <input type="hidden" name="patient_name" value="{{ Session::get('user')->first_name }} {{ Session::get('user')->last_name }}">
+
+            <!-- NOTE -->
+            <input type="hidden" name="form_note" value="" id="form_note">
 
             <!-- SUBMIT APPOINTMENT BUTTON -->
             <div class="form-group mb-3">
@@ -95,7 +105,7 @@
               </select>
 
               <label> Note </label>
-              <textarea class="form-control" cols="3" rows="5" name="note"></textarea>
+              <textarea class="form-control" cols="3" rows="5" name="note" id="note"></textarea>
             </div>
 
             <!-- FOOTER -->
@@ -113,6 +123,7 @@
   <!-- /.content-wrapper -->
 
 @include('include.footer')
+<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
 <script>
   $(document).ready(function(){
@@ -134,11 +145,15 @@
     $("#select_checkup_type").click(function(){
       var checkup_type_value = $("#checkup_type").val(); // GETTING CHECKUP TYPE.
       $("#appointment_type").val(checkup_type_value); // INSERTING CHECKUP TYPE IN FORM HIDDEN FIELD.
+
+      var note = $("#note").val(); // GETTING NOTE VALUE.
+      $("#form_note").val(note); // INSERTING NOTE VALUE IN FORM HIDDEN FIELD.
     });
 
     // $("#first_name").keypress(function(){
       
     // });
-
+    
+    
   });
 </script>

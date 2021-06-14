@@ -152,7 +152,7 @@ Route::get('/users', function(){
 })->name('users');
 
 
-// FIX APPOITMENT VIEW
+// APPOITMENT FIX VIEW
 Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
 
 // APPOINTMENT POST
