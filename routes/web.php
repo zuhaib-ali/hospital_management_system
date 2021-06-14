@@ -37,6 +37,7 @@ Route::get('/', function () {
     }
 })->name('index');
 
+// APPOINTMENTS VIEW TO SHOW ALL APPOINTMENTS
 Route::get('/appointments', function () {
     if(Session::has('user')){
         $appointments = DB::table('appointments')->get();

@@ -49,7 +49,7 @@
                   @foreach($appointments as $appointment) 
                     <tr>
                         <td> {{ $appointment->patientname }} </td>
-                        <td> {{ $appointment->locations }} </td>
+                        <td> {{ $appointment->location }} </td>
                         <td> {{ $appointment->type }} </td> 
                         <td> {{ $appointment->note }} </td>
                         <td> <a href="" class="btn btn-info"> Erase Record </a> </td>
