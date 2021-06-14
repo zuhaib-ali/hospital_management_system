@@ -96,43 +96,19 @@
           
           
           @if(Session::get('user')->role == 'admin')
-          <!--Admin Can Add Appointments-->
-          <li class="nav-item">
-            <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('add_appointment') || Request::url() == Request::is('appointment_list') ) active @endif()">
+          <!--Admin Can See All Fixed Appointments-->
+            <li class="nav-item">
+            <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif">
               <i class="ft-layers"></i>
-                <p>
-                  APPOINTMENTS
-                  <i class="fas fa-angle-left right"></i>
-                </p>
+                <p>APPOINTMENT</p>
             </a>
-
-            <!-- APPOINTMENT DROPDOWN MENU -->
-            <ul class="nav nav-treeview">
-
-              <!-- ADD APPOINTMENT -->
-              <li class="nav-item">
-                <a href="#" class="nav-link @if(Request::url() == Request::is('add_appointment')) active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Add Appointment</p>
-                </a>
-              </li>
-
-              <!-- APPOINTMENT LIST -->
-              <li class="nav-item">
-                <a href="{{ route('appointment_list') }}" class="nav-link @if(Request::url() == Request::is('appointment_list')) active @endif">
-                  <i class="far fa-circle nav-icon"></i>
-                  <p>Appointment List</p>
-                </a>
-              </li>
-
-            </ul>
-          </li>
+          </li> 
 
           <!-- APPOINTMENT FOR USER -->
           @elseif(Session::get('user')->role == 'user')
           <!--User Can Fix Appointments-->
           <li class="nav-item">
-            <a href="{{ route('fix_appointment') }}" class="nav-link @if(Request::url() == Request::is('add_appointment')) active @endif">
+            <a href="{{ route('fix_appointment') }}" class="nav-link @if(Request::url() == Request::is('fix_appointment')) active @endif">
               <i class="ft-layers"></i>
                 <p>APPOINTMENT</p>
             </a>

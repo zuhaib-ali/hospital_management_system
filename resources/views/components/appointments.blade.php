@@ -26,18 +26,44 @@
 
     <!-- Main content -->
     <section class="content">
-
-      <div class="card">
-        <div class="card-header text-center">
-          APPOINTMENT FORM
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                <div class="card">
+              <div class="card-header">
+                <center><h3 class="card-title">All Appointments</h3></center>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+                <table id="example2" class="table table-bordered table-hover">
+                  <thead>
+                  <tr>
+                    <th>Patient Name</th>
+                    <th>Location</th>
+                    <th>Appointment Type</th>
+                    <th>Note</th>
+                    <th>Action</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  @foreach($appointments as $appointment) 
+                    <tr>
+                        <td> {{ $appointment->patientname }} </td>
+                        <td> {{ $appointment->locations }} </td>
+                        <td> {{ $appointment->type }} </td> 
+                        <td> {{ $appointment->note }} </td>
+                        <td> <a href="" class="btn btn-info"> Erase Record </a> </td>
+                    </tr>
+                  @endforeach                       
+                 </tbody>
+                </table>
+              </div>
+              <!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+                </div>
+            </div>
         </div>
-        <div class="card-body">
-          <h5 class="card-title">Special title treatment</h5>
-          <p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-          <a href="#" class="btn btn-primary">Go somewhere</a>
-        </div>
-      </div>
-
     
     </section>
     <!-- /.content -->

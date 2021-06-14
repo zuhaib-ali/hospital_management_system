@@ -16,7 +16,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Add Patients</li>
+              <li class="breadcrumb-item active">Add Appointment</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -37,7 +37,9 @@
                 
                 <!-- ALL LOCATIONS -->
                 @foreach($locations as $location)
-                  <option value="{{ $location->name }}">{{ $location->name }}</option>
+                  <option value="{{ $location->name }}" id="option" data="{{ $location->name }}">
+                    {{ $location->name }}
+                  </option>
                 @endforeach
 
               </select>
@@ -77,6 +79,11 @@
 
             <!-- BODY -->
             <div class="modal-body">
+            <label> Patient Name </label>
+            <input type="text" name="patientname" value="{{ $patient->first_name }} {{ $patient->last_name }}" class="form-control" disabled>
+
+            <label> Location </label>
+            <input type="text" name="location" class="form-control" id="lName" disabled>
               <p style="font-weight:bold; color:red;" id="checkup_type_in_hospital"></p>
               <select class="form-control form-select col-sm-12" name="checkup_type" id="checkup_type">
                 <option value="general physician">General Physician</option>
@@ -86,6 +93,9 @@
                 <option value="neurologist">Neurologist</option>
                 <option value="palastic surgeon">Plastic Surgeon</option>
               </select>
+
+              <label> Note </label>
+              <textarea class="form-control" cols="3" rows="5" name="note"></textarea>
             </div>
 
             <!-- FOOTER -->
@@ -110,9 +120,12 @@
     $('#location').change(function() {
         // GETTING LOCATION VALUE SELECTED
         var location_value = $(this).val();
+        var lName = $('#option').attr('data');
         // SHOW MODAL 
         if(location_value !== "ALL"){ //Compare it and if true
+            $('#lName').val(lName);
             $('#myModal').modal("show"); //Open Modal
+
             $("#checkup_type_in_hospital").text("Select Your Checkup For "+location_value);
         }
     });

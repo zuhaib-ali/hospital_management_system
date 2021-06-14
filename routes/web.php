@@ -24,9 +24,13 @@ use App\Models\Location;
 // INDEX VIEW
 Route::get('/', function () {
     if(Session::has('user')){
-        $patients = DB::table('patients')->get();
+        $patients = DB::table('patients')->where('status','admitted')->get();
+        $locations = DB::table('locations')->get();
+        $appointments = DB::table('appointments')->get();
         return view('admin.index')->with([
-            'patients'  =>  $patients
+            'patients'  =>  $patients,
+            'locations'  =>  $locations,
+            'appointments'  =>  $appointments
         ]);    
     }else{
         return redirect()->route('login');
@@ -35,7 +39,10 @@ Route::get('/', function () {
 
 Route::get('/appointments', function () {
     if(Session::has('user')){
-        return view('components.appointments');    
+        $appointments = DB::table('appointments')->get();
+        return view('components.appointments')->with([
+            'appointments'  =>  $appointments
+        ]);    
     }else{
         return redirect()->route('login');
     }
@@ -150,6 +157,7 @@ Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView']
 
 // APPOINTMENT POST
 Route::post('/add_appointment', [AppointmentController::class, 'addAppointment'])->name('add_appointment');
+
 
 // APPOITMENT LIST VIEW
 Route::get('/appointment_list', function(){

@@ -67,7 +67,7 @@
               <div class="card">
                 <h2>Locations</h2>
                 <div class="container">
-                  <p>0</p>
+                  <p>{{ $locations->count() }}</p>
                 </div>
               </div>
 
