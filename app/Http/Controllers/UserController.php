@@ -102,6 +102,6 @@ class UserController extends Controller
     // Loging out user.
     public function logoutUser(Request $request){
         $request->session()->forget('user');
-        return redirect('login')->with('logout','Logout Successfull');
+        return redirect('login')->with('logout','You are logged out successfully!');
     }
 }

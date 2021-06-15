@@ -22,6 +22,21 @@
 			font-style:italic;
 			font-weight:bold;
 		}
+
+
+		.swal-text{
+			color:blue;
+		}
+
+		.swal-modal{
+			background-color:#CFDEE8 ;
+
+		}
+
+		.swal-button{
+			background-color:red;
+			color:white;
+		}
 	</style>
 
 	</head>
@@ -50,12 +65,12 @@
                 </div>
                 @endif
 
-				@if(session('logout')) 
+				<!-- @if(session('logout')) 
                 <div class="alert alert-warning alert-dismissible col-lg-6" id="divs">
                     <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
                     {{session('logout')}}
                 </div>
-                @endif
+                @endif -->
 			</center>
 
 				
@@ -123,11 +138,24 @@
 		<script src="{{ asset('js/login_js/main.js') }}"></script>
 		<script src="{{ asset('js/login_js/bootstrap.min.js') }}"></script>
 
+		<!-- SWEET ALERT -->
+		<script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+
 		<script>
 			$(document).ready(function(){
-				
 				$('#divs').fadeOut(4000);
 			});
+			
+			@if(Session::has('logout'))
+				// LOGOUT
+				swal("{{ Session::get('logout') }}", {
+					buttons: false,
+					timer: 3000,
+					closeOnEsc: true,
+					buttons:{cancel:'CLOSE'},
+				});
+			@endif
+
 		</script>
 	</body>
 </html>
