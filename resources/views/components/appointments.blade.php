@@ -38,6 +38,7 @@
                 <table id="example2" class="table table-bordered table-hover">
                   <thead>
                   <tr>
+                    <th>S.No</th>
                     <th>Patient Name</th>
                     <th>Location</th>
                     <th>Appointment Type</th>
@@ -46,13 +47,27 @@
                   </tr>
                   </thead>
                   <tbody>
+                    <?php $sno = 1; ?>
                   @foreach($appointments as $appointment) 
                     <tr>
+                        <td> {{ $sno++ }} </td>
                         <td> {{ $appointment->patientname }} </td>
                         <td> {{ $appointment->location }} </td>
                         <td> {{ $appointment->type }} </td> 
                         <td> {{ $appointment->note }} </td>
-                        <td> <a href="" class="btn btn-info"> Erase Record </a> </td>
+                        <td> 
+                          <a href="getPatientData/{{ $appointment->patient_id }}" class="btn btn-sm btn-outline-info">
+                            <i class="ft-eye"></i>
+                            View
+                          </a> 
+
+                          <a href="" class="btn btn-sm btn-outline-success">
+                            <i class="far fa-paper-plane"></i>
+                            Send Mail
+                          </a>
+                        </td>
+
+                        
                     </tr>
                   @endforeach                       
                  </tbody>

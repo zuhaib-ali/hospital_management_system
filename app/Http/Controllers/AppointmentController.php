@@ -5,7 +5,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Appointment;
+use App\Models\User;
+
+
 use DB;
+
 
 class AppointmentController extends Controller
 {
@@ -46,5 +50,17 @@ class AppointmentController extends Controller
             return back()->with('failed', 'Failed to sent appointment!');
         }
 
-    } 
+    }
+
+    public function getPatientData($id)
+     {
+        $data       =   User::where('id',$id)->first();
+        $appData    =   Appointment::where('patient_id',$id)->first();
+        return view('components.patientData')->with([
+            'patient'   =>      $data,
+            'app'       =>      $appData
+
+            ]
+        );
+     } 
 }

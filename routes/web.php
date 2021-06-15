@@ -24,9 +24,9 @@ use App\Models\Location;
 // INDEX VIEW
 Route::get('/', function () {
     if(Session::has('user')){
-        $patients = DB::table('patients')->where('status','admitted')->get();
-        $locations = DB::table('locations')->get();
-        $appointments = DB::table('appointments')->get();
+        $patients       = DB::table('patients')->where('status','admitted')->get();
+        $locations      = DB::table('locations')->get();
+        $appointments   = DB::table('appointments')->get();
         return view('admin.index')->with([
             'patients'  =>  $patients,
             'locations'  =>  $locations,
@@ -158,6 +158,8 @@ Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView']
 
 // APPOINTMENT POST
 Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
+
+Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']);
 
 
 // APPOITMENT LIST VIEW

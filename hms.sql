@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 14, 2021 at 06:15 AM
+-- Generation Time: Jun 15, 2021 at 07:19 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -39,6 +39,13 @@ CREATE TABLE `appointments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `type`, `patient_id`, `patientname`, `location`, `note`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'general physician', 3, 'Bisal Bhatti', 'Aagha Khan Hospital', 'emergency', '2021-06-15 12:10:55', '2021-06-15 12:10:55', NULL);
 
 -- --------------------------------------------------------
 
@@ -237,7 +244,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

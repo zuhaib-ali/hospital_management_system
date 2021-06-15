@@ -84,7 +84,7 @@
           <!-- CONTENTN -->
           <div class="modal-content">
             
-            <!-- HEADER -->
+            <!-- HEADER --> 
             <div class="modal-header">
               <h5 class="modal-title" id="staticBackdropLabel">CHECKUP  TYPES</h5>
               <button type="button" style="color:red;" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
