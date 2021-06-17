@@ -35,7 +35,8 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
+                @if(count($appointments) !== 0)
+                <table id="example2" class="table table-bordered table-hover text-center">
                   <thead>
                   <tr>
                     <th>Patient Name</th>
@@ -52,11 +53,15 @@
                         <td> {{ $appointment->location }} </td>
                         <td> {{ $appointment->type }} </td> 
                         <td> {{ $appointment->note }} </td>
-                        <td> <a href="" class="btn btn-info"> Erase Record </a> </td>
+                        <td> <a href="{{ route('trash_appointment', ['id' => $appointment->id]) }}" class="btn btn-danger"> TRASH </a> </td>
                     </tr>
                   @endforeach                       
                  </tbody>
                 </table>
+                @else
+                  <center><p class="p-5">No record found in appointments</p></center>
+                @endif
+
               </div>
               <!-- /.card-body -->
             </div>
@@ -70,4 +75,19 @@
   </div>
   <!-- /.content-wrapper -->
 
+  <!-- SWEET ALERT -->
+  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+  <script>
+    $(document).ready(function(){
+        @if(Session::has('trashed'))
+          swal({
+              title: "RESTORED SUCCESSFULLY!",
+              text: "{{ Session::get('trashed') }}",
+              icon: "success",
+          });
+        @endif
+    });
+  </script>
+  
 @include('include.footer')
+

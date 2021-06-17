@@ -20,6 +20,13 @@
 		.form-control{
 			border:2px solid white;
 		}
+
+		.error_message{
+			color:red;
+			font-style:italic;
+			font-size:14px;
+			font-weight:bold;
+		}
 	</style>
 
 	</head>
@@ -50,36 +57,57 @@
                     <!-- First Name -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="First Name" name="first_name" >
+						@error('first_name')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
                     <!-- Last Name -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Last Name" name="last_name" >
+						@error('last_name')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
 					  <!-- Username -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Username" name="username" >
-		      		</div>
+		      			@error('username')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
+					</div>
 
                     <!-- E-Mail -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" autocomplete="off">
+						  @error('e_mail')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
                     <!-- Mobile -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Mobile" name="mobile" >
+						  @error('mobile')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
                     <!-- CNIN -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="CNIC" name="cnic" >
+						  @error('cnic')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
                     <!-- Age -->
 		      		<div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Age" name="age" >
+						  @error('age')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
                     <!-- Blood group -->
@@ -100,28 +128,43 @@
 		      		<div class="form-group">
 						<strong>Address</strong>
 						<textarea name="address" id="address" cols="50" rows="10" class='form-control'></textarea>
+						@error('address')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
                     <!-- Date of Birth -->
 		      		<div class="form-group">
 		      			<input type="date" class="form-control" placeholder="Date of Birth" name="dob" >
+						  @error('dob')
+							<p class="error_message"> {{ $message }}</p>
+						@enderror
 		      		</div>
 
 					<!-- Picture -->
 		      		<div class="form-group">
 		      			<input type="file" class="form-control" placeholder="Picture" name="profile_img" >
+						@error('profile_img')
+							<p class="error_message""> {{ $message }}</p>
+						@enderror
 		      		</div>
 
                     <!-- Password 1 -->
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Password" name="password" id='password-field1'>
                         <span toggle="#password-field1" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						@error('password')
+							<p class="error_message""> {{ $message }}</p>
+						@enderror
                     </div>
 
                     <!-- Password 2 -->
                     <div class="form-group">
                         <input type="password" class="form-control" placeholder="Confirm Password" name="confirm_password"  id="password-field2">
                         <span toggle="#password-field2" class="fa fa-fw fa-eye field-icon toggle-password"></span>
+						@error('confirm_password')
+							<p class="error_message""> {{ $message }}</p>
+						@enderror
                     </div>
                     
                     <!-- Gender -->

@@ -32,6 +32,7 @@
         {{session('failed')}}
       </div>
     @endif -->
+
     <main class="m-3">
       <card class="card">
         <card class="card-body">
@@ -64,9 +65,12 @@
 
             <!-- NOTE -->
             <input type="hidden" name="form_note" value="" id="form_note">
+            @if($errors->any())
+              <p style="color:red; font-style:italic;font-size:12px;font-weight:bold;">Please select location to compelete requirements</p>
+            @endif
 
             <!-- SUBMIT APPOINTMENT BUTTON -->
-            <div class="form-group mb-3">
+            <div class="form-group mb-3">  
               <button type="submit" class="btn btn-sm btn-primary">
                 <i class="fa fa-plus"> </i>
                 Submit Appointment

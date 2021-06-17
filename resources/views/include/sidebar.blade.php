@@ -94,14 +94,35 @@
           </li>
           @endif
           
-          
+          <!-- APPOINTMENT FOR ADMIN -->
           @if(Session::get('user')->role == 'admin')
           <!--Admin Can See All Fixed Appointments-->
             <li class="nav-item">
-            <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif">
+            <a class="nav-link @if(Request::url() == Request::is('appointments')) active @endif">
               <i class="ft-layers"></i>
-                <p>APPOINTMENT</p>
+                <p>
+                  APPOINTMENT
+                  <i class="fas fa-angle-left right"></i>
+                </p>
             </a>
+
+            <ul class="nav nav-treeview">
+              <!-- ALL RECORDS -->
+              <li class="nav-item">
+                <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif">
+                  <i class="far fa-circle"></i>
+                  <p>All</p>
+                </a>
+              </li>
+
+              <!-- DELETED RECORDS -->
+              <li class="nav-item">
+                <a href="{{ route('deleted_appointments') }}" class="nav-link">
+                  <i class="far fa-circle"></i>
+                  <p>Deleted</p>
+                </a>
+              </li>
+            </ul>
           </li> 
 
           <!-- APPOINTMENT FOR USER -->

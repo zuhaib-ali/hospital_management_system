@@ -8,6 +8,7 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AppointmentController;
 use App\Models\Location;
+use App\Models\Appointment;
 
 
 /*
@@ -37,17 +38,6 @@ Route::get('/', function () {
     }
 })->name('index');
 
-// APPOINTMENTS VIEW TO SHOW ALL APPOINTMENTS
-Route::get('/appointments', function () {
-    if(Session::has('user')){
-        $appointments = DB::table('appointments')->get();
-        return view('components.appointments')->with([
-            'appointments'  =>  $appointments
-        ]);    
-    }else{
-        return redirect()->route('login');
-    }
-})->name('appointments');
 
 Route::get('/addPatients', function () {
     if(Session::has('user')){
@@ -156,18 +146,39 @@ Route::get('/users', function(){
 // APPOITMENT FIX VIEW
 Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
 
-// APPOINTMENT POST
+// SUBMIT APPOINTMENT
 Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
 
-
-// APPOITMENT LIST VIEW
-Route::get('/appointment_list', function(){
+// APPOINTMENTS VIEW TO SHOW ALL APPOINTMENTS
+Route::get('/appointments', function () {
     if(Session::has('user')){
-        return view('components.appointment_list');
+        //$appointments = DB::table('appointments')->get();
+        $appointments = Appointment::all();
+        return view('components.appointments')->with([
+            'appointments'  =>  $appointments
+        ]);    
     }else{
         return redirect()->route('login');
     }
-})->name('appointment_list');
+})->name('appointments');
+
+// ERASE APPOINTMENT
+Route::get('/trash_appointment', [AppointmentController::class, 'trash'])->name('trash_appointment');
+
+// DELETED APPOINTMENTS VIEW
+Route::get('/deleted_appointments', [AppointmentController::class, 'deleted'])->name('deleted_appointments');
+
+// RESTORE APPOINTMENT
+Route::get('/restore_appointment', [AppointmentController::class, 'restore'])->name('restore_appointment');
+
+// APPOITMENT LIST VIEW
+// Route::get('/appointment_list', function(){
+//     if(Session::has('user')){
+//         return view('components.appointment_list');
+//     }else{
+//         return redirect()->route('login');
+//     }
+// })->name('appointment_list');
 
 
 #Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
