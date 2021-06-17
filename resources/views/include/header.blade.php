@@ -16,6 +16,10 @@
     <title> Dashboard </title>
     @elseif( request()->is('appointments') )
       <title> Appointments </title>
+
+      @elseif( request()->is('getPatientData') )
+      <title> Appointment Detail </title>
+
       @elseif( request()->is('locations') || request()->is('uLocations') )
       <title> Locations </title>
       @elseif( request()->is('aUsers') )

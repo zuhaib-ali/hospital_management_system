@@ -5,8 +5,15 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Appointment;
+<<<<<<< HEAD
 use Illuminate\Database\Eloquent\SoftDeletes;
+=======
+use App\Models\User;
+
+
+>>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
 use DB;
+
 
 class AppointmentController extends Controller
 {
@@ -46,6 +53,7 @@ class AppointmentController extends Controller
         }else{
             return back()->with('failed', 'Failed to sent appointment!');
         }
+<<<<<<< HEAD
     } 
 
     // TRASH APPOINTMENT
@@ -77,4 +85,20 @@ class AppointmentController extends Controller
             return redirect()->route('deleted_appointments')->with('restored', "Appointment with patient named as ".$patient_name." successfully restored ");
         }
     }
+=======
+
+    }
+
+    public function getPatientData($id)
+     {
+        $data       =   User::where('id',$id)->first();
+        $appData    =   Appointment::where('patient_id',$id)->first();
+        return view('components.patientData')->with([
+            'patient'   =>      $data,
+            'app'       =>      $appData
+
+            ]
+        );
+     } 
+>>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
 }

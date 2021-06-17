@@ -39,6 +39,7 @@
                 <table id="example2" class="table table-bordered table-hover text-center">
                   <thead>
                   <tr>
+                    <th>S.No</th>
                     <th>Patient Name</th>
                     <th>Location</th>
                     <th>Appointment Type</th>
@@ -47,13 +48,31 @@
                   </tr>
                   </thead>
                   <tbody>
+                    <?php $sno = 1; ?>
                   @foreach($appointments as $appointment) 
                     <tr>
+                        <td> {{ $sno++ }} </td>
                         <td> {{ $appointment->patientname }} </td>
                         <td> {{ $appointment->location }} </td>
                         <td> {{ $appointment->type }} </td> 
                         <td> {{ $appointment->note }} </td>
+<<<<<<< HEAD
                         <td> <a href="{{ route('trash_appointment', ['id' => $appointment->id]) }}" class="btn btn-danger"> TRASH </a> </td>
+=======
+                        <td> 
+                          <a href="getPatientData/{{ $appointment->patient_id }}" class="btn btn-sm btn-outline-info">
+                            <i class="ft-eye"></i>
+                            View
+                          </a> 
+
+                          <a href="" class="btn btn-sm btn-outline-success">
+                            <i class="far fa-paper-plane"></i>
+                            Send Mail
+                          </a>
+                        </td>
+
+                        
+>>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
                     </tr>
                   @endforeach                       
                  </tbody>
@@ -75,6 +94,7 @@
   </div>
   <!-- /.content-wrapper -->
 
+<<<<<<< HEAD
   <!-- SWEET ALERT -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   <script>
@@ -91,3 +111,6 @@
   
 @include('include.footer')
 
+=======
+@include('include.footer')
+>>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06

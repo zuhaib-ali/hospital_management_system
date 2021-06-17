@@ -25,9 +25,9 @@ use App\Models\Appointment;
 // INDEX VIEW
 Route::get('/', function () {
     if(Session::has('user')){
-        $patients = DB::table('patients')->where('status','admitted')->get();
-        $locations = DB::table('locations')->get();
-        $appointments = DB::table('appointments')->get();
+        $patients       = DB::table('patients')->where('status','admitted')->get();
+        $locations      = DB::table('locations')->get();
+        $appointments   = DB::table('appointments')->get();
         return view('admin.index')->with([
             'patients'  =>  $patients,
             'locations'  =>  $locations,
@@ -149,8 +149,16 @@ Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView']
 // SUBMIT APPOINTMENT
 Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
 
+<<<<<<< HEAD
 // APPOINTMENTS VIEW TO SHOW ALL APPOINTMENTS
 Route::get('/appointments', function () {
+=======
+Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']);
+
+
+// APPOITMENT LIST VIEW
+Route::get('/appointment_list', function(){
+>>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
     if(Session::has('user')){
         //$appointments = DB::table('appointments')->get();
         $appointments = Appointment::all();

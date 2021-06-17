@@ -47,8 +47,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard v1</li>
+              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item active">Dashboard</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -64,17 +64,18 @@
           <div class="col-sm-12">
             <div class="cards">
 
-              <div class="card">
+                <div class="card">
                 <h2>Locations</h2>
                 <div class="container">
                   <p>{{ $locations->count() }}</p>
                 </div>
               </div>
 
+              @if(Session::get('user')->role == "admin")
               <div class="card">
                 <h2>Appointments</h2>
                 <div class="container">
-                  <p>0</p>
+                  <p>{{ $appointments->count() }}</p>
                 </div>
               </div>
 
@@ -84,6 +85,16 @@
                   <p>{{ $patients->count() }}</p>
                 </div>
               </div>
+
+              <div class="card">
+                <h2>Reports</h2>
+                <div class="container">
+                  <p>0</p>
+                </div>
+              </div>
+
+              @endif()
+
 
               <div class="card">
                 <h2>Phramacists</h2>
@@ -99,12 +110,7 @@
                 </div>
               </div>
 
-              <div class="card">
-                <h2>Reports</h2>
-                <div class="container">
-                  <p>0</p>
-                </div>
-              </div>
+              
 
               
 
