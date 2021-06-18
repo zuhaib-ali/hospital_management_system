@@ -7,6 +7,8 @@ use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AppointmentController;
+use App\Http\Controllers\SendMailController;
+
 use App\Models\Location;
 use App\Models\Appointment;
 
@@ -47,7 +49,7 @@ Route::get('/addPatients', function () {
     }
 })->name('addPatients');
 
-Route::get('/patients', function () {
+Route::get('/admitted_patients', function () {
     if(Session::has('user')){
         $patients = DB::table('patients')->where('status','admitted')->get();
         return view('components.patients')->with([
@@ -56,7 +58,7 @@ Route::get('/patients', function () {
     }else{
         return redirect()->route('login');
     }
-})->name('patients');
+})->name('admitted_patients');
 
 Route::get('/dpatients', function () {
     if(Session::has('user')){
@@ -149,18 +151,12 @@ Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView']
 // SUBMIT APPOINTMENT
 Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
 
-<<<<<<< HEAD
-// APPOINTMENTS VIEW TO SHOW ALL APPOINTMENTS
-Route::get('/appointments', function () {
-=======
 Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']);
 
 
-// APPOITMENT LIST VIEW
-Route::get('/appointment_list', function(){
->>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
+// APPOITMENTS VIEW
+Route::get('/appointments', function(){
     if(Session::has('user')){
-        //$appointments = DB::table('appointments')->get();
         $appointments = Appointment::all();
         return view('components.appointments')->with([
             'appointments'  =>  $appointments
@@ -171,22 +167,16 @@ Route::get('/appointment_list', function(){
 })->name('appointments');
 
 // ERASE APPOINTMENT
-Route::get('/trash_appointment', [AppointmentController::class, 'trash'])->name('trash_appointment');
+Route::get('appointments/trash_appointment', [AppointmentController::class, 'trash'])->name('trash_appointment');
 
-// DELETED APPOINTMENTS VIEW
-Route::get('/deleted_appointments', [AppointmentController::class, 'deleted'])->name('deleted_appointments');
+// TRASHED APPOINTMENTS VIEW
+Route::get('appointments/trashed_appointments', [AppointmentController::class, 'trashedAppointments'])->name('trashed_appointments');
 
 // RESTORE APPOINTMENT
-Route::get('/restore_appointment', [AppointmentController::class, 'restore'])->name('restore_appointment');
+Route::get('appointments/trashed_appointments/restore_appointment', [AppointmentController::class, 'restore'])->name('restore_appointment');
 
-// APPOITMENT LIST VIEW
-// Route::get('/appointment_list', function(){
-//     if(Session::has('user')){
-//         return view('components.appointment_list');
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('appointment_list');
+// DELETE APPOINTMENT
+Route::get('appointments/trashed_appointments/delete', [AppointmentController::class, 'delete'])->name('delete_appointment');
 
 
 #Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
@@ -227,6 +217,9 @@ Route::get('viewLocation', [components::class, 'viewLocation'] );
 Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');
 
 Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
+
+// SEND MAIL
+Route::get('appointments/send_mail', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
 
 
 // Add User As Admin

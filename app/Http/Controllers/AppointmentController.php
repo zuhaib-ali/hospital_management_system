@@ -5,13 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Appointment;
-<<<<<<< HEAD
-use Illuminate\Database\Eloquent\SoftDeletes;
-=======
 use App\Models\User;
 
 
->>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
 use DB;
 
 
@@ -53,39 +49,6 @@ class AppointmentController extends Controller
         }else{
             return back()->with('failed', 'Failed to sent appointment!');
         }
-<<<<<<< HEAD
-    } 
-
-    // TRASH APPOINTMENT
-    public function trash(Request $request){
-        $trashed = Appointment::find($request->id);
-        $patientname = $trashed->patientname;
-        if($trashed->delete() == true){
-            return back()->with('trashed', 'Appointment with '.$patientname.' patient name trashed!');
-        }else{
-            return back()->with('trashed', 'Failed to erase appointment!');
-        }
-    }
-
-    // SHOW DELETED APPOINTMETNS
-    public function deleted(Request $request){
-        $trahed_appointments = Appointment::onlyTrashed()->get();
-        if($request->session()->has('user')){
-            return view('components.deleted_appointments', ["trahed_appointments"=>$trahed_appointments]);
-        }else{
-            return back();
-        }
-    }
-
-    // RESTORE
-    public function restore(Request $request){
-        $trashed_appointment = Appointment::withTrashed()->find($request->id);
-        $patient_name = $trashed_appointment->patientname;
-        if($trashed_appointment->restore() == true){
-            return redirect()->route('deleted_appointments')->with('restored', "Appointment with patient named as ".$patient_name." successfully restored ");
-        }
-    }
-=======
 
     }
 
@@ -100,5 +63,47 @@ class AppointmentController extends Controller
             ]
         );
      } 
->>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
+
+    // TRASH APPOINTMENT
+    public function trash(Request $request){
+        $trash_appointment = Appointment::find($request->id)->delete();
+        if($trash_appointment){
+            return back()->with('appointment_trashed', "Appointment successfully trashed");
+        }
+    }
+
+    // TRASHED APPOINTMENTS
+    public function trashedAppointments(Request $request){
+        if($request->session()->has('user')){
+            $trahed_appointments = Appointment::onlyTrashed()->get();
+            return view('components.deleted_appointments', ['trahed_appointments'=>$trahed_appointments]);
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+    // RESTORE APPOINTMENT
+    public function restore(Request $request){
+        if($request->session()->has('user')){
+            $restore_appointment = Appointment::withTrashed()->find($request->id);
+            if($restore_appointment->restore() == true){
+                return back()->with('appointment_restored',"Appointment restored!");
+            }
+        }else{
+            return redirect()->route('login');
+        }
+    }
+
+    // DELETE APPOINTMENT
+    public function delete(Request $request){
+        $force_detele_appointment = Appointment::withTrashed()->find($request->id)->forceDelete();
+        if($request->session()->has('user')){
+            if($force_detele_appointment == true){
+                return back()->with('appintment_force_deleted', "Appointment deleted from record!");
+            }
+        }else{
+            return redircet()->route('login');
+        }
+        
+    }
 }

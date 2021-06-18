@@ -11,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">  </h1>
+            <h1 class="m-0">LOCATIONS</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active"> Locations</li>
+              <li class="breadcrumb-item"><a href="{{ route('index') }}">HOME</a></li>
+              <li class="breadcrumb-item active"> LOCATIONS</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,55 +29,55 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                <div class="card">
-              <div class="card-header">
-                <h1>
-                Locations
-                <button class="btn btn-sm btn-success bold pull-right" data-toggle="modal" data-target="#add"> 
-                <i class="fa fa-plus"></i>
-                Add New Location
-                </button>
-                </h1>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-                <table id="example2" class="table table-bordered table-hover">
-                  <thead>
-                  <tr>
-                    <th>S.No</th>
-                    <th>Name</th>
-                    <th>Phone</th>
-                    <th>Email</th>
-                    <th>Address</th>
-                    <th>Actions</th>
-                  </tr>
-                  </thead>
-                  <tbody>
-                  @foreach($locations as $location)
-                    <tr>
-                        <th> {{ $location->id }} </th>
-                        <th> {{ $location->name }} </th>
-                        <th> {{ $location->phone }} </th>
-                        <th> {{ $location->email }} </th>
-                        <th> {{ $location->address }} </th>
-                        <th>
-                            <a href="{{ route('edit_location', $location->id)}}" class="btn btn-sm btn-primary" name="id"> 
-                              <i class="ft-edit-2"></i>
-                              Edit
-                            </a>
-                            <a href="delLocation/{{$location->id}}" class="btn btn-sm btn-danger">
-                              <i class="ft-x"></i>
-                              Delete
-                            </a>
-                        </th>
-                    </tr>
-                  @endforeach                       
-                 </tbody>
-                </table>
-              </div>
-              <!-- /.card-body -->
-            </div>
-            <!-- /.card -->
+                  <div class="card">
+                    <div class="card-header">
+                      <h3>
+                        LOCATIONS
+                        <button class="btn btn-sm btn-success bold pull-right" data-toggle="modal" data-target="#add"> 
+                          <i class="fa fa-plus"></i>
+                          Add New Location
+                        </button>
+                      </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <table id="example2" class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                          <th>S.No</th>
+                          <th>Name</th>
+                          <th>Phone</th>
+                          <th>Email</th>
+                          <th>Address</th>
+                          <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        @foreach($locations as $location)
+                          <tr>
+                              <th> {{ $location->id }} </th>
+                              <th> {{ $location->name }} </th>
+                              <th> {{ $location->phone }} </th>
+                              <th> {{ $location->email }} </th>
+                              <th> {{ $location->address }} </th>
+                              <th>
+                                  <a href="{{ route('edit_location', $location->id)}}" class="btn btn-sm btn-primary" name="id"> 
+                                    <i class="ft-edit-2"></i>
+                                    Edit
+                                  </a>
+                                  <a href="delLocation/{{$location->id}}" class="btn btn-sm btn-danger">
+                                    <i class="ft-x"></i>
+                                    Delete
+                                  </a>
+                              </th>
+                          </tr>
+                        @endforeach                       
+                      </tbody>
+                      </table>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <!-- /.card -->
                 </div>
             </div>
         </div>

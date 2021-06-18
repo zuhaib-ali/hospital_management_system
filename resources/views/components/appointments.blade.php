@@ -1,3 +1,7 @@
+<?php 
+ use App\Models\User;
+?>
+
 @include('include.header')
 
 @include('include.navbar')    
@@ -11,12 +15,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Appointments</h1>
+            <h1 class="m-0">APPOINTMENTS</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="#">Home</a></li>
-              <li class="breadcrumb-item active">Appointments</li>
+              <li class="breadcrumb-item"><a href="{{ route('index') }}">HOME</a></li>
+              <li class="breadcrumb-item active">APPOINTMENTS</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -27,13 +31,14 @@
     <!-- Main content -->
     <section class="content">
         <div class="container-fluid">
-            <div class="row">
-                <div class="col-12">
-                <div class="card">
-              <div class="card-header">
-                <center><h3 class="card-title">All Appointments</h3></center>
-              </div>
-              <!-- /.card-header -->
+          <div class="row">
+            <div class="col-12">
+              <div class="card">
+            <div class="card-header" style="background-color:darkblue;">
+              <center class="text-bold" style="color:white;">APPOINTMENTS ({{ count($appointments) }})</center>
+            </div>
+            <!-- /.card-header -->
+
               <div class="card-body">
                 @if(count($appointments) !== 0)
                 <table id="example2" class="table table-bordered table-hover text-center">
@@ -56,29 +61,28 @@
                         <td> {{ $appointment->location }} </td>
                         <td> {{ $appointment->type }} </td> 
                         <td> {{ $appointment->note }} </td>
-<<<<<<< HEAD
-                        <td> <a href="{{ route('trash_appointment', ['id' => $appointment->id]) }}" class="btn btn-danger"> TRASH </a> </td>
-=======
                         <td> 
                           <a href="getPatientData/{{ $appointment->patient_id }}" class="btn btn-sm btn-outline-info">
                             <i class="ft-eye"></i>
                             View
                           </a> 
 
-                          <a href="" class="btn btn-sm btn-outline-success">
+                          <a href="{{ route('send_mail', ['email_id'=>User::find($appointment->patient_id)->email, 'hospital'=>$appointment->location]) }}" class="btn btn-sm btn-outline-success">
                             <i class="far fa-paper-plane"></i>
-                            Send Mail
+                            SEND MAIL
+                          </a>
+
+                          <a href="{{ route('trash_appointment', ['id'=>$appointment->id]) }}" class="btn btn-sm btn-outline-danger">
+                            <i class="far fa-paper-plane"></i>
+                            TRASH
                           </a>
                         </td>
-
-                        
->>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06
                     </tr>
                   @endforeach                       
                  </tbody>
                 </table>
                 @else
-                  <center><p class="p-5">No record found in appointments</p></center>
+                  <center><p class="p-5">No appointments found!</p></center>
                 @endif
 
               </div>
@@ -88,29 +92,20 @@
                 </div>
             </div>
         </div>
-    
     </section>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-<<<<<<< HEAD
-  <!-- SWEET ALERT -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-  <script>
-    $(document).ready(function(){
-        @if(Session::has('trashed'))
-          swal({
-              title: "RESTORED SUCCESSFULLY!",
-              text: "{{ Session::get('trashed') }}",
-              icon: "success",
-          });
-        @endif
-    });
-  </script>
   
-@include('include.footer')
+  <script>
+    @if(Session::has('mail_sent'))
+      swal({
+        'title':'MAIL SENT',
+        'text':"{{ Session::get('mail_sent') }}",
+        'icon':'success',
+      });
+    @endif
+  </script>
 
-=======
 @include('include.footer')
->>>>>>> 2bb0084fd09f69b6666900bc401226f845515b06

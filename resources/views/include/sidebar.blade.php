@@ -58,15 +58,15 @@
           @if(Session::get('user')->role == "admin")
           <!-- PATIENTS -->
           <li class="nav-item">
-            <a href="#" class="nav-link @if(Request::url() == Request::is('all_patients') || Request::url() == Request::is('patients') || Request::url() == Request::is('dpatients')) active @endif()">
+            <a class="nav-link @if(Request::url() == Request::is('all_patients') || Request::url() == Request::is('admitted_patients') || Request::url() == Request::is('dpatients')) active @endif()">
               <i class="ft-users"></i>
               <p>
                 PATIENTS
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
-            <ul class="nav nav-treeview">
-              
+
+            <ul class="nav nav-treeview">              
               <!-- ALL PATIENTS -->
               <li class="nav-item">
                 <a href="{{ route('all_patients') }}" class="nav-link @if(Request::url() == Request::is('all_patients')) active @endif()" class="nav-link">
@@ -77,7 +77,7 @@
 
               <!-- ADMITTED PATIENTS -->
               <li class="nav-item">
-                <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
+                <a href="{{ route('admitted_patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admitted</p>
                 </a>
@@ -98,7 +98,7 @@
           @if(Session::get('user')->role == 'admin')
           <!--Admin Can See All Fixed Appointments-->
             <li class="nav-item">
-            <a class="nav-link @if(Request::url() == Request::is('appointments')) active @endif">
+            <a class="nav-link @if(Request::url() == Request::is('appointments') || Request::url() == Request::is('deleted_appointments')) active @endif">
               <i class="ft-layers"></i>
                 <p>
                   APPOINTMENT
@@ -115,11 +115,11 @@
                 </a>
               </li>
 
-              <!-- DELETED RECORDS -->
+              <!-- TRASHED RECORDS -->
               <li class="nav-item">
-                <a href="{{ route('deleted_appointments') }}" class="nav-link">
+                <a href="{{ route('trashed_appointments') }}" class="nav-link">
                   <i class="far fa-circle"></i>
-                  <p>Deleted</p>
+                  <p>Trashed</p>
                 </a>
               </li>
             </ul>

@@ -30,6 +30,11 @@
     background-color:#4a6886;
   }
 
+  .card a{
+    text-decoration:none;
+    color:white;
+  }
+
 </style>
 
 @include('include.navbar')    
@@ -43,12 +48,11 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Dashboard</h1>
+            <h1 class="m-0">DASHBOARD</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Dashboard</li>
+              <li class="breadcrumb-item active">HOME</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -57,33 +61,39 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content">
+    <section class="content" style="background-color:white; padding:15px; margin:0px 15px;">
       <div class="container-fluid">
         <!-- Main row -->
         <div class="row text-center">
           <div class="col-sm-12">
             <div class="cards">
 
-                <div class="card">
-                <h2>Locations</h2>
-                <div class="container">
-                  <p>{{ $locations->count() }}</p>
-                </div>
+              <div class="card">
+                <a href="{{ route('locations') }}">
+                  <h2>Locations</h2>
+                  <div class="container">
+                    <p>{{ $locations->count() }}</p>
+                  </div>
+                </a>
               </div>
 
               @if(Session::get('user')->role == "admin")
               <div class="card">
-                <h2>Appointments</h2>
-                <div class="container">
-                  <p>{{ $appointments->count() }}</p>
-                </div>
+                <a href="{{ route('appointments') }}">
+                  <h2>Appointments</h2>
+                  <div class="container">
+                    <p>{{ $appointments->count() }}</p>
+                  </div>
+                </a>
               </div>
 
               <div class="card">
-                <h2>Patients</h2>
-                <div class="container">
-                  <p>{{ $patients->count() }}</p>
-                </div>
+                <a href="{{ route('all_patients') }}">
+                  <h2>Patients</h2>
+                  <div class="container">
+                    <p>{{ $patients->count() }}</p>
+                  </div>
+                </a>
               </div>
 
               <div class="card">
@@ -92,9 +102,7 @@
                   <p>0</p>
                 </div>
               </div>
-
               @endif()
-
 
               <div class="card">
                 <h2>Phramacists</h2>
@@ -109,12 +117,6 @@
                   <p>0</p>
                 </div>
               </div>
-
-              
-
-              
-
-
             </div>
           </div>
         </div>
