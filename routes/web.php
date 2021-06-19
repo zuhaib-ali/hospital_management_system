@@ -144,6 +144,15 @@ Route::get('/users', function(){
     }
 })->name('users');
 
+Route::get('/emailLetter', function(){
+    if(Session::has('user')){
+        $tmp = DB::table('templates')->where('id','1')->first();
+        return view('components.emailLetter')->with(['data'=>$tmp]);
+    }else{
+        return redirect()->route('login');
+    }
+})->name('emailLetter');
+
 
 // APPOITMENT FIX VIEW
 Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
@@ -220,6 +229,8 @@ Route::post('update_location', [LocationController::class, 'updateLocation'])->n
 
 // SEND MAIL
 Route::get('appointments/send_mail', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
+
+Route::post('addTmp', [SendMailController::class, 'addTmp']);
 
 
 // Add User As Admin

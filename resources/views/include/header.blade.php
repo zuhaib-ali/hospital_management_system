@@ -36,6 +36,9 @@
       <title> Patients </title>
       @elseif( request()->is('phramacists') )
       <title> Phramacists </title>
+
+      @elseif( request()->is('emailLetter') )
+      <title> Email Letter Template </title>
   @endif
 
   <!-- Google Font: Source Sans Pro -->

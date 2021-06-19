@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 15, 2021 at 07:19 PM
+-- Generation Time: Jun 19, 2021 at 11:21 AM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -112,7 +112,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (9, '2021_06_05_050005_create_appointments_table', 1),
 (10, '2021_06_07_063941_add_role_to_users_table', 2),
 (11, '2021_06_07_165141_create_locations_table', 3),
-(12, '2021_06_07_171350_remove_logo_from_locations_table', 4);
+(12, '2021_06_07_171350_remove_logo_from_locations_table', 4),
+(13, '2021_06_14_113538_add_city_to_locations_table', 5),
+(14, '2021_06_19_062128_create_templates_table', 5),
+(15, '2021_06_19_062545_remove_city_from_locations_table', 6),
+(16, '2021_06_19_070801_add_timestamp_to_templates_table', 7);
 
 -- --------------------------------------------------------
 
@@ -155,6 +159,27 @@ INSERT INTO `patients` (`id`, `firstname`, `lastname`, `number`, `dob`, `email`,
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `templates`
+--
+
+CREATE TABLE `templates` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `title` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `body` longtext COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `templates`
+--
+
+INSERT INTO `templates` (`id`, `title`, `body`, `created_at`, `updated_at`) VALUES
+(1, 'Appointment Reminder From HMS', 'Hi Mr.[[Full_name]] we\'re informing you that your appointment has fixed, Here\'s the address [[Location]] please visit us as soon possible..!!\r\nIf you\'ve any confusion or You want to reschedule your appointment just contact us via [[Phone]] or [[Email]]..!!\r\nThank you..!!', '2021-06-19 02:10:08', '2021-06-19 02:10:08');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `users`
 --
 
@@ -184,8 +209,8 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `username`, `role`) VALUES
 (1, 'admin', 'admin', 'admin@gmail.com', '03030312343', '4120426112932', 22, 'b-', 'sindh', '$2y$10$0bugvwYpTwHq0gRA9upe5uLdb5ZukdSYdbIErcrAQ6aHT3acVdoay', '2021-06-04', 'male', '1623048322-admin.jpg', NULL, NULL, 'admin', 'admin'),
-(2, 'Bilal', 'Ali', 'bilal.jessar11@gmail.com', '03488305189', '4120426112931', 24, 'o-', 'Pakistan', 'bilal', '2021-06-09', 'Male', '1623257936.JPG', NULL, NULL, 'bilal', 'admin'),
-(3, 'Bisal', 'Bhatti', 'bisalbhatii@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
+(2, 'Bilal', 'Ali', 'bilal.jessar@gmail.com', '03488305189', '4120426112931', 24, 'o-', 'Pakistan', 'bilal', '2021-06-09', 'Male', '1623257936.JPG', NULL, NULL, 'bilal', 'admin'),
+(3, 'Bisal', 'Bhatti', 'bilal.jessar11@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
 
 --
 -- Indexes for dumped tables
@@ -229,6 +254,12 @@ ALTER TABLE `patients`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `templates`
+--
+ALTER TABLE `templates`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `users`
 --
 ALTER TABLE `users`
@@ -262,13 +293,19 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=13;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=17;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+
+--
+-- AUTO_INCREMENT for table `templates`
+--
+ALTER TABLE `templates`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`

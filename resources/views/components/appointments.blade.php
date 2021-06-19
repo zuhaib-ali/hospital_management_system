@@ -73,7 +73,7 @@
                           </a>
 
                           <a href="{{ route('trash_appointment', ['id'=>$appointment->id]) }}" class="btn btn-sm btn-outline-danger">
-                            <i class="far fa-paper-plane"></i>
+                            <i class="icon-trash"></i>
                             TRASH
                           </a>
                         </td>

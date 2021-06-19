@@ -219,6 +219,34 @@
             </ul>
           </li>
 
+          <li class="nav-item">
+            <a href="#" class="nav-link @if(Request::url() == Request::is('edit_profile')) active @endif">
+              <i class="fas fa-cog"></i>
+              <p>
+                SETTINGS
+                <i class="fas fa-angle-left right"></i>
+              </p>
+              
+            </a>
+
+            <ul class="nav nav-treeview">
+
+              <li class="nav-item">
+                <a href="{{ route('emailLetter') }}" class="nav-link @if(Request::url() == Request::is('emailLetter')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Email Template Letter</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
+                <a href="{{ route('edit_profile') }}" class="nav-link">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Edit Profile</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+
           @elseif(Session::get('user')->role == 'user')
           <!--User Can Check PHARMACISTS & LABORATARIES-->
           <li class="nav-item">
@@ -234,7 +262,7 @@
                 <p>LABORATARIES</p>
             </a>
           </li>
-          @endif
+
 
           <li class="nav-item">
             <a href="#" class="nav-link @if(Request::url() == Request::is('edit_profile')) active @endif">
@@ -255,6 +283,8 @@
               </li>
             </ul>
           </li>
+
+          @endif
 
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link">
