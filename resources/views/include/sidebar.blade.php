@@ -187,11 +187,35 @@
 
           @if(Session::get('user')->role == 'admin')
           <!--Admin Can Add PHARMACISTS & LABORATARIES-->
+
+          <!-- PHARMACISTS -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a class="nav-link">
               <i class="fas fa-first-aid"></i>
                 <p>PHARMACISTS</p>
+                <i class="fas fa-angle-left right"></i>
             </a>
+
+            <!-- PHARMACISTS DROPDOWN -->
+            <ul class="nav nav-treeview">
+
+              <!-- ADD MEDICINE -->
+              <li class="nav-item">
+                <a href="{{ route('medicines') }}" class="nav-link">
+                  <i class="far fa-circle"></i>
+                  <p>Medicines</p>
+                </a>
+              </li>
+
+              <!-- ADD CATEGORY -->
+              <li class="nav-item">
+                <a href="{{ route('categories') }}" class="nav-link">
+                  <i class="far fa-circle"></i>
+                  <p>Categories</p>
+                </a>
+              </li>
+
+            </ul>
           </li>
 
           <li class="nav-item">

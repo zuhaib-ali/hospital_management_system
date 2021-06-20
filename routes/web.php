@@ -8,6 +8,8 @@ use App\Http\Controllers\LocationController;
 use App\Http\Controllers\adminController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SendMailController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\MedicineController;
 
 use App\Models\Location;
 use App\Models\Appointment;
@@ -231,6 +233,29 @@ Route::post('update_location', [LocationController::class, 'updateLocation'])->n
 Route::get('appointments/send_mail', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
 
 Route::post('addTmp', [SendMailController::class, 'addTmp']);
+
+
+
+// ----------- PHARMACISTS ----------------
+
+// ADD CATEGORY GET
+Route::get('pharmacists/categories', [CategoryController::class, 'categories'])->name('categories');
+
+// ADD CATEGORY POST
+route::post('pharmacists/new/add_category', [CategoryController::class, 'addCategory'])->name('add_category');
+
+// DELETE CATEGORY
+route::get('pharmacists/delete_category', [CategoryController::class, 'deleteCategory'])->name('delete_category');
+
+// MEDICINES
+route::get('pharmacists/medicines', [MedicineController::class, 'medicines'])->name('medicines');
+
+// ADD NEW MEDICINE
+route::post('pharmacists/add_new_medicine', [MedicineController::class, 'addMedicine'])->name('add_new_medicine');
+
+// DELETE MEDICINE
+route::get('pharmacists/delete_medicine', [MedicineController::class, 'deleteMedicine'])->name('delete_medicine');
+
 
 
 // Add User As Admin

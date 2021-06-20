@@ -23,16 +23,6 @@
       </div><!-- /.container-fluid -->
     </div>
 
-    <!-- @if(session('success'))
-    <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
-      {{session('success')}}
-    </div>
-    @elseif(session('failed'))
-      <div class="text-center m-3 p-2" style="background-color:lightgreen; font-weight:bold; color:darkblue;">
-        {{session('failed')}}
-      </div>
-    @endif -->
-
     <main class="m-3">
       <card class="card">
         <card class="card-body">
