@@ -10,7 +10,7 @@ class MedicineController extends Controller
 {
     // MEDICINES VIEW
     public function medicines(Request $request){
-        return view('components.pharmacists.medicines', ['medicines'=>Medicine::all(), 'categories'=>Category::all()]);
+        return view('components.pharmacy.medicines', ['medicines'=>Medicine::all(), 'categories'=>Category::all()]);
     }
 
     public function addMedicine(Request $request){

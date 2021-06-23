@@ -9,7 +9,7 @@ class CategoryController extends Controller
 {
     // RETURN ADD CATEGORY VIEW
     public function categories(Request $request){
-        return view('components.pharmacists.categories', ['categories'=>Category::all()]);
+        return view('components.pharmacy.categories', ['categories'=>Category::all()]);
     }
 
     // ADD NEW CATEGORY

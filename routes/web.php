@@ -10,6 +10,7 @@ use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MedicineController;
+use App\Http\Controllers\PharmacistController;
 
 use App\Models\Location;
 use App\Models\Appointment;
@@ -236,25 +237,41 @@ Route::post('addTmp', [SendMailController::class, 'addTmp']);
 
 
 
-// ----------- PHARMACISTS ----------------
+// ----------- PHARMACY ----------------
 
-// ADD CATEGORY GET
+// CATEGORIES
 Route::get('pharmacists/categories', [CategoryController::class, 'categories'])->name('categories');
 
-// ADD CATEGORY POST
-route::post('pharmacists/new/add_category', [CategoryController::class, 'addCategory'])->name('add_category');
+// ADD CATEGORY
+route::post('pharmacy/new/add_category', [CategoryController::class, 'addCategory'])->name('add_category');
 
 // DELETE CATEGORY
-route::get('pharmacists/delete_category', [CategoryController::class, 'deleteCategory'])->name('delete_category');
+route::get('pharmacy/delete_category', [CategoryController::class, 'deleteCategory'])->name('delete_category');
 
 // MEDICINES
-route::get('pharmacists/medicines', [MedicineController::class, 'medicines'])->name('medicines');
+route::get('pharmacy/medicines', [MedicineController::class, 'medicines'])->name('medicines');
 
 // ADD NEW MEDICINE
-route::post('pharmacists/add_new_medicine', [MedicineController::class, 'addMedicine'])->name('add_new_medicine');
+route::post('pharmacy/add_new_medicine', [MedicineController::class, 'addMedicine'])->name('add_new_medicine');
 
 // DELETE MEDICINE
-route::get('pharmacists/delete_medicine', [MedicineController::class, 'deleteMedicine'])->name('delete_medicine');
+route::get('pharmacy/delete_medicine', [MedicineController::class, 'deleteMedicine'])->name('delete_medicine');
+
+// PHARAMCISTS
+route::get('pharmacy/pharmacists', [PharmacistController::class, 'pharmacists'])->name('pharmacists');
+
+// ADD PHARMCIST
+route::post('pharmacy/pharmacists/add_pharmacist', [PharmacistController::class, 'addPharmacist'])->name('add_pharmacist');
+
+// UPDATE PHARMACIST
+route::get('pharmacy/pharmacists/update_view', [PharmacistController::class, 'updateView'])->name('update_view');
+route::post('pharmacy/pharmacists/update', [PharmacistController::class, 'update'])->name('update_pharmacist');
+
+
+// DELETE PHARMACIST
+route::get('pharmacy/pharmacists/delete', [PharmacistController::class, 'delete'])->name('delete_pharmacist');
+
+
 
 
 

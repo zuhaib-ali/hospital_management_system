@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 20, 2021 at 09:23 PM
+-- Generation Time: Jun 23, 2021 at 11:49 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -50,13 +50,6 @@ CREATE TABLE `categories` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `categories`
---
-
-INSERT INTO `categories` (`id`, `category`, `created_at`, `updated_at`) VALUES
-(1, 'allergic', '2021-06-20 12:52:32', '2021-06-20 12:52:32');
-
 -- --------------------------------------------------------
 
 --
@@ -86,6 +79,14 @@ CREATE TABLE `locations` (
   `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `name`, `email`, `address`, `phone`) VALUES
+(1, 'Aagha Khan Hospital', 'hyd@gmail.com', 'Hyderaabd', '1231231231'),
+(2, 'Casuality Hospital', 'hospital@gmail.com', 'D.I.G road, near doctor line, larkana', '03030303033');
 
 -- --------------------------------------------------------
 
@@ -139,7 +140,7 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2021_06_19_070801_add_timestamp_to_templates_table', 1),
 (17, '2021_06_20_111413_create_pharmacists_table', 1),
 (18, '2021_06_20_114149_create_categories_table', 1),
-(20, '2021_06_20_181941_create_medicines_table', 2);
+(19, '2021_06_20_181941_create_medicines_table', 1);
 
 -- --------------------------------------------------------
 
@@ -164,15 +165,20 @@ CREATE TABLE `patients` (
   `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bed_no` int(10) UNSIGNED NOT NULL,
-  `doctor_id` int(10) UNSIGNED NOT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dob` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`id`, `firstname`, `lastname`, `number`, `dob`, `email`, `address`, `deleted_at`, `status`) VALUES
+(1, 'Zuhaib', 'Ali', '0303030', '2021-06-12', 'zuhaib@gmail.com', 'Sindh', NULL, 'discharged'),
+(2, 'Bilal', 'Ali', '030303030', '2021-06-05', 'bilal.jessar11@gmail.com', 'pakistan', NULL, 'admitted');
 
 -- --------------------------------------------------------
 
@@ -182,16 +188,24 @@ CREATE TABLE `patients` (
 
 CREATE TABLE `pharmacists` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `location_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NA',
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NA',
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NA',
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NA',
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NA',
+  `location_id` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'NA',
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `pharmacists`
+--
+
+INSERT INTO `pharmacists` (`id`, `first_name`, `last_name`, `username`, `address`, `phone`, `location_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'zuhaib', 'ali', 'NA', 'hakra muhalla, ali khan, kamber', '03333936465', '1', '2021-06-23 03:21:03', '2021-06-23 04:35:56', NULL),
+(2, 'zeeshan', 'soomro', 'NA', 'kamber ali khan', '03330303033', '2', '2021-06-23 04:08:50', '2021-06-23 04:42:41', '2021-06-23 04:42:41');
 
 -- --------------------------------------------------------
 
@@ -206,6 +220,13 @@ CREATE TABLE `templates` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `templates`
+--
+
+INSERT INTO `templates` (`id`, `title`, `body`, `created_at`, `updated_at`) VALUES
+(1, 'Appointment Reminder From HMS', 'Hi Mr.[[Full_name]] we\'re informing you that your appointment has fixed, Here\'s the address [[Location]] please visit us as soon possible..!!\r\nIf you\'ve any confusion or You want to reschedule your appointment just contact us via [[Phone]] or [[Email]]..!!\r\nThank you..!!', '2021-06-19 02:10:08', '2021-06-19 02:10:08');
 
 -- --------------------------------------------------------
 
@@ -238,7 +259,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `username`, `role`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '33333333333', '3333333333333', 21, 'a+', 'kamber', '$2y$10$k7ZPZRdexNgeRNAccmInVukTRsbTyTBaKIahFnTEPINf2nzc4T.ku', '2021-12-31', 'male', '1624208038-admin.jpg', NULL, NULL, 'admin', 'admin');
+(1, 'admin', 'admin', 'admin@gmail.com', '03030312343', '4120426112932', 22, 'b-', 'sindh', '$2y$10$0bugvwYpTwHq0gRA9upe5uLdb5ZukdSYdbIErcrAQ6aHT3acVdoay', '2021-06-04', 'male', '1623048322-admin.jpg', NULL, NULL, 'admin', 'admin'),
+(2, 'Bilal', 'Ali', 'bilal.jessar@gmail.com', '03488305189', '4120426112931', 24, 'o-', 'Pakistan', 'bilal', '2021-06-09', 'Male', '1623257936.JPG', NULL, NULL, 'bilal', 'admin'),
+(3, 'Bisal', 'Bhatti', 'bilal.jessar11@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
 
 --
 -- Indexes for dumped tables
@@ -327,7 +350,7 @@ ALTER TABLE `appointments`
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=8;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -339,43 +362,43 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=21;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pharmacists`
 --
 ALTER TABLE `pharmacists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `templates`
 --
 ALTER TABLE `templates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

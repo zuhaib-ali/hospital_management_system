@@ -192,14 +192,22 @@
           <li class="nav-item">
             <a class="nav-link">
               <i class="fas fa-first-aid"></i>
-                <p>PHARMACISTS</p>
+                <p>PHARMACY</p>
                 <i class="fas fa-angle-left right"></i>
             </a>
 
             <!-- PHARMACISTS DROPDOWN -->
             <ul class="nav nav-treeview">
 
-              <!-- ADD MEDICINE -->
+              <!-- CATEGORIES -->
+              <li class="nav-item">
+                <a href="{{ route('categories') }}" class="nav-link">
+                  <i class="far fa-circle"></i>
+                  <p>Categories</p>
+                </a>
+              </li>
+
+              <!-- MEDICINES -->
               <li class="nav-item">
                 <a href="{{ route('medicines') }}" class="nav-link">
                   <i class="far fa-circle"></i>
@@ -207,13 +215,15 @@
                 </a>
               </li>
 
-              <!-- ADD CATEGORY -->
+              <!-- PHARMACISTS -->
               <li class="nav-item">
-                <a href="{{ route('categories') }}" class="nav-link">
+                <a href="{{ route('pharmacists') }}" class="nav-link">
                   <i class="far fa-circle"></i>
-                  <p>Categories</p>
+                  <p>Pharmacists</p>
                 </a>
               </li>
+
+              
 
             </ul>
           </li>
@@ -276,7 +286,7 @@
           <li class="nav-item">
             <a href="#" class="nav-link">
               <i class="fas fa-first-aid"></i>
-                <p>PHARMACISTS</p>
+                <p>PHARMACY</p>
             </a>
           </li>
 
