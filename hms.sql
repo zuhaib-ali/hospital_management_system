@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2021 at 11:49 AM
+-- Generation Time: Jun 23, 2021 at 08:51 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -30,12 +30,21 @@ SET time_zone = "+00:00";
 CREATE TABLE `appointments` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `patient_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `patient_id` int(10) UNSIGNED NOT NULL,
+  `location_id` int(10) UNSIGNED NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `note` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `location_id`, `created_at`, `updated_at`, `deleted_at`, `note`) VALUES
+(1, 'general physician', 'Bisal Bhatti', 3, 1, '2021-06-23 13:41:30', '2021-06-23 13:41:30', NULL, 'noted by me');
 
 -- --------------------------------------------------------
 
@@ -199,14 +208,6 @@ CREATE TABLE `pharmacists` (
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `pharmacists`
---
-
-INSERT INTO `pharmacists` (`id`, `first_name`, `last_name`, `username`, `address`, `phone`, `location_id`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'zuhaib', 'ali', 'NA', 'hakra muhalla, ali khan, kamber', '03333936465', '1', '2021-06-23 03:21:03', '2021-06-23 04:35:56', NULL),
-(2, 'zeeshan', 'soomro', 'NA', 'kamber ali khan', '03330303033', '2', '2021-06-23 04:08:50', '2021-06-23 04:42:41', '2021-06-23 04:42:41');
-
 -- --------------------------------------------------------
 
 --
@@ -344,7 +345,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `categories`
@@ -386,7 +387,7 @@ ALTER TABLE `patients`
 -- AUTO_INCREMENT for table `pharmacists`
 --
 ALTER TABLE `pharmacists`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `templates`

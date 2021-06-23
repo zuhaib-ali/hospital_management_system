@@ -57,8 +57,8 @@
                   @foreach($appointments as $appointment) 
                     <tr>
                         <td> {{ $sno++ }} </td>
-                        <td> {{ $appointment->patientname }} </td>
-                        <td> {{ $appointment->location }} </td>
+                        <td> {{ $appointment->patient_name }} </td>
+                        <td> {{ $locations->find($appointment->location_id)->name }} </td>
                         <td> {{ $appointment->type }} </td> 
                         <td> {{ $appointment->note }} </td>
                         <td> 

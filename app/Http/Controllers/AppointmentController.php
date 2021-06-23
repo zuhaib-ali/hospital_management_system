@@ -35,12 +35,12 @@ class AppointmentController extends Controller
             'location' => 'required',
             'form_note' => 'required',
         ]);
-
+        
         $appointment = Appointment::create([
             'type' => $request->appointment_type,
             'patient_id' => $request->user_id,
-            'patientname' => $request->patient_name,
-            'location' => $request->location,
+            'patient_name' => $request->patient_name,
+            'location_id' => $request->location,
             'note' => $request->form_note,
         ]);   
 

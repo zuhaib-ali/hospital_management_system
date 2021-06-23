@@ -107,7 +107,7 @@
             </a>
 
             <ul class="nav nav-treeview">
-              <!-- ALL RECORDS -->
+              <!-- APPONINTMENTS -->
               <li class="nav-item">
                 <a href="{{ route('appointments') }}" class="nav-link @if(Request::url() == Request::is('appointments')) active @endif">
                   <i class="far fa-circle"></i>

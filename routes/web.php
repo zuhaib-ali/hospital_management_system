@@ -171,7 +171,8 @@ Route::get('/appointments', function(){
     if(Session::has('user')){
         $appointments = Appointment::all();
         return view('components.appointments')->with([
-            'appointments'  =>  $appointments
+            'appointments'  =>  $appointments,
+            'locations'=>Location::all()
         ]);    
     }else{
         return redirect()->route('login');

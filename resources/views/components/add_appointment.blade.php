@@ -37,7 +37,7 @@
                 <option selected style="font-weight:bold;">NONE</option>    
                 <!-- ALL LOCATIONS -->
                 @foreach($locations as $location)
-                  <option value="{{ $location->name }}" id="option" data="{{ $location->name }}">
+                  <option value="{{ $location->id }}" id="option" data="{{ $location->name }}">
                     {{ $location->name }}
                   </option>
                 @endforeach
