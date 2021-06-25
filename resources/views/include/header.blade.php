@@ -39,6 +39,11 @@
 
       @elseif( request()->is('emailLetter') )
       <title> Email Letter Template </title>
+
+       @elseif( request()->is('trackingSheet') )
+      <title> Weekly Tracking Sheet </title>
+
+
   @endif
 
   <!-- Google Font: Source Sans Pro -->

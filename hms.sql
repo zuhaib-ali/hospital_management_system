@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 23, 2021 at 08:51 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Jun 25, 2021 at 06:55 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -227,7 +228,7 @@ CREATE TABLE `templates` (
 --
 
 INSERT INTO `templates` (`id`, `title`, `body`, `created_at`, `updated_at`) VALUES
-(1, 'Appointment Reminder From HMS', 'Hi Mr.[[Full_name]] we\'re informing you that your appointment has fixed, Here\'s the address [[Location]] please visit us as soon possible..!!\r\nIf you\'ve any confusion or You want to reschedule your appointment just contact us via [[Phone]] or [[Email]]..!!\r\nThank you..!!', '2021-06-19 02:10:08', '2021-06-19 02:10:08');
+(1, 'Appointment Reminder From HMS', 'Hi Mr.[[Full_name]] we\'re informing you that your appointment has fixed, Here\'s the address [[Location]] please visit us as soon as possible..!!\r\nIf you\'ve any confusion or You want to reschedule your appointment just contact us via [[Phone]] or [[Email]]..!!\r\nThank you..!!', '2021-06-19 02:10:08', '2021-06-19 02:10:08');
 
 -- --------------------------------------------------------
 

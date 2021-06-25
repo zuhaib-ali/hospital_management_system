@@ -245,7 +245,7 @@
             </a>
             <ul class="nav nav-treeview">
               <li class="nav-item">
-                <a href="" class="nav-link">
+                <a href="trackingSheet" class="nav-link @if(Request::url() == Request::is('trackingSheet')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Weekly Tracking Sheet</p>
                 </a>
