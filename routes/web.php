@@ -11,6 +11,7 @@ use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PharmacistController;
+use App\Http\Controllers\reportController;
 
 use App\Models\Location;
 use App\Models\Appointment;
@@ -285,3 +286,9 @@ Route::get('logout', [UserController::class, 'logoutUser'])->name('logout');
 
 // SETTINGS
 Route::get('settings', [components::class, 'settings']);
+
+
+//Reports
+Route::get('trackingSheet',[reportController::class,'trackingSheet'])->name('trackingSheet');
+Route::get('printSheet/{pid}/{lid}/{aid}',[reportController::class,'printSheet']);
+

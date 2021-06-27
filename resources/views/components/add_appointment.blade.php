@@ -120,6 +120,7 @@
           </div>
         </div>
       </div>
+      <!--Modal End-->
       
     </main>
   </div>
