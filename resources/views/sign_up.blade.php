@@ -27,10 +27,16 @@
 			font-size:14px;
 			font-weight:bold;
 		}
+
+		body{
+				background-image:url('login.jpg');
+				background-repeat:no-repeat;
+				background-size:100% 100%;
+			}
 	</style>
 
 	</head>
-	<body style="background-image: url({{ asset('login.jpg') }}); background-repeat:no-repeat; background-size:100% 100%;">
+	<body>
 	<section class="ftco-section">
 		<div class="container">
 			<center>
@@ -41,15 +47,15 @@
 				</div>
 				@endif
 			</center>
-			<div class="row justify-content-center">
+			<!-- <div class="row justify-content-center">
 				<div class="col-md-6 text-center mb-5">
 					<h2 class="heading-section">Sign Up</h2>
 				</div>
-			</div>
+			</div> -->
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
-		      	<a href="{{ route('login') }}"><h3 class="mb-4 text-center" style="color:#c30000;">Have an account?</h3></a>
+		      			<a><h3 class="mb-4 text-center" style="color:#dc8c8c; letter-spacing:10px;">SIGN UP</h3></a>
 
 				<!-- SIGNUP FORM -->
 		      	<form method="POST" action="{{ route('sign_up') }}" class="signup-form" enctype='multipart/form-data' autocomplete="off">
@@ -187,7 +193,7 @@
                         <button type="submit" class="form-control btn btn-dark submit px-3" style="color:white; background-color:black; font-weight:bold; border:none;">Sign Up</button>
                     </div>
 
-                    <div class="form-group d-md-flex">
+                    <!-- <div class="form-group d-md-flex">
                         <div class="w-50">
                             <label class="checkbox-wrap checkbox" style="color:#1c0694; font-weight:bold;">Remember Me
                             <input type="checkbox" style="color:white; background-color:white;" checked>
@@ -195,15 +201,18 @@
                             </label>
                         </div>
                         <div class="w-50 text-md-right">
-                            <a href="#"  style="color:#c30000; font-weight:bold;">Forgot Password</a>
+                            <a href="#"  style="color:#c30000; font-weight:bold;">login</a>
                         </div>
-                    </div>
+                    </div> -->
 	          </form>
-	          <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
+
+			  <a href="{{ route('login') }}"  style="color:#fb6c41;">login?</a>
+
+	          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
 	          <div class="social d-flex text-center">
 	          	<a href="#" class="px-2 py-2 mr-md-1 rounded"><span class="ion-logo-facebook mr-2"></span> Facebook</a>
 	          	<a href="#" class="px-2 py-2 ml-md-1 rounded"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-	          </div>
+	          </div> -->
 		      </div>
 				</div>
 			</div>
