@@ -36,10 +36,9 @@ class SendMailController extends Controller
 
     public function sendMailToUser(Request $request){
 
-        $location   = DB::table('locations')->where('name',$request->hospital)->first();
+        $location   = DB::table('locations')->where('id',$request->hospital)->first();
         $patient    = DB::table('users')->where('email',$request->email_id)->first();
         $tmp        = DB::table('templates')->where('id','1')->first();
-
 
         if($tmp->body){
 

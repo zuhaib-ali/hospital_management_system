@@ -111,7 +111,7 @@
                 <i class="ft-x"></i>
                 Close
               </button>
-              <button type="button" class="btn btn-sm btn-success" id="select_checkup_type" data-bs-dismiss="modal">
+              <button type="button" class="btn btn-sm btn-success" id="select_checkup_type">
                 <i class="fa fa-plus"></i>
                 Add
               </button>

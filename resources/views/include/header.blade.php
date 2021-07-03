@@ -34,8 +34,8 @@
       <title> Add Patients </title>
       @elseif( request()->is('patients') )
       <title> Patients </title>
-      @elseif( request()->is('phramacists') )
-      <title> Phramacists </title>
+      @elseif( request()->is('phramacists') || request()->is('categories') || request()->is('medicines') )
+      <title> Phramacy </title>
 
       @elseif( request()->is('emailLetter') )
       <title> Email Letter Template </title>
