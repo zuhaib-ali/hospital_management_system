@@ -5,12 +5,19 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Medicine;
 use App\Models\Category;
+use App\Models\Cart;
 
 class MedicineController extends Controller
 {
     // MEDICINES VIEW
     public function medicines(Request $request){
-        return view('components.pharmacy.medicines', ['medicines'=>Medicine::all(), 'categories'=>Category::all()]);
+        return view('components.pharmacy.medicines', 
+            [
+                'medicines'     =>  Medicine::all(), 
+                'categories'    =>  Category::all(),
+                'carts'         =>  Cart::all()
+            ]
+        );
     }
 
     public function addMedicine(Request $request){

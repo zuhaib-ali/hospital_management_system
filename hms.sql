@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 03, 2021 at 10:34 AM
+-- Generation Time: Jul 04, 2021 at 07:53 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -46,6 +46,31 @@ CREATE TABLE `appointments` (
 
 INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `location_id`, `created_at`, `updated_at`, `deleted_at`, `note`) VALUES
 (1, 'general physician', 'Bisal Bhatti', 3, 1, '2021-06-23 13:41:30', '2021-06-23 13:41:30', NULL, 'noted by me');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `medicineName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `medicineName`, `category`, `group`, `qty`, `created_at`, `updated_at`) VALUES
+(1, 'Rigix', 'Anit-alergic', 'Tablel', 2, NULL, NULL),
+(2, 'Voltral', 'Pain Killer', 'Tablel', 3, NULL, NULL),
+(3, 'Rigix', 'Anit-alergic', 'Tablel', 1, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -167,7 +192,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2021_06_19_070801_add_timestamp_to_templates_table', 1),
 (17, '2021_06_20_111413_create_pharmacists_table', 1),
 (18, '2021_06_20_114149_create_categories_table', 1),
-(19, '2021_06_20_181941_create_medicines_table', 1);
+(19, '2021_06_20_181941_create_medicines_table', 1),
+(20, '2021_07_03_090830_create_table_carts', 2),
+(21, '2021_07_03_092151_create_carts_table', 3);
 
 -- --------------------------------------------------------
 
@@ -293,6 +320,12 @@ ALTER TABLE `appointments`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `categories`
 --
 ALTER TABLE `categories`
@@ -366,6 +399,12 @@ ALTER TABLE `appointments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
@@ -393,7 +432,7 @@ ALTER TABLE `medicines`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `patients`

@@ -113,6 +113,10 @@
                       <td>{{ $medicine->composition }}</td>
                       <td>{{ $medicine->group }}</td>
                       <td>
+                        <button class="btn btn-sm btn-success">
+                          <i class="ft-eye"></i>
+                          View
+                        </button>
                         <button class="btn btn-sm btn-primary" id="btn">
                           <i class="fas fa-cart-plus"></i>
                           Add To Cart
@@ -122,7 +126,6 @@
                   @endforeach
                 @else
                   <center style="font-style:italic" class="text-bold p-5">No medicine found!</center>
-                
               </tbody>
               @endif
             </table>
@@ -213,19 +216,21 @@
         </div>
 
         <!-- FORM -->
-        <form action="" method="POST">
+        <form action="{{ route('addToCart') }}" method="POST">
           @csrf
           <div class="modal-body">
             <!-- MEDICINE NAME -->
             <div class="form-group">
                 <label for="medicine_name"><span style="color:red;">*</span>Name</label>
-                <input type="text" name="medicine_name" id="tName" class="form-control" disabled>
+                <input type="text" name="medicineName" id="tName" class="form-control" disabled>
+                <input type="hidden" name="medicineName" id="tName1">
             </div>
 
             <!-- CATEGORY -->
             <div class="form-group">
                 <label for="category"><span style="color:red;">*</span>Category</label>
                 <input type="text" name="category" id="tCat" class="form-control" disabled>
+                <input type="hidden" name="category" id="tCat1">
                 
             </div>
 
@@ -233,7 +238,7 @@
             <div class="form-group">
                 <label for="category"><span style="color:red;">*</span>Group</label>
                 <input type="text" name="group" id="Tgroup" class="form-control" disabled>
-                
+                <input type="hidden" name="group" id="Tgroup1">
             </div>
 
             
@@ -249,7 +254,7 @@
                 <i class="ft-x"></i>
                 Close
               </button>
-              <button type="button" class="btn btn-sm btn-success">
+              <button type="submit" class="btn btn-sm btn-success">
                 <i class="fa fa-plus"></i>
                 Add
               </button>
@@ -280,6 +285,11 @@
          $('#tName').val(col1);
          $('#tCat').val(col2);
          $('#Tgroup').val(col3);
+
+         $('#tName1').val(col1);
+         $('#tCat1').val(col2);
+         $('#Tgroup1').val(col3);
+
          $('#cart').modal('show');
     });
 
@@ -290,6 +300,13 @@
     swal({
       'title':'MEDICINE CREATED',
       'text':"{{ Session::get('medicine_created') }}",
+      'icon':'success'
+    });
+  @endif
+
+  @if(Session::has('added'))
+    swal({
+      'text':"{{ Session::get('added') }}",
       'icon':'success'
     });
   @endif

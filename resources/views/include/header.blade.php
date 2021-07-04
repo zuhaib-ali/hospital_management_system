@@ -34,7 +34,7 @@
       <title> Add Patients </title>
       @elseif( request()->is('patients') )
       <title> Patients </title>
-      @elseif( request()->is('phramacists') || request()->is('categories') || request()->is('medicines') )
+      @elseif( request()->is('pharmacy/medicines') || request()->is('pharmacists/categories') || request()->is('pharmacy/pharmacists') )
       <title> Phramacy </title>
 
       @elseif( request()->is('emailLetter') )
@@ -42,6 +42,9 @@
 
        @elseif( request()->is('trackingSheet') )
       <title> Weekly Tracking Sheet </title>
+
+      @elseif( request()->is('fix_appointment') )
+      <title> Appointment </title>
 
 
   @endif

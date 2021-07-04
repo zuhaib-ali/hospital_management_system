@@ -34,10 +34,12 @@ Route::get('/', function () {
         $patients       = DB::table('patients')->where('status','admitted')->get();
         $locations      = DB::table('locations')->get();
         $appointments   = DB::table('appointments')->get();
+        $carts          = DB::table('carts')->get();
         return view('admin.index')->with([
-            'patients'  =>  $patients,
-            'locations'  =>  $locations,
-            'appointments'  =>  $appointments
+            'patients'      =>  $patients,
+            'locations'     =>  $locations,
+            'appointments'  =>  $appointments,
+            'carts'         =>  $carts
         ]);    
     }else{
         return redirect()->route('login');
@@ -56,6 +58,7 @@ Route::get('/addPatients', function () {
 Route::get('/admitted_patients', function () {
     if(Session::has('user')){
         $patients = DB::table('patients')->where('status','admitted')->get();
+
         return view('components.patients')->with([
             'patients'  =>  $patients,
         ]);    
@@ -67,6 +70,7 @@ Route::get('/admitted_patients', function () {
 Route::get('/dpatients', function () {
     if(Session::has('user')){
         $patients = DB::table('patients')->where('status','discharged')->get();
+
         return view('components.dPatients')->with([
             'patients'  =>  $patients,
         ]);    
@@ -122,7 +126,13 @@ Route::get('/locations', function(){
 Route::get('/uLocations', function(){
     if(Session::has('user')){
         $locations = DB::table('locations')->get();
-        return view('components.uLocations')->with(['locations'=>$locations]);
+        $carts          = DB::table('carts')->get();
+        return view('components.uLocations')->with(
+            [
+                'locations' =>  $locations,
+                'carts'     =>  $carts
+            ]
+        );
     }else{
         return redirect()->route('login');
     }
@@ -170,10 +180,12 @@ Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']
 // APPOITMENTS VIEW
 Route::get('/appointments', function(){
     if(Session::has('user')){
+        $carts          = DB::table('carts')->get();
         $appointments = Appointment::all();
         return view('components.appointments')->with([
             'appointments'  =>  $appointments,
-            'locations'=>Location::all()
+            'locations'     =>  Location::all(),
+            'carts'         =>  $carts
         ]);    
     }else{
         return redirect()->route('login');
@@ -268,6 +280,8 @@ route::post('pharmacy/pharmacists/add_pharmacist', [PharmacistController::class,
 // UPDATE PHARMACIST
 route::get('pharmacy/pharmacists/update_view', [PharmacistController::class, 'updateView'])->name('update_view');
 route::post('pharmacy/pharmacists/update', [PharmacistController::class, 'update'])->name('update_pharmacist');
+
+route::post('addToCart', [PharmacistController::class, 'addToCart'])->name('addToCart');
 
 
 // DELETE PHARMACIST
