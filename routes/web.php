@@ -12,6 +12,7 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PharmacistController;
 use App\Http\Controllers\reportController;
+use App\Http\Controllers\DoctorController;
 
 use App\Models\Location;
 use App\Models\Appointment;
@@ -202,6 +203,15 @@ Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up')
 // login post
 Route::post('/login', [Login::class, 'loginUser'])->name('login');
 
+// '''''''''''''''''''''''   DOCTORS   '''''''''''''''''''''''
+Route::get('/admin/doctors', [DoctorController::class, 'index'])->name('doctors');
+
+// ADD DOCTOR
+Route::post('admin/doctors/add', [DoctorController::class, 'addDoctor'])->name('add_doctor');
+
+
+
+// ''''''''''''''''''''''  PATIENTS   '''''''''''''''''''''''
 // Add Patient
 Route::post('addPatient', [components::class, 'addPatient'] );
 
