@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jun 25, 2021 at 06:55 PM
+-- Generation Time: Jul 04, 2021 at 07:53 PM
 -- Server version: 10.4.6-MariaDB
 -- PHP Version: 7.3.9
 
@@ -50,6 +50,31 @@ INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `locatio
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `carts`
+--
+
+CREATE TABLE `carts` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `medicineName` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `category` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `qty` int(11) NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `carts`
+--
+
+INSERT INTO `carts` (`id`, `medicineName`, `category`, `group`, `qty`, `created_at`, `updated_at`) VALUES
+(1, 'Rigix', 'Anit-alergic', 'Tablel', 2, NULL, NULL),
+(2, 'Voltral', 'Pain Killer', 'Tablel', 3, NULL, NULL),
+(3, 'Rigix', 'Anit-alergic', 'Tablel', 1, NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `categories`
 --
 
@@ -59,6 +84,15 @@ CREATE TABLE `categories` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `categories`
+--
+
+INSERT INTO `categories` (`id`, `category`, `created_at`, `updated_at`) VALUES
+(1, 'Pain Killer', '2021-07-03 01:44:00', '2021-07-03 01:44:00'),
+(2, 'Anti-biotic', '2021-07-03 01:44:22', '2021-07-03 01:44:22'),
+(3, 'Anit-alergic', '2021-07-03 01:44:43', '2021-07-03 01:44:43');
 
 -- --------------------------------------------------------
 
@@ -115,6 +149,14 @@ CREATE TABLE `medicines` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `medicines`
+--
+
+INSERT INTO `medicines` (`id`, `medicine_name`, `category_id`, `company`, `composition`, `group`, `created_at`, `updated_at`) VALUES
+(1, 'Voltral', 'Pain Killer', 'DVago', 'Nonsteroidal anti-inflammatory drug (NSAID)', 'Tablel', '2021-07-03 01:50:53', '2021-07-03 01:50:53'),
+(2, 'Rigix', 'Anit-alergic', 'AGP Pharma', 'cetirizine dihydrochloride 10 mg', 'Tablel', '2021-07-03 03:30:31', '2021-07-03 03:30:31');
+
 -- --------------------------------------------------------
 
 --
@@ -150,7 +192,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (16, '2021_06_19_070801_add_timestamp_to_templates_table', 1),
 (17, '2021_06_20_111413_create_pharmacists_table', 1),
 (18, '2021_06_20_114149_create_categories_table', 1),
-(19, '2021_06_20_181941_create_medicines_table', 1);
+(19, '2021_06_20_181941_create_medicines_table', 1),
+(20, '2021_07_03_090830_create_table_carts', 2),
+(21, '2021_07_03_092151_create_carts_table', 3);
 
 -- --------------------------------------------------------
 
@@ -263,7 +307,7 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `username`, `role`) VALUES
 (1, 'admin', 'admin', 'admin@gmail.com', '03030312343', '4120426112932', 22, 'b-', 'sindh', '$2y$10$0bugvwYpTwHq0gRA9upe5uLdb5ZukdSYdbIErcrAQ6aHT3acVdoay', '2021-06-04', 'male', '1623048322-admin.jpg', NULL, NULL, 'admin', 'admin'),
 (2, 'Bilal', 'Ali', 'bilal.jessar@gmail.com', '03488305189', '4120426112931', 24, 'o-', 'Pakistan', 'bilal', '2021-06-09', 'Male', '1623257936.JPG', NULL, NULL, 'bilal', 'admin'),
-(3, 'Bisal', 'Bhatti', 'bilal.jessar11@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
+(3, 'Bisal', 'Bhatti', 'bisalbhatti4@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
 
 --
 -- Indexes for dumped tables
@@ -273,6 +317,12 @@ INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`,
 -- Indexes for table `appointments`
 --
 ALTER TABLE `appointments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `carts`
+--
+ALTER TABLE `carts`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -349,10 +399,16 @@ ALTER TABLE `appointments`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
+-- AUTO_INCREMENT for table `carts`
+--
+ALTER TABLE `carts`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -370,13 +426,13 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=20;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `patients`

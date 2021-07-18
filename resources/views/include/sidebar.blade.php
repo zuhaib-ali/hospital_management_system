@@ -1,4 +1,4 @@
-
+ 
 <!-- Main Sidebar Container -->
 <aside class="main-sidebar sidebar-dark-primary elevation-4">
 
@@ -293,7 +293,7 @@
           @elseif(Session::get('user')->role == 'user')
           <!--User Can Check PHARMACISTS & LABORATARIES-->
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="{{ route('medicines') }}" class="nav-link @if(Request::url() == Request::is('medicines')) active @endif">
               <i class="fas fa-first-aid"></i>
                 <p>PHARMACY</p>
             </a>

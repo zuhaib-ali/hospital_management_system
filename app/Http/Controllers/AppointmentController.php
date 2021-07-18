@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Location;
 use App\Models\Appointment;
 use App\Models\User;
+use App\Models\Cart;
 
 
 use DB;
@@ -20,8 +21,9 @@ class AppointmentController extends Controller
 
         if($request->session()->has('user')){
             return view('components.add_appointment', [
-                'locations' =>$locations,
-                'patient'   =>$patient
+                'locations' =>  $locations,
+                'patient'   =>  $patient,
+                'carts'     =>  Cart::all()
             ]);
         }else{
             return redirect()->route('login');

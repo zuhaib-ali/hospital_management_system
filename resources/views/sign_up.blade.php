@@ -190,7 +190,7 @@
 
                     <!-- Sign up button -->
                     <div class="form-group">
-                        <button type="submit" class="form-control btn btn-dark submit px-3" style="color:white; background-color:black; font-weight:bold; border:none;">Sign Up</button>
+                        <button type="submit" class="form-control btn btn-primary submit px-3" style="color:white; background-color:black; font-weight:bold; border:none;">Sign Up</button>
                     </div>
 
                     <!-- <div class="form-group d-md-flex">
@@ -206,7 +206,10 @@
                     </div> -->
 	          </form>
 
-			  <a href="{{ route('login') }}"  style="color:#fb6c41;">login?</a>
+			<p class="w-100 text-center">&mdash; If You've Already Account &mdash;</p>
+			 <a href="{{ route('login') }}" class="btn btn-success col-lg-12">
+			 login
+			</a>
 
 	          <!-- <p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
 	          <div class="social d-flex text-center">

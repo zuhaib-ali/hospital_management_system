@@ -26,50 +26,86 @@
     <main class="m-3">
       <card class="card">
         <card class="card-body">
+          <div class="row">
 
-          <form action="{{ route('submit_appointment') }}" method="POST">
-            @csrf 
-            <!-- LOCATIONS DROPDOWN -->
-            <div class="form-group mb-3">
+            <div class="col-lg-6">
+              <form action="{{ route('submit_appointment') }}" method="POST">
+                @csrf 
+                <!-- LOCATIONS DROPDOWN -->
+                <div class="form-group mb-3">
 
-              <label for="location"><span style="color:red;">*</span> SELECT BY LOCATION</label>
-              <select class="form-select form-control col-sm-4" aria-label="Default select example" name="location" id="location">
-                <option selected style="font-weight:bold;">NONE</option>    
-                <!-- ALL LOCATIONS -->
-                @foreach($locations as $location)
-                  <option value="{{ $location->id }}" id="option" data="{{ $location->name }}">
-                    {{ $location->name }}
-                  </option>
-                @endforeach
-              </select>
+                  <label for="location"><span style="color:red;">*</span> SELECT BY LOCATION</label>
+                  <select class="form-select form-control col-lg-6" aria-label="Default select example" name="location" id="location">
+                    <option selected style="font-weight:bold;">NONE</option>    
+                    <!-- ALL LOCATIONS -->
+                    @foreach($locations as $location)
+                      <option value="{{ $location->id }}" id="option" data="{{ $location->name }}">
+                        {{ $location->name }}
+                      </option>
+                    @endforeach
+                  </select>
+                </div>
+
+                <!-- CHECKUP TYPE VALUE -->
+                <input type="hidden" name="appointment_type" value="" id="appointment_type">
+
+                <!-- USER/PATIENT ID -->
+                <input type="hidden" name="user_id" value="{{ Session::get('user')->id }}">
+
+                <!-- PATIENT NAME -->
+                <input type="hidden" name="patient_name" value="{{ Session::get('user')->first_name }} {{ Session::get('user')->last_name }}">
+
+                <!-- NOTE -->
+                <input type="hidden" name="form_note" value="" id="form_note">
+                @if($errors->any())
+                  <p style="color:red; font-style:italic;font-size:12px;font-weight:bold;">Please select location to compelete requirements</p>
+                @endif
+
+                <!-- SUBMIT APPOINTMENT BUTTON -->
+                <div class="form-group mb-3">  
+                  <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="fa fa-plus"> </i>
+                    Submit Appointment
+                  </button>
+                </div>
+
+              </form> 
             </div>
 
-            <!-- CHECKUP TYPE VALUE -->
-            <input type="hidden" name="appointment_type" value="" id="appointment_type">
+            <div class="col-lg-6">
+              <form action="{{ route('submit_appointment') }}" method="POST">
+                @csrf 
+                <!-- LOCATIONS DROPDOWN -->
+                <div class="form-group mb-3">
 
-            <!-- USER/PATIENT ID -->
-            <input type="hidden" name="user_id" value="{{ Session::get('user')->id }}">
-
-            <!-- PATIENT NAME -->
-            <input type="hidden" name="patient_name" value="{{ Session::get('user')->first_name }} {{ Session::get('user')->last_name }}">
-
-            <!-- NOTE -->
-            <input type="hidden" name="form_note" value="" id="form_note">
-            @if($errors->any())
-              <p style="color:red; font-style:italic;font-size:12px;font-weight:bold;">Please select location to compelete requirements</p>
-            @endif
-
-            <!-- SUBMIT APPOINTMENT BUTTON -->
-            <div class="form-group mb-3">  
-              <button type="submit" class="btn btn-sm btn-primary">
-                <i class="fa fa-plus"> </i>
-                Submit Appointment
-              </button>
+                  <label for="location"><span style="color:red;">*</span> SELECT BY DOCTORS</label>
+                  <select class="form-select form-control col-lg-6" aria-label="Default select example" name="doctor" id="location">
+                    <option selected style="font-weight:bold;">NONE</option>    
+                    <!-- ALL LOCATIONS -->
+                      <option value="{{ $location->id }}" id="option" data="">
+                      </option>
+                  </select>
+                </div>
+                <!-- SUBMIT APPOINTMENT BUTTON -->
+                <div class="form-group mb-3">  
+                  <button type="submit" class="btn btn-sm btn-primary">
+                    <i class="fa fa-plus"> </i>
+                    Submit Appointment
+                  </button>
+                </div>
+              </form>
             </div>
-
-          </form>  
+          </div>
+            
         </card>
       </card>
+
+
+
+
+
+
+
 
       <!-- Modal -->
       <div class="modal fade" id="myModal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
@@ -111,7 +147,7 @@
                 <i class="ft-x"></i>
                 Close
               </button>
-              <button type="button" class="btn btn-sm btn-success" id="select_checkup_type" data-bs-dismiss="modal">
+              <button type="button" class="btn btn-sm btn-success" id="select_checkup_type">
                 <i class="fa fa-plus"></i>
                 Add
               </button>

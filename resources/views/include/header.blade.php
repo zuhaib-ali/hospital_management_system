@@ -34,14 +34,17 @@
       <title> Add Patients </title>
       @elseif( request()->is('patients') )
       <title> Patients </title>
-      @elseif( request()->is('phramacists') )
-      <title> Phramacists </title>
+      @elseif( request()->is('pharmacy/medicines') || request()->is('pharmacists/categories') || request()->is('pharmacy/pharmacists') )
+      <title> Phramacy </title>
 
       @elseif( request()->is('emailLetter') )
       <title> Email Letter Template </title>
 
        @elseif( request()->is('trackingSheet') )
       <title> Weekly Tracking Sheet </title>
+
+      @elseif( request()->is('fix_appointment') )
+      <title> Appointment </title>
 
 
   @endif

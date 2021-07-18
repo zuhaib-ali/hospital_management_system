@@ -117,9 +117,14 @@
 							<div class="social d-flex text-center">
 								<a href="#" class="px-2 py-2 mr-md-1 rounded" style="background-color:#4267B2; color:white;"><span class="ion-logo-facebook mr-2"></span><span class="iconify" data-icon="ion-logo-facebook" data-inline="false"></span> Facebook</a>
 								<a href="#" class="px-2 py-2 ml-md-1 rounded" style="background-color:#1DA1F2; color:white;"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-							</div>
+							</div> 
+							<br>
 
-							<a href="{{ route('sign_up') }}" style="color:#fb6c41; font-weight:bold; text-shadow:1px 1px 1px black;">Signup</a>
+							<p class="w-100 text-center">&mdash; Don't Have An Account &mdash;</p>
+
+							<a href="{{ route('sign_up') }}" class="btn btn-success col-lg-12">
+								Signup
+							</a>
 						</div>
 					</div>
 					<!-- /COLUMN -->

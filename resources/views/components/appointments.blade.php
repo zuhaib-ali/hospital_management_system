@@ -67,7 +67,7 @@
                             View
                           </a> 
 
-                          <a href="{{ route('send_mail', ['email_id'=>User::find($appointment->patient_id)->email, 'hospital'=>$appointment->location]) }}" class="btn btn-sm btn-outline-success">
+                          <a href="{{ route('send_mail', ['email_id'=>User::find($appointment->patient_id)->email, 'hospital'=>$appointment->location_id]) }}" class="btn btn-sm btn-outline-success">
                             <i class="far fa-paper-plane"></i>
                             SEND MAIL
                           </a>

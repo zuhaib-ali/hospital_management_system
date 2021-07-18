@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Pharmacist;
 use App\Models\Location;
+use App\Models\Cart;
 
 class PharmacistController extends Controller
 {
@@ -73,6 +74,25 @@ class PharmacistController extends Controller
 
         if($pharmacist_deleted == true){
             return redirect()->route('pharmacists')->with('pharmacist_deleted', $first_name." ".$last_name." pharmacist deleted successfully from record!");
+        }
+    }
+
+
+
+    public function addToCart(Request $request)
+    {
+        $addToCart  =   Cart::create([
+            'medicineName'  =>  $request->medicineName,
+            'category'      =>  $request->category,
+            'group'         =>  $request->group,
+            'qty'           =>  $request->qty,
+        ]);
+
+        if($addToCart == true){
+            return back()->with('added','Medicine Added To Card');
+        }else{
+            return back()->with('failed','Failed To Add');
+
         }
     }
 
