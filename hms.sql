@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 04, 2021 at 07:53 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Jul 21, 2021 at 12:33 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -40,13 +39,6 @@ CREATE TABLE `appointments` (
   `note` text COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `location_id`, `created_at`, `updated_at`, `deleted_at`, `note`) VALUES
-(1, 'general physician', 'Bisal Bhatti', 3, 1, '2021-06-23 13:41:30', '2021-06-23 13:41:30', NULL, 'noted by me');
-
 -- --------------------------------------------------------
 
 --
@@ -63,15 +55,6 @@ CREATE TABLE `carts` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `carts`
---
-
-INSERT INTO `carts` (`id`, `medicineName`, `category`, `group`, `qty`, `created_at`, `updated_at`) VALUES
-(1, 'Rigix', 'Anit-alergic', 'Tablel', 2, NULL, NULL),
-(2, 'Voltral', 'Pain Killer', 'Tablel', 3, NULL, NULL),
-(3, 'Rigix', 'Anit-alergic', 'Tablel', 1, NULL, NULL);
-
 -- --------------------------------------------------------
 
 --
@@ -85,14 +68,39 @@ CREATE TABLE `categories` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+-- --------------------------------------------------------
+
 --
--- Dumping data for table `categories`
+-- Table structure for table `doctors`
 --
 
-INSERT INTO `categories` (`id`, `category`, `created_at`, `updated_at`) VALUES
-(1, 'Pain Killer', '2021-07-03 01:44:00', '2021-07-03 01:44:00'),
-(2, 'Anti-biotic', '2021-07-03 01:44:22', '2021-07-03 01:44:22'),
-(3, 'Anit-alergic', '2021-07-03 01:44:43', '2021-07-03 01:44:43');
+CREATE TABLE `doctors` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `degree` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `specialist` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `visiting_charge` int(10) UNSIGNED NOT NULL,
+  `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(15) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `from` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `to` varchar(10) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `closing_days` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_bin DEFAULT NULL,
+  `avater` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hospital_id` int(10) UNSIGNED NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `doctors`
+--
+
+INSERT INTO `doctors` (`id`, `first_name`, `last_name`, `email`, `degree`, `specialist`, `visiting_charge`, `gender`, `phone`, `from`, `to`, `closing_days`, `avater`, `address`, `hospital_id`, `created_at`, `updated_at`) VALUES
+(3, 'Zuhaib', 'Ali', 'salmansoomro523@gmail.com', 'MBBS', '1', 1000, 'Male', '03333333333', '10:27', '18:28', 'Friday, Saturday and Sunday', '1626722968-zuhaib-ali.jpg', 'Hakra muhalla, ali kha, kamber shahdadkot', 2, '2021-07-19 14:29:28', '2021-07-21 05:03:08'),
+(4, 'salman', 'soomro', 'salmansoomro523@gmail.com', 'BUMS - Bachelor of Unani medicine and Surgery', '1', 1500, 'male', '03333936465', '04:32', '20:32', 'sunday', '1626777487-salman-soomro.jpg', 'hakra muhalla, ali kha, kamber', 1, '2021-07-20 05:38:07', '2021-07-20 05:38:07');
 
 -- --------------------------------------------------------
 
@@ -149,14 +157,6 @@ CREATE TABLE `medicines` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `medicines`
---
-
-INSERT INTO `medicines` (`id`, `medicine_name`, `category_id`, `company`, `composition`, `group`, `created_at`, `updated_at`) VALUES
-(1, 'Voltral', 'Pain Killer', 'DVago', 'Nonsteroidal anti-inflammatory drug (NSAID)', 'Tablel', '2021-07-03 01:50:53', '2021-07-03 01:50:53'),
-(2, 'Rigix', 'Anit-alergic', 'AGP Pharma', 'cetirizine dihydrochloride 10 mg', 'Tablel', '2021-07-03 03:30:31', '2021-07-03 03:30:31');
-
 -- --------------------------------------------------------
 
 --
@@ -193,8 +193,9 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (17, '2021_06_20_111413_create_pharmacists_table', 1),
 (18, '2021_06_20_114149_create_categories_table', 1),
 (19, '2021_06_20_181941_create_medicines_table', 1),
-(20, '2021_07_03_090830_create_table_carts', 2),
-(21, '2021_07_03_092151_create_carts_table', 3);
+(20, '2021_07_03_092151_create_carts_table', 1),
+(21, '2021_07_13_091345_create_doctors_table', 1),
+(22, '2021_07_19_104401_create_specializations_table', 1);
 
 -- --------------------------------------------------------
 
@@ -219,20 +220,15 @@ CREATE TABLE `patients` (
   `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `bed_no` int(10) UNSIGNED NOT NULL,
+  `doctor_id` int(10) UNSIGNED NOT NULL,
+  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `dob` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL,
   `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `patients`
---
-
-INSERT INTO `patients` (`id`, `firstname`, `lastname`, `number`, `dob`, `email`, `address`, `deleted_at`, `status`) VALUES
-(1, 'Zuhaib', 'Ali', '0303030', '2021-06-12', 'zuhaib@gmail.com', 'Sindh', NULL, 'discharged'),
-(2, 'Bilal', 'Ali', '030303030', '2021-06-05', 'bilal.jessar11@gmail.com', 'pakistan', NULL, 'admitted');
 
 -- --------------------------------------------------------
 
@@ -256,6 +252,27 @@ CREATE TABLE `pharmacists` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `specializations`
+--
+
+CREATE TABLE `specializations` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `specializations`
+--
+
+INSERT INTO `specializations` (`id`, `name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Acupuncturist', 'A practitioner specialising in acupuncture therapy, which is a form of traditional Chinese medicine. In this system of therapy, fine needles are inserted at specific points in the body to cure ailments and adverse health conditions. At times, the acupuncturist may manipulate the needles for better efficacy.', '2021-07-19 07:00:35', '2021-07-19 07:00:35');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `templates`
 --
 
@@ -266,13 +283,6 @@ CREATE TABLE `templates` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `templates`
---
-
-INSERT INTO `templates` (`id`, `title`, `body`, `created_at`, `updated_at`) VALUES
-(1, 'Appointment Reminder From HMS', 'Hi Mr.[[Full_name]] we\'re informing you that your appointment has fixed, Here\'s the address [[Location]] please visit us as soon as possible..!!\r\nIf you\'ve any confusion or You want to reschedule your appointment just contact us via [[Phone]] or [[Email]]..!!\r\nThank you..!!', '2021-06-19 02:10:08', '2021-06-19 02:10:08');
 
 -- --------------------------------------------------------
 
@@ -332,6 +342,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `doctors`
+--
+ALTER TABLE `doctors`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `failed_jobs`
 --
 ALTER TABLE `failed_jobs`
@@ -375,6 +391,12 @@ ALTER TABLE `pharmacists`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `specializations`
+--
+ALTER TABLE `specializations`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `templates`
 --
 ALTER TABLE `templates`
@@ -396,19 +418,25 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `carts`
 --
 ALTER TABLE `carts`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `categories`
 --
 ALTER TABLE `categories`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+
+--
+-- AUTO_INCREMENT for table `doctors`
+--
+ALTER TABLE `doctors`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -426,19 +454,19 @@ ALTER TABLE `locations`
 -- AUTO_INCREMENT for table `medicines`
 --
 ALTER TABLE `medicines`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `pharmacists`
@@ -447,10 +475,16 @@ ALTER TABLE `pharmacists`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `specializations`
+--
+ALTER TABLE `specializations`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `templates`
 --
 ALTER TABLE `templates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

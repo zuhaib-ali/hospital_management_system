@@ -7,6 +7,8 @@ use App\Models\Location;
 use App\Models\Appointment;
 use App\Models\User;
 use App\Models\Cart;
+use App\Models\Doctor;
+use App\Models\Specialization;
 
 
 use DB;
@@ -23,7 +25,9 @@ class AppointmentController extends Controller
             return view('components.add_appointment', [
                 'locations' =>  $locations,
                 'patient'   =>  $patient,
-                'carts'     =>  Cart::all()
+                'carts'     =>  Cart::all(),
+                'doctors'   =>  Doctor::all(),
+                'specializations' => Specialization::all(),
             ]);
         }else{
             return redirect()->route('login');

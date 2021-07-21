@@ -177,20 +177,15 @@
         if(location_value !== "ALL"){ //Compare it and if true
             $('#lName').val(lName);
             $('#myModal').modal("show"); //Open Modal
-
             $("#checkup_type_in_hospital").text("Select Your Checkup For "+location_value);
         }
     });
-
-
     $("#select_checkup_type").click(function(){
       var checkup_type_value = $("#checkup_type").val(); // GETTING CHECKUP TYPE.
       $("#appointment_type").val(checkup_type_value); // INSERTING CHECKUP TYPE IN FORM HIDDEN FIELD.
-
       var note = $("#note").val(); // GETTING NOTE VALUE.
       $("#form_note").val(note); // INSERTING NOTE VALUE IN FORM HIDDEN FIELD.
     });
-
     // $("#first_name").keypress(function(){
       
     // });

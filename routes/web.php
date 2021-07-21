@@ -13,9 +13,12 @@ use App\Http\Controllers\MedicineController;
 use App\Http\Controllers\PharmacistController;
 use App\Http\Controllers\reportController;
 use App\Http\Controllers\DoctorController;
+use App\Http\Controllers\SpecializationController;
 
 use App\Models\Location;
+use App\Models\Doctor;
 use App\Models\Appointment;
+use App\Models\Specialization;
 
 
 /*
@@ -99,13 +102,13 @@ Route::get('/sign_up', function(){
     }
 })->name('signUp');
 
-Route::get('/doctors', function(){
-    if(Session::has('user')){
-        return view('components.doctors');
-    }else{
-        return redirect()->route('login');
-    }
-})->name('doctors');
+// Route::get('/doctors', function(){
+//     if(Session::has('user')){
+//         return view('components.doctors');
+//     }else{
+//         return redirect()->route('login');
+//     }
+// })->name('doctors');
 
 // EDIT PROFILE GET
 Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
@@ -216,10 +219,33 @@ Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up')
 Route::post('/login', [Login::class, 'loginUser'])->name('login');
 
 // '''''''''''''''''''''''   DOCTORS   '''''''''''''''''''''''
-Route::get('/admin/doctors', [DoctorController::class, 'index'])->name('doctors');
+Route::get('admin/doctors', [DoctorController::class, 'index'])->name('doctors');
 
 // ADD DOCTOR
 Route::post('admin/doctors/add', [DoctorController::class, 'addDoctor'])->name('add_doctor');
+// EDIT DOCTOR POST
+Route::post('doctors/update_doctor', [DoctorController::class, "update"])->name('update_doctor');
+
+// EDIT DOCTOR GET
+Route::get('admin/doctors/edit_doctor', function(){
+    return view('components.doctors.edit_doctor', [
+        'doctor'=>Doctor::find(Request::get('doctor_id')),
+        'hospitals'=>Location::all(),
+        'specializations'=>Specialization::all(),
+    ]);
+})->name('edit_doctor');
+
+
+
+// VIEW DOCTOR
+Route::get('admin/doctors/view', [DoctorController::class, 'viewDoctor'])->name('view_doctor');
+
+
+
+
+// '''''''''''''''''''''''   SPECIALIZATIONS   '''''''''''''''''''''''
+Route::get('admin/specializations', [SpecializationController::class, 'index'])->name('specializations');
+Route::post('admin/add_specialization', [SpecializationController::class, 'addSpecialization'])->name('add_specialization');
 
 
 
@@ -239,6 +265,8 @@ Route::get('dicharge/{id}', [components::class, 'dicharge'] );
 //Erase Patient Record
 Route::get('erase/{id}', [components::class, 'erase'] );
 
+// **************************** LOCATION ****************************
+
 // Add Location
 Route::post('addLocation', [components::class, 'addLocation'] );
 
@@ -254,27 +282,22 @@ Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->n
 
 Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
 
+// **************************** SEND MAIL ****************************
 // SEND MAIL
 Route::get('appointments/send_mail', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
 
 Route::post('addTmp', [SendMailController::class, 'addTmp']);
 
-
-
-// ----------- PHARMACY ----------------
-
+// **************************** PHARMACY ****************************
 // CATEGORIES
 Route::get('pharmacists/categories', [CategoryController::class, 'categories'])->name('categories');
-
 // ADD CATEGORY
 route::post('pharmacy/new/add_category', [CategoryController::class, 'addCategory'])->name('add_category');
-
 // DELETE CATEGORY
 route::get('pharmacy/delete_category', [CategoryController::class, 'deleteCategory'])->name('delete_category');
 
 // MEDICINES
 route::get('pharmacy/medicines', [MedicineController::class, 'medicines'])->name('medicines');
-
 // ADD NEW MEDICINE
 route::post('pharmacy/add_new_medicine', [MedicineController::class, 'addMedicine'])->name('add_new_medicine');
 
