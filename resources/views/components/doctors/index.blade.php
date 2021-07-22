@@ -27,8 +27,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('index') }}" class="text-red">Home</a></li>
-              <li class="breadcrumb-item active text-blue"> Doctors</li>
+              <li class="breadcrumb-item"><a href="{{ route('index') }}" class="text-red"> <i class="fas fa-home"></i>  Home</a></li>
+              <li class="breadcrumb-item active text-blue"> <a href="#"><i class="fas fa-user-md"> Doctors</i></a> </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -50,7 +50,7 @@
                     <div class="card-header"  style="background-color:darkblue;">
                       <h4>
                           <span style="color:white;" >No of records - {{ count($doctors) }}</span>
-                        <button class="btn btn-sm btn-success bold pull-right text-bold" data-toggle="modal" data-target="#add" style="border-radius:20px;"> 
+                        <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#add" style="border-radius:10px;"> 
                           <i class="fa fa-plus"></i>
                           ADD DOCTOR
                         </button>
@@ -83,7 +83,8 @@
                                         <td>
                                             <a href="{{ route('view_doctor', ['doctor_id'=> $doctor->id]) }}" class="btn btn-primary btn-sm fas fa-eye" style="border-radius:10px;"></a>
                                             <a href="{{ route('edit_doctor', ['doctor_id' => $doctor->id]) }}" class="btn btn-secondary btn-sm  fas fa-edit"  style="border-radius:10px;"></a>
-                                            <button type="button" class="btn btn-danger btn-sm fas fa-trash-alt"></button>
+                                            |
+                                            <a href="{{ route('delete_doctor', ['doctor_id' => $doctor->id]) }}" class="btn btn-danger btn-sm fas fa-trash-alt"></a>
                                         </td>
                                     </tr>
                                 @endforeach
@@ -99,7 +100,10 @@
                 </div>
             </div>
         </div>
-    
+        <select class="js_multiple form-control" name="states[]" multiple="multiple">
+            <option value="AL">Alabama</option>
+            <option value="WY">Wyoming</option>
+        </select>
     </section>
     <!-- /.content -->
   </div>
@@ -443,29 +447,33 @@
 			</div>
 		</form>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
+        <!-- SWEET ALERT -->
+        
+        <script src="{{ asset('js/jquery.min.js') }}"></script>
+        <script src="{{ asset('js/select2.min.js') }}"></script>
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <script>
+            $(document).ready(function(){
+                $(".js_multiple").select2({
+                    // maximumSelectionLength: 2
+                });
+            });
+
             @if(Session::has('doctor_created'))
                 swal("Doctor Added", "{{ Session::get('doctor_created') }}", "success");
             @endif
 
             @if(Session::has('updated'))
-                swal("Update Successfully", "{{ Session::get('updated') }}", "info");
+                swal("Doctor Updated", "{{ Session::get('updated') }}", "info");
             @endif
+
+            @if(Session::has('deleted'))
+                swal("Doctor Deleted", "{{ Session::get('updated') }}", "info");
+            @endif
+
+            
         </script>
+
 
 @include('include.footer')

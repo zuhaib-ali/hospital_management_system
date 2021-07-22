@@ -1,14 +1,18 @@
 @include('include.header')
-<style rel="stylesheet">
-  span{
-    font-weight:bold;
-    color:red;
-  }
 
-  p{
-    font-style:italic;
-  }
+<style rel="stylesheet">
+    .modal span{
+        color:red;
+        font-weight:bold;
+    }
+
+    ::placeholder{
+        font-style:italic;
+    }
 </style>
+
+
+
 
 @include('include.navbar')    
 
@@ -17,7 +21,7 @@
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <div class="content-header mx-5">
+    <div class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
@@ -25,8 +29,9 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="{{ route('index') }}" class="text-red">Home</a></li>
-              <li class="breadcrumb-item active text-blue"> Doctors</li>
+              <li class="breadcrumb-item"><a href="{{ route('index') }}" class="text-red"> <i class="fas fa-home"></i>  Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('doctors') }}" class="text-red"> <i class="fas fa-user-md"></i>  Doctors</a></li>
+              <li class="breadcrumb-item active text-blue"> <a href="#"><i class="fas fa-user-md"> View</i></a> </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -34,76 +39,90 @@
     </div>
     <!-- /.content-header -->
 
-    <div class="content-body mx-5 p-3" style="background-color:white;">
-      <!-- ROW -->
-      <div class="row">
-        <!-- AVATAR -->
-        <div class="col-sm-5">
-          <img src="{{ asset('doctors_avatar/'.$doctor->avater) }}" alt="" style="width:300px; height:250; border-radius:20px;">
-        </div>
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                  <!-- CARD -->
+                  <div class="card">
+                    <!-- CARD HEADER -->
+                    <div class="card-header">
+                      <div>
+                        <a href="{{ route('delete_doctor', ['doctor_id'=>$doctor->id]) }}" class="btn btn-danger btn-sm pull-right m-1"> <i class="fas fa-trash-alt"></i> </a>
+                        <a href="{{ route('edit_doctor', ['doctor_id'=>$doctor->id]) }}" class="btn btn-secondary btn-sm pull-right m-1"> <i class="fas fa-edit"></i> </a>
+                      </div>
+                      <br>
+                      <div class="row">
+                        <div class="col-sm-4">
+                          <img src="{{ asset('doctors_avatar/'.$doctor->avater) }}" alt="" style="width:250px; height:250px; border-radius:30px;">
+                        </div>
+                        <div class="col-sm-8">
+                          <h1>{{ $doctor->first_name }} {{ $doctor->last_name }}</h1>
+                          <h3>{{ $specializations->find($doctor->specialist)->name }}</h3>
+                          <p>{{ $specializations->find($doctor->specialist)->description }}</p>
+                        </div>
+                      </div>
+                    </div> <!-- /.card-header -->
+                    <!-- CARD BODY -->
+                    <div class="card-body">
+                      <table class="table">
+                        <tr>
+                          <th>Specialist</th>
+                          <td>{{ $specializations->find($doctor->specialist)->name }}</td>
+                        </tr>
 
-        <!-- NAME AND SPECIALIZATION -->
-        <div class="col-sm-7">
-          <h1>{{ $doctor->first_name }} {{ $doctor->last_name }}</h1>
-          <h3>{{ $specializations->find($doctor->specialist)->name }}</h3>
-          <p>{{ $specializations->find($doctor->specialist)->description }}</p>
-        </div>
-      </div>
-      <hr>
-      <!-- ROW 1 -->
-      <div class="row">
-        <div class="col-sm-4">
-          <span>SPECIALIZATION</span>
-          <p>{{ $specializations->find($doctor->specialist)->name }}</p>
-        </div>
-        <div class="col-sm-4">
-          <span>DEGREE</span>
-          <p>{{ $doctor->degree }}</p>
-        </div>
-        <div class="col-sm-4">
-          <span>VISITING CAHRGE</span>
-          <p>{{ $doctor->visiting_charge}}</p>
-        </div>
-      </div>
-      <hr>
+                        <tr>
+                          <th>Degree</th>
+                          <td>{{ $doctor->degree }}</td>
+                        </tr>
 
-      <!-- ROW 2 -->
-      <div class="row">
-        <div class="col-sm-4">
-          <span>HOSPITAL</span>
-          <p>{{ $locations->find($doctor->hospital_id)->name }}</p>
-        </div>
-        <div class="col-sm-4">
-          <span>TIMING</span>
-          <p>{{ $doctor->from }} to {{ $doctor->to }}</p>
-        </div>
-        <div class="col-sm-4">
-          <span>CLOSING DAYS</span>
-          <p>{{ $doctor->closing_days}}</p>
-        </div>
-      </div>
-      <hr>
+                        <tr>
+                          <th>Hospital</th>
+                          <td>{{ $locations->find($doctor->hospital_id)->name }}</td>
+                        </tr>
 
-      <!-- ROW 3 -->
-      <div class="row">
-        <div class="col-sm-4">
-          <span>CONTACT</span>
-          <p>{{ $doctor->phone }}<br>{{ $doctor->email }}</p>
-        </div>
-        <div class="col-sm-4">
-          <span>ADDRESS</span>
-          <p>{{ $doctor->address }}</p>
-        </div>
-        <div class="col-sm-4">
-          <span> GENDER</span>
-          <p>{{ $doctor->gender}}</p>
-        </div>
-      </div>
+                        <tr>
+                          <th>Visiting Charge</th>
+                          <td>{{ $doctor->visiting_charge }}</td>
+                        </tr>
 
-    </div>
+                        <tr>
+                          <th>Timing</th>
+                          <td>{{ $doctor->from }} to {{ $doctor->to }}</td>
+                        </tr>
 
-  </div>
-  <!-- /.content-wrapper -->
+                        <tr>
+                          <th>Closed</th>
+                          <td>{{ $doctor->closing_days }}</td>
+                        </tr>
 
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+                        <tr>
+                          <th>Phone</th>
+                          <td>{{ $doctor->phone }}</td>
+                        </tr>
+
+                        <tr>
+                          <th>E-Mail</th>
+                          <td>{{ $doctor->email }}</td>
+                        </tr>
+
+                        <tr>
+                          <th>Address</th>
+                          <td>{{ $doctor->address }}</td>
+                        </tr>
+
+                        <tr>
+                          <th>Gender</th>
+                          <td>{{ $doctor->gender }}</td>
+                        </tr>
+                      </table>
+                    </div> <!-- /.card-body -->
+                  </div> <!-- /.card -->
+                </div>
+            </div>
+        </div>
+    
+    </section> <!-- /.content -->
+  </div> <!-- /.content-wrapper -->
 @include('include.footer')

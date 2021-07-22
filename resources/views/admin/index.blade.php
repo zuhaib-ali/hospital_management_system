@@ -52,7 +52,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item active">HOME</li>
+              <li class="breadcrumb-item active" style="color:blue;"> <a href="{{ route('index') }}"><i class="fas fa-home"> Home</i></a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->

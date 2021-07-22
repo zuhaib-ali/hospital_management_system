@@ -235,6 +235,21 @@ Route::get('admin/doctors/edit_doctor', function(){
     ]);
 })->name('edit_doctor');
 
+// DELETING DOCTOR
+Route::get('admin/doctors/delete_doctor', function(){
+    // RETRIEVING DOCTOR.
+    $doctor =  Doctor::find(Request::get('doctor_id'));
+
+    // DOCTOR NANE.
+    $name = $doctor->first_name." ".$doctor->last_name;
+
+    // DELETEING DOCTOR.
+    $deleted = $doctor->delete();
+    if($deleted == true){
+        return redirect()->route("doctors")->with('deleted', $name." Deleted From Doctors Record.");
+    }
+})->name('delete_doctor');
+
 
 
 // VIEW DOCTOR
