@@ -170,13 +170,17 @@ Route::get('/emailLetter', function(){
         return redirect()->route('login');
     }
 })->name('emailLetter');
-
+ 
 
 // APPOITMENT FIX VIEW
 Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
 
 // SUBMIT APPOINTMENT
 Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
+
+Route::post('appointments/appointment_by_doctor', function(){
+    return Request::all();
+})->name("appointment_by_doctor");
 
 Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']);
 

@@ -18,16 +18,15 @@ class AppointmentController extends Controller
 {
     // APPOINTMENT VIEW
     public function appointmentView(Request $request){
-        $locations = Location::all();
         $patient = $request->session()->get('user');
 
         if($request->session()->has('user')){
             return view('components.add_appointment', [
-                'locations' =>  $locations,
-                'patient'   =>  $patient,
-                'carts'     =>  Cart::all(),
-                'doctors'   =>  Doctor::all(),
-                'specializations' => Specialization::all(),
+                'locations'         =>  Location::all(),
+                'patient'           =>  $patient,
+                'carts'             =>  Cart::all(),
+                'doctors'           =>  Doctor::all(),
+                'specializations'   => Specialization::all(),
             ]);
         }else{
             return redirect()->route('login');
@@ -47,6 +46,8 @@ class AppointmentController extends Controller
             'patient_id' => $request->user_id,
             'patient_name' => $request->patient_name,
             'location_id' => $request->location,
+            'doctor_id' => 0,
+            'hospital_id' => 0,
             'note' => $request->form_note,
         ]);   
 

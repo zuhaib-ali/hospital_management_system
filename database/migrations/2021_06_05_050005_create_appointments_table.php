@@ -17,9 +17,11 @@ class CreateAppointmentsTable extends Migration
             $table->id();
             $table->string('type');
             $table->string('patient_name');
-            $table->unsignedInteger('patient_id');
-            $table->unsignedInteger('doctor_id');
-            $table->unsignedInteger('location_id');
+            $table->foreignId('patient_id');
+            $table->foreignId('doctor_id')->nullable();
+            $table->foreignId('location_id')->nullable();
+            $table->foreignId('hospital_id');
+            $table->text('note');
             $table->timestamps();
             $table->softDeletes();
         });
