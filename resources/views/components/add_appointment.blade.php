@@ -77,13 +77,13 @@
                 @csrf 
                 <!-- LOCATIONS DROPDOWN -->
                 <div class="form-group mb-3">
-
                   <label for="location"><span style="color:red;">*</span> SELECT BY DOCTORS</label>
                   <select class="form-select form-control col-lg-6" aria-label="Default select example" name="doctor" id="location">
                     <option selected style="font-weight:bold;">NONE</option>    
                     <!-- ALL LOCATIONS -->
-                      <option value="{{ $location->id }}" id="option" data="">
-                      </option>
+                      @foreach($doctors as $doctor)
+                        <option value="{{ $doctor->id }}" id="option" data="">{{ $doctor->first_name }} {{ $doctor->last_name }}</option>
+                      @endforeach
                   </select>
                 </div>
                 <!-- SUBMIT APPOINTMENT BUTTON -->
