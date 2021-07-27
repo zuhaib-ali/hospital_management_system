@@ -39,9 +39,7 @@
                     <option selected style="font-weight:bold;">NONE</option>    
                     <!-- ALL LOCATIONS -->
                     @foreach($locations as $location)
-                      <option value="{{ $location->id }}" id="option" data="{{ $location->name }}">
-                        {{ $location->name }}
-                      </option>
+                      <option value="{{ $location->id }}" id="option" data="{{ $location->name }}">{{ $location->name }}</option>
                     @endforeach
                   </select>
                 </div>
@@ -79,11 +77,13 @@
                 <div class="form-group mb-3">
 
                   <label for="location"><span style="color:red;">*</span> SELECT BY DOCTORS</label>
-                  <select class="form-select form-control col-lg-6" aria-label="Default select example" name="doctor" id="location">
+                  <select class="form-select form-control col-lg-6" aria-label="Default select example" name="doctor" id="doctor">
                     <option selected style="font-weight:bold;">NONE</option>    
-                    <!-- ALL LOCATIONS -->
-                      <option value="{{ $location->id }}" id="option" data="">
-                      </option>
+                    <!-- ALL Doctors -->
+                      @foreach($doctors as $doctor)
+                        <option value="{{ $doctor->id }}" id="drOption" data="{{ $doctor->first_name }} {{ $doctor->last_name }}">{{ $doctor->first_name }} {{ $doctor->last_name }}</option>
+                      @endforeach()
+
                   </select>
                 </div>
                 <!-- SUBMIT APPOINTMENT BUTTON -->
@@ -172,12 +172,11 @@
     $('#location').change(function() {
         // GETTING LOCATION VALUE SELECTED
         var location_value = $(this).val();
-        var lName = $('#option').attr('data');
+        var lName = $('#location option:selected').text();
         // SHOW MODAL 
         if(location_value !== "ALL"){ //Compare it and if true
             $('#lName').val(lName);
             $('#myModal').modal("show"); //Open Modal
-            $("#checkup_type_in_hospital").text("Select Your Checkup For "+location_value);
         }
     });
     $("#select_checkup_type").click(function(){
@@ -189,6 +188,13 @@
     // $("#first_name").keypress(function(){
       
     // });
+
+
+    $('#doctor').change(function(){
+
+      var dr = $('#doctor option:selected').text();
+      
+    })
     
   });
 </script>

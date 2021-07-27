@@ -23,11 +23,11 @@ class AppointmentController extends Controller
 
         if($request->session()->has('user')){
             return view('components.add_appointment', [
-                'locations' =>  $locations,
-                'patient'   =>  $patient,
-                'carts'     =>  Cart::all(),
-                'doctors'   =>  Doctor::all(),
-                'specializations' => Specialization::all(),
+                'locations'         =>  $locations,
+                'patient'           =>  $patient,
+                'carts'             =>  Cart::all(),
+                'doctors'           =>  Doctor::all(),
+                'specializations'   => Specialization::all(),
             ]);
         }else{
             return redirect()->route('login');

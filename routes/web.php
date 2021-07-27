@@ -170,7 +170,7 @@ Route::get('/emailLetter', function(){
         return redirect()->route('login');
     }
 })->name('emailLetter');
-
+ 
 
 // APPOITMENT FIX VIEW
 Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
