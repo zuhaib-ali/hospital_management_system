@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 27, 2021 at 08:57 PM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Jul 28, 2021 at 07:03 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -46,7 +47,8 @@ CREATE TABLE `appointments` (
 --
 
 INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `doctor_id`, `location_id`, `hospital_id`, `note`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'general physician', 'Bisal Bhatti', 3, 0, 1, 0, '11:53', '2021-07-27 13:53:52', '2021-07-27 13:53:52', NULL);
+(1, 'general physician', 'Bisal Bhatti', 3, 0, 1, 0, '11:53', '2021-07-27 13:53:52', '2021-07-27 13:53:52', NULL),
+(2, 'Acupuncturist', 'Bisal Bhatti', 3, 1, 1, 1, 'xyz', '2021-07-28 12:02:17', '2021-07-28 12:02:17', NULL);
 
 -- --------------------------------------------------------
 
@@ -102,6 +104,13 @@ CREATE TABLE `doctors` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `doctors`
+--
+
+INSERT INTO `doctors` (`id`, `first_name`, `last_name`, `email`, `degree`, `specialist`, `visiting_charge`, `gender`, `phone`, `from`, `to`, `closing_days`, `avater`, `address`, `hospital_id`, `created_at`, `updated_at`) VALUES
+(1, 'Ahsan', 'Rajar', 'ahsan@gmail.com', 'D.N.B - Diplomate of national board', '1', 2500, 'male', '03030311333', '17:00', '22:30', 'sunday', '1627455384-Ahsan-Rajar.jpg', 'Doctor Line Sadar Hyderabad', 1, '2021-07-28 01:56:24', '2021-07-28 01:56:24');
 
 -- --------------------------------------------------------
 
@@ -425,7 +434,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -443,7 +452,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`

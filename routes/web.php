@@ -173,14 +173,16 @@ Route::get('/emailLetter', function(){
  
 
 // APPOITMENT FIX VIEW
-Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
+Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment'); 
+
+//Dr Appointment
+Route::post('/drAppointment', [AppointmentController::class, 'drAppointment'])->name('drAppointment'); 
+
 
 // SUBMIT APPOINTMENT
 Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
 
-Route::post('appointments/appointment_by_doctor', function(){
-    return Request::all();
-})->name("appointment_by_doctor");
+Route::post('appointments/appointment_by_doctor',[AppointmentController::class, 'drAppointment'])->name("appointment_by_doctor");
 
 Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']);
 

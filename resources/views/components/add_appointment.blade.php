@@ -76,7 +76,7 @@
 
             <!-- APPOINTMENT BY DOCTOR -->
             <div class="col-lg-6">
-              <form action="{{ route('appointment_by_doctor') }}" method="POST">
+              <form action="{{ route('appointment_by_doctor') }}" method="POST"> 
                 @csrf 
                 <!-- DOCTORS DROPDOWN -->
                 <div class="form-group mb-3">
@@ -89,14 +89,22 @@
                       @endforeach()
 
                   </select>
+                  <input type="hidden" name="patient_name" value="{{ Session::get('user')->first_name }} {{ Session::get('user')->last_name }}">
                   <!-- PATIENT ID -->
                   <input type="hidden" name="patient_id" value="{{ Session::get('user')->id }}">
                   <!-- HOSPITAL ID -->
-                  <input type="hidden" value="" name="hospital_id" id="hospita_id">
+                  <input type="hidden" name="hospital_id" id="hospital_id">
                   <!-- DOCTOR ID -->
-                  <input type="hidden" value="" name="doctor_id" id="doctor_id">
+                  <input type="hidden" name="doctor_id" id="doctor_id">
                   <!-- PATIENT ID -->
-                  <input type="hidden" value="" name="patient_name_in_doctor_appointment" id="patient_name_in_doctor_appointment">
+                  <input type="hidden" name="patient_name_in_doctor_appointment" id="patient_name_in_doctor_appointment">
+
+                  <input type="hidden" name="location_id" id="location_id">
+
+                  <input type="hidden" name="type" id="type">
+                  
+                  <input type="hidden" name="note" id="drNote">
+
                 </div>
                 <!-- SUBMIT APPOINTMENT BUTTON -->
                 <div class="form-group mb-3">  
@@ -180,30 +188,42 @@
             </div>
             <!-- BODY -->
             <div class="modal-body">
-              <label> Patient Name </label>
-              <input type="text" name="patient-name" value="{{ $patient->first_name }} {{ $patient->last_name }}" class="form-control" id="patient_name_in_doctor_modal" disabled>
-              <label> Doctor Name </label>
-              <input type="text" name="doctor-name" value="" class="form-control" id="doctor-name" disabled>
-              <label> Location </label>
-              <input type="text" name="location_of_doctor" class="form-control" id="location_of_doctor" value="" disabled>
-              <p style="font-weight:bold; color:red;" id="checkup_type_in_hospital"></p>
+                  <label> Patient Name </label>
+                  <input type="text" name="patient-name" value="{{ $patient->first_name }} {{ $patient->last_name }}" class="form-control" id="patient_name_in_doctor_modal" disabled>
 
-              <label> Note </label>
-              <textarea class="form-control" cols="3" rows="5" name="note_in_doctor_modal" id="note_in_doctor_modal"></textarea>
-            </div>
+                  <label> Doctor Name </label>
+                  <input type="text" name="doctor-name" value="" class="form-control" id="doctor-name" disabled>
 
-            <!-- FOOTER -->
-            <div class="modal-footer">
-              <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
-                <i class="ft-x"></i>
-                Close
-              </button>
-              <button type="button" class="btn btn-sm btn-success" id="" data-bs-dismiss="modal">
-                <i class="fa fa-plus"></i>
-                Add
-              </button>
-            </div>
+                  
+                  <label> Doctor Speciality </label>
+                  <input type="text" name="specialist" value="" class="form-control" id="speciality" disabled>
 
+
+                  <a href="javascript:void(0)" id="abt" style="color: orange;">Detail About Speciality...</a>
+                  <textarea cols="5" rows="3" class="form-control" id="detail" disabled></textarea>
+
+                  <br>
+                  <label> Location </label>
+                  <input type="text" name="location_of_doctor" class="form-control" id="location_of_doctor" value="" disabled>
+
+                  
+                  <p style="font-weight:bold; color:red;" id="checkup_type_in_hospital"></p>
+
+                  <label> Note </label>
+                  <textarea class="form-control" cols="3" rows="5" id="note_in_doctor_modal"></textarea>
+                </div>
+
+                <!-- FOOTER -->
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-sm btn-danger" data-bs-dismiss="modal">
+                    <i class="ft-x"></i>
+                    Close
+                  </button>
+                  <button type="button" class="btn btn-sm btn-success" data-bs-dismiss="modal" id="drAdd">
+                    <i class="fa fa-plus"></i>
+                    Add
+                  </button>
+                </div>
           </div>
         </div>
       </div>
@@ -246,6 +266,9 @@
     var dr;
     var doctor_id;
     var doctor_name;
+    var spcl_id;
+    var speciality;
+    var detail;
 
     var location_name;
     var location_id;
@@ -261,6 +284,18 @@
             // DOCTOR ID
             hospital = {{ $doctor->hospital_id }};
             doctor_name = "{{ $doctor->first_name }} {{$doctor->last_name}}";
+            spcl_id  =     "{{ $doctor->specialist }}";
+            doctor_id = "{{ $doctor->id }}";
+
+          }
+        @endforeach
+      }
+
+      if(spcl_id != null){
+        @foreach($specializations as $speciality)
+          if({{ $speciality->id }} == spcl_id){
+            speciality = "{{ $speciality->name }}";
+            detail     = "{{ $speciality->description }}";
           }
         @endforeach
       }
@@ -269,21 +304,36 @@
         @foreach($locations as $location)
           if({{ $location->id }} == hospital){
             location_name = "{{ $location->name }}";
-            location_id = {{ $location->id }};
+            location_id = "{{ $location->id }}";
           }
         @endforeach
       }
 
       if(location_id == hospital){
+        $("#detail").hide();
         $("#location_of_doctor").val(location_name); // HOSPITAL NAME
         $("#doctor-name").val(doctor_name); // DOCTOR NAME
-        $("#doctor_id").val(doctor_id); // DOCTOR ID
-        $("#hospital_id").val(hospital_id); // HOSPITAL ID
+        $("#speciality").val(speciality); // DOCTOR speciality 
         $("#patient_name_in_doctor_appointment").val($("#patient_name_in_doctor_modal").val()); // PATIENT NAME
 
+        $("#abt").click(function(){
+          $("#detail").toggle();
+          $("#detail").val(detail);
+        });
         $("#select_by_doctor_modal").modal("show");  // MODAL SHOWING
       }
       
+    });
+
+
+    $("#drAdd").click(function(){
+      $("#doctor_id").val(doctor_id); // DOCTOR ID
+        $("#hospital_id").val(location_id); // HOSPITAL ID
+        $("#location_id").val(location_id); // location_id
+      $("#type").val(speciality);
+      var note = $("#note_in_doctor_modal").val();
+      $("#drNote").val(note);
+
     });
     
   });

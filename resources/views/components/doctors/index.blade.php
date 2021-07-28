@@ -51,7 +51,7 @@
                       <h4>
                           <span style="color:white;" >No of records - {{ count($doctors) }}</span>
                         <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#add" style="border-radius:10px;"> 
-                          <i class="fa fa-plus"></i>
+                          <i class="fa fa-plus"></i> 
                           ADD DOCTOR
                         </button>
                       </h4>
@@ -118,7 +118,7 @@
 				<div class="modal-dialog" role="document">
 				    <div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title">Add Location</h5>
+							<h5 class="modal-title">Add Doctor</h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						  	<span aria-hidden="true">&times;</span>
 							</button>
@@ -277,13 +277,15 @@
                         <!-- MODAL FOOTER -->
 				      	<div class="modal-footer">
                             <!-- RESET -->
-                            <button type="reset" class="btn btn-secondary btn-sm">
-                                <i class="ft-x"> RESET </i>
+                            <button type="reset" class="btn btn-sm btn-secondary">
+                                <i class="ft-x"></i>
+                                Reset
                             </button>
 
                             <!-- SUBMIT -->
-				        	<button type="submit" class="btn btn-primary btn-sm">
-                                <i class="fa fa-plus"> Save </i> 
+				        	<button type="submit" class="btn btn-sm btn-primary">
+                                <i class="fa fa-plus"></i>
+                                Save 
                             </button>
 				      	</div>
 				    </div>

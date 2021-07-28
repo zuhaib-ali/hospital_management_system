@@ -59,6 +59,28 @@ class AppointmentController extends Controller
 
     }
 
+
+    public function drAppointment(Request $request){
+
+       $appointment = Appointment::create([
+            'type' => $request->type,
+            'patient_id' => $request->patient_id,
+            'patient_name' => $request->patient_name,
+            'location_id' => $request->location_id,
+            'doctor_id' => $request->doctor_id,
+            'hospital_id' => $request->location_id,
+            'note' => $request->note,
+        ]);   
+
+        if($appointment == true){
+            return back()->with('success', 'Your appointment successfully added!');
+        }else{
+            return back()->with('failed', 'Failed to sent appointment!');
+        }
+
+
+    }
+
     public function getPatientData($id)
      {
         $data       =   User::where('id',$id)->first();
