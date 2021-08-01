@@ -15,6 +15,7 @@ use App\Http\Controllers\reportController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\LabtestController;
+use App\Http\Controllers\DepartmentController;
 
 use App\Models\Location;
 use App\Models\Doctor;
@@ -102,14 +103,6 @@ Route::get('/sign_up', function(){
         return view('sign_up');
     }
 })->name('signUp');
-
-// Route::get('/doctors', function(){
-//     if(Session::has('user')){
-//         return view('components.doctors');
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('doctors');
 
 // EDIT PROFILE GET
 Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
@@ -224,6 +217,25 @@ Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up')
 
 // login post
 Route::post('/login', [Login::class, 'loginUser'])->name('login');
+
+
+// '''''''''''''''''''''''   DEPARTMENTS   '''''''''''''''''''''''
+Route::get("admin/departments", [DepartmentController::class, 'index'])->name("departments");
+Route::get("admin/departments/delete", [DepartmentController::class, "destroy"])->name("delete_department");
+Route::get("admin/departments/edit", [DepartmentController::class, "edit"])->name("edit_department");
+Route::post("admin/departments/add-new-department", [DepartmentController::class, "add"])->name("add_new_department");
+
+
+
+
+
+
+
+
+
+
+
+
 
 // '''''''''''''''''''''''   DOCTORS   '''''''''''''''''''''''
 Route::get('admin/doctors', [DoctorController::class, 'index'])->name('doctors');

@@ -100,10 +100,6 @@
                 </div>
             </div>
         </div>
-        <select class="js_multiple form-control" name="states[]" multiple="multiple">
-            <option value="AL">Alabama</option>
-            <option value="WY">Wyoming</option>
-        </select>
     </section>
     <!-- /.content -->
   </div>

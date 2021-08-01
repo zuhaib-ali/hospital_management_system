@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 31, 2021 at 02:09 PM
+-- Generation Time: Aug 01, 2021 at 01:43 PM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -83,6 +83,28 @@ CREATE TABLE `categories` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `departments`
+--
+
+CREATE TABLE `departments` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `department_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `departments`
+--
+
+INSERT INTO `departments` (`id`, `department_name`, `description`, `created_at`, `updated_at`) VALUES
+(1, 'Paramedical Departments', 'The following laboratories are usually found in the pathology department:\r\n\r\n1. Bacteriology laboratory: This laboratory studies about the bacteria and their toxins.\r\n\r\n\r\n2. Biochemistry : this is concerned with the chemistry of living organisms and of vital process.\r\n\r\n\r\n3. Haematology laboratory : it is responsible for making haemoglobin determinations, coagulation time studies, red and white cell counts and special blood pathology studies for anaemia and leukaemia etc.\r\n\r\n\r\n4. Parasitology laboratory: it studies the presence of parasites, the cyst and ovas of the parasites that are found in the faeces.\r\n\r\n\r\n5. Serology laboratory: it does blood agglutination tests, Wassermann tests, V.D.R.L. etc.\r\n\r\n\r\n6. Blood bank: it has the responsibility for collecting and processing all blood used in the hospital for transfusions. It makes studies on newborn infants who may have haemolytic diseases and does antibody studies on the prenatal client.\r\n\r\n\r\n7. Histopathology department: it prepares tissues for gross and microscopic studies.\r\n\r\nLaboratory services (LAB) must be available day and night. Must be located on the ground floor and should be easily accessible to the outpatients. Space requirement of Lab is:\r\n\r\nPrimary space: Required for technical work.\r\n\r\nSecondary space: space utilized for administrative purpose.\r\n\r\nCirculation space: for unchattered movement of personnel and equipment.\r\n\r\nThere should be sufficient staff and work arrangement for the efficient functioning of the department.', '2021-08-01 06:01:39', '2021-08-01 06:01:39'),
+(2, 'Paramedical Departments', 'The following laboratories are usually found in the pathology department:\r\n\r\n1. Bacteriology laboratory: This laboratory studies about the bacteria and their toxins.\r\n\r\n\r\n2. Biochemistry : this is concerned with the chemistry of living organisms and of vital process.\r\n\r\n\r\n3. Haematology laboratory : it is responsible for making haemoglobin determinations, coagulation time studies, red and white cell counts and special blood pathology studies for anaemia and leukaemia etc.\r\n\r\n\r\n4. Parasitology laboratory: it studies the presence of parasites, the cyst and ovas of the parasites that are found in the faeces.\r\n\r\n\r\n5. Serology laboratory: it does blood agglutination tests, Wassermann tests, V.D.R.L. etc.\r\n\r\n\r\n6. Blood bank: it has the responsibility for collecting and processing all blood used in the hospital for transfusions. It makes studies on newborn infants who may have haemolytic diseases and does antibody studies on the prenatal client.\r\n\r\n\r\n7. Histopathology department: it prepares tissues for gross and microscopic studies.\r\n\r\nLaboratory services (LAB) must be available day and night. Must be located on the ground floor and should be easily accessible to the outpatients. Space requirement of Lab is:\r\n\r\nPrimary space: Required for technical work.\r\n\r\nSecondary space: space utilized for administrative purpose.\r\n\r\nCirculation space: for unchattered movement of personnel and equipment.\r\n\r\nThere should be sufficient staff and work arrangement for the efficient functioning of the department.', '2021-08-01 06:01:55', '2021-08-01 06:01:55');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `doctors`
 --
 
@@ -152,10 +174,10 @@ CREATE TABLE `labtests` (
 
 INSERT INTO `labtests` (`id`, `date`, `patient`, `refered_by_doctor`, `template`, `report`, `created_at`, `updated_at`) VALUES
 (1, '2021-07-31', 'zuhaib patient', 'Ahsan Rajar', NULL, 'report 1', '2021-07-31 06:39:54', '2021-07-31 06:39:54'),
-(2, '2021-07-31', 'salman', 'Ahsan Rajar', NULL, 'report 2', '2021-07-31 06:40:49', '2021-07-31 06:40:49'),
-(3, '2021-07-31', 'zeeshan', 'Ahsan Rajar', NULL, 'report 3', '2021-07-31 06:41:33', '2021-07-31 06:41:33'),
+(2, '2021-07-31', 'salman soomro', 'Ahsan Rajar', NULL, 'report 2', '2021-07-31 06:40:49', '2021-07-31 13:52:09'),
+(3, '2021-07-31', 'zeeshan soomro', 'Ahsan Rajar', NULL, 'report 3', '2021-07-31 06:41:33', '2021-07-31 08:14:55'),
 (4, '2021-07-31', 'ahmed kahn', 'Ahsan Rajar', NULL, 'report 4', '2021-07-31 07:03:23', '2021-07-31 07:03:23'),
-(5, '2021-07-31', 'sallu bhai', 'Ahsan Rajar', NULL, 'report 5', '2021-07-31 07:03:52', '2021-07-31 07:03:52');
+(6, '2021-07-31', 'sallu bhai', 'Ahsan Rajar', NULL, 'this is repost that is im gonna check it through testing my web application.\r\n\r\nso...\r\n\r\nLet\'s chekc it', '2021-07-31 12:17:54', '2021-07-31 12:17:54');
 
 -- --------------------------------------------------------
 
@@ -234,7 +256,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (19, '2021_07_03_092151_create_carts_table', 1),
 (20, '2021_07_13_091345_create_doctors_table', 1),
 (21, '2021_07_19_104401_create_specializations_table', 1),
-(22, '2021_07_31_094550_create_labtests_table', 2);
+(22, '2021_07_31_094550_create_labtests_table', 2),
+(23, '2021_08_01_095323_create_departments_table', 3);
 
 -- --------------------------------------------------------
 
@@ -388,6 +411,12 @@ ALTER TABLE `categories`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `departments`
+--
+ALTER TABLE `departments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `doctors`
 --
 ALTER TABLE `doctors`
@@ -485,6 +514,12 @@ ALTER TABLE `categories`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `departments`
+--
+ALTER TABLE `departments`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
@@ -500,7 +535,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `labtests`
 --
 ALTER TABLE `labtests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `locations`
@@ -518,7 +553,7 @@ ALTER TABLE `medicines`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
 
 --
 -- AUTO_INCREMENT for table `patients`

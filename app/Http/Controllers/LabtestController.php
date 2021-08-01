@@ -18,8 +18,10 @@ class LabtestController extends Controller
             "lab_tests" => Labtest::all(),
         ]);
     }
-
+    
+    // ADD
     public function add(Request $request){
+        return $request->patient_id;
         $request->validate([
             'date'=>['required'],
             'patient'=>['required'],
@@ -39,7 +41,7 @@ class LabtestController extends Controller
         }
     }
 
-
+    // DELETE
     public function delete(Request $request){
         
         if($request->session()->has("user") === true){

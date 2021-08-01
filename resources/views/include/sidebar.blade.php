@@ -56,9 +56,16 @@
 
           @if(Session::get('user')->role == 'admin')
             <li class="nav-item">
+              <a href="{{ route('departments') }}" class="nav-link @if(Request::url() == Request::is('admin/departments')) active @endif()">
+                <i class="fas fa-building"></i>
+                <p>Departments</p>
+              </a>
+            </li>
+
+            <li class="nav-item">
               <a href="{{ route('doctors') }}" class="nav-link @if(Request::url() == Request::is('admin/doctors')) active @endif()">
                 <i class="fas fa-user-md"></i>
-                <p>DOCTORS</p>
+                <p>Doctors</p>
               </a>
             </li>
 

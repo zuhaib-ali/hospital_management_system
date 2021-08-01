@@ -58,9 +58,52 @@
                         <td>{{ $lab_test->date }}</td>
                         <td>
                           <!-- Button trigger modal for edit lab test -->
-                          <button type="button" class="btn btn-outline-primary" class="show_lab_test">
+                          <a type="button" class="btn btn-outline-primary show_test" data-toggle="modal" data-target="#id_no_{{ $lab_test->id }}">
                             <i class="fas fa-eye "></i>
-                          </button>
+                          </a>
+
+                          <!-- SHOW LAB TEST - MODAL -->
+                          <div class="modal fade" id="id_no_{{ $lab_test->id }}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                            <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                <div class="modal-header">
+                                  <h5 class="modal-title" id="exampleModalLabel">Patient - {{ $lab_test->patient }}</h5>
+                                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                  </button>
+                                </div>
+                                <div class="modal-body">
+                                  <table calss="table">
+                                    <tr>
+                                      <th>Patient Name</th>
+                                      <td>{{ $patients->where("first_name", ) }}</td>
+                                      <th>Patient Name</th>
+                                      <td>Address</td>
+                                    </tr>
+
+                                    <tr>
+                                      <th>Contact</th>
+                                      <td></td>
+                                      <th>E-Mail</th>
+                                      <td>Address</td>
+                                    </tr>
+
+                                    <tr>
+                                      <th>Patient Name</th>
+                                      <td></td>
+                                      <th>Patient Name</th>
+                                      <td>Address</td>
+                                    </tr>
+                                  </table>
+                                </div>
+                                <div class="modal-footer">
+                                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                  <button type="button" class="btn btn-primary">Save changes</button>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+
                           <!-- EDIT LAB TEST -->
                           <a href="{{ route('edit_lab_test', ['lab_test_id'=>$lab_test->id]) }}" class="btn btn-outline-secondary"><i class="fas fa-edit"></i></a>
                           <!-- DELETE LAB TEST -->
@@ -109,16 +152,15 @@
                     </div>
                     <!-- PATIENT -->
                     <div class="form-group">
-                      <label for="patient">Patient</label>
-                      <input type="text" list="patients" name="patient" id="patient" class="form-control" required>
-                      <!-- PATIENT DATA LIST -->
-                      <datalist id="patients">
+                      <label for="patient">Patient </label><a href="{{ route('addPatients') }}" class="pull-right">Add New</a>
+                      <select id="patients" name="patient" id="patient" class="form-control" required>
                         @if(count($patients) != 0)
                           @foreach($patients as $patient)
-                            <option value="{{ $patient->first_name }}"></option>
+                            
+                            <option value="{{ $patient->first_name }}"><input type="hidden" name="patient_id" value="{{ $patient->id }}"></option>
                           @endforeach
                         @endif
-                      </datalist>
+                      </select>
                     </div>
                   <!-- </div> -->
                   <!-- / FORM ROW 1-->
@@ -165,38 +207,10 @@
         <!-- /CONTENT BODY COLUMN 12 -->
       </div>
       <!-- /ROW -->
-
-      <div class="row">
-        
-      </div>
-      <!-- /ROW -->
     </div>
     <!-- /.content -->
   </div>
   <!-- /.content-wrapper -->
-
-
-
-  <!-- SHOW LAB TEST - MODAL -->
-  <div class="modal fade" id="show-lab-test-modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-          ...
-        </div>
-        <div class="modal-footer">
-          <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-          <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-      </div>
-    </div>
-  </div>
 
 
   <!-- SWEET ALERT -->
@@ -232,16 +246,4 @@
       });
     @endif
   </script>
-
-
-  <script>
-    $(document).ready(function(){
-      $(".show_lab_test").click(function(e){
-        var v = $(this).closest("tr").find("#lab_id").text();
-        console.log(v);
-      });
-    });
-  </script>
-
-
 @include('include.footer')
