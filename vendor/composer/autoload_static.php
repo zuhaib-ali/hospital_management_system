@@ -536,6 +536,7 @@ class ComposerStaticInitb79edf6ea8449122001d0e2f3cb995e0
         'App\\Http\\Controllers\\MedicineController' => __DIR__ . '/../..' . '/app/Http/Controllers/MedicineController.php',
         'App\\Http\\Controllers\\PharmacistController' => __DIR__ . '/../..' . '/app/Http/Controllers/PharmacistController.php',
         'App\\Http\\Controllers\\SendMailController' => __DIR__ . '/../..' . '/app/Http/Controllers/SendMailController.php',
+        'App\\Http\\Controllers\\SpecializationController' => __DIR__ . '/../..' . '/app/Http/Controllers/SpecializationController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',
         'App\\Http\\Controllers\\adminController' => __DIR__ . '/../..' . '/app/Http/Controllers/adminController.php',
         'App\\Http\\Controllers\\components' => __DIR__ . '/../..' . '/app/Http/Controllers/components.php',

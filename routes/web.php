@@ -14,6 +14,7 @@ use App\Http\Controllers\PharmacistController;
 use App\Http\Controllers\reportController;
 use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SpecializationController;
+use App\Http\Controllers\LabtestController;
 
 use App\Models\Location;
 use App\Models\Doctor;
@@ -342,7 +343,17 @@ route::post('addToCart', [PharmacistController::class, 'addToCart'])->name('addT
 route::get('pharmacy/pharmacists/delete', [PharmacistController::class, 'delete'])->name('delete_pharmacist');
 
 
-
+// --------------------- LAB TESTS -------------------------
+// LAB REPORTS VIEW
+route::get('admin/lab-test/lab-reports', [LabtestController::class, "labReports"])->name("lab_reports");
+// ADD LAB REPORT
+route::post("add_lab_report", [LabtestController::class, "add"])->name("add_lab_report");
+// DELETE LAB TEST
+route::get("admin/lab-test/delete-lab-test", [LabtestController::class, "delete"])->name("delete_lab_test");
+// EDIT LAB TEST VIEW
+route::get("admin/lab-test/edit-lab-test", [LabtestController::class, "edit"])->name("edit_lab_test");
+// UPDATE LAB TEST
+route::post("admin/lab-test/update-lab-test", [LabtestController::class, "update"])->name("update_lab_report");
 
 
 // Add User As Admin

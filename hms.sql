@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Jul 28, 2021 at 07:03 PM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Jul 31, 2021 at 02:09 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -48,7 +47,9 @@ CREATE TABLE `appointments` (
 
 INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `doctor_id`, `location_id`, `hospital_id`, `note`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'general physician', 'Bisal Bhatti', 3, 0, 1, 0, '11:53', '2021-07-27 13:53:52', '2021-07-27 13:53:52', NULL),
-(2, 'Acupuncturist', 'Bisal Bhatti', 3, 1, 1, 1, 'xyz', '2021-07-28 12:02:17', '2021-07-28 12:02:17', NULL);
+(2, 'Acupuncturist', 'Bisal Bhatti', 3, 1, 1, 1, 'xyz', '2021-07-28 12:02:17', '2021-07-28 12:02:17', NULL),
+(3, 'general physician', 'Bisal Bhatti', 3, 0, 1, 0, 'noed by me', '2021-07-30 03:04:17', '2021-07-30 03:04:17', NULL),
+(4, 'Acupuncturist', 'Bisal Bhatti', 3, 1, 1, 1, 'note by doctor appointment', '2021-07-30 03:06:51', '2021-07-30 03:06:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -131,6 +132,34 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `labtests`
+--
+
+CREATE TABLE `labtests` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `date` date NOT NULL,
+  `patient` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `refered_by_doctor` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `template` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `report` text COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `labtests`
+--
+
+INSERT INTO `labtests` (`id`, `date`, `patient`, `refered_by_doctor`, `template`, `report`, `created_at`, `updated_at`) VALUES
+(1, '2021-07-31', 'zuhaib patient', 'Ahsan Rajar', NULL, 'report 1', '2021-07-31 06:39:54', '2021-07-31 06:39:54'),
+(2, '2021-07-31', 'salman', 'Ahsan Rajar', NULL, 'report 2', '2021-07-31 06:40:49', '2021-07-31 06:40:49'),
+(3, '2021-07-31', 'zeeshan', 'Ahsan Rajar', NULL, 'report 3', '2021-07-31 06:41:33', '2021-07-31 06:41:33'),
+(4, '2021-07-31', 'ahmed kahn', 'Ahsan Rajar', NULL, 'report 4', '2021-07-31 07:03:23', '2021-07-31 07:03:23'),
+(5, '2021-07-31', 'sallu bhai', 'Ahsan Rajar', NULL, 'report 5', '2021-07-31 07:03:52', '2021-07-31 07:03:52');
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `locations`
 --
 
@@ -204,7 +233,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2021_06_20_181941_create_medicines_table', 1),
 (19, '2021_07_03_092151_create_carts_table', 1),
 (20, '2021_07_13_091345_create_doctors_table', 1),
-(21, '2021_07_19_104401_create_specializations_table', 1);
+(21, '2021_07_19_104401_create_specializations_table', 1),
+(22, '2021_07_31_094550_create_labtests_table', 2);
 
 -- --------------------------------------------------------
 
@@ -371,6 +401,12 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `labtests`
+--
+ALTER TABLE `labtests`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `locations`
 --
 ALTER TABLE `locations`
@@ -434,7 +470,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -461,6 +497,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `labtests`
+--
+ALTER TABLE `labtests`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
@@ -476,7 +518,7 @@ ALTER TABLE `medicines`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `patients`

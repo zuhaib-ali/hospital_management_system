@@ -19,8 +19,8 @@ class CreatePatientsTable extends Migration
             $table->string('firstname');
             $table->string('lastname');
             $table->integer('number');
-            $table->unsignedInteger('bed_no');
-            $table->unsignedInteger('doctor_id');
+            $table->foreignId('bed_no');
+            $table->foreignId('doctor_id');
             $table->string('city');
             $table->string('dob');
             $table->string('email');

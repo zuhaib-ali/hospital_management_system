@@ -238,17 +238,42 @@
                   <p>Pharmacists</p>
                 </a>
               </li>
-
-              
-
             </ul>
           </li>
 
+          <!-- LAB TESTS -->
           <li class="nav-item">
-            <a href="#" class="nav-link">
-              <i class="fas fa-user-alt"></i>
-                <p>LABORATARIES</p>
+            <a class="nav-link">
+              <i class="fas fa-vials"></i>
+              <p>Lab Tests</p>
+              <i class="fas fa-angle-left right"></i>
             </a>
+
+            <ul class="nav nav-treeview">
+              <!-- LAB REPORTS -->
+              <li class="nav-item">
+                <a href="{{ route('lab_reports') }}" class="nav-link">
+                  <i class="far fa-circle"></i>
+                  <p>Lab Reports</p>
+                </a>
+              </li>
+
+              <!-- ADD LAB REPORT -->
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle"></i>
+                  <p>Add Lab Report</p>
+                </a>
+              </li>
+
+              <!-- TEMPLATE -->
+              <li class="nav-item">
+                <a href="#" class="nav-link">
+                  <i class="far fa-circle"></i>
+                  <p>Template</p>
+                </a>
+              </li>
+            </ul>
           </li>
 
           <li class="nav-item">
