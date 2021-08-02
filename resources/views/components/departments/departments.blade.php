@@ -1,9 +1,9 @@
 @include('include.header')
 
 <style>
-    .modal-header, .card-header{
-        background-color:darkblue;
+    .modal-header {
         color:white;
+        background-color:darkblue;
     }
 </style>
 
@@ -35,9 +35,9 @@
     <div class="content-body" style="padding:20px;">
         <div class="card">
             <!-- CARD HEADER -->
-            <div class="card-header">
-                <h3>
-                    Departments - {{ count($departments) }}
+            <div class="card-header" style="background-color:darkblue;">
+                <p style="color:white;">
+                    DEPARTMENTS - {{ count($departments) }}
                     <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#add_new_department_modal"> <i class="fas fa-plus"></i></button>
                     
                     <!-- MODAL TO ADD DEPARMENT -->
@@ -70,7 +70,7 @@
                             </div>
                         </div><!-- /MODAL TO ADD DEPARTMENT -->
                     </form>
-</h3>
+                </p>
             </div>
 
             <!-- CARD BODY -->

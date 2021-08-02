@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 01, 2021 at 01:43 PM
+-- Generation Time: Aug 02, 2021 at 09:41 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -40,16 +40,6 @@ CREATE TABLE `appointments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `appointments`
---
-
-INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `doctor_id`, `location_id`, `hospital_id`, `note`, `created_at`, `updated_at`, `deleted_at`) VALUES
-(1, 'general physician', 'Bisal Bhatti', 3, 0, 1, 0, '11:53', '2021-07-27 13:53:52', '2021-07-27 13:53:52', NULL),
-(2, 'Acupuncturist', 'Bisal Bhatti', 3, 1, 1, 1, 'xyz', '2021-07-28 12:02:17', '2021-07-28 12:02:17', NULL),
-(3, 'general physician', 'Bisal Bhatti', 3, 0, 1, 0, 'noed by me', '2021-07-30 03:04:17', '2021-07-30 03:04:17', NULL),
-(4, 'Acupuncturist', 'Bisal Bhatti', 3, 1, 1, 1, 'note by doctor appointment', '2021-07-30 03:06:51', '2021-07-30 03:06:51', NULL);
 
 -- --------------------------------------------------------
 
@@ -94,14 +84,6 @@ CREATE TABLE `departments` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
---
--- Dumping data for table `departments`
---
-
-INSERT INTO `departments` (`id`, `department_name`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Paramedical Departments', 'The following laboratories are usually found in the pathology department:\r\n\r\n1. Bacteriology laboratory: This laboratory studies about the bacteria and their toxins.\r\n\r\n\r\n2. Biochemistry : this is concerned with the chemistry of living organisms and of vital process.\r\n\r\n\r\n3. Haematology laboratory : it is responsible for making haemoglobin determinations, coagulation time studies, red and white cell counts and special blood pathology studies for anaemia and leukaemia etc.\r\n\r\n\r\n4. Parasitology laboratory: it studies the presence of parasites, the cyst and ovas of the parasites that are found in the faeces.\r\n\r\n\r\n5. Serology laboratory: it does blood agglutination tests, Wassermann tests, V.D.R.L. etc.\r\n\r\n\r\n6. Blood bank: it has the responsibility for collecting and processing all blood used in the hospital for transfusions. It makes studies on newborn infants who may have haemolytic diseases and does antibody studies on the prenatal client.\r\n\r\n\r\n7. Histopathology department: it prepares tissues for gross and microscopic studies.\r\n\r\nLaboratory services (LAB) must be available day and night. Must be located on the ground floor and should be easily accessible to the outpatients. Space requirement of Lab is:\r\n\r\nPrimary space: Required for technical work.\r\n\r\nSecondary space: space utilized for administrative purpose.\r\n\r\nCirculation space: for unchattered movement of personnel and equipment.\r\n\r\nThere should be sufficient staff and work arrangement for the efficient functioning of the department.', '2021-08-01 06:01:39', '2021-08-01 06:01:39'),
-(2, 'Paramedical Departments', 'The following laboratories are usually found in the pathology department:\r\n\r\n1. Bacteriology laboratory: This laboratory studies about the bacteria and their toxins.\r\n\r\n\r\n2. Biochemistry : this is concerned with the chemistry of living organisms and of vital process.\r\n\r\n\r\n3. Haematology laboratory : it is responsible for making haemoglobin determinations, coagulation time studies, red and white cell counts and special blood pathology studies for anaemia and leukaemia etc.\r\n\r\n\r\n4. Parasitology laboratory: it studies the presence of parasites, the cyst and ovas of the parasites that are found in the faeces.\r\n\r\n\r\n5. Serology laboratory: it does blood agglutination tests, Wassermann tests, V.D.R.L. etc.\r\n\r\n\r\n6. Blood bank: it has the responsibility for collecting and processing all blood used in the hospital for transfusions. It makes studies on newborn infants who may have haemolytic diseases and does antibody studies on the prenatal client.\r\n\r\n\r\n7. Histopathology department: it prepares tissues for gross and microscopic studies.\r\n\r\nLaboratory services (LAB) must be available day and night. Must be located on the ground floor and should be easily accessible to the outpatients. Space requirement of Lab is:\r\n\r\nPrimary space: Required for technical work.\r\n\r\nSecondary space: space utilized for administrative purpose.\r\n\r\nCirculation space: for unchattered movement of personnel and equipment.\r\n\r\nThere should be sufficient staff and work arrangement for the efficient functioning of the department.', '2021-08-01 06:01:55', '2021-08-01 06:01:55');
-
 -- --------------------------------------------------------
 
 --
@@ -133,7 +115,7 @@ CREATE TABLE `doctors` (
 --
 
 INSERT INTO `doctors` (`id`, `first_name`, `last_name`, `email`, `degree`, `specialist`, `visiting_charge`, `gender`, `phone`, `from`, `to`, `closing_days`, `avater`, `address`, `hospital_id`, `created_at`, `updated_at`) VALUES
-(1, 'Ahsan', 'Rajar', 'ahsan@gmail.com', 'D.N.B - Diplomate of national board', '1', 2500, 'male', '03030311333', '17:00', '22:30', 'sunday', '1627455384-Ahsan-Rajar.jpg', 'Doctor Line Sadar Hyderabad', 1, '2021-07-28 01:56:24', '2021-07-28 01:56:24');
+(1, 'zuhaib', 'ali', 'salmansoomro523@gmail.com', 'BUMS - Bachelor of Unani medicine and Surgery', '1', 1000, 'male', '03333935454', '09:51', '21:57', 'sunday', '1627825915-zuhaib-ali.jpg', 'hakra muhalla, ali khan, kamber', 1, '2021-08-01 08:51:55', '2021-08-01 08:51:55');
 
 -- --------------------------------------------------------
 
@@ -167,17 +149,6 @@ CREATE TABLE `labtests` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `labtests`
---
-
-INSERT INTO `labtests` (`id`, `date`, `patient`, `refered_by_doctor`, `template`, `report`, `created_at`, `updated_at`) VALUES
-(1, '2021-07-31', 'zuhaib patient', 'Ahsan Rajar', NULL, 'report 1', '2021-07-31 06:39:54', '2021-07-31 06:39:54'),
-(2, '2021-07-31', 'salman soomro', 'Ahsan Rajar', NULL, 'report 2', '2021-07-31 06:40:49', '2021-07-31 13:52:09'),
-(3, '2021-07-31', 'zeeshan soomro', 'Ahsan Rajar', NULL, 'report 3', '2021-07-31 06:41:33', '2021-07-31 08:14:55'),
-(4, '2021-07-31', 'ahmed kahn', 'Ahsan Rajar', NULL, 'report 4', '2021-07-31 07:03:23', '2021-07-31 07:03:23'),
-(6, '2021-07-31', 'sallu bhai', 'Ahsan Rajar', NULL, 'this is repost that is im gonna check it through testing my web application.\r\n\r\nso...\r\n\r\nLet\'s chekc it', '2021-07-31 12:17:54', '2021-07-31 12:17:54');
 
 -- --------------------------------------------------------
 
@@ -240,24 +211,22 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2021_05_26_073242_add_username_to_users_table', 1),
 (5, '2021_06_02_063849_create_patients_table', 1),
-(6, '2021_06_03_064305_change_number_datatype_in_patients_table', 1),
-(7, '2021_06_03_070943_add_status_to_patients_table', 1),
-(8, '2021_06_05_050005_create_appointments_table', 1),
-(9, '2021_06_07_063941_add_role_to_users_table', 1),
-(10, '2021_06_07_165141_create_locations_table', 1),
-(11, '2021_06_07_171350_remove_logo_from_locations_table', 1),
-(12, '2021_06_14_113538_add_city_to_locations_table', 1),
-(13, '2021_06_19_062128_create_templates_table', 1),
-(14, '2021_06_19_062545_remove_city_from_locations_table', 1),
-(15, '2021_06_19_070801_add_timestamp_to_templates_table', 1),
-(16, '2021_06_20_111413_create_pharmacists_table', 1),
-(17, '2021_06_20_114149_create_categories_table', 1),
-(18, '2021_06_20_181941_create_medicines_table', 1),
-(19, '2021_07_03_092151_create_carts_table', 1),
-(20, '2021_07_13_091345_create_doctors_table', 1),
-(21, '2021_07_19_104401_create_specializations_table', 1),
-(22, '2021_07_31_094550_create_labtests_table', 2),
-(23, '2021_08_01_095323_create_departments_table', 3);
+(6, '2021_06_05_050005_create_appointments_table', 1),
+(7, '2021_06_07_063941_add_role_to_users_table', 1),
+(8, '2021_06_07_165141_create_locations_table', 1),
+(9, '2021_06_07_171350_remove_logo_from_locations_table', 1),
+(10, '2021_06_14_113538_add_city_to_locations_table', 1),
+(11, '2021_06_19_062128_create_templates_table', 1),
+(12, '2021_06_19_062545_remove_city_from_locations_table', 1),
+(13, '2021_06_19_070801_add_timestamp_to_templates_table', 1),
+(14, '2021_06_20_111413_create_pharmacists_table', 1),
+(15, '2021_06_20_114149_create_categories_table', 1),
+(16, '2021_06_20_181941_create_medicines_table', 1),
+(17, '2021_07_03_092151_create_carts_table', 1),
+(18, '2021_07_13_091345_create_doctors_table', 1),
+(19, '2021_07_19_104401_create_specializations_table', 1),
+(20, '2021_07_31_094550_create_labtests_table', 1),
+(21, '2021_08_01_095323_create_departments_table', 1);
 
 -- --------------------------------------------------------
 
@@ -279,18 +248,28 @@ CREATE TABLE `password_resets` (
 
 CREATE TABLE `patients` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `firstname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `lastname` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `number` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `bed_no` int(10) UNSIGNED NOT NULL,
-  `doctor_id` int(10) UNSIGNED NOT NULL,
-  `city` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `dob` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `address` text COLLATE utf8mb4_unicode_ci NOT NULL,
-  `deleted_at` timestamp NULL DEFAULT NULL,
-  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
+  `address` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `sex` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `date_of_birth` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `blood_group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `doctor_id` bigint(20) UNSIGNED NOT NULL,
+  `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(10) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`id`, `name`, `email`, `address`, `phone`, `sex`, `date_of_birth`, `blood_group`, `doctor_id`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(4, 'mohammad ali', 'salmansoomro523@gmail.com', 'hakra muhalla, ali khan, kamber', '03333936465', 'male', '2021-08-02', 'a+', 1, '1627889016-mohammad-ali-jpg', 'discharged', NULL, NULL),
+(5, 'junaid majeed', 'junaidmajeed@gmail.com', 'hakra muhall, ali khan, kamber', '03333333333', 'male', '2021-08-02', 'a+', 1, '1627889059-junaid-majeed-jpg', NULL, NULL, NULL),
+(6, 'zeeshan soomro', 'zeeshansoomro25@gmail.com', 'brohi muhall, ali khan, kamber', '03333333333', 'male', '2021-08-02', 'o+', 1, '1627889101-zeeshan-soomro-jpg', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -345,13 +324,6 @@ CREATE TABLE `templates` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
-
---
--- Dumping data for table `templates`
---
-
-INSERT INTO `templates` (`id`, `title`, `body`, `created_at`, `updated_at`) VALUES
-(1, 'Appointment Reminder From HMS', 'Hi Mr.[[Full_name]] we\'re informing you that your appointment has fixed, Here\'s the address [[Location]] please visit us as soon as possible..!!\r\nIf you\'ve any confusion or You want to reschedule your appointment just contact us via [[Phone]] or [[Email]]..!!\r\nThank you..!!', '2021-06-19 02:10:08', '2021-06-19 02:10:08');
 
 -- --------------------------------------------------------
 
@@ -499,7 +471,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -517,7 +489,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `departments`
 --
 ALTER TABLE `departments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `doctors`
@@ -535,7 +507,7 @@ ALTER TABLE `failed_jobs`
 -- AUTO_INCREMENT for table `labtests`
 --
 ALTER TABLE `labtests`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `locations`
@@ -553,13 +525,13 @@ ALTER TABLE `medicines`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 
 --
 -- AUTO_INCREMENT for table `pharmacists`
@@ -577,7 +549,7 @@ ALTER TABLE `specializations`
 -- AUTO_INCREMENT for table `templates`
 --
 ALTER TABLE `templates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
 -- AUTO_INCREMENT for table `users`

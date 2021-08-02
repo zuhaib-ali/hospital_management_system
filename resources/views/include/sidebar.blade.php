@@ -49,7 +49,7 @@
           <li class="nav-item">
             <a href="{{ route('addPatients') }}" class="nav-link @if(Request::url() == Request::is('addPatients')) active @endif()">
               <i class="ft-user-plus"></i>
-                <p>ADD PATIENT</p>
+                <p>Add Patient</p>
             </a>
           </li>
           @endif
@@ -92,7 +92,7 @@
             <ul class="nav nav-treeview">              
               <!-- ALL PATIENTS -->
               <li class="nav-item">
-                <a href="{{ route('all_patients') }}" class="nav-link @if(Request::url() == Request::is('all_patients')) active @endif()" class="nav-link">
+                <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('all_patients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Patients</p>
                 </a>
@@ -108,7 +108,7 @@
 
               <!-- DISCHARGED PATIENTS -->
               <li class="nav-item">
-                <a href="{{ route('dpatients') }}" class="nav-link @if(Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
+                <a href="{{ route('discharged_patients') }}" class="nav-link @if(Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Discharged</p>
                 </a>
