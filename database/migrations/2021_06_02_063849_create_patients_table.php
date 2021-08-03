@@ -16,16 +16,17 @@ class CreatePatientsTable extends Migration
     {
         Schema::create('patients', function (Blueprint $table) {
             $table->id();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->integer('number');
-            $table->foreignId('bed_no');
-            $table->foreignId('doctor_id');
-            $table->string('city');
-            $table->string('dob');
+            $table->string('name');
             $table->string('email');
-            $table->text('address');
-            $table->softDeletes();
+            $table->string('address');
+            $table->string('phone');
+            $table->string('sex');
+            $table->string('date_of_birth');
+            $table->string('blood_group');
+            $table->foreignId('doctor_id');
+            $table->string('image');
+            $table->boolean('status')->nullable();
+            $table->timestamps();
         });
     }
 

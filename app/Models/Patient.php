@@ -9,16 +9,17 @@ class Patient extends Model
 {
     use HasFactory;
     public $timestamps = false;
+    protected $guarded = [];
 
-    protected $fillable = [
-        'firstname',
-        'lastname',
-        'number',
-        'dob',
-        'email',
-        'address',
-        'status',
-    ];
+    // protected $fillable = [
+    //     'firstname',
+    //     'lastname',
+    //     'number',
+    //     'dob',
+    //     'email',
+    //     'address',
+    //     'status',
+    // ];
 
     
 }

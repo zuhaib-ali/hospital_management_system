@@ -16,6 +16,7 @@ use App\Http\Controllers\DoctorController;
 use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\LabtestController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\PatientController;
 
 use App\Models\Location;
 use App\Models\Doctor;
@@ -61,29 +62,29 @@ Route::get('/addPatients', function () {
     }
 })->name('addPatients');
 
-Route::get('/admitted_patients', function () {
-    if(Session::has('user')){
-        $patients = DB::table('patients')->where('status','admitted')->get();
+// Route::get('/admitted_patients', function () {
+//     if(Session::has('user')){
+//         $patients = DB::table('patients')->where('status','admitted')->get();
 
-        return view('components.patients')->with([
-            'patients'  =>  $patients,
-        ]);    
-    }else{
-        return redirect()->route('login');
-    }
-})->name('admitted_patients');
+//         return view('components.patients')->with([
+//             'patients'  =>  $patients,
+//         ]);    
+//     }else{
+//         return redirect()->route('login');
+//     }
+// })->name('admitted_patients');
 
-Route::get('/dpatients', function () {
-    if(Session::has('user')){
-        $patients = DB::table('patients')->where('status','discharged')->get();
+// Route::get('/dpatients', function () {
+//     if(Session::has('user')){
+//         $patients = DB::table('patients')->where('status','discharged')->get();
 
-        return view('components.dPatients')->with([
-            'patients'  =>  $patients,
-        ]);    
-    }else{
-        return redirect()->route('login');
-    }
-})->name('dpatients');
+//         return view('components.dPatients')->with([
+//             'patients'  =>  $patients,
+//         ]);    
+//     }else{
+//         return redirect()->route('login');
+//     }
+// })->name('dpatients');
 
 
 // login view
@@ -284,6 +285,17 @@ Route::post('admin/add_specialization', [SpecializationController::class, 'addSp
 
 
 // ''''''''''''''''''''''  PATIENTS   '''''''''''''''''''''''
+Route::get("admin/patients", [PatientController::class, "index"])->name("patients");
+Route::get("admin/patients/delete-patient", [PatientController::class, "delete"])->name("delete_patient");
+Route::get("admin/patients/admit-patients", [PatientController::class, "admit"])->name("admit_patient");
+Route::get("admin/patients/admitted-patients", [PatientController::class, "admitted"])->name('admitted_patients');
+Route::get("admin/patients/discharge-patient", [PatientController::class, "discharge"])->name('discharge_patient');
+Route::get("admin/patients/discharged-patients", [PatientController::class, "discharged"])->name('discharged_patients');
+Route::post("admin/patients/add-new-patients", [PatientController::class, "add"])->name("add_new_patient");
+
+
+
+
 // Add Patient
 Route::post('addPatient', [components::class, 'addPatient'] );
 
