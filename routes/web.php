@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\adminController;
+use App\Http\Controllers\adminController; 
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\CategoryController;
@@ -370,6 +370,10 @@ route::get('pharmacy/pharmacists/delete', [PharmacistController::class, 'delete'
 // --------------------- LAB TESTS -------------------------
 // LAB REPORTS VIEW
 route::get('admin/lab-test/lab-reports', [LabtestController::class, "labReports"])->name("lab_reports");
+
+//Add Lab
+route::post('admin/lab-test/addLab', [LabtestController::class, "addLab"])->name("addLab");
+
 // ADD LAB REPORT
 route::post("add_lab_report", [LabtestController::class, "add"])->name("add_lab_report");
 // DELETE LAB TEST
@@ -378,6 +382,18 @@ route::get("admin/lab-test/delete-lab-test", [LabtestController::class, "delete"
 route::get("admin/lab-test/edit-lab-test", [LabtestController::class, "edit"])->name("edit_lab_test");
 // UPDATE LAB TEST
 route::post("admin/lab-test/update-lab-test", [LabtestController::class, "update"])->name("update_lab_report");
+
+Route::get('uLabs', function(){
+    $carts          = DB::table('carts')->get();
+    $labs           = DB::table('labs')->get();
+
+    return view('components.lab.uLabs')->with(
+        [
+            'carts' =>  $carts,
+            'labs'  =>  $labs
+        ]
+    );
+});
 
 
 // Add User As Admin
