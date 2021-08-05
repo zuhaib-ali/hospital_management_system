@@ -6,6 +6,8 @@ use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Labtest;
+use App\Models\Lab;
+use App\Models\Location;
 
 class LabtestController extends Controller
 {
@@ -13,9 +15,12 @@ class LabtestController extends Controller
 
     public function labReports(){
         return view("components.lab.lab_reports", [
-            "patients" => Patient::all(),
-            "doctors" => Doctor::all(),
-            "lab_tests" => Labtest::all(),
+            "patients"      => Patient::all(),
+            "doctors"       => Doctor::all(),
+            "lab_tests"     => Labtest::all(),
+            "labs"          => Lab::all(),
+            "locations"     => Location::all(),
+
         ]);
     }
     
@@ -38,6 +43,21 @@ class LabtestController extends Controller
 
         if($labtest_created == true){
             return redirect()->route("lab_reports")->with("labtest_created", "Lab test created successfully for patient ". $request->patient);
+        }
+    }
+
+
+    public function addLab(Request $request)
+    {
+        $labCreated = Lab::create([
+            "name"=>$request->name,
+            "hospital"=>$request->hospital,
+            "from"=>$request->from,
+            "to"=>$request->to,
+        ]);
+
+        if($labCreated == true){
+            return redirect()->route("lab_reports")->with("labCreated", "Lab Created Successfully For Hospital ". $request->hospital);
         }
     }
 

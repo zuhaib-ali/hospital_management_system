@@ -252,7 +252,7 @@
           <li class="nav-item">
             <a class="nav-link">
               <i class="fas fa-vials"></i>
-              <p>Lab Tests</p>
+              <p>Laboratories</p>
               <i class="fas fa-angle-left right"></i>
             </a>
 
@@ -339,7 +339,7 @@
           </li>
 
           <li class="nav-item">
-            <a href="#" class="nav-link">
+            <a href="uLabs" class="nav-link @if(Request::url() == Request::is('uLabs')) active @endif()">
               <i class="fas fa-user-alt"></i>
                 <p>LABORATARIES</p>
             </a>

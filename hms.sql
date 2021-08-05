@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 02, 2021 at 09:41 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Aug 04, 2021 at 06:55 PM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -136,6 +137,29 @@ CREATE TABLE `failed_jobs` (
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `labs`
+--
+
+CREATE TABLE `labs` (
+  `id` bigint(20) UNSIGNED NOT NULL,
+  `name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `hospital` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `from` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `to` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `created_at` timestamp NULL DEFAULT NULL,
+  `updated_at` timestamp NULL DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `labs`
+--
+
+INSERT INTO `labs` (`id`, `name`, `hospital`, `from`, `to`, `created_at`, `updated_at`) VALUES
+(1, 'xyz', 'Casuality Hospital', '17:51', '00:57', NULL, NULL);
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `labtests`
 --
 
@@ -226,7 +250,8 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (18, '2021_07_13_091345_create_doctors_table', 1),
 (19, '2021_07_19_104401_create_specializations_table', 1),
 (20, '2021_07_31_094550_create_labtests_table', 1),
-(21, '2021_08_01_095323_create_departments_table', 1);
+(21, '2021_08_01_095323_create_departments_table', 1),
+(22, '2021_08_03_071435_create_labs_table', 2);
 
 -- --------------------------------------------------------
 
@@ -402,6 +427,12 @@ ALTER TABLE `failed_jobs`
   ADD UNIQUE KEY `failed_jobs_uuid_unique` (`uuid`);
 
 --
+-- Indexes for table `labs`
+--
+ALTER TABLE `labs`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `labtests`
 --
 ALTER TABLE `labtests`
@@ -504,6 +535,12 @@ ALTER TABLE `failed_jobs`
   MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
 
 --
+-- AUTO_INCREMENT for table `labs`
+--
+ALTER TABLE `labs`
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+
+--
 -- AUTO_INCREMENT for table `labtests`
 --
 ALTER TABLE `labtests`
@@ -525,7 +562,7 @@ ALTER TABLE `medicines`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=22;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=23;
 
 --
 -- AUTO_INCREMENT for table `patients`
