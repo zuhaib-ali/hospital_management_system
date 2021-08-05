@@ -11,15 +11,27 @@ class Patient extends Model
     public $timestamps = false;
     protected $guarded = [];
 
-    // protected $fillable = [
-    //     'firstname',
-    //     'lastname',
-    //     'number',
-    //     'dob',
-    //     'email',
-    //     'address',
-    //     'status',
-    // ];
+    protected function getNameAttribute($name){
+        return ucwords($name);
+    }
 
-    
+    protected function getSexAttribute($sex){
+        return ucfirst($sex);
+    }
+
+    protected function getBloodGroupAttribute($blood_group){
+        return ucwords($blood_group);
+    }
+
+    protected function getAddressAttribute($address){
+        return ucfirst($address);
+    }
+
+    protected function getDoctorAttribute($doctor){
+        return ucfirst($doctor);
+    }    
+
+    protected function getStatusAttribute($status){
+        return ucfirst($status);
+    }    
 }

@@ -21,6 +21,7 @@ class CreatePatientsTable extends Migration
             $table->string('address');
             $table->string('phone');
             $table->string('sex');
+            $table->string('age');
             $table->string('date_of_birth');
             $table->string('blood_group');
             $table->foreignId('doctor_id');

@@ -46,6 +46,7 @@ class PatientController extends Controller
                 "date_of_birth" => $request->date_of_birth,
                 "blood_group" => $request->blood_group,
                 "doctor_id" => $request->doctor,
+                "status" => "new",
                 "image" => $image_name,
             ]);
 
@@ -111,19 +112,22 @@ class PatientController extends Controller
         }
     }
 
-    // EDIT
-    public function edit(Request $request){
-        if($request->session()->has("user") == true){
-            return "edit";
-        }else{
-            return redirect()->route("login");
-        }
-    }
-
     // UPDATE
     public function update(Request $request){
         if($request->session()->has("user") == true){
-            return "update";
+            $patient = Patient::find($request->patient_id);
+            $patient->name = $request->patient_name;
+            $patient->email = $request->e_mail;
+            $patient->sex = $request->sex;
+            $patient->blood_group = $request->blood_group;
+            $patient->date_of_birth = $request->date_of_birth;
+            $patient->doctor_id = $request->doctor;
+            $patient->phone = $request->phone;
+            $patient->address = $request->address;
+            $patient_updated = $patient->update();
+            if($patient_updated == true){
+                return redirect()->back()->with("patient_updated", "Patient name ".$request->patient_name." details updated");
+            }
         }else{
             return redirect()->route("login");
         }

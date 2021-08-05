@@ -291,7 +291,9 @@ Route::get("admin/patients/admit-patients", [PatientController::class, "admit"])
 Route::get("admin/patients/admitted-patients", [PatientController::class, "admitted"])->name('admitted_patients');
 Route::get("admin/patients/discharge-patient", [PatientController::class, "discharge"])->name('discharge_patient');
 Route::get("admin/patients/discharged-patients", [PatientController::class, "discharged"])->name('discharged_patients');
+
 Route::post("admin/patients/add-new-patients", [PatientController::class, "add"])->name("add_new_patient");
+Route::post("admin/patients/update-patient", [PatientController::class, "update"])->name("update_patient");
 
 
 
