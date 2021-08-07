@@ -1,5 +1,10 @@
 @include('include.header')
-
+<style rel="stylesheet">
+  .card-header, .modal-header{
+    background-color:skyblue;
+    color:white;
+  }
+</style>
 @include('include.navbar')    
 
 @include('include.sidebar')
@@ -16,8 +21,8 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">HOME</a></li>
-              <li class="breadcrumb-item"><a href="{{ route('pharmacists') }}">PHARMACISTS</a></li>
-              <li class="breadcrumb-item active">UPDATE</li>
+              <li class="breadcrumb-item"><a href="{{ route('pharmacists') }}"><i class="fas fa-flask"></i> PHARMACISTS</a></li>
+              <li class="breadcrumb-item active"><i class="fas fa-edit"></i> UPDATE</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -29,7 +34,7 @@
       <div class="card">
 
         <!-- CARD HEADER -->
-        <div class="card-header text-center text-bold" style="background-color:darkblue; color:white;">UPDATE PHARMACIST</div>
+        <div class="card-header text-center text-bold">UPDATE PHARMACIST</div>
 
         
         <form action="{{ route('update_pharmacist') }}" method="POST" class="form">

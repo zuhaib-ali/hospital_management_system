@@ -22,6 +22,8 @@ use App\Models\Location;
 use App\Models\Doctor;
 use App\Models\Appointment;
 use App\Models\Specialization;
+use App\Models\Patient;
+use App\Models\User;
 
 
 /*
@@ -291,9 +293,14 @@ Route::get("admin/patients/admit-patients", [PatientController::class, "admit"])
 Route::get("admin/patients/admitted-patients", [PatientController::class, "admitted"])->name('admitted_patients');
 Route::get("admin/patients/discharge-patient", [PatientController::class, "discharge"])->name('discharge_patient');
 Route::get("admin/patients/discharged-patients", [PatientController::class, "discharged"])->name('discharged_patients');
+Route::get("admin/patients/patinet-information", [PatientController::class, "show"])->name('patinet_information');
 
 Route::post("admin/patients/add-new-patients", [PatientController::class, "add"])->name("add_new_patient");
 Route::post("admin/patients/update-patient", [PatientController::class, "update"])->name("update_patient");
+
+Route::get('admin/pateints/data', function(){
+    return json_encode(array('data'=>User::where("role", "user")->get()));
+})->name("patients_data");
 
 
 
@@ -344,13 +351,17 @@ route::post('pharmacy/new/add_category', [CategoryController::class, 'addCategor
 // DELETE CATEGORY
 route::get('pharmacy/delete_category', [CategoryController::class, 'deleteCategory'])->name('delete_category');
 
+
+// ***************************** MEDICINES *****************************************
 // MEDICINES
 route::get('pharmacy/medicines', [MedicineController::class, 'medicines'])->name('medicines');
+
 // ADD NEW MEDICINE
-route::post('pharmacy/add_new_medicine', [MedicineController::class, 'addMedicine'])->name('add_new_medicine');
+route::post('pharmacy/add-new-medicine', [MedicineController::class, 'addMedicine'])->name('add_new_medicine');
+route::post('pharmacy/update-medicine', [MedicineController::class, 'update'])->name('update_medicine');
 
 // DELETE MEDICINE
-route::get('pharmacy/delete_medicine', [MedicineController::class, 'deleteMedicine'])->name('delete_medicine');
+route::get('pharmacy/delete-medicine', [MedicineController::class, 'deleteMedicine'])->name('delete_medicine');
 
 // PHARAMCISTS
 route::get('pharmacy/pharmacists', [PharmacistController::class, 'pharmacists'])->name('pharmacists');

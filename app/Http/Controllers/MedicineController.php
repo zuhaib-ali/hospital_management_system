@@ -20,27 +20,58 @@ class MedicineController extends Controller
         );
     }
 
+
+    // ADD
     public function addMedicine(Request $request){
         // VALIDATING
         $request->validate([
             'medicine_name'=>'required',
             'category'=>'required',
+            'purchase_price'=>'required',
+            'sale_price'=>'required',
+            'store_box'=>'required',
+            'quantity'=>'required',
+            'generic_name'=>'required',
             'company'=>'required',
-            'composition'=>'required',
-            'group'=>'required',
+            'effects'=>'required',
+            'expire_date'=>'required',
         ]);
 
         // CREATING MEDICINE
         $medicine_created = Medicine::create([
             'medicine_name'=>$request->medicine_name,
             'category_id'=>$request->category,
+            'purchase_price'=>$request->purchase_price,
+            'sale_price'=>$request->sale_price,
+            'store_box'=>$request->store_box,
+            'quantity'=>$request->quantity,
+            'generic_name'=>$request->generic_name,
             'company'=>$request->company,
-            'composition'=>$request->composition,
-            'group'=>$request->group,
+            'effects'=>$request->effects,
+            'expire_date'=>$request->expire_date,
         ]);
 
         if($medicine_created == true){
-            return redirect()->route('medicines')->with('medicine_created', "Medicine named ".$request->medicine_name." created successfully!");
+            return redirect()->route('medicines')->with('medicine_created', "Medicine ".$request->medicine_name." added.");
+        }
+    }
+
+    // UPDATE
+    public function update(Request $request){
+        $medicine = Medicine::find($request->id);
+        $medicine->medicine_name = $request->medicine_name;
+        $medicine->category_id = $request->category;
+        $medicine->purchase_price = $request->purchase_price;
+        $medicine->sale_price = $request->sale_price;
+        $medicine->store_box = $request->store_box;
+        $medicine->quantity = $request->quantity;
+        $medicine->generic_name = $request->generic_name;
+        $medicine->company = $request->company;
+        $medicine->effects = $request->effects;
+        $medicine->expire_date = $request->expire_date;
+        $medicine_updated = $medicine->update();
+        if($medicine_updated == true){
+            return redirect()->back()->with("medicine_updated", $request->medicine_name." medicine updated.");
         }
     }
 

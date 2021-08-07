@@ -15,10 +15,10 @@ class CreateCartsTable extends Migration
     {
         Schema::create('carts', function (Blueprint $table) {
             $table->id();
-            $table->string('medicineName');
+            $table->string('medicine_name');
             $table->string('category');
-            $table->string('group');
-            $table->integer('qty');
+            $table->string('description');
+            $table->integer('quantity');
             $table->timestamps();
         });
     }

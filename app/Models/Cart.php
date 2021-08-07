@@ -8,13 +8,14 @@ use Illuminate\Database\Eloquent\Model;
 class Cart extends Model
 {
     use HasFactory;
+    protected $guarded = [];
 
-    protected $fillable = [ 
-        'medicineName',
-        'category',
-        'group',
-        'qty',
+    // protected $fillable = [ 
+    //     'medicineName',
+    //     'category',
+    //     'group',
+    //     'qty',
 
-    ];
+    // ];
     public $timestamps = false;
 }

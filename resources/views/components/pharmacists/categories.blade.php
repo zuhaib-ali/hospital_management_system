@@ -1,5 +1,10 @@
 @include('include.header')
-
+<style>
+  .card-header, .modal-header{
+    background-color:skyblue;
+    color:white;
+  }
+</style>
 @include('include.navbar')    
 
 @include('include.sidebar')
@@ -16,7 +21,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Add Category</li>
+              <li class="breadcrumb-item active"><i class="fas fa-list"></i> Add Category</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -25,8 +30,8 @@
 
     <main class="m-3">
       <div class="card">
-        <div class="card-header" style="background-color:darkblue;">
-          <h3 style="color:red;">
+        <div class="card-header">
+          <h3>
             CATEGORIES
             <button style="color:white;" class="btn btn-success pull-right" data-toggle="modal" data-target="#addCategory">
               <i class="fas fa-plus"></i>

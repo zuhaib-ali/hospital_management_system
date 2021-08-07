@@ -1,5 +1,11 @@
 @include('include.header')
+<style rel="stylesheet">
+  .card-header, .modal-header{
+    background-color:skyblue;
+    color:white;
+  }
 
+</style>
 @include('include.navbar')    
 
 @include('include.sidebar')
@@ -15,8 +21,8 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">HOME</a></li>
-              <li class="breadcrumb-item active">PHARMACISTS</li>
+              <li class="breadcrumb-item"><a href="/"><i class="fas fa-home"></i> HOME</a></li>
+              <li class="breadcrumb-item active"><a><i class="fas fa-flask"></i> PHARMACISTS</a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -25,8 +31,8 @@
 
     <main class="m-3">
       <div class="card">
-        <div class="card-header" style="background-color:darkblue;">
-          <h3 style="color:red;">
+        <div class="card-header">
+          <h3>
             PHARMACISTS
             <button style="color:white;" class="btn btn-success pull-right" data-toggle="modal" data-target="#addMedicine">
               <i class="fas fa-plus"></i>

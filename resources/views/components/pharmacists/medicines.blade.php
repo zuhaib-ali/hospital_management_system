@@ -1,5 +1,10 @@
 @include('include.header')
-
+<style rel="stylesheet">
+  .card-header{
+    background-color:skyblue;
+    color:white;
+  }
+</style>
 @include('include.navbar')    
 
 @include('include.sidebar')
@@ -25,8 +30,8 @@
 
     <main class="m-3">
       <div class="card">
-        <div class="card-header" style="background-color:darkblue;">
-          <h3 style="color:red;">
+        <div class="card-header">
+          <h3>
             MEDICINES
             <button style="color:white;" class="btn btn-success pull-right" data-toggle="modal" data-target="#addMedicine">
               <i class="fas fa-plus"></i>

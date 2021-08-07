@@ -45,14 +45,14 @@
             </a>
           </li>
 
-          @if(Session::get('user')->role == "admin")
+          <!-- @if(Session::get('user')->role == "admin")
           <li class="nav-item">
             <a href="{{ route('addPatients') }}" class="nav-link @if(Request::url() == Request::is('addPatients')) active @endif()">
               <i class="ft-user-plus"></i>
                 <p>Add Patient</p>
             </a>
           </li>
-          @endif
+          @endif -->
 
           @if(Session::get('user')->role == 'admin')
             <li class="nav-item">
@@ -72,7 +72,7 @@
             <li class="nav-item">
               <a href="{{ route('specializations') }}" class="nav-link @if(Request::url() == Request::is('admin/specializations')) active @endif()">
                 <i class="fas fa-briefcase"></i>
-                <p>SPECIALIZATIONS</p>
+                <p>specializations</p>
               </a>
             </li>
           @endif
@@ -84,7 +84,7 @@
             <a class="nav-link @if(Request::url() == Request::is('all_patients') || Request::url() == Request::is('admitted_patients') || Request::url() == Request::is('dpatients')) active @endif()">
               <i class="ft-users"></i>
               <p>
-                PATIENTS
+                Patients
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -124,7 +124,7 @@
             <a class="nav-link @if(Request::url() == Request::is('appointments') || Request::url() == Request::is('deleted_appointments')) active @endif">
               <i class="ft-layers"></i>
                 <p>
-                  APPOINTMENT
+                  Appointments
                   <i class="fas fa-angle-left right"></i>
                 </p>
             </a>
@@ -154,7 +154,7 @@
           <li class="nav-item">
             <a href="{{ route('fix_appointment') }}" class="nav-link @if(Request::url() == Request::is('fix_appointment')) active @endif">
               <i class="ft-layers"></i>
-                <p>APPOINTMENT</p>
+                <p>Appointment</p>
             </a>
           </li> 
           @endif
@@ -165,7 +165,7 @@
           <li class="nav-item">
             <a href="{{ route('locations') }}" class="nav-link @if(Request::url() == Request::is('locations')) active @endif()">
               <i class="ft-map-pin"></i>
-                <p>LOCATIONS</p>
+                <p>Locations</p>
             </a>
           </li>
 
@@ -173,7 +173,7 @@
             <a href="#" class="nav-link">
               <i class="ft-user"></i>
               <p>
-                USERS
+                Users
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -202,7 +202,7 @@
           <li class="nav-item">
             <a href="{{ route('uLocations') }}" class="nav-link @if(Request::url() == Request::is('uLocations')) active @endif()">
               <i class="ft-map-pin"></i>
-                <p>LOCATIONS</p>
+                <p>Locaions</p>
             </a>
           </li>
 
@@ -215,7 +215,7 @@
           <li class="nav-item">
             <a class="nav-link">
               <i class="fas fa-first-aid"></i>
-                <p>PHARMACY</p>
+                <p>Pharmacy</p>
                 <i class="fas fa-angle-left right"></i>
             </a>
 
@@ -287,7 +287,7 @@
             <a href="#" class="nav-link">
               <i class="fas fa-receipt"></i>
               <p>
-                REPORTS
+                Resports
                 <i class="fas fa-angle-left right"></i>
               </p>
             </a>
@@ -305,7 +305,7 @@
             <a href="#" class="nav-link @if(Request::url() == Request::is('edit_profile')) active @endif">
               <i class="fas fa-cog"></i>
               <p>
-                SETTINGS
+                Settings
                 <i class="fas fa-angle-left right"></i>
               </p>
               
@@ -334,14 +334,14 @@
           <li class="nav-item">
             <a href="{{ route('medicines') }}" class="nav-link @if(Request::url() == Request::is('medicines')) active @endif">
               <i class="fas fa-first-aid"></i>
-                <p>PHARMACY</p>
+                <p>Pharmacy</p>
             </a>
           </li>
 
           <li class="nav-item">
             <a href="uLabs" class="nav-link @if(Request::url() == Request::is('uLabs')) active @endif()">
               <i class="fas fa-user-alt"></i>
-                <p>LABORATARIES</p>
+                <p>Laboratories</p>
             </a>
           </li>
 
@@ -350,7 +350,7 @@
             <a href="#" class="nav-link @if(Request::url() == Request::is('edit_profile')) active @endif">
               <i class="fas fa-cog"></i>
               <p>
-                SETTINGS
+                Settings
                 <i class="fas fa-angle-left right"></i>
               </p>
               
@@ -371,7 +371,7 @@
           <li class="nav-item">
             <a href="{{ route('logout') }}" class="nav-link">
               <i class="fas fa-sign-out-alt"></i>
-                <p>LOGOUT</p>
+                <p>Logout</p>
             </a>
           </li>
 

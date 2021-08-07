@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Models\Patient;
 use App\Models\Doctor;
+use App\Models\Location;
+use App\Models\Appointment;
+use App\Models\User;
 
 class PatientController extends Controller
 {
@@ -12,6 +15,7 @@ class PatientController extends Controller
     public function index(Request $request){
         if($request->session()->has("user") == true){
             return view("components.patients.patients", [
+                "users" => User::where("role", 'user')->get(),
                 "patients" => Patient::all(),
                 "doctors" => Doctor::all()
             ]);
@@ -22,7 +26,6 @@ class PatientController extends Controller
 
     // ADD
     public function add(Request $request){
-        
         $request->validate([
             "patient_name" => "required",
             "e_mail" => "required",
@@ -38,6 +41,7 @@ class PatientController extends Controller
 
         if($request->session()->has("user") == true){
             $patient_registered = Patient::create([
+                "user_id" => $request->user_id,
                 "name" => $request->patient_name,
                 "email" => $request->e_mail,
                 "address" => $request->address,
@@ -141,6 +145,21 @@ class PatientController extends Controller
             if($patient->delete() == true){
                 return redirect()->route("patients")->with("patient_deleted", "Patient ".$patient_name." deleted.");
             }
+        }else{
+            return redirect()->route("login");
+        }
+    }
+
+    // SHOW
+    public function show(Request $request){
+        // return empty(Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->first());
+        if($request->session()->has("user") == true){
+            return view("components.patients.patient_information", [
+                'patient' => Patient::find($request->patient_id),
+                'doctors' => Doctor::find(Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->first("doctor_id")),
+                'appointments' => Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->get(),
+                'locations' => Location::all(),
+            ]);
         }else{
             return redirect()->route("login");
         }

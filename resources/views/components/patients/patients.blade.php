@@ -1,6 +1,10 @@
 @include('include.header')
 
 <style>
+    .table td{
+        text-transform:capitalize;
+    }
+
     .card-header, .modal-header{
         background-color:skyblue;
         color:white;
@@ -13,6 +17,15 @@
     .patient_information li{
         list-style:none;
     }
+
+
+    /* TABLE SCROLL, PAGINATION AND SEARCH BAR */
+    #categories_table_filter{
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: flex-end;
+    }
+
     .dtHorizontalExampleWrapper {
         margin: 0 auto;
     }
@@ -36,11 +49,6 @@
     .pagination{
         justify-content:flex-end;
     }
-
-    .col-md-6{
-        text-align:center;
-    }
-
     .patient_actions{
         margin:2px;
         display:flex;
@@ -61,7 +69,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-blue">Patients</h1>
+            <h1 class="m-0 text-blue"><i class="fas fa-user-injured"></i> PATIENTS - {{ count($patients) }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -79,9 +87,13 @@
         <div class="card">
             <!-- CARD HEADER -->
             <div class="card-header">
-                    PATIENTS - {{ count($patients) }}
+                <!-- ADMITTED PATIENTS -->
+                <a href="{{ route('admitted_patients') }}"><i class="fas fa-procedures"></i> ADMITTED ({{ count($patients->where('status', 'admitted')) }})</a> &nbsp;&nbsp;
+                <!-- DISCHARGED PATIENTS -->
+                <a href="{{ route('discharged_patients') }}"><i class="fas fa-walking"></i> DISCHARGED ({{ count($patients->where('status', 'discharged')) }})</a>&nbsp;&nbsp;
+                    
+                    <!-- PATIENT REGISTRATION -->
                     <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#add_new_patient_modal"> <i class="fas fa-plus"></i></button>    
-                    <!-- MODAL TO ADD DEPARMENT -->
                     <form class="form" method="POST" action="{{ route('add_new_patient') }}" enctype="multipart/form-data">
                         @csrf
                         <div class="modal" tabindex="-1" role="dialog" id="add_new_patient_modal">
@@ -90,25 +102,37 @@
                                     <div class="modal-header">
                                         <h5 class="modal-title">Register a new patient</h5>
                                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                        <span aria-hidden="true">&times;</span>
+                                            <span aria-hidden="true">&times;</span>
                                         </button>
                                     </div>
                                     <div class="modal-body">
                                         <div class="row">
                                             <div class="form-group col-sm-6">
                                                 <label for="patient_name">Name</label>
-                                                <input type="text" name="patient_name" class="form-control" required>
+                                                <input type="text" name="patient_name" list="patients" id="patient_name_in_registration_modal" class="form-control" required>
+                                                <datalist id="patients">
+                                                    @if(count($users) != 0)
+                                                        @foreach($users as $user)
+                                                            <option value="{{ $user->first_name }} {{ $user->last_name }}"></option>
+                                                        @endforeach
+                                                    @endif
+                                                </datalist>
                                             </div>
                                             <div class="form-group col-sm-6">
                                                 <label for="e_mail">E-Mail</label>
-                                                <input type="email" name="e_mail" id="department-name" class="form-control" required>
+                                                <input type="email" name="e_mail" id="email_in_registraion_modal" class="form-control" required>
                                             </div>
                                         </div>
                                         
                                         <div class="row">
+                                            <div class="form-group col-sm-2">
+                                                <label for="image">Age</label>
+                                                <input type="text" name="age" id="age_in_registraion_modal" class="form-control" required>
+                                            </div>
+
                                             <div class="form-group col-sm-3">
                                                 <label for="sex">Sex</label>
-                                                <select name="sex"  class="form-control" required>
+                                                <select name="sex" id="gender_in_registraion_modal"  class="form-control" required>
                                                     <option value="male">Male</option>
                                                     <option value="female">Female</option>
                                                     <option value="other">Other</option>
@@ -116,18 +140,9 @@
                                             </div>
 
                                             <div class="form-group col-sm-3">
-                                                <label for="image">Age</label>
-                                                <input type="text" name="age" class="form-control" required>
-                                            </div>
-
-                                            <div class="form-group col-sm-3">
-                                                <label for="date_of_birth">Date of Birth</label>
-                                                <input type="date" name="date_of_birth" class="form-control" required>
-                                            </div>
-
-                                            <div class="form-group col-sm-3">
                                                 <label for="blood_group">Blood Group</label>
-                                                <select name="blood_group"  class="form-control" required>
+                                                <input type="text" name="blood_group" list="blood_groups" id="blood_group_in_registraion_modal" class="form-control" required>
+                                                <datalist id="blood_groups">
                                                     <option value="a+">A+</option>
                                                     <option value="b+">B+</option>
                                                     <option value="o+">O+</option>
@@ -136,14 +151,19 @@
                                                     <option value="o-">O-</option>
                                                     <option value="ab+">AB+</option>
                                                     <option value="ab-">AB-</option>
-                                                </select>
+                                                </datalist>
+                                            </div>
+
+                                            <div class="form-group col-sm-4">
+                                                <label for="date_of_birth">Date of Birth</label>
+                                                <input type="date" name="date_of_birth" id="date_of_birth_in_registraion_modal" class="form-control" required>
                                             </div>
                                         </div>
 
                                         <div class="row">
                                             <div class="form-group col-sm-6">
                                                 <label for="doctor">Doctor</label>
-                                                <select name="doctor"  class="form-control" required>
+                                                <select name="doctor" id="doctor_in_registraion_modal" class="form-control" required>
                                                     @if(count($doctors) != 0)
                                                         @foreach($doctors as $doctor)
                                                             <option value="{{ $doctor->id }}">{{ $doctor->first_name }} {{ $doctor->last_name }}</option>
@@ -154,18 +174,19 @@
                                             
                                             <div class="form-group col-sm-6">
                                                 <label for="phone">Phone</label>
-                                                <input type="number" name="phone" class="form-control" required>
+                                                <input type="number" id="phone_in_registraion_modal" name="phone" class="form-control" required>
                                             </div>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="address">Address</label>
-                                            <textarea name="address" id="description" cols="30" rows="3" class="form-control" required></textarea>
+                                            <textarea name="address" id="address_in_registraion_modal" cols="30" rows="3" class="form-control" required></textarea>
                                         </div>
 
                                         <div class="form-group">
                                             <label for="image">Image</label>
                                             <input type="file" name="image" class="form-control" required>
+                                            <input type="hidden" name="user_id" id="user_id_in_registration_modal">
                                         </div>
                                     </div>
                                     <div class="modal-footer">
@@ -181,7 +202,7 @@
 
             <!-- CARD BODY -->
             <div class="card-body">
-                <table class="table table-striped table-bordered table-sm" cellspacing="0" id="patients_table" style="width:100%">
+                <table class="table table-striped table-bordered table-sm" cellspacing="0" id="patients_table" style="width:100%;">
                     <thead >
                         <tr>
                             <th>#</th>
@@ -202,26 +223,25 @@
                                 <td style="text-transform:none;">{{ $patient->email }}</td> 
                                 <td>{{ $patient->phone }}</td> 
                                 <td>
-                                    @if($patient->status == "Admitted")
+                                    @if($patient->status == "admitted")
                                         <p style="color:green; font-weight:bold;">{{ $patient->status }}</p>
-                                    @elseif($patient->status == "Discharged")
+                                    @elseif($patient->status == "discharged")
                                         <p style="color:red; font-weight:bold">{{ $patient->status }}</p>
                                     @else
                                         <p style="color:blue; font-weight:bold">{{ $patient->status }}</p>
                                     @endif
                                 </td> 
                                 <td class="patient_actions">
-
                                     <!-- ADMIT/DISCHARGE PATIENT -->
                                     @if($patient->status != "admitted")
-                                        <a href="{{ route('admit_patient', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-success"><i class="fas fa-medkit"></i> ADMIT</a>
+                                        <a href="{{ route('admit_patient', ['patient_id'=>$patient->id]) }}" title="admit" class="btn btn-sm btn-outline-success"><i class="fas fa-procedures"></i></a>
                                     @else
-                                        <a href="{{ route('discharge_patient', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-dark"><i class="fas fa-eject"></i> DISCHARGE</a>
+                                        <a href="{{ route('discharge_patient', ['patient_id'=>$patient->id]) }}" title="discharge"  class="btn btn-sm btn-outline-dark"><i class="fas fa-walking"></i></a>
                                     @endif
                                     
                                     
                                     <!-- VIEW PATIENT -->
-                                    <a data-toggle="modal" data-target="#patient_id_{{ $patient->id }}"  class="btn btn-sm btn-outline-primary"><i class="fas fa-eye"></i> </a>
+                                    <a href="{{ route('patinet_information', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-primary"><i class="fas fa-info"></i> </a>
                                     <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="patient_id_{{ $patient->id }}">
                                         <div class="modal-dialog modal-lg">
                                             <div class="modal-content">
@@ -290,7 +310,7 @@
                                     </div>
                                     
                                     <!-- EDIT PATIENT -->
-                                    <button class="btn btn-sm btn-outline-secondary" data-toggle="modal" data-target="#edit_patient_{{$patient->id}}"> <i class="fas fa-edit"></i></button>    
+                                    <button class="btn btn-sm btn-outline-secondary" title="edit" data-toggle="modal" data-target="#edit_patient_{{$patient->id}}"> <i class="fas fa-edit"></i></button>    
                                     <!-- EDIT PATIENT MODAL -->
                                     <form class="form" method="POST" action="{{ route('update_patient', ['patient_id'=>$patient->id]) }}" enctype="multipart/form-data">
                                         @csrf
@@ -388,13 +408,13 @@
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div><!-- /MODAL TO ADD DEPARTMENT -->
+                                        </div><!-- /MODAL TO ADD PATIENT -->
                                     </form>
                                     
                     
 
                                     <!-- DELETE PATIENT -->
-                                    <a href="{{ route('delete_patient', ['patient_id'=>$patient->id]) }}" class="btn btn-sm btn-outline-danger" style="color:red;"><i class="fas fa-trash"></i></a>
+                                    <a href="{{ route('delete_patient', ['patient_id'=>$patient->id]) }}" title="delete" class="btn btn-sm btn-outline-danger" style="color:red;"><i class="fas fa-trash"></i></a>
                                 </td> 
                             </tr>
                             @endforeach
@@ -467,6 +487,39 @@
                 "scrollX": true
             });
             $('.dataTables_length').addClass('bs-select');
+
+            $("#patient_name_in_registration_modal").change(function(){
+                var patient_name = $("#patient_name_in_registration_modal").val();
+                $.ajax({
+                    url: "{{ route('patients_data') }}",
+                    type: "GET",
+                    dataType: 'json',
+                    success:function(data){
+                        var d = data.data
+                        d.forEach(function(patient){
+                            if(patient.first_name+" "+patient.last_name === $("#patient_name_in_registration_modal").val()){
+                                $("#email_in_registraion_modal").val(patient.email);
+                                $("#age_in_registraion_modal").val(patient.age);
+                                $("#gender_in_registraion_modal").val(patient.gender);
+                                $("#blood_group_in_registraion_modal").val(patient.blood_group);
+                                $("#date_of_birth_in_registraion_modal").val(patient.dob);
+                                $("#phone_in_registraion_modal").val(patient.mobile);
+                                $("#address_in_registraion_modal").val(patient.address);
+                                $("#user_id_in_registration_modal").val(patient.id);
+                            }else{
+                                $("#email_in_registraion_modal").val("");
+                                $("#age_in_registraion_modal").val("");
+                                $("#gender_in_registraion_modal").val("");
+                                $("#blood_group_in_registraion_modal").val("");
+                                $("#date_of_birth_in_registraion_modal").val("");
+                                $("#phone_in_registraion_modal").val("");
+                                $("#address_in_registraion_modal").val("");
+                                $("#user_id_in_registration_modal").val("");
+                            }
+                        });
+                    }
+                });
+            });
         });
     </script>
 

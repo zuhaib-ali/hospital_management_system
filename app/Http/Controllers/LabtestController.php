@@ -64,7 +64,7 @@ class LabtestController extends Controller
     // DELETE
     public function delete(Request $request){
         
-        if($request->session()->has("user") === true){
+        if($request->session()->has("user") == true){
             if(Labtest::find($request->lab_test_id)->delete() == true){
                 return redirect()->route("lab_reports")->with("lab_test_deleted", "Lab test deleted successfully from database.");
             }

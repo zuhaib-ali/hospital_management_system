@@ -12,21 +12,22 @@ class CategoryController extends Controller
         return view('components.pharmacy.categories', ['categories'=>Category::all()]);
     }
 
-    // ADD NEW CATEGORY
+    // ADD
     public function addCategory(Request $request){
-
         // VALIDAION
         $request->validate([
-            'category'=>['required']
+            'category'=>['required'],
+            'description'=>['required']
         ]);
 
         // CREATING CATEGORY
         $category_created = Category::create([
-            'category'=>$request->category
+            'category'=>$request->category,
+            'description'=>$request->description
         ]);
 
         if($category_created == true){
-            return redirect()->route('categories')->with('category_created', 'Category created successfully');
+            return redirect()->route('categories')->with('category_created', "Category ".$request->category.' created successfully');
         }
     }
 

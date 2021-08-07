@@ -79,17 +79,16 @@ class PharmacistController extends Controller
 
 
 
-    public function addToCart(Request $request)
-    {
-        $addToCart  =   Cart::create([
-            'medicineName'  =>  $request->medicineName,
-            'category'      =>  $request->category,
-            'group'         =>  $request->group,
-            'qty'           =>  $request->qty,
+    public function addToCart(Request $request){   
+        $addToCart = Cart::create([
+            'medicine_name' => $request->medicine_name,
+            'category' => $request->category,
+            'description' => $request->description,
+            'quantity' => $request->quantity,
         ]);
 
         if($addToCart == true){
-            return back()->with('added','Medicine Added To Card');
+            return back()->with('added', $request->medicine_name.' medicine added to cart.');
         }else{
             return back()->with('failed','Failed To Add');
 

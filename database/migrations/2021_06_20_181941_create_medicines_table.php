@@ -16,10 +16,15 @@ class CreateMedicinesTable extends Migration
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
             $table->string('medicine_name');
-            $table->string('category_id');
+            $table->foreignId('category_id');
+            $table->unsignedInteger('purchase_price');
+            $table->unsignedInteger('sale_price');
+            $table->unsignedInteger('store_box');
+            $table->unsignedInteger('quantity');
+            $table->string('generic_name');
             $table->string('company');
-            $table->string('composition');
-            $table->string('group');
+            $table->string('effects');
+            $table->string('expire_date');
             $table->timestamps();
         });
     }
