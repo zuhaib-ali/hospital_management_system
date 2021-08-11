@@ -206,6 +206,7 @@
                     <thead >
                         <tr>
                             <th>#</th>
+                            <th>Avatar</th>
                             <th>NAME</th>
                             <th>E-MAIL</th>
                             <th>PHONE</th>
@@ -219,6 +220,7 @@
                             @foreach($patients as $patient)
                             <tr>
                                 <td>{{ $no++ }}</td> 
+                                <td><img src="{{url('patients_images')}}/{{$patient->image}}" class="img-circle elevation-2" style=" width:50px; height:50px "></td> 
                                 <td>{{ $patient->name}}</td> 
                                 <td style="text-transform:none;">{{ $patient->email }}</td> 
                                 <td>{{ $patient->phone }}</td> 

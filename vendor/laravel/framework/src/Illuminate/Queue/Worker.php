@@ -202,10 +202,6 @@ class Worker
                 $this->markJobAsFailedIfWillExceedMaxExceptions(
                     $job->getConnectionName(), $job, $e
                 );
-
-                $this->markJobAsFailedIfItShouldFailOnTimeout(
-                    $job->getConnectionName(), $job, $e
-                );
             }
 
             $this->kill(static::EXIT_ERROR);
@@ -536,21 +532,6 @@ class Worker
         if ($maxExceptions <= $this->cache->increment('job-exceptions:'.$uuid)) {
             $this->cache->forget('job-exceptions:'.$uuid);
 
-            $this->failJob($job, $e);
-        }
-    }
-
-    /**
-     * Mark the given job as failed if it should fail on timeouts.
-     *
-     * @param  string  $connectionName
-     * @param  \Illuminate\Contracts\Queue\Job  $job
-     * @param  \Throwable  $e
-     * @return void
-     */
-    protected function markJobAsFailedIfItShouldFailOnTimeout($connectionName, $job, Throwable $e)
-    {
-        if (method_exists($job, 'shouldFailOnTimeout') ? $job->shouldFailOnTimeout() : false) {
             $this->failJob($job, $e);
         }
     }

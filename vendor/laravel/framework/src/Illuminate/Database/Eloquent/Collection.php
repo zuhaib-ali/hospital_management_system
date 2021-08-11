@@ -158,17 +158,6 @@ class Collection extends BaseCollection implements QueueableCollection
     }
 
     /**
-     * Load a set of related existences onto the collection.
-     *
-     * @param  array|string  $relations
-     * @return $this
-     */
-    public function loadExists($relations)
-    {
-        return $this->loadAggregate($relations, '*', 'exists');
-    }
-
-    /**
      * Load a set of relationships onto the collection if they are not already eager loaded.
      *
      * @param  array|string  $relations
@@ -692,7 +681,7 @@ class Collection extends BaseCollection implements QueueableCollection
         } elseif (count($relations) === 1) {
             return reset($relations);
         } else {
-            return array_intersect(...array_values($relations));
+            return array_intersect(...$relations);
         }
     }
 
