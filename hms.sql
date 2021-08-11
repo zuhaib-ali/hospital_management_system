@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 07, 2021 at 08:01 AM
+-- Generation Time: Aug 11, 2021 at 08:36 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -334,10 +334,18 @@ CREATE TABLE `patients` (
   `blood_group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` tinyint(1) DEFAULT NULL,
+  `status` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `patients`
+--
+
+INSERT INTO `patients` (`id`, `user_id`, `name`, `email`, `address`, `phone`, `sex`, `age`, `date_of_birth`, `blood_group`, `doctor_id`, `image`, `status`, `created_at`, `updated_at`) VALUES
+(1, NULL, 'zeeshan soomro', 'zuhaibsoomro25@gmail.com', 'hakra muhalla, ali khan, kamber', '03333333333', 'male', '21', '2021-08-11', 'o+', 1, '1628663332-zeeshan-soomro-jpg', 'new', NULL, NULL),
+(2, 3, 'Bisal Bhatti', 'bisalbhatti4@gmail.com', 'Sindh', '03030326416', 'male', '23', '2021-06-08', 'ab+', 1, '1628663441-Bisal-Bhatti-png', 'new', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -611,7 +619,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `pharmacists`
