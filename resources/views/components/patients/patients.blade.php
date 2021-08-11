@@ -143,14 +143,14 @@
                                                 <label for="blood_group">Blood Group</label>
                                                 <input type="text" name="blood_group" list="blood_groups" id="blood_group_in_registraion_modal" class="form-control" required>
                                                 <datalist id="blood_groups">
-                                                    <option value="a+">A+</option>
-                                                    <option value="b+">B+</option>
-                                                    <option value="o+">O+</option>
-                                                    <option value="a-">A-</option>
-                                                    <option value="b-">B-</option>
-                                                    <option value="o-">O-</option>
-                                                    <option value="ab+">AB+</option>
-                                                    <option value="ab-">AB-</option>
+                                                    <option value="a+">
+                                                    <option value="b+">
+                                                    <option value="o+">
+                                                    <option value="a-">
+                                                    <option value="b-">
+                                                    <option value="o-">
+                                                    <option value="ab+">
+                                                    <option value="ab-">
                                                 </datalist>
                                             </div>
 

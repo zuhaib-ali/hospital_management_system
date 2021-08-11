@@ -27,7 +27,7 @@ class CreatePatientsTable extends Migration
             $table->string('blood_group');
             $table->foreignId('doctor_id');
             $table->string('image');
-            $table->boolean('status')->nullable();
+            $table->boolean('status')->default("new");
             $table->timestamps();
         });
     }

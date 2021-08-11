@@ -94,6 +94,4 @@ class PharmacistController extends Controller
 
         }
     }
-
-    
 }
