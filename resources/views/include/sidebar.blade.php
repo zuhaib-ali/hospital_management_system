@@ -314,6 +314,13 @@
             <ul class="nav nav-treeview">
 
               <li class="nav-item">
+                <a href="{{ route('addLetter') }}" class="nav-link @if(Request::url() == Request::is('addLetter')) active @endif">
+                  <i class="far fa-circle nav-icon"></i>
+                  <p>Add Template Letter</p>
+                </a>
+              </li>
+
+              <li class="nav-item">
                 <a href="{{ route('emailLetter') }}" class="nav-link @if(Request::url() == Request::is('emailLetter')) active @endif">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Email Template Letter</p>

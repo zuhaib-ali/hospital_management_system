@@ -64,31 +64,6 @@ Route::get('/addPatients', function () {
     }
 })->name('addPatients');
 
-// Route::get('/admitted_patients', function () {
-//     if(Session::has('user')){
-//         $patients = DB::table('patients')->where('status','admitted')->get();
-
-//         return view('components.patients')->with([
-//             'patients'  =>  $patients,
-//         ]);    
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('admitted_patients');
-
-// Route::get('/dpatients', function () {
-//     if(Session::has('user')){
-//         $patients = DB::table('patients')->where('status','discharged')->get();
-
-//         return view('components.dPatients')->with([
-//             'patients'  =>  $patients,
-//         ]);    
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('dpatients');
-
-
 // login view
 Route::get('/login', function(){
     if(Session::has('user')){
@@ -106,12 +81,6 @@ Route::get('/sign_up', function(){
         return view('sign_up');
     }
 })->name('signUp');
-
-// EDIT PROFILE GET
-Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
-
-// UPDATE PROFILE POST
-Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
 
 //Admin Locations
 Route::get('/locations', function(){
@@ -167,6 +136,89 @@ Route::get('/emailLetter', function(){
         return redirect()->route('login');
     }
 })->name('emailLetter');
+
+Route::get('addLetter', function(){
+    $tmp = DB::table('templates')->get();
+    return view('components.mail.Add_letter')->with([
+        'data'  =>  $tmp
+    ]);
+})->name('addLetter');
+
+
+// APPOITMENTS VIEW
+Route::get('/appointments', function(){
+    if(Session::has('user')){
+        $carts          = DB::table('carts')->get();
+        $appointments = Appointment::all();
+        return view('components.appointments')->with([
+            'appointments'  =>  $appointments,
+            'locations'     =>  Location::all(),
+            'carts'         =>  $carts
+        ]);    
+    }else{
+        return redirect()->route('login');
+    }
+})->name('appointments');
+
+// EDIT DOCTOR GET
+Route::get('admin/doctors/edit_doctor', function(){
+    return view('components.doctors.edit_doctor', [
+        'doctor'=>Doctor::find(Request::get('doctor_id')),
+        'hospitals'=>Location::all(),
+        'specializations'=>Specialization::all(),
+    ]);
+})->name('edit_doctor');
+
+// DELETING DOCTOR
+Route::get('admin/doctors/delete_doctor', function(){
+    // RETRIEVING DOCTOR.
+    $doctor =  Doctor::find(Request::get('doctor_id'));
+
+    // DOCTOR NANE.
+    $name = $doctor->first_name." ".$doctor->last_name;
+
+    // DELETEING DOCTOR.
+    $deleted = $doctor->delete();
+    if($deleted == true){
+        return redirect()->route("doctors")->with('deleted', $name." Deleted From Doctors Record.");
+    }
+})->name('delete_doctor');
+
+
+// ALL PATIENTS
+Route::get('/all_patients', function(){
+    $patients = DB::table('patients')->get();
+    return view('components.allPatients', ['patients'=>$patients]);
+})->name('all_patients');
+
+
+Route::get('uLabs', function(){
+    $carts          = DB::table('carts')->get();
+    $labs           = DB::table('labs')->get();
+
+    return view('components.lab.uLabs')->with(
+        [
+            'carts' =>  $carts,
+            'labs'  =>  $labs
+        ]
+    );
+});
+
+
+Route::get('admin/pateints/data', function(){
+    return json_encode(array('data'=>User::where("role", "user")->get()));
+})->name("patients_data");
+
+
+
+
+
+// EDIT PROFILE GET
+Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
+
+// UPDATE PROFILE POST
+Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
+
  
 
 // APPOITMENT FIX VIEW
@@ -184,20 +236,6 @@ Route::post('appointments/appointment_by_doctor',[AppointmentController::class, 
 Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']);
 
 
-// APPOITMENTS VIEW
-Route::get('/appointments', function(){
-    if(Session::has('user')){
-        $carts          = DB::table('carts')->get();
-        $appointments = Appointment::all();
-        return view('components.appointments')->with([
-            'appointments'  =>  $appointments,
-            'locations'     =>  Location::all(),
-            'carts'         =>  $carts
-        ]);    
-    }else{
-        return redirect()->route('login');
-    }
-})->name('appointments');
 
 // ERASE APPOINTMENT
 Route::get('appointments/trash_appointment', [AppointmentController::class, 'trash'])->name('trash_appointment');
@@ -228,18 +266,6 @@ Route::get("admin/departments/delete", [DepartmentController::class, "destroy"])
 Route::get("admin/departments/edit", [DepartmentController::class, "edit"])->name("edit_department");
 Route::post("admin/departments/add-new-department", [DepartmentController::class, "add"])->name("add_new_department");
 
-
-
-
-
-
-
-
-
-
-
-
-
 // '''''''''''''''''''''''   DOCTORS   '''''''''''''''''''''''
 Route::get('admin/doctors', [DoctorController::class, 'index'])->name('doctors');
 
@@ -248,43 +274,13 @@ Route::post('admin/doctors/add', [DoctorController::class, 'addDoctor'])->name('
 // EDIT DOCTOR POST
 Route::post('doctors/update_doctor', [DoctorController::class, "update"])->name('update_doctor');
 
-// EDIT DOCTOR GET
-Route::get('admin/doctors/edit_doctor', function(){
-    return view('components.doctors.edit_doctor', [
-        'doctor'=>Doctor::find(Request::get('doctor_id')),
-        'hospitals'=>Location::all(),
-        'specializations'=>Specialization::all(),
-    ]);
-})->name('edit_doctor');
-
-// DELETING DOCTOR
-Route::get('admin/doctors/delete_doctor', function(){
-    // RETRIEVING DOCTOR.
-    $doctor =  Doctor::find(Request::get('doctor_id'));
-
-    // DOCTOR NANE.
-    $name = $doctor->first_name." ".$doctor->last_name;
-
-    // DELETEING DOCTOR.
-    $deleted = $doctor->delete();
-    if($deleted == true){
-        return redirect()->route("doctors")->with('deleted', $name." Deleted From Doctors Record.");
-    }
-})->name('delete_doctor');
-
-
 
 // VIEW DOCTOR
 Route::get('admin/doctors/view', [DoctorController::class, 'viewDoctor'])->name('view_doctor');
 
-
-
-
 // '''''''''''''''''''''''   SPECIALIZATIONS   '''''''''''''''''''''''
 Route::get('admin/specializations', [SpecializationController::class, 'index'])->name('specializations');
 Route::post('admin/add_specialization', [SpecializationController::class, 'addSpecialization'])->name('add_specialization');
-
-
 
 // ''''''''''''''''''''''  PATIENTS   '''''''''''''''''''''''
 Route::get("admin/patients", [PatientController::class, "index"])->name("patients");
@@ -298,21 +294,8 @@ Route::get("admin/patients/patinet-information", [PatientController::class, "sho
 Route::post("admin/patients/add-new-patients", [PatientController::class, "add"])->name("add_new_patient");
 Route::post("admin/patients/update-patient", [PatientController::class, "update"])->name("update_patient");
 
-Route::get('admin/pateints/data', function(){
-    return json_encode(array('data'=>User::where("role", "user")->get()));
-})->name("patients_data");
-
-
-
-
 // Add Patient
 Route::post('addPatient', [components::class, 'addPatient'] );
-
-// ALL PATIENTS
-Route::get('/all_patients', function(){
-    $patients = DB::table('patients')->get();
-    return view('components.allPatients', ['patients'=>$patients]);
-})->name('all_patients');
 
 // Discharge Patient
 Route::get('dicharge/{id}', [components::class, 'dicharge'] );
@@ -340,6 +323,8 @@ Route::post('update_location', [LocationController::class, 'updateLocation'])->n
 // **************************** SEND MAIL ****************************
 // SEND MAIL
 Route::get('appointments/send_mail', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
+
+Route::post('/addLetterTemplate', [SendMailController::class, 'addLetterTemplate'])->name('addLetterTemplate');
 
 Route::post('addTmp', [SendMailController::class, 'addTmp']);
 
@@ -395,18 +380,6 @@ route::get("admin/lab-test/delete-lab-test", [LabtestController::class, "delete"
 route::get("admin/lab-test/edit-lab-test", [LabtestController::class, "edit"])->name("edit_lab_test");
 // UPDATE LAB TEST
 route::post("admin/lab-test/update-lab-test", [LabtestController::class, "update"])->name("update_lab_report");
-
-Route::get('uLabs', function(){
-    $carts          = DB::table('carts')->get();
-    $labs           = DB::table('labs')->get();
-
-    return view('components.lab.uLabs')->with(
-        [
-            'carts' =>  $carts,
-            'labs'  =>  $labs
-        ]
-    );
-});
 
 
 // Add User As Admin

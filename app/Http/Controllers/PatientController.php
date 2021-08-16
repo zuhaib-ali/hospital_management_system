@@ -8,6 +8,7 @@ use App\Models\Doctor;
 use App\Models\Location;
 use App\Models\Appointment;
 use App\Models\User;
+use DB;
 
 class PatientController extends Controller
 {
@@ -17,7 +18,7 @@ class PatientController extends Controller
             return view("components.patients.patients", [
                 "users" => User::where("role", 'user')->get(),
                 "patients" => Patient::all(),
-                "doctors" => Doctor::all()
+                "doctors" => Doctor::all(),
             ]);
         }else{
             return redirect()->route("login");
@@ -69,11 +70,10 @@ class PatientController extends Controller
     // ADMIT
     public function admit(Request $request){
         if($request->session()->has("user") == true){
-            $patient = Patient::find($request->patient_id);
-            $patient->status = "admitted";
-            $patient_admitted = $patient->update();
+            $patient_id = $request->post('patient_id');
+            $patient_admitted = DB::table('patients')->where('id',$patient_id)->update(['status'=>'admitted']);
             if($patient_admitted == true){
-                return redirect()->back()->with("patient_admitted", $patient->name." admitted");
+                return redirect()->back()->with("patient_admitted", "Patient admitted");
             }            
         }else{
             return redirect()->route("login");

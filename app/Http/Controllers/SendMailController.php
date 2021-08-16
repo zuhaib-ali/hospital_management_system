@@ -64,4 +64,27 @@ class SendMailController extends Controller
 
         
     }
+
+
+
+    public function addLetterTemplate(Request $request)
+    {
+        $request->validate([
+            'title' => 'required',
+            'body' => 'required',
+        ]);
+        
+        
+        $addTmp     =   Template::create([
+            'title'     =>  $request->title,
+            'body'      =>  $request->body    
+        ]);
+
+        if ($addTmp ==  true) {
+            return redirect()->route('emailLetter')->with('added', 'Template Added Successfully');
+        }else{
+            return redirect()->route('emailLetter')->with('failed', 'Failed To Add Template');
+        }
+
+    }
 }
