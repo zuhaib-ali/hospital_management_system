@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Auth;
 use App\Models\User;
+use DB;
 
 class UserController extends Controller
 {
@@ -64,8 +65,15 @@ class UserController extends Controller
     // EDIT PROFILE
     public function editProfile(Request $request){
         if($request->session()->has('user') == true){
+
+            $carts = DB::table('carts')->get();
+
             $user = $request->session()->get('user');
-            return view('components.edit_profile', ['user'=>$user]);
+            return view('components.edit_profile', [
+                    'user'=>$user,
+                    'carts'=>$carts
+                ]
+            );
         }
     }
 

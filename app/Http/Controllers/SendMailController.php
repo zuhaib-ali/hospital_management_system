@@ -47,6 +47,7 @@ class SendMailController extends Controller
             $tmp->body = str_replace("[[Email]]",$location->email, $tmp->body);
             $tmp->body = str_replace("[[Phone]]",$location->phone, $tmp->body);
 
+
             // MAIL CONTENT 
             $mail_content = [
                 'title'     => $tmp->title,
@@ -85,6 +86,6 @@ class SendMailController extends Controller
         }else{
             return redirect()->route('emailLetter')->with('failed', 'Failed To Add Template');
         }
-
+ 
     }
 }

@@ -214,7 +214,7 @@ Route::get('admin/pateints/data', function(){
 
 
 // EDIT PROFILE GET
-Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
+Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile'); 
 
 // UPDATE PROFILE POST
 Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');

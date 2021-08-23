@@ -12,5 +12,6 @@ class Template extends Model
         'title',
         'body'
     ];
-    protected $timestamp = false;
+    
+    public $timestamp = false;
 }

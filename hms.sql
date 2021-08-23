@@ -1,13 +1,14 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.4
+-- version 4.9.0.1
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 11, 2021 at 08:36 AM
--- Server version: 10.4.17-MariaDB
--- PHP Version: 8.0.0
+-- Generation Time: Aug 23, 2021 at 09:44 AM
+-- Server version: 10.4.6-MariaDB
+-- PHP Version: 7.3.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -40,6 +41,14 @@ CREATE TABLE `appointments` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `deleted_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `doctor_id`, `location_id`, `hospital_id`, `note`, `created_at`, `updated_at`, `deleted_at`) VALUES
+(1, 'General Physician', 'Bisal', 3, 1, 1, 0, 'Emergency', NULL, NULL, NULL),
+(2, 'General Physician', 'Bisal', 3, 1, 1, 0, 'Emergency', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -234,6 +243,13 @@ CREATE TABLE `locations` (
   `phone` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `locations`
+--
+
+INSERT INTO `locations` (`id`, `name`, `email`, `address`, `phone`) VALUES
+(1, 'Agha Khan Hyderabad', 'aghakhan@gmail.com', 'Hyderabad', '02233445');
+
 -- --------------------------------------------------------
 
 --
@@ -334,7 +350,7 @@ CREATE TABLE `patients` (
   `blood_group` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `doctor_id` bigint(20) UNSIGNED NOT NULL,
   `image` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `status` varchar(5) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `status` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -344,8 +360,9 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`id`, `user_id`, `name`, `email`, `address`, `phone`, `sex`, `age`, `date_of_birth`, `blood_group`, `doctor_id`, `image`, `status`, `created_at`, `updated_at`) VALUES
-(1, NULL, 'zeeshan soomro', 'zuhaibsoomro25@gmail.com', 'hakra muhalla, ali khan, kamber', '03333333333', 'male', '21', '2021-08-11', 'o+', 1, '1628663332-zeeshan-soomro-jpg', 'new', NULL, NULL),
-(2, 3, 'Bisal Bhatti', 'bisalbhatti4@gmail.com', 'Sindh', '03030326416', 'male', '23', '2021-06-08', 'ab+', 1, '1628663441-Bisal-Bhatti-png', 'new', NULL, NULL);
+(1, NULL, 'zeeshan soomro', 'zuhaibsoomro25@gmail.com', 'hakra muhalla, ali khan, kamber', '03333333333', 'male', '21', '2021-08-11', 'o+', 1, '1628663332-zeeshan-soomro-jpg', 'discharged', NULL, NULL),
+(2, 3, 'Bisal Bhatti', 'bisalbhatti4@gmail.com', 'Sindh', '03030326416', 'male', '23', '2021-06-08', 'ab+', 1, '1628663441-Bisal-Bhatti-png', 'admitted', NULL, NULL),
+(3, NULL, 'Bilal Ali', 'bilal.jessar11@gmail.com', 'kotri', '03488305189', 'male', '24', '1997-06-24', 'o-', 1, '1628749170-Bilal-Ali-jpg', 'admitted', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -401,6 +418,13 @@ CREATE TABLE `templates` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `templates`
+--
+
+INSERT INTO `templates` (`id`, `title`, `body`, `created_at`, `updated_at`) VALUES
+(1, 'Appointment Reminder From HMS', 'Hi Mr.[[Full_name]] we\'re informing you that your appointment has confirmed, Here\'s the address [[Location]] please visit us..!!\r\nIf you\'ve any confusion or You want to reschedule your appointment just contact us via [[Phone]] or [[Email]]..!!\r\nThank You..!!', '2021-08-21 00:05:23', '2021-08-21 00:05:23');
+
 -- --------------------------------------------------------
 
 --
@@ -432,9 +456,9 @@ CREATE TABLE `users` (
 --
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `username`, `role`) VALUES
-(1, 'admin', 'admin', 'admin@gmail.com', '03030312343', '4120426112932', 22, 'b-', 'sindh', '$2y$10$0bugvwYpTwHq0gRA9upe5uLdb5ZukdSYdbIErcrAQ6aHT3acVdoay', '2021-06-04', 'male', '1623048322-admin.jpg', NULL, NULL, 'admin', 'admin'),
-(2, 'Bilal', 'Ali', 'bilal.jessar@gmail.com', '03488305189', '4120426112931', 24, 'o-', 'Pakistan', 'bilal', '2021-06-09', 'Male', '1623257936.JPG', NULL, NULL, 'bilal', 'admin'),
-(3, 'Bisal', 'Bhatti', 'bisalbhatti4@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
+(1, 'Bilal', 'Ali', 'admin@gmail.com', '03030312343', '4120426112932', 22, 'b-', 'sindh', '$2y$10$0bugvwYpTwHq0gRA9upe5uLdb5ZukdSYdbIErcrAQ6aHT3acVdoay', '2021-06-04', 'male', '1623048322-admin.jpg', NULL, NULL, 'admin', 'admin'),
+(2, 'Bilal', 'Ali', 'bilal.jessar@gmail.com', '03488305189', '4120426112931', 24, 'o-', 'Pakistan', 'bilal', '2021-06-09', 'Male', '1623257936.JPG', NULL, NULL, 'bilal', 'user'),
+(3, 'Bisal', 'Bhatti', 'bilal.jessar11@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
 
 --
 -- Indexes for dumped tables
@@ -553,7 +577,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -601,7 +625,7 @@ ALTER TABLE `labtests`
 -- AUTO_INCREMENT for table `locations`
 --
 ALTER TABLE `locations`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `medicines`
@@ -619,7 +643,7 @@ ALTER TABLE `migrations`
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `pharmacists`
@@ -637,7 +661,7 @@ ALTER TABLE `specializations`
 -- AUTO_INCREMENT for table `templates`
 --
 ALTER TABLE `templates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `users`
