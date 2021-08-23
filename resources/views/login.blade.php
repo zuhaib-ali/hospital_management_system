@@ -27,6 +27,12 @@
 				background-repeat:no-repeat;
 				background-size:100% 100%;
 			}
+
+			#login_title{
+				color:red;
+				text-shadow:0px 0px 10px red;
+				letter-spacing:10px;
+			}
 		</style>
 	</head>
 	<body class="">
@@ -77,7 +83,7 @@
 				<div class="row justify-content-center  main_content">
 					<div class="col-md-6 col-lg-4">
 						<div class="login-wrap p-0">
-							<a><h3 class="mb-4 text-center" style="color:#dc8c8c; letter-spacing:10px;">LOGIN</h3></a>
+							<a><h3 class="mb-4 text-center" id="login_title" >LOGIN</h3></a>
 
 							<!-- Login Form -->
 							<form method='POST' action="{{ route('login') }}" class="signin-form">
@@ -96,7 +102,7 @@
 
 								<!-- Sign in button -->
 								<div class="form-group">
-									<input type="submit" class="form-control btn btn-dark submit px-3" value='Sign In' style="background-color:black; font-weight:bold;">
+									<input type="submit" class="form-control btn submit px-3" value='Sign In' style="background-color:#2d2828; font-weight:bold;">
 								</div>
 
 								<div class="form-group d-md-flex">
@@ -122,7 +128,7 @@
 
 							<p class="w-100 text-center">&mdash; Don't Have An Account &mdash;</p>
 
-							<a href="{{ route('sign_up') }}" class="btn btn-success col-lg-12">
+							<a href="{{ route('sign_up') }}" class="btn btn-light col-lg-12">
 								Signup
 							</a>
 						</div>

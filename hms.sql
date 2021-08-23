@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 4.9.0.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Aug 23, 2021 at 09:44 AM
--- Server version: 10.4.6-MariaDB
--- PHP Version: 7.3.9
+-- Generation Time: Aug 23, 2021 at 12:42 PM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -48,7 +47,8 @@ CREATE TABLE `appointments` (
 
 INSERT INTO `appointments` (`id`, `type`, `patient_name`, `patient_id`, `doctor_id`, `location_id`, `hospital_id`, `note`, `created_at`, `updated_at`, `deleted_at`) VALUES
 (1, 'General Physician', 'Bisal', 3, 1, 1, 0, 'Emergency', NULL, NULL, NULL),
-(2, 'General Physician', 'Bisal', 3, 1, 1, 0, 'Emergency', NULL, NULL, NULL);
+(2, 'General Physician', 'Bisal', 3, 1, 1, 0, 'Emergency', NULL, NULL, NULL),
+(3, 'Acupuncturist', 'zuhaib ali', 4, 1, 1, 1, 'noted by zuhaib ali patient to doctor zuhaib ali', '2021-08-23 04:35:15', '2021-08-23 04:35:15', NULL);
 
 -- --------------------------------------------------------
 
@@ -458,7 +458,8 @@ CREATE TABLE `users` (
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `email`, `mobile`, `cnic`, `age`, `blood_group`, `address`, `password`, `dob`, `gender`, `profile_img`, `email_verified_at`, `remember_token`, `username`, `role`) VALUES
 (1, 'Bilal', 'Ali', 'admin@gmail.com', '03030312343', '4120426112932', 22, 'b-', 'sindh', '$2y$10$0bugvwYpTwHq0gRA9upe5uLdb5ZukdSYdbIErcrAQ6aHT3acVdoay', '2021-06-04', 'male', '1623048322-admin.jpg', NULL, NULL, 'admin', 'admin'),
 (2, 'Bilal', 'Ali', 'bilal.jessar@gmail.com', '03488305189', '4120426112931', 24, 'o-', 'Pakistan', 'bilal', '2021-06-09', 'Male', '1623257936.JPG', NULL, NULL, 'bilal', 'user'),
-(3, 'Bisal', 'Bhatti', 'bilal.jessar11@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user');
+(3, 'Bisal', 'Bhatti', 'bilal.jessar11@gmail.com', '03030326416', '4120426112935', 23, 'ab+', 'Sindh', '$2y$10$kJHvX0FzmjLFEQBg51Ks3urksmIQp9jW8RDaonYTVPTj/i6SlO476', '2021-06-08', 'male', '1623259086-Bisal.jpg', NULL, NULL, 'bisal', 'user'),
+(4, 'zuhaib', 'ali', 'salmansoomro523@gmail.com', '03333936465', '4320269682403', 21, 'o+', 'Harka muhalla, ali khan, kamber', '$2y$10$v/alG4.OdxSzeebVBRG6WuA6/UA4OoIXuoazo4t6BX5H/.Pvzk9QG', '2021-08-23', 'male', '1629711260-zuhaib.jpg', NULL, NULL, 'zuhaib ali', 'user');
 
 --
 -- Indexes for dumped tables
@@ -577,7 +578,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -667,7 +668,7 @@ ALTER TABLE `templates`
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
