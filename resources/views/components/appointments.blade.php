@@ -28,8 +28,8 @@
     </div>
     <!-- /.content-header -->
 
-    <!-- Main content -->
-    <section class="content">
+
+    <!-- <section class="content">
         <div class="container-fluid">
           <div class="row">
             <div class="col-12">
@@ -37,10 +37,10 @@
             <div class="card-header" style="background-color:darkblue;">
               <center class="text-bold" style="color:white;">APPOINTMENTS ({{ count($appointments) }})</center>
             </div>
-            <!-- /.card-header -->
+
 
               <div class="card-body">
-                @if(count($appointments) !== 0)
+                @if(count($appointments) == 0)
                 <table id="example2" class="table table-bordered table-hover text-center">
                   <thead>
                   <tr>
@@ -74,7 +74,7 @@
 
                           <a href="{{ route('trash_appointment', ['id'=>$appointment->id]) }}" class="btn btn-sm btn-outline-danger">
                             <i class="icon-trash"></i>
-                            TRASH
+                            Delete
                           </a>
                         </td>
                     </tr>
@@ -86,15 +86,72 @@
                 @endif
 
               </div>
-              <!-- /.card-body -->
+
             </div>
-            <!-- /.card -->
+
                 </div>
             </div>
         </div>
+    </section> -->
+
+
+
+
+    <!-- Main content -->
+    <section class="content">
+        <div class="container-fluid">
+            <div class="row">
+                <div class="col-12">
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">Appoitments</h3>
+                            <!-- <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#add" style="border-radius:10px;"> <i class="fa fa-plus"></i> ADD DOCTOR</button> -->
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
+                                <tr>
+                                    <th>#</th>
+                                    <th>Patient Name</th>
+                                    <th>Hospital Location</th>
+                                    <th>Appointment Type</th>
+                                    <th>Note</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+
+                                <tbody>
+                                    <?php $no = 1;?>
+                                    
+                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                    <!-- /.card -->
+                </div>
+                <!-- column ends -->
+            </div>
+             <!-- Row ends -->
+        </div>
     </section>
-    <!-- /.content -->
+
+
+
+
+
+
+
   </div>
+
+
+
+
+
+
+
   <!-- /.content-wrapper -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
   

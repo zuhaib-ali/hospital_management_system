@@ -38,4 +38,12 @@ class Doctor extends Model
     public function getDescriptionAttribute($value){
         return ucfirst($value);
     }
+
+    public function specialization(){
+        return $this->belongsTo(Specialization::class);
+    }
+
+    public function location(){
+        return $this->belongsTo(Location::class);
+    }
 }

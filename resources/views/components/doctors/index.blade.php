@@ -9,6 +9,15 @@
     ::placeholder{
         font-style:italic;
     }
+
+    #example1_filter{
+        display:flex;
+        justify-content:end;
+    }
+    .pagination{
+        display:flex;
+        justify-content:end;
+    }
 </style>
 
 
@@ -23,7 +32,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-blue">DOCTORS</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -41,64 +49,56 @@
         <div class="container-fluid">
             <div class="row">
                 <div class="col-12">
-                        @if($errors->any())
-                            @foreach($errors->all() as $error)
-                                <p style="font-style:italic; color:red;" class="err">{{ $error }}</p>
-                            @endforeach
-                        @endif
-                  <div class="card">
-                    <div class="card-header"  style="background-color:darkblue;">
-                      <h4>
-                          <span style="color:white;" >No of records - {{ count($doctors) }}</span>
-                        <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#add" style="border-radius:10px;"> 
-                          <i class="fa fa-plus"></i> 
-                          ADD DOCTOR
-                        </button>
-                      </h4>
-                    </div>
-                    <!-- /.card-header -->
-                    <div class="card-body">
-
-                        @if(count($doctors) != 0)
-                        <table id="example2" class="table table-bordered table-hover text-center">
-                            <thead>
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">DOCTORS</h3>
+                            <button class="btn btn-sm btn-warning pull-right" data-toggle="modal" data-target="#add" style="border-radius:10px; color:white"> 
+                            <i class="fa fa-plus"></i> 
+                                ADD DOCTOR
+                            </button>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="example1" class="table table-bordered table-striped">
+                                <thead>
                                 <tr>
-                                    <th>NO</th>
-                                    <th>FULL NAME</th>
-                                    <th>SPECIALIZATION</th>
-                                    <th>HOSPITAL</th>
-                                    <th>TIMING</th>
-                                    <th>ACTIONS</th>
+                                    <th>#</th>
+                                    <th>Name</th>
+                                    <th>Specialization</th>
+                                    <th>Hospital</th>
+                                    <th>Time</th>
+                                    <th>Actions</th>
                                 </tr>
-                            </thead>
-                            <tbody>
-                                <?php $no = 1;?>
-                                @foreach($doctors as $doctor)
-                                    <tr>
-                                        <td>{{ $no++ }}</td>
-                                        <td>{{ $doctor->first_name }} {{ $doctor->last_name }}</td>
-                                        <td>{{ $specializations->find($doctor->specialist)->name }}</td>
-                                        <td>{{ $hospitals->find($doctor->hospital_id)->name }}</td>
-                                        <td>{{ $doctor->from }} to {{ $doctor->to }}</td>
-                                        <td>
-                                            <a href="{{ route('view_doctor', ['doctor_id'=> $doctor->id]) }}" class="btn btn-primary btn-sm fas fa-eye" style="border-radius:10px;"></a>
-                                            <a href="{{ route('edit_doctor', ['doctor_id' => $doctor->id]) }}" class="btn btn-secondary btn-sm  fas fa-edit"  style="border-radius:10px;"></a>
-                                            |
-                                            <a href="{{ route('delete_doctor', ['doctor_id' => $doctor->id]) }}" class="btn btn-danger btn-sm fas fa-trash-alt"></a>
-                                        </td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
-                        @else
-                            <center>NO DOCTOR FOUND!</center>
-                        @endif
+                                </thead>
+
+                                <tbody>
+                                    <?php $no = 1;?>
+                                    @foreach($doctors as $doctor)
+                                        <tr>
+                                            <td>{{ $no++ }}</td>
+                                            <td>{{ $doctor->username }}</td>
+
+                                            <td>{{ $doctor->specialization_name }}</td>
+                                            <td>{{ $doctor->hospital_name }}</td>
+
+                                            <td>{{ $doctor->from }} to {{ $doctor->to }}</td>
+                                            <td>
+                                                <a href="{{ route('view_doctor', ['doctor_id'=> $doctor->id]) }}" class="btn btn-primary btn-sm fas fa-eye" style="border-radius:5px;"></a>
+                                                <a href="{{ route('delete_doctor', ['doctor_id' => $doctor->id]) }}" class="btn btn-danger btn-sm"  style="border-radius:5px;"><i class="fas fa-trash"></i></a>
+                                            </td>
+                                        </tr>
+                                    @endforeach
+                    
+                                </tbody>
+                            </table>
+                        </div>
+                        <!-- /.card-body -->
                     </div>
-                    <!-- /.card-body -->
-                  </div>
-                  <!-- /.card -->
+                    <!-- /.card -->
                 </div>
+                <!-- column ends -->
             </div>
+             <!-- Row ends -->
         </div>
     </section>
     <!-- /.content -->
@@ -121,6 +121,8 @@
 						</div>
 				      	<div class="modal-body">
                             <div class="form-row">
+                                <input type="hidden" name="role" value="doctor">
+
                                 <!-- FIRST NAME -->
                                 <div class="form-group col-sm-6">
                                     <label for="first_name">First Name</label>
@@ -138,8 +140,8 @@
                                 <div class="col-sm-6">
                                     <!-- E-MAIL -->
                                     <div class="form-group">
-                                    <label for="e_mail">E-Mail</label>
-                                        <input type="email" class="form-control" name="e_mail" placeholder="example123@gmail.com">
+                                    <label for="email">E-Mail</label>
+                                        <input type="email" class="form-control" name="email" placeholder="example123@gmail.com">
                                     </div>    
                                 </div>
 
@@ -155,26 +157,14 @@
                                 <!-- DEGREE -->
                                 <div class="col-sm-6 form-group">
                                     <label for="degree">Degree</label>
-
-                                    <input list='degrees' name="degree" class="form-control">
-                                    <datalist id="degrees">
-                                        <option value="MBBS - Bachelor of Medicine and Bachelor of Surgery">Bachelor of Medicine and Bachelor of Surgery</option>
-                                        <option value="BDS - Bachelor of Dental surgery">Bachelor of Dental surgery</option>
-                                        <option value="BAMS - Bachelor of Ayurvedic medicine and Surgery">Bachelor of Ayurvedic medicine and Surgery</option>
-                                        <option value="BGMS - Bachelor of Homeopathy medicine and Surgery">Bachelor of Homeopathy medicine and Surgery</option>
-                                        <option value="BUMS - Bachelor of Unani medicine and Surgery">Bachelor of Unani medicine and Surgery</option>
-                                        <option value="BYNS - Bachelor of Yoga and Naturopath science">Bachelor of Yoga and Naturopath science</option>
-                                        <option value="B.V Sc and AH - Bachelor of Veterinary sciences and Animal husbandary">Bachelor of Veterinary sciences and Animal husbandary</option>
-                                        <option value="M.D - Doctor of medicine">Doctor of medicine</option>
-                                        <option value="M.S - Master of surgery">Master of surgery</option>
-                                        <option value="D.N.B - Diplomate of national board">Diplomate of national board</option>
-                                    </datalist>
+                                    <input type="text" name="degree" class="form-control">
                                 </div>
 
                                 <!-- HOSPITAL -->
                                 <div class="form-group col-sm-6">
                                     <label for="hospital_id">Hospital</label>
-                                    <select name="hospital_id" class="form-control">
+                                    <select name="hospital_id" class="form-control" @if($hospitals->count() == null) disabled @endif>
+                                        <option value="none" selected disabled hidden>-HOSPITAL-</option> 
                                         @foreach($hospitals as $hospital)
                                             <option value="{{ $hospital->id }}">{{ $hospital->name }}</option>
                                         @endforeach
@@ -186,7 +176,8 @@
                                 <!-- SPECIALIZATION -->
                                 <div class="col-sm-4 form-group">
                                 <label for="specialization">Specialization</label>
-                                    <select name="specialist" class="form-control">
+                                    <select name="specialist" class="form-control" @if($specializations->count() == null) disabled @endif>
+                                        <option value="none" selected disabled hidden>-SPECIALIZATION-</option>
                                         @foreach($specializations as $specialization)
                                             <option value="{{ $specialization->id }}">{{ $specialization->name }}</option>
                                         @endforeach
@@ -255,19 +246,29 @@
                                         <p> Tue <input type="checkbox" name="tuesday" value="tuesday"></p>
                                         <p> Wed <input type="checkbox" name="wednesday" value="wednesday"></p>
                                         <p> Thu<input type="checkbox" name="thursday" value="thursday"></p>
-                                        <p> Fri <input type="checkbox" name="firday" value="friday"></p>
+                                        <p> Fri <input type="checkbox" name="friday" value="friday"></p>
                                         <p> Sat <input type="checkbox" name="saturday" value="saturday"></p>
                                     </div>
                                 </div>
                             </div>
+
+                            <!-- PASSWORD -->
+							<div class="form-group">
+                                <label for="password">Password</label>
+                                <input type="password" name="password" class="form-control">
+							</div>
+
+                            <!-- CONFIRM PASSWORD -->
+							<div class="form-group">
+                                <label for="confirm_password">Confirm Password</label>
+							    <input type="password" name="confirm_password" class="form-control">
+							</div>
 
                             <!-- ADDRESS -->
 							<div class="form-group">
                                 <label for="address">Address</label>
 							    <textarea rows="3" cols="3" class="form-control" name="address" maxlength=100></textarea>
 							</div>
-
-                            
 				      	</div>
 
                         <!-- MODAL FOOTER -->
@@ -291,14 +292,15 @@
 
 
     <!-- EDIT DOCTOR MODAL -->
-  <form method="POST" action="{{ route('edit_doctor') }}" enctype="multipart/form-data">
+{{--  <form method="POST" action="{{ route('edit_doctor') }}" enctype="multipart/form-data">
     @csrf
 			<!-- Modal -->
 			<div class="modal fade" id="edit" aria-hidden="true">
 				<div class="modal-dialog" role="document">
 				    <div class="modal-content">
 						<div class="modal-header">
-							<h5 class="modal-title" style="text-transform:capitalize;">EDIT @if(count($doctors)!=0){{ $doctor->first_name}} {{ $doctor->last_name}}@endif</h5>
+							{{-- <h5 class="modal-title" style="text-transform:capitalize;">EDIT @if(count($doctors)!=0){{ $doctor->first_name}} {{ $doctor->last_name}}@endif</h5> --}}
+                            <h5 class="modal-title" style="text-transform:capitalize;">EDIT </h5>
 							<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						  	<span aria-hidden="true">&times;</span>
 							</button>
@@ -321,7 +323,7 @@
                             <!-- E-MAIL -->
                             <div class="form-group">
                                 <span>*</span>E-Mail
-                                <input type="email" class="form-control" name="e_mail" placeholder="example123@gmail.com">
+                                <input type="email" class="form-control" name="email" placeholder="example123@gmail.com">
                             </div>    
 				        	
                             <div class="form-row">
@@ -360,6 +362,7 @@
                                 <div class="col-sm-4 form-group">
                                     <span>*</span>Specialization
                                     <select name="specialist" class="form-control">
+                                        <option value="" disabled>-- Select Doctor Specialization --</option>
                                         @foreach($specializations as $specialization)
                                             <option value="{{ $specialization->id }}">{{ $specialization->name }}</option>
                                         @endforeach
@@ -444,7 +447,7 @@
 				</div>
 			</div>
 		</form>
-
+    --}}
         <!-- SWEET ALERT -->
         
         <script src="{{ asset('js/jquery.min.js') }}"></script>
@@ -452,14 +455,14 @@
         <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
         <script>
-            $(document).ready(function(){
-                $(".js_multiple").select2({
-                    // maximumSelectionLength: 2
-                });
-            });
+            // $(document).ready(function(){
+            //     $(".js_multiple").select2({
+            //         maximumSelectionLength: 2
+            //     });
+            // });
 
             @if(Session::has('doctor_created'))
-                swal("Doctor Added", "{{ Session::get('doctor_created') }}", "success");
+                swal("{{ Session::get('doctor_created') }}", "added to database successfully", "success");
             @endif
 
             @if(Session::has('updated'))
@@ -467,7 +470,7 @@
             @endif
 
             @if(Session::has('deleted'))
-                swal("Doctor Deleted", "{{ Session::get('updated') }}", "info");
+                swal("{{ Session::get('deleted') }}", " Deleted successfully!", "info");
             @endif
 
             
@@ -475,3 +478,21 @@
 
 
 @include('include.footer')
+
+<script>
+  $(function () {
+    $("#example1").DataTable({
+      "responsive": true, "lengthChange": false, "autoWidth": false,
+      "buttons": ["copy", "csv", "excel", "pdf", "print"]
+    }).buttons().container().appendTo('#example1_wrapper .col-md-6:eq(0)');
+    $('#example2').DataTable({
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": false,
+      "responsive": true,
+    });
+  });
+</script>

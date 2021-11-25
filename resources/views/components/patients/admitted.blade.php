@@ -121,10 +121,6 @@
                                                 <input type="text" name="age" class="form-control" required>
                                             </div>
 
-                                            <div class="form-group col-sm-3">
-                                                <label for="date_of_birth">Date of Birth</label>
-                                                <input type="date" name="date_of_birth" class="form-control" required>
-                                            </div>
 
                                             <div class="form-group col-sm-3">
                                                 <label for="blood_group">Blood Group</label>
@@ -206,9 +202,9 @@
                                 <td class="patient_actions">
 
                                     <!-- ADMIT/DISCHARGE PATIENT -->
-                                    @if($patient->status != "Admitted")
+                                    @if($patient->status != "admitted")
                                         <a href="{{ route('admit_patient', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-success"><i class="fas fa-medkit"></i> ADMIT</a>
-                                    @elseif($patient->status != "Discharged")
+                                    @elseif($patient->status != "discharged")
                                         <a href="{{ route('discharge_patient', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-dark"><i class="fas fa-eject"></i> DISCHARGE</a>
                                     @endif
                                     
@@ -250,8 +246,6 @@
                                                                     <tr>
                                                                         <th>Doctor:</th>
                                                                         <td>{{ $doctors->find($patient->doctor_id)->first_name }} {{ $doctors->find($patient->doctor_id)->last_name }}</td>
-                                                                        <th>Date of Birth:</th>
-                                                                        <td>{{ $patient->date_of_birth }}</td>
                                                                     </tr>
                                                                     <tr>
                                                                         <th>Address:</th>
@@ -339,10 +333,10 @@
                                                                 </datalist>
                                                             </div>
 
-                                                            <div class="form-group col-sm-4">
+                                                            <!-- <div class="form-group col-sm-4">
                                                                 <label for="date_of_birth">Date of Birth</label>
                                                                 <input type="date" name="date_of_birth" class="form-control" value="{{ $patient->date_of_birth }}" required>
-                                                            </div>
+                                                            </div> -->
                                                         </div>
 
                                                         <div class="row">

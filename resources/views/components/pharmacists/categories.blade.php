@@ -60,7 +60,9 @@
                   <tr>
                     <td>{{ $no++ }}</td>
                     <td>{{ $category->category }}</td>
-                    <td><a href="{{ route('delete_category', ['category_id'=>$category->id]) }}" class="btn btn-outline-danger">DELETE</a></td>
+                    <td>
+                      <a href="{{ route('delete_category', ['category_id'=>$category->id]) }}" class="btn btn-outline-danger">DELETE</a>
+                    </td>
                   </tr>
                 @endforeach
               @else

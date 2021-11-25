@@ -15,14 +15,14 @@ class CreatePharmacistsTable extends Migration
     {
         Schema::create('pharmacists', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name')->default('NA');
-            $table->string('last_name')->default('NA');
+            // $table->string('first_name')->default('NA');
+            // $table->string('last_name')->default('NA');
             $table->string('username')->default('NA');
             $table->string('address')->default('NA');
-            $table->string('phone')->default('NA');
-            $table->string('location_id')->default('NA');
+            $table->string('phone')->nullable();
+            $table->unsignedInteger("location_id");
             $table->timestamps();
-            $table->softDeletes();
+            // $table->softDeletes();
         });
     }
 

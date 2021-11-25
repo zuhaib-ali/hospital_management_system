@@ -31,8 +31,8 @@
             <div class="row">
                 <div class="col-12">
                 <div class="card">
-              <div class="card-header" style="background-color:darkblue;">
-                <center class="text-bold" style="color:white;">ADMITTED PATIENTS ({{ count($patients) }})</center>
+              <div class="card-header bg-info">
+                <center class="text-bold">ADMITTED PATIENTS ({{ count($patients) }})</center>
               </div>
               <!-- /.card-header -->
               <div class="card-body">

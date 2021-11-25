@@ -57,6 +57,7 @@
 				</div>
 				@endif
 			</center>
+			
 			<div class="row justify-content-center">
 				<div class="col-md-6 col-lg-4">
 					<div class="login-wrap p-0">
@@ -82,16 +83,16 @@
 		      		</div>
 
 					  <!-- Username -->
-		      		<div class="form-group">
+		      		<!-- <div class="form-group">
 		      			<input type="text" class="form-control" placeholder="Username" name="username" >
 		      			@error('username')
 							<p class="error_message"> {{ $message }}</p>
 						@enderror
-					</div>
+					</div> -->
 
                     <!-- E-Mail -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="E-Mail" name="e_mail" autocomplete="off">
+		      			<input type="email" class="form-control" placeholder="E-Mail" name="email" autocomplete="off">
 						  @error('e_mail')
 							<p class="error_message"> {{ $message }}</p>
 						@enderror
@@ -99,16 +100,9 @@
 
                     <!-- Mobile -->
 		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="Mobile" name="mobile" pattern="[0-9]{3} [0-9]{3} [0-9]{4}">
+		      			<!-- <input type="text" class="form-control" placeholder="Mobile" name="mobile" pattern="[0-9]{3} [0-9]{3} [0-9]{4}"> -->
+		      			<input type="text" class="form-control" placeholder="Mobile" name="mobile">
 						@error('mobile')
-							<p class="error_message"> {{ $message }}</p>
-						@enderror
-		      		</div>
-
-                    <!-- CNIN -->
-		      		<div class="form-group">
-		      			<input type="text" class="form-control" placeholder="CNIC" name="cnic" >
-						  @error('cnic')
 							<p class="error_message"> {{ $message }}</p>
 						@enderror
 		      		</div>
@@ -140,14 +134,6 @@
 						<strong>Address</strong>
 						<textarea name="address" id="address" cols="50" rows="10" class='form-control'></textarea>
 						@error('address')
-							<p class="error_message"> {{ $message }}</p>
-						@enderror
-		      		</div>
-
-                    <!-- Date of Birth -->
-		      		<div class="form-group">
-		      			<input type="date" class="form-control" placeholder="Date of Birth" name="dob" >
-						  @error('dob')
 							<p class="error_message"> {{ $message }}</p>
 						@enderror
 		      		</div>

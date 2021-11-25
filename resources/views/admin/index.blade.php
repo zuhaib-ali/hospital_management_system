@@ -1,29 +1,18 @@
 @include('include.header')
 
 <style rel="stylesheet">
-
-  .cards{
-    display:flex;
-    flex-wrap:wrap;
-    justify-content:space-between;
-  }
-
   .card{
-    background-color:#6699CC;
-    width:300px;
-    height:150px;
-    padding:20px 0px;
-    line-height:50px;
-    box-shadow:2px 1px 0px grey;
-    color:white;
-    font-size:18px;
+    
+    box-shadow:0px 0px 2px black;
+    font-size:14px;
     user-select:none;
-    border-radius:20px;
+    border-radius:10px;
   }
 
   .card:hover{
     background-color:	#6085ab;
-    text-shadow:1px 0px 0px darkblue;
+    text-shadow:0px 0px 2px black;
+    transform:scale(1.01);
   }
 
   .card:active{
@@ -32,9 +21,12 @@
 
   .card a{
     text-decoration:none;
-    color:white;
+    
   }
 
+  .card i.fas{
+    font-size:100px;
+  }
 </style>
 
 @include('include.navbar')    
@@ -61,66 +53,119 @@
     <!-- /.content-header -->
 
     <!-- Main content -->
-    <section class="content" style="background-color:white; padding:15px; margin:0px 15px;">
-      <div class="container-fluid">
-        <!-- Main row -->
-        <div class="row text-center">
-          <div class="col-sm-12">
-            <div class="cards">
-
-              <div class="card">
-                <a href="{{ route('locations') }}">
-                  <h2>Locations</h2>
-                  <div class="container">
-                    <p>{{ $locations->count() }}</p>
-                  </div>
-                </a>
-              </div>
-
-              @if(Session::get('user')->role == "admin")
-              <div class="card">
-                <a href="{{ route('appointments') }}">
-                  <h2>Appointments</h2>
-                  <div class="container">
-                    <p>{{ $appointments->count() }}</p>
-                  </div>
-                </a>
-              </div>
-
-              <div class="card">
-                <a href="{{ route('all_patients') }}">
-                  <h2>Patients</h2>
-                  <div class="container">
-                    <p>{{ $patients->count() }}</p>
-                  </div>
-                </a>
-              </div>
-
-              <div class="card">
-                <h2>Reports</h2>
-                <div class="container">
-                  <p>0</p>
-                </div>
-              </div>
-              @endif()
-
-              <div class="card">
-                <h2>Phramacists</h2>
-                <div class="container">
-                  <p>0</p>
-                </div>
-              </div>
-
-              <div class="card">
-                <h2>Laboratories</h2>
-                <div class="container">
-                  <p>0</p>
-                </div>
-              </div>
+    <section class="content p-3" style="">
+      <div class="container">
+        <!-- row1 starts -->
+        <div class="row">
+            
+            <!-- Locations -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-info p-3">
+              <a href="{{ route('locations') }}">
+                <span> <i class="fas fa-search-location"></i></span>
+                <span class="float-right">
+                  <h1>{{ $locations->count() }}</h1>
+                  <p>LOCATIONS</p>
+                </span>
+              </a>
             </div>
           </div>
+
+          @if(Session::get('user')->role == "admin")
+          <!-- Appointments -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-danger p-3">
+              <a href="{{ route('appointments') }}">
+                <span> <i class="fas fa-calendar-check"></i></span>
+                <span class="float-right">
+                  <h1>{{ $appointments->count() }}</h1>
+                  <p>APPOINTMENTS</p>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Doctors -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-success p-3">
+              <a href="{{ route('doctors') }}">
+                <span> <i class="fas fa-user-injured"></i></span>
+                <span class="float-right">
+                  <h1>{{ $doctors->count() }}</h1>
+                  <p>DOCTORS</p>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Patients -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-success p-3">
+              <a href="{{ route('patients') }}">
+                <span> <i class="fas fa-user-injured"></i></span>
+                <span class="float-right">
+                  <h1>{{ $specializations->count() }}</h1>
+                  <p>SPECIALIZATIONS</p>
+                </span>
+              </a>
+            </div>
+          </div>
+          
+          <!-- Patients -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-success p-3">
+              <a href="{{ route('patients') }}">
+                <span> <i class="fas fa-user-injured"></i></span>
+                <span class="float-right">
+                  <h1>{{ $patients->count() }}</h1>
+                  <p>PATIENTS</p>
+                </span>
+              </a>
+            </div>
+          </div>
+        
+          <!-- Reports -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-primary p-3">
+              <a href="">
+                <span> <i class="fas fa-file-alt"></i></span>
+                <span class="float-right">
+                  <h1>0</h1>
+                  <p>REPORTS</p>
+                </span>
+              </a>
+            </div>
+          </div>
+          @endif
+
+          <!-- Pharmacists -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-warning p-3">
+              <a href="">
+                <span> <i class="fas fa-file-medical text-white"></i></span>
+                <span class="float-right text-white">
+                  <h1>0</h1>
+                  <p>PHARMACISTS</p>
+                </span>
+              </a>
+            </div>
+          </div>
+
+          <!-- Locations -->
+          <div class="col-lg-4 col-md-6 col-sm-12">
+            <div class="card bg-dark p-3">
+              <a href="">
+                <span> <i class="fas fa-vials"></i></span>
+                <span class="float-right">
+                  <h1>{{ $locations->count() }}</h1>
+                  <p>LABORATORIES</p>
+                </span>
+              </a>
+            </div>
+          </div>
+
         </div>
-        <!-- /.row (main row) -->
+        <!-- Row2 ends -->
       </div><!-- /.container-fluid -->
     </section>
     <!-- /.content -->

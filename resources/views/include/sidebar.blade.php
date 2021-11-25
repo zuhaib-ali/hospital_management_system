@@ -10,15 +10,15 @@
         <!-- USER PROFILE IMAGE -->
         <div class="image">
           @if(Session::get('user')->profile_img)
-          <img src="{{ asset('images/'.Session::get('user')->profile_img) }}" class="img-circle elevation-2" alt="User Image" style='width:50px; height:50px'>
+          <img src="{{ asset('profile_images') }}/{{ Session::get('user')->profile_img }}" class="img-circle elevation-2" alt="User Image" style='width:50px; height:50px'>
           @else
-          <img src="{{ asset('images/user.png') }}" class="img-circle elevation-2" alt="User Image" style='width:50px; height:50px'>
+          <img src="{{ asset('profile_images/admin.png') }}" class="img-circle elevation-2" alt="User Image" style='width:50px; height:50px'>
           @endif
         </div>
         
         <!-- USER FIRST AND LAST NAME -->
         <div class="info">
-          <a href="#" class="d-block mt-2 text-white" style='text-transform:uppercase'>{{ Session::get('user')->first_name }} {{ Session::get('user')->last_name }}</a>
+          <a href="#" class="d-block mt-2 text-white" style='text-transform:uppercase'>{{ Session::get('user')->username }}</a>
         </div>
       </div>
 
@@ -92,7 +92,7 @@
             <ul class="nav nav-treeview">              
               <!-- ALL PATIENTS -->
               <li class="nav-item">
-                <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('all_patients')) active @endif()" class="nav-link">
+                <a href="{{ route('patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>All Patients</p>
                 </a>
@@ -100,7 +100,7 @@
 
               <!-- ADMITTED PATIENTS -->
               <li class="nav-item">
-                <a href="{{ route('admitted_patients') }}" class="nav-link @if(Request::url() == Request::is('patients')) active @endif()" class="nav-link">
+                <a href="{{ route('admitted_patients') }}" class="nav-link @if(Request::url() == Request::is('admit-patients')) active @endif()" class="nav-link">
                   <i class="far fa-circle nav-icon"></i>
                   <p>Admitted</p>
                 </a>
@@ -197,15 +197,13 @@
           </li>
 
           @elseif(Session::get('user')->role == 'user')
-          <!--User Can Use Locations To Fix Appointment-->
-
-          <li class="nav-item">
-            <a href="{{ route('uLocations') }}" class="nav-link @if(Request::url() == Request::is('uLocations')) active @endif()">
-              <i class="ft-map-pin"></i>
-                <p>Locaions</p>
-            </a>
-          </li>
-
+            <!--User Can Use Locations To Fix Appointment-->
+            <li class="nav-item">
+              <a href="{{ route('uLocations') }}" class="nav-link @if(Request::url() == Request::is('uLocations')) active @endif()">
+                <i class="ft-map-pin"></i>
+                  <p>Locaions</p>
+              </a>
+            </li>
           @endif
 
           @if(Session::get('user')->role == 'admin')

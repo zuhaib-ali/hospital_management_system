@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Model;
 class Location extends Model
 {
     use HasFactory;
+    public $timestamps = false;
+    
     protected  $fillable = [
         'name',
         'email',
@@ -15,5 +17,8 @@ class Location extends Model
         'phone',
 
     ];
-    public $timestamps = false;
+    
+    public function doctors(){
+        return $this->hasMany(Doctor::class);
+    }
 }

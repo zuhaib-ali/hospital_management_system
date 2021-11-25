@@ -69,6 +69,31 @@
     $('#divs').fadeOut(4000);
   });
 </script>
+
+
+@if(Session::has("staff_success"))
+  <script>
+    toastr.success("{{ Session::get('staff_success') }}");
+  </script>
+@endif
+
+
+@if(Session::has("staff_info"))
+  <script>
+    toastr.success("{{ Session::get('staff_info') }}");
+  </script>
+@endif
+
+
+@if($errors->any())
+  @foreach($errors->all() as $error)
+    <script>
+      toastr.error("{{ $error }}");
+    </script>
+  @endforeach
+  
+@endif
+
 </body>
 </html>
 

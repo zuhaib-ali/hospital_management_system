@@ -16,7 +16,7 @@
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active"> Users</li>
+              <li class="breadcrumb-item active"> Staff</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -34,7 +34,7 @@
                 <h1>
                 Staff/Admin
                 <button href="" class="btn btn-success pull-right" data-toggle="modal" data-target="#add"> 
-                <i class="fa fa-plus"> Add User As Admin </i>
+                <i class="fa fa-plus"> Add Staff</i>
                 </button>
                 </h1>
               </div>
@@ -46,42 +46,28 @@
                     <th>S.No</th>
                     <th>Avatar</th>
                     <th>Name</th>
-                    <th>Age</th>
-                    <th>CNIC</th>
                     <th>Phone No</th>
                     <th>Email</th>
-                    <th>Blood Group</th>
                     <th>Address</th>
+                    <th>Role</th>
                     <th>Action</th>
                   </tr>
                   </thead>
                   <tbody>
                   <?php $sno = 1 ?>
-                  @foreach($users as $user)
+                  @foreach($staffs as $staff)
                     <tr>
                         <th>{{ $sno++ }}</th>
-                        <th> <img src="{{asset('images')}}/{{$user->profile_img}}" class="img-circle elevation-2" style=" width:50px; height:50px "> 
+                        <th> <img src="{{asset('images')}}/{{$staff->profile_img}}" class="img-circle elevation-2" style=" width:50px; height:50px "> 
                         </th>
-                        <th>{{ $user->first_name }} {{ $user->last_name }} </th>
-                        <th> {{ $user->age }} </th>
-                        <th>{{ $user->cnic }}</th>
-                        <th>{{ $user->mobile }}</th>
-                        <th>{{ $user->email }}</th>
-                        <th>{{ $user->blood_group }}</th>
-                        <th> {{ $user->address }} </th>
-                        <th> <div class="btn-group">
-                            <button class="btn btn-sm btn-info" type="button" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-angle-down"> Actions </i>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="" > <i class="icon-pencil"> Edit </i> </a>
-                                </li>
-                                <li>
-                                    <a href=""> <i class="icon-trash"> Delete </i> </a>
-                                </li>
-                            </ul>
-                        </div> 
+                        <th>{{ $staff->username }} </th>
+                        <th>{{ $staff->mobile }}</th>
+                        <th>{{ $staff->email }}</th>
+                        <th> {{ $staff->address }} </th>
+                        <th>{{ $staff->role }}</th>
+                        <th>
+                          <a href="{{ route('edit-staff', ['id' => $staff->id]) }}" class="btn btn-sm btn-info"> <i class="icon-pencil"></i> </a>
+                          <a href="{{ route('delete-staff') }}" class="btn btn-sm btn-danger"> <i class="icon-trash"></i> </a>
                         </th>
                     </tr>
                   @endforeach                       
@@ -100,7 +86,8 @@
   </div>
   <!-- /.content-wrapper -->
 
-  <form method="post" action="addAdmin" enctype='multipart/form-data'>
+  <!-- Add staff modal -->
+  <form method="post" action="{{ route('add-staff') }}" enctype='multipart/form-data'>
   @csrf
 			<!-- Modal -->
 			<div class="modal fade" id="add" aria-hidden="true">
@@ -112,83 +99,83 @@
 						  	<span aria-hidden="true">&times;</span>
 							</button>
 						</div>
-				      	<div class="modal-body">
-				        	<div class="form-group">
-							    <label>First Name</label>
-							    <input type="text" class="form-control" name="first_name">
-							</div>
+				      <div class="modal-body">
 
-                            <div class="form-group">
-							    <label>Last Name</label>
-							    <input type="text" class="form-control" name="last_name">
-							</div>
+                <!-- Username -->
+                <div class="form-row">
+                  <div class="form-group col-6">
+                    <label>First Name <span style="color:red;">*</span></label>
+                    <input type="text" class="form-control" name="first_name" required>
+                  </div>
 
-                            <div class="form-group">
-							    <label>Username</label>
-							    <input type="text" class="form-control" name="username">
-							</div>
+                  <div class="form-group col-6">
+                      <label>Last Name <span style="color:red;">*</span></label>
+                      <input type="text" class="form-control" name="last_name" required>
+                  </div>
+                </div>
 
-                            <div class="form-group">
-							    <label>Email</label>
-							    <input type="text" class="form-control" name="email">
-							</div>
+                <!-- E-Mail -->
+                <div class="form-group">
+                  <label>Email <span style="color:red;">*</span></label>
+                  <input type="text" class="form-control" name="email" required>
+                </div>
 
-                            <div class="form-group">
-							    <label>Phone No</label>
-							    <input type="text" class="form-control" name="mobile">
-							</div>
+                <!-- Phone -->
+                <div class="form-group">
+                  <label>Phone <span style="color:red;">*</span></label>
+                  <input type="text" class="form-control" name="mobile" required>
+                </div>
 
-                            <div class="form-group">
-							    <label>CNIC</label>
-							    <input type="text" class="form-control" name="cnic">
-							</div>
-
-                            <div class="form-group">
-							    <label>Age</label>
-							    <input type="text" class="form-control" name="age">
-							</div>
-
-                            <div class="form-group">
-							    <label>Blood Group</label>
-							    <input type="text" class="form-control" name="blood_group">
-							</div>
 							<div class="form-group">
-								<label>Address</label>
-							    <textarea rows="3" cols="3" class="form-control" name="address"></textarea>
-							</div>
-							<div class="form-group">
-							    <label>Password</label>
-							    <input type="password" class="form-control" name="password">
+								<label>Address <span style="color:red;">*</span></label>
+							  <textarea rows="3" cols="3" class="form-control" name="address" requried></textarea>
 							</div>
 
-                            <div class="form-group">
-							    <label>Date Of Birth</label>
-							    <input type="date" class="form-control" name="dob">
+              <div class="form-group">
+							    <label>Age <span style="color:red;">*</span></label>
+							    <input type="number" class="form-control" name="age" required>
 							</div>
 
-                            <div class="form-group">
-							    <label>Select Gender</label>
-							    Male <input type="radio" name="gender" value="Male">
-							    Female <input type="radio" name="gender" value="Female">
-							    Other <input type="radio" name="gender" value="Other">
+              <div class="form-group">
+							    <label>Password <span style="color:red;">*</span></label>
+							    <input type="password" class="form-control" name="password" required>
 							</div>
-                            <div class="form-group">          
-							    <label>Select Avatar</label>
-							    <input type="file" class="form-control" name="profile_img">
-                  <input type="hidden" name="role" value="admin">
 
+              <div class="form-group">
+							    <label>Confirm Password <span style="color:red;">*</span></label>
+							    <input type="password" class="form-control" name="confirm_password" required>
+							</div>
+
+              <div class="form-group">
+							    <label>Gender <span style="color:red;">*</span></label>
+                  <br>
+							    Male <input type="radio" name="gender" value="male">
+							    Female <input type="radio" name="gender" value="female">
+							    Other <input type="radio" name="gender" value="other">
+							</div>
+
+              <div>
+                <label for="role">Role <span style="color:red;">*</span></label>
+                <select name="role" id="" class="form-control" required>
+                  <option value="" hidden disabled selected> -- Staff Roles -- </option>
+                  <option value="pharmacist">Pharmacist</option>
+                  <option value="laboratarian">Laboratarian</option>
+                  <option value="receptionist">Recieptionist</option>
+                  <option value="nurse">Nurse</option>
+                </select>
+              </div>
+
+              <div class="form-group">          
+							    <label>Profile Photo</label>
+							    <input type="file" class="form-control" name="photo">
 							</div>
 
                             
-				      	</div>
-				      	<div class="modal-footer">
-				        	<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">
-                  <i class="ft-x"> Close </i>
-                  </button>
-				        	<button type="submit" class="btn btn-primary">
-                  <i class="fa fa-plus"> Add </i> 
-                  </button>
-				      	</div>
+				    </div>
+				      <div class="modal-footer">
+				        	<button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="ft-x"> Close </i></button>
+				        	<button type="submit" class="btn btn-primary"><i class="fa fa-plus"> Add </i> </button>
+				      </div>
 				    </div>
 				</div>
 			</div>

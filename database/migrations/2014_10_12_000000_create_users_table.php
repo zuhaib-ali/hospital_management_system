@@ -15,19 +15,27 @@ class CreateUsersTable extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->string('first_name')->default('NA');
-            $table->string('last_name')->default('NA');
-            $table->string('email');
-            $table->string('mobile')->default('NA');
-            $table->string('cnic')->unique()->default('NA');
-            $table->unsignedInteger('age')->default(0);
-            $table->string('blood_group')->default('NA');
-            $table->text('address')->default('NA');
-            $table->string('password')->unique()->default('NA');
-            $table->string('dob')->default('NA');
-            $table->string('gender')->default('NA');
-            $table->string('profile_img')->default('NA');
-            $table->timestamp('email_verified_at')->nullable();
+            $table->string('first_name');
+            $table->string('last_name');
+            $table->string('username');
+            $table->string('email')->unique();
+            $table->string('mobile');
+            $table->string('age')->nullable();
+            $table->string('blood_group')->nullable();
+            $table->string('gender');
+            $table->string('profile_img')->nullable();
+            $table->text('address')->nullable();
+            $table->string('password');
+            $table->string("role")->default("user");
+            $table->string('degree')->nullable();
+            $table->unsignedInteger('specialization_id')->nullable();
+            $table->unsignedInteger('hospital_id')->nullable();
+            $table->unsignedInteger('doctor_id')->nullable();
+            $table->string('from')->nullable();
+            $table->string('to')->nullable();
+            $table->string('visiting_charge')->nullable();
+            $table->string('status')->nullable();
+            $table->timestamps();
             $table->rememberToken();
         });
     }

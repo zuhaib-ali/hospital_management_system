@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddTimestampToTemplatesTable extends Migration
+class AddSpecializationIdToDoctors extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,8 @@ class AddTimestampToTemplatesTable extends Migration
      */
     public function up()
     {
-        Schema::table('templates', function (Blueprint $table) {
-            //
-            $table->timestamps();
-            
+        Schema::table('doctors', function (Blueprint $table) {
+            $table->unsignedInteger("specialization_id");
         });
     }
 
@@ -27,7 +25,7 @@ class AddTimestampToTemplatesTable extends Migration
      */
     public function down()
     {
-        Schema::table('templates', function (Blueprint $table) {
+        Schema::table('doctors', function (Blueprint $table) {
             //
         });
     }

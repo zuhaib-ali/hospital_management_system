@@ -18,7 +18,7 @@ class PatientController extends Controller
             return view("components.patients.patients", [
                 "users" => User::where("role", 'user')->get(),
                 "patients" => Patient::all(),
-                "doctors" => Doctor::all(),
+                "doctors" => User::where("role", "doctor")->get(),
             ]);
         }else{
             return redirect()->route("login");
@@ -27,21 +27,22 @@ class PatientController extends Controller
 
     // ADD
     public function add(Request $request){
+        $image_name = null;
         $request->validate([
             "patient_name" => "required",
             "e_mail" => "required",
-            "address" => "required",
-            "phone" => "required",
-            "sex" => "required",
             "age" => "required",
-            "date_of_birth" => "required",
+            "sex" => "required",
             "blood_group" => "required",
-            "image" => "required",
+            'doctor'=> 'required',
+            "phone" => "required",
+            "address" => "required",
         ]);
 
-        $image_name = time()."-".str_replace(" ", "-", $request->patient_name)."-".$request->image->extension();
-
-        if($request->session()->has("user") == true){
+        if($request->image != null){
+            $image_name = time()."-".str_replace(" ", "-", $request->patient_name)."-".$request->image;    
+        }
+        
             $patient_registered = Patient::create([
                 "user_id" => $request->user_id,
                 "name" => $request->patient_name,
@@ -50,7 +51,6 @@ class PatientController extends Controller
                 "phone" => $request->phone,
                 "sex" => $request->sex,
                 "age" => $request->age,
-                "date_of_birth" => $request->date_of_birth,
                 "blood_group" => $request->blood_group,
                 "doctor_id" => $request->doctor,
                 "status" => "new",
@@ -58,112 +58,93 @@ class PatientController extends Controller
             ]);
 
             if($patient_registered == true){
-                $request->image->move(public_path("patients_images"), $image_name);
+                if($request->image != null){
+                    $request->image->move(public_path("patients_images"), $image_name);
+                }
                 return redirect()->route("patients")->with("patient_registered", "Pateint ".$request->patient_name." is registered.");
             }
-        }else{
-            return redirect()->route("login");
-        }
     }
 
 
     // ADMIT
     public function admit(Request $request){
-        if($request->session()->has("user") == true){
             $patient_id = $request->post('patient_id');
             $patient_admitted = DB::table('patients')->where('id',$patient_id)->update(['status'=>'admitted']);
             if($patient_admitted == true){
                 return redirect()->back()->with("patient_admitted", "Patient admitted");
             }            
-        }else{
-            return redirect()->route("login");
-        }
     }
 
-    // ADMITTED
+    // Admitted Patients
     public function admitted(Request $request){
-        if($request->session()->has("user") == true){
             return view("components.patients.admitted", [
                 "patients"=>Patient::where("status", "admitted")->get(),
-                "doctors"=>Doctor::all()
+                "doctors"=>User::where("role", "doctor")->get()
             ]);  
-        }else{
-            return redirect()->route("login");
-        }
     }
 
     // DISCHARGE
     public function discharge(Request $request){
-        if($request->session()->has("user") == true){
             $patient = Patient::find($request->patient_id);
             $patient->status = "discharged";
             $patient_discharged = $patient->update();
             if($patient_discharged == true){
                 return redirect()->back()->with("patient_discharged", "Successfully discharged ".$patient->name);    
             }
-        }else{
-            return redirect()->route("login");
-        }
     }
 
-    // DISCHARGED
+    // Discharged Patients
     public function discharged(Request $request){
-        if($request->session()->has("user") == true){
             return view("components.patients.discharged", [
                 "patients"=>Patient::where("status", "discharged")->get(),
-                "doctors"=>Doctor::all()
+                "doctors"=>User::where("role", "doctor")->get()
             ]);  
-        }else{
-            return redirect()->route("login");
-        }
     }
 
     // UPDATE
     public function update(Request $request){
-        if($request->session()->has("user") == true){
             $patient = Patient::find($request->patient_id);
-            $patient->name = $request->patient_name;
-            $patient->email = $request->e_mail;
-            $patient->sex = $request->sex;
+            $patient->name = $request->name;
+            $patient->email = $request->email;
+            $patient->sex = $request->gender;
             $patient->blood_group = $request->blood_group;
-            $patient->date_of_birth = $request->date_of_birth;
             $patient->doctor_id = $request->doctor;
             $patient->phone = $request->phone;
             $patient->address = $request->address;
+            $patient->age = $request->age;
             $patient_updated = $patient->update();
             if($patient_updated == true){
                 return redirect()->back()->with("patient_updated", "Patient name ".$request->patient_name." details updated");
             }
-        }else{
-            return redirect()->route("login");
-        }
     }
 
     // DELETE
     public function delete(Request $request){
-        if($request->session()->has("user") == true){
             $patient = Patient::find($request->patient_id);
             $patient_name = $patient->name;
             if($patient->delete() == true){
                 return redirect()->route("patients")->with("patient_deleted", "Patient ".$patient_name." deleted.");
             }
-        }else{
-            return redirect()->route("login");
-        }
     }
 
     // SHOW
     public function show(Request $request){
         // return empty(Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->first());
-        if($request->session()->has("user") == true){
             return view("components.patients.patient_information", [
-                'patient' => Patient::find($request->patient_id),
-                'doctors' => Doctor::find(Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->first("doctor_id")),
+                'patient' => Patient::leftJoin("users", "patients.doctor_id", "=", "users.id")
+                    ->leftJoin("locations", "users.hospital_id", "=", "locations.id")
+                    ->where("patients.id", $request->patient_id)
+                    ->select(
+                        "patients.*",
+                        "users.id as doctor_id",
+                        "users.username as doctor",
+                        "users.hospital_id",
+                        "locations.name as hospital_name"
+                    )
+                    ->first(),
+                "hospitals" => Location::all(),
+                'doctors' => User::where("role", "doctor")->get(),
                 'appointments' => Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->get(),
-                'locations' => Location::all(),
             ]);
-        }else{
-            return redirect()->route("login");
-        }
     }
 }

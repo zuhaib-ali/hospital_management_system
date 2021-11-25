@@ -3,113 +3,197 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Hash;
 use App\Models\Location;
 use App\Models\Doctor;
+use App\Models\User;
 use App\Models\Specialization;
+use App\Models\ClosingDay;
 
 class DoctorController extends Controller
 {
     // INDEX
     public function index(Request $request){
-        if($request->session()->has('user') == true ){
-            return view('components.doctors.index', [
-                'hospitals'=>Location::all(),
-                'specializations'=>Specialization::all(),
-                'doctors'=>Doctor::all(),
-            ]);
-        }else{
-            return redirect()->route('login');
-        }
+        return view('components.doctors.index', [
+            "doctors" => User::leftJoin("locations", "users.hospital_id", "=", "locations.id")
+            ->leftJoin("specializations", "users.specialization_id", "=", "specializations.id")
+            ->where("role", "doctor")
+            ->select(
+                "users.*",
+                "specializations.name as specialization_name",
+                "locations.name as hospital_name",
+            )
+            ->get(),
+            'hospitals'=>Location::all(),
+            'specializations'=>Specialization::all(),
+        ]);
     }
 
     // ADD DOCTOR
     public function addDoctor(Request $request){
-        if($request->session()->has('user') == true){
             // VALIDATING DOCTOR REQUIRED INFORMATION
             $request->validate([
                 'first_name' => 'required|max:12',
                 'last_name' => 'required|max:12',
-                'e_mail' => 'required',
+                'email' => 'required|unique:doctors',
                 'degree' => 'required',
                 'hospital_id' => 'required',
                 'specialist' => 'required',
                 'phone' => 'required|max:12',
                 'visiting_charge' => 'required|max:4',
-                'avater' => 'required',
                 'from' => 'required',
                 'to' => 'required',
                 'address' => 'required',
                 'gender' => 'required',
+                'password' => "required",
+                'confirm_password' => "required|same:password",
             ]);
 
             // AVATAR NEW NAME
-            $avater_name = time().'-'.$request->first_name.'-'.$request->last_name.'.'.$request->avater->extension();
+            if($request->avater != null){
+                $avater_name = time()."_".$request->first_name.'_'.$request->last_name.'.'.$request->avater;
+            }else{
+                $avater_name = null;
+            }
 
             // CREATING DOCTOR
-            $doctor_created = Doctor::create([
-                'first_name' => $request->first_name,
-                'last_name' => $request->last_name,
-                'email' => $request->e_mail,
-                'degree' => $request->degree,
-                'hospital_id' => $request->hospital_id,
-                'specialist' => $request->specialist,
-                'phone' => $request->phone,
-                'visiting_charge' => $request->visiting_charge,
+            $doctor = User::create([
+                "first_name" => $request->first_name,
+                "last_name" => $request->last_name,
+                "username" => $request->first_name." ".$request->last_name,
+                'email' => $request->email,
+                'mobile' => $request->phone,
                 'gender' => $request->gender,
+                'profile_img' => $avater_name,
+                'address' => $request->address,
+                'password' => Hash::make($request->password),
+                'role' => $request->role,
+                'degree' => $request->degree,
+                'specialization_id' => (int)$request->specialist,
+                'hospital_id' => $request->hospital_id,
+                'visiting_charge' => $request->visiting_charge,
                 'from' => $request->from,
                 'to' => $request->to,
-                'address' => $request->address,
-                'avater' => $avater_name,
-                'closing_days' => $request->sunday
+                
             ]);
+            // $doctor_created = Doctor::create([
+            //     'doctor_name' => $request->first_name." ".$request->last_name,
+            //     'email' => $request->email,
+            //     'degree' => $request->degree,
+            //     'location_id' => $request->hospital_id,
+            //     'phone' => $request->phone,
+            //     'visiting_charge' => $request->visiting_charge,
+            //     'gender' => $request->gender,
+            //     'from' => $request->from,
+            //     'to' => $request->to,
+            //     'address' => $request->address,
+            //     'avater' => $avater_name,
+            //     'specialization_id' => (int)$request->specialist,
+            //     'password' => Hash::make($request->password)
+            // ]);
 
-            if($doctor_created == true){
+            if($doctor){
+                ClosingDay::create([
+                    "sunday" => $request->sunday,
+                    "monday" => $request->monday,
+                    "tuesday" => $request->tuesday,
+                    "wednesday" => $request->wednesday,
+                    "thursday" => $request->thursday,
+                    "friday" => $request->friday,
+                    "saturday" => $request->saturday,
+                    "doctor_id" => $doctor->id,
+                ]);
+            }
+
+            if($doctor == true){
                 // SAVING IMAGE TO PUBLIC PATH
-                $request->avater->move(public_path('doctors_avatar'), $avater_name);
-
+                if($request->avater != null){
+                    $request->avater->move(public_path('doctors_avatar'), $avater_name);
+                }
                 // REDIRECTING TO DOCTORS VIEW
-                return redirect()->route('doctors')->with('doctor_created', "Doctor ". $request->first_name." ".$request->last_name." added to database successfully");
+                return redirect()->route('doctors')->with('doctor_created', "Doctor ". $request->first_name." ".$request->last_name);
             }else{
                 return back();
             }
-        }else{
-            return redirect()->route("login");
-        }
     }
 
 
+    // View doctor
     public function viewDoctor(Request $request){
+
         return view('components.doctors.view_doctor', [
-            'doctor'=>Doctor::find($request->doctor_id),
+            "doctor" => User::leftJoin("locations", "users.hospital_id", "=", "locations.id")
+            ->leftJoin("specializations", "users.specialization_id", "=", "specializations.id")
+            ->join("closing_days", "users.id", "=", "closing_days.doctor_id")
+            ->where("users.id", $request->doctor_id)
+            ->select(
+                "users.*",
+                "specializations.name as specialization_name",
+                "specializations.id as specialization_id",
+                "specializations.description as specialization_description",
+                "locations.id as location_id",
+                "locations.name as location_name",
+                "locations.email as location_email",
+                "locations.address as location_address",
+                "locations.phone as location_phone",
+                "closing_days.sunday",
+                "closing_days.monday",
+                "closing_days.tuesday",
+                "closing_days.wednesday",
+                "closing_days.thursday",
+                "closing_days.friday",
+                "closing_days.saturday"
+            )
+            ->first(),
             'specializations'=>Specialization::all(),
-            'locations'=>Location::all(),
+            'hospitals'=>Location::all(),
         ]);
     }
 
+    // Update
     public function update(Request $request){
-        $locations_id = Location::where('name', $request->hospital)->first("id");
-        $specialization_id = Specialization::where('name', $request->specialization)->first('id');
+        $udpated = false;
 
-        $doctor = Doctor::find($request->doctor_id);
+        $doctor = User::find($request->doctor_id);
+
         $doctor->first_name = $request->first_name;
         $doctor->last_name = $request->last_name;
-        $doctor->email = $request->e_mail;
+        $doctor->username = $request->first_name." ".$request->last_name;
         $doctor->degree = $request->degree;
-        $doctor->specialist = $specialization_id->id;
         $doctor->visiting_charge = $request->visiting_charge;
         $doctor->gender = $request->gender;
-        $doctor->phone = $request->phone;
+        $doctor->mobile = $request->mobile;
         $doctor->from = $request->from;
         $doctor->to = $request->to;
-        $doctor->closing_days = $request->closing_days;
-        $doctor->hospital_id = $locations_id->id;
         $doctor->address = $request->address;
-        $updated = $doctor->update();
-        if($updated == true){
-            return redirect()->route('doctors')->with('updated', "Record updated for ".$request->first_name." ".$request->last_name);
-        }else{
-            return back();
+        $doctor->hospital_id = $request->hospital;
+        $doctor->specialization_id = $request->specialization;
+
+        if($doctor->update()){    
+            $closing_days = ClosingDay::where("doctor_id", $doctor->id)->first();
+            $closing_days->sunday = $request->sunday;
+            $closing_days->monday = $request->monday;
+            $closing_days->tuesday = $request->tuesday;
+            $closing_days->wednesday = $request->wednesday;
+            $closing_days->thursday = $request->thursday;
+            $closing_days->friday = $request->friday;
+            $closing_days->saturday = $request->saturday;
+            if($closing_days->update()){
+                $updated = true;
+            }
         }
-        
+        if($updated){
+            return redirect()->route('doctors')->with('updated', $request->doctor_name." Updated");
+        }else{
+            return back()->with('updated', "Failed to updated doctor ".$request->doctor_name);
+        }   
+    }
+
+    public function delete(Request $request){
+        $doctor = User::find($request->doctor_id);
+        $name = $doctor->username;
+        if($doctor->delete()){
+            return redirect()->route("doctors")->with('deleted', "Doctor ".$name." deleted.");
+        }
     }
 }
