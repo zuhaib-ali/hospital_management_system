@@ -396,4 +396,3 @@ Route::get('settings', [components::class, 'settings']);
 //Reports
 Route::get('trackingSheet',[reportController::class,'trackingSheet'])->name('trackingSheet');
 Route::get('printSheet/{pid}/{lid}/{aid}',[reportController::class,'printSheet']);
-
