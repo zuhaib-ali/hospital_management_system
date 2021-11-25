@@ -18,18 +18,18 @@ class SpecializationController extends Controller
         
     }
 
+    // Add specializtion
     public function addSpecialization(Request $request){
-        if($request->session()->has('user') == true && $request->session()->get('user')->role == 'admin'){
-
+        if($request->session()->get('user')->role == 'admin'){
             // validating
             $request->validate([
-                'specialization_name' => 'required|max:255',
+                'name' => 'required',
                 'description' => 'required',
             ]);
 
             // creating specialization
             $created = Specialization::create([
-                'name' => $request->specialization_name,
+                'name' => $request->name,
                 'description' => $request->description
             ]);
 
@@ -37,8 +37,18 @@ class SpecializationController extends Controller
             if($created == true){
                 return redirect()->route('specializations')->with('created', "Spcialization ".$request->specialization_name." added to database successfully." );
             }
-        }else{
-            return redirect()->route('login');
+        }
+    }
+
+    public function update(){
+
+    }
+
+    public function delete(Request $request){
+        $s = Specialization::find($request->id);
+        $s_name = $s->name;
+        if($s->delete()){
+            return back()->with("specialization_danger", $s_name." deleted");
         }
     }
 }

@@ -26,20 +26,18 @@ class MedicineController extends Controller
         // VALIDATING
         $request->validate([
             'medicine_name'=>'required',
-            'category'=>'required',
+            'category'=>'required|integer',
             'purchase_price'=>'required',
             'sale_price'=>'required',
             'store_box'=>'required',
             'quantity'=>'required',
             'generic_name'=>'required',
             'company'=>'required',
-            'effects'=>'required',
             'expire_date'=>'required',
         ]);
-
         // CREATING MEDICINE
         $medicine_created = Medicine::create([
-            'medicine_name'=>$request->medicine_name,
+            'name'=>$request->medicine_name,
             'category_id'=>$request->category,
             'purchase_price'=>$request->purchase_price,
             'sale_price'=>$request->sale_price,
@@ -59,6 +57,7 @@ class MedicineController extends Controller
     // UPDATE
     public function update(Request $request){
         $medicine = Medicine::find($request->id);
+
         $medicine->medicine_name = $request->medicine_name;
         $medicine->category_id = $request->category;
         $medicine->purchase_price = $request->purchase_price;

@@ -30,7 +30,7 @@
           <div class="row">
             <div class="col-12">
               <div class="card">
-                <div class="card-header" style="background-color:darkblue;">
+                <div class="card-header bg-info">
                   <center class="text-bold" style="color:white;">PATIENTS ({{ count($patients) }})</center>
                 </div>
                 <!-- /.card-header -->
@@ -51,6 +51,7 @@
                       @foreach($patients as $patient)
                         <tr>
                           <td> {{ $no++ }} </td>
+                          <td> {{$patient->firstname}} {{$patient->lastname}} </td>
                           <td> {{$patient->firstname}} {{$patient->lastname}} </td>
                           <td> {{$patient->number}} </td>
                           <td> {{$patient->address}} </td>

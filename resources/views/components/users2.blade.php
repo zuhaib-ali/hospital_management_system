@@ -44,7 +44,6 @@
                     <th>Avatar</th>
                     <th>Name</th>
                     <th>Age</th>
-                    <th>CNIC</th>
                     <th>Phone No</th>
                     <th>Email</th>
                     <th>Blood Group</th>
@@ -61,24 +60,13 @@
                         </th>
                         <th>{{ $user->first_name }} {{ $user->last_name }} </th>
                         <th>{{ $user->age }}</th>
-                        <th>{{ $user->cnic }}</th>
                         <th>{{ $user->mobile }}</th>
                         <th>{{ $user->email }}</th>
                         <th>{{ $user->blood_group }}</th>
                         <th> {{ $user->address }} </th>
-                        <th> <div class="btn-group">
-                            <button class="btn btn-sm btn-info" type="button" data-toggle="dropdown" aria-expanded="false">
-                            <i class="fa fa-angle-down"> Actions </i>
-                            </button>
-                            <ul class="dropdown-menu" role="menu">
-                                <li>
-                                    <a href="" > <i class="icon-pencil"> Edit </i> </a>
-                                </li>
-                                <li>
-                                    <a href=""> <i class="icon-trash"> Delete </i> </a>
-                                </li>
-                            </ul>
-                        </div> 
+                        <th>
+                          <a href="" class="btn btn-sm btn-info"> <i class="icon-pencil"></i> </a>
+                          <a href="" class="btn btn-sm btn-danger"> <i class="icon-trash"></i> </a>
                         </th>
                     </tr>
                   @endforeach                       

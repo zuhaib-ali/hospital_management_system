@@ -100,18 +100,21 @@
                                 <label for="medicine_name">Name</label>
                                 <input type="text" name="medicine_name" class="form-control">
                             </div>
+
                             <!-- CATEGORY -->
                             <div class="form-group col-sm-6">
                                 <label for="category">Category</label>
                                 <select name="category" id="category" class="form-control">
                                     @if(count($categories) !== 0)
+                                        <option value="" hidden disabled selected>-- Select Catgory --</option>
                                         @foreach($categories as $category)
-                                            <option value="{{ $category->category }}">{{ $category->category }}</option>
+                                            <option value="{{ $category->id }}">{{ $category->category }}</option>
                                         @endforeach
                                     @endif
                                 </select>
                             </div>
                           </div>
+
                           <div class="form-row">
                             <!-- PURCHASE PRICE -->
                             <div class="form-group col-sm-4">
@@ -203,7 +206,7 @@
                   @foreach($medicines as $medicine)
                     <tr>
                       <td>{{ $no++ }}</td>
-                      <td>{{ $medicine->medicine_name }}</td>
+                      <td>{{ $medicine->name }}</td>
                       <td>{{ $categories->find($medicine->category_id)->category }}</td>
                       <td>{{ $medicine->store_box }}</td>
                       <td>{{ $medicine->purchase_price }}</td>
@@ -214,7 +217,7 @@
                       <td>{{ $medicine->effects }}</td>
                       <td>{{ $medicine->expire_date }}</td>
                       <td>
-                        <a  class="btn btn-outline-primary"><i class="fas fa-info"></i> </a>
+                        <!-- <a  class="btn btn-outline-primary"><i class="fas fa-info"></i> </a> -->
 
                         <!-- EDIT -->
                         <a  class="btn btn-outline-secondary" data-toggle="modal" data-target="#edit_medicine_modal"><i class="fas fa-edit"></i> </a>
@@ -238,7 +241,7 @@
                                       <div class="form-group col-sm-6">
                                           <input type="hidden" name="id" value="{{ $medicine->id }}">
                                           <label for="medicine_name">Name</label>
-                                          <input type="text" name="medicine_name" value="{{ $medicine->medicine_name }}" class="form-control">
+                                          <input type="text" name="medicine_name" value="{{ $medicine->name }}" class="form-control">
                                       </div>
                                       <!-- CATEGORY -->
                                       <div class="form-group col-sm-6">

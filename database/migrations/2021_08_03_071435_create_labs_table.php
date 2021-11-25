@@ -16,7 +16,7 @@ class CreateLabsTable extends Migration
         Schema::create('labs', function (Blueprint $table) {
             $table->id(); 
             $table->string('name');
-            $table->string('hospital');
+            $table->unsignedInteger('location_id');
             $table->string('from');
             $table->string('to');
             $table->timestamps();

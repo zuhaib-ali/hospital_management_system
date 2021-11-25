@@ -15,8 +15,8 @@ class CreateMedicinesTable extends Migration
     {
         Schema::create('medicines', function (Blueprint $table) {
             $table->id();
-            $table->string('medicine_name');
-            $table->foreignId('category_id');
+            $table->string('name');
+            $table->unsignedInteger('category_id');
             $table->unsignedInteger('purchase_price');
             $table->unsignedInteger('sale_price');
             $table->unsignedInteger('store_box');

@@ -91,7 +91,7 @@
 
 								<!-- E-Mail field -->
 								<div class="form-group">
-									<input type="text" name='username' class="form-control" placeholder="Username"  style="border:2px solid white;">
+									<input type="email" name='email' class="form-control" placeholder="E-Mail"  style="border:2px solid white;">
 								</div>
 								
 								<!-- Password field -->

@@ -11,7 +11,6 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">LOCATIONS</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
@@ -33,9 +32,9 @@
                     <div class="card-header">
                       <h3>
                         LOCATIONS
-                        <button class="btn btn-sm btn-success bold pull-right" data-toggle="modal" data-target="#add"> 
+                        <button class="btn btn-sm btn-success pull-right text-bold" data-toggle="modal" data-target="#add" style="border-radius:10px;"> 
                           <i class="fa fa-plus"></i>
-                          Add New Location
+                          ADD
                         </button>
                       </h3>
                     </div>

@@ -7,12 +7,6 @@
   .modal-body{
     color:black;
   }
-  
-  #category_actions{
-    display:flex;
-    flex-wrap;
-    justify-content:space-between;
-  }
 
     /* TABLE SCROLL, PAGINATION AND SEARCH BAR */
     #categories_table_filter{
@@ -135,7 +129,7 @@
                     <td>{{ $category->category }}</td>
                     <td>{{ $category->description }}</td>
                     <td id="category_actions">
-                      <a  class="btn btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></a>
+                      <!-- <a  class="btn btn-outline-primary" title="Edit"><i class="fas fa-edit"></i></a> -->
                       <a href="{{ route('delete_category', ['category_id'=>$category->id]) }}" class="btn btn-outline-danger" title="Delete"><i class="fas fa-trash"></i></a>
                     </td>
                   </tr>

@@ -1,50 +1,24 @@
+
 @include('include.header')
 
-<style>
-    .dl{
-        display:flex;
-        flex-wrap:wrap;
-        justify-content:space-between;
-        margin:15px 0px;
-        border-bottom:1px solid grey;
-        text-transform:capitalize;
-    }
-   #patient_img{
-       width:280px;
-       height:280px;
-       border-radius:20px;
-   }
-
-    #patient_history {
-        list-style-type:none;
-        display:flex;
-        flex-wrap:wrap;
-        justify-content:space-around;
-        line-height:50px;
-        background-color:skyblue;
-        
-    }
-    #patient_history li a{
-        padding:20px;
-        color:white;
+<style rel="stylesheet">
+    .modal span{
+        color:red;
+        font-weight:bold;
     }
 
-    #patient_history li a:hover{
-        background-color:red;
-        
-    }
-
-    #patient_history li a:active{
-        background-color:grey;
-        color:white;
+    ::placeholder{
+        font-style:italic;
     }
 </style>
+
+
 
 
 @include('include.navbar')    
 
 @include('include.sidebar')
-  
+
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
     <!-- Content Header (Page header) -->
@@ -52,172 +26,209 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0 text-blue"><i class="fas fa-info"></i> {{ $patient->name }}</h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"> <a href="{{ route('index') }}"><i class="fas fa-home"></i> Home </a></li>
-              <li class="breadcrumb-item"> <a href="{{ route('patients') }}"><i class="fas fa-user-injured"></i> Patients </a></li>
-              <li class="breadcrumb-item active"> <a><i class="fas fa-info"></i> Information </a></li>
+              <li class="breadcrumb-item"><a href="{{ route('index') }}" class="text-red"> <i class="fas fa-home"></i>  Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('patients') }}" class="text-red"> <i class="fas fa-user-md"></i>  Patients</a></li>
+              <li class="breadcrumb-item active text-blue"> <a href="#"><i class="fas fa-user-md"> View</i></a> </li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-
+    
     <!-- Main content -->
-    <div class="content-body" style="margin:10px;">
+    <section class="content">
+      <div class="container-fluid">
         <div class="row">
-            <!-- PATIENT INFORMATION -->
-            <div class="col-sm-4">    
-                <div class="card">
-                    <div class="card-header">
-                        <h4>Patient Information</h4>
-                    </div>
-                    <div class="card-body">
-                        <center><img src="{{ asset('patients_images/'.$patient->image) }}" alt="" id="patient_img"></center>
-                        <dl class="dl">
-                            <dt>Name</dt>
-                            <dd>{{ $patient->name }}</dd>
-                        </dl>
-                        <dl class="dl">
-                            <dt>Gender</dt>
-                            <dd>{{ $patient->sex }}</dd>
-                        </dl>
-                        <dl class="dl">
-                            <dt>blood_group</dt>
-                            <dd>{{ $patient->blood_group }}</dd>
-                        </dl>
-                        <dl class="dl">
-                            <dt>Date of Birth</dt>
-                            <dd>{{ $patient->date_of_birth }}</dd>
-                        </dl>
-                        <dl class="dl">
-                            <dt>Phone</dt>
-                            <dd>{{ $patient->phone }}</dd>
-                        </dl>
-                        <dl class="dl">
-                            <dt>E-Mail</dt>
-                            <dd>{{ $patient->email }}</dd>
-                        </dl>
-                        <dl class="dl">
-                            <dt>Address</dt>
-                            <dd>{{ $patient->address }}</dd>
-                        </dl>
-                    </div>
-                </div>
-            </div>
+          <div class="col-md-3">
 
-            <!-- PATIENT HISTORY -->
-            <div class="col-sm-8">
-                <div class="card">
-                    <div class="card-header">
-                        <h4>
-                            History
-                            <a href="#" class="btn btn-sm btn-outline-success pull-right">Print</a>
-                        </h4>
-                    </div>
-                    <div class="card-body">
-                        <ul id="patient_history">
-                            <li><a href="#">Appointments</a></li>
-                            <li><a href="#">Case History</a></li>
-                            <li><a href="#">Prescription</a></li>
-                            <li><a href="#">Lab</a></li>
-                            <li><a href="#">Documents</a></li>
-                        </ul>
-                        <table class="table">
-                            <tr>
-                                <th>Appointemnt Type</th>
-                                <th>Hospital</th>
-                                <th>Doctor</th>
-                                <th>Operations</th>
-                            </tr>
-                            <!-- APPIOINTMENT -->
-                            @if( count($appointments) != 0)
-                              @foreach($appointments as $appointment)
-                              <tr>    
-                                <td>{{ $appointment->type }}</td>
-                                <td>{{ $locations->find($appointment->location_id)->name }}</td>
-                                <!-- IF DOCTOR NOT EMPTY -->
-                                @if(empty($doctor) != true)
-                                  <td>{{ $doctor->find($appointment->doctor_id)->first_name }}</td>
-                                @else
-                                  <td>NA</td>
-                                @endif    
-                              </tr>
-                              @endforeach
-                            @endif
-                            
-                        </table>
-                    </div>
+            <!-- Profile Image -->
+            <div class="card card-primary card-outline">
+              <div class="card-body box-profile">
+                <div class="text-center">
+                  <img class="profile-user-img img-fluid img-circle" src="" alt="Patient photo" style="width:100px; height:100px;">
                 </div>
+
+                <h3 class="profile-username text-center">{{ $patient->name }}</h3>
+
+                <p class="text-muted text-center">{{$patient->status }}</p>
+
+                <a href="{{ route('delete_patient', ['patient_id'=>$patient->id]) }}" class="btn btn-danger btn-block"><b> <i class=" fas fa-trash-alt"></i> DELETE</b></a>
+              </div>
+              <!-- /.card-body -->
             </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
+
+
+          <div class="col-md-9">
+            <div class="card">
+              <div class="card-header p-2">
+                <ul class="nav nav-pills">
+                  <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Details</a></li>
+                  <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Edit</a></li>
+                </ul>
+              </div><!-- /.card-header -->
+              <div class="card-body">
+                <div class="tab-content">
+                  <div class="active tab-pane" id="activity">
+                    <!-- Post -->
+                    <div class="post">  
+                      <h5>Appointed Doctor</h5>
+                      <p>{{ $patient->doctor }}</p>
+                      
+                      <hr>
+                      <h5>Hospital</h5>
+                      <p>{{ $patient->hospital_name }}</p>
+                      
+
+                      <hr>
+                      <h5>Blood Group</h5>
+                      <p>{{ $patient->blood_group }}</p>
+
+                      <hr>
+                      <h5>E-Mail</h5>
+                      <p>{{ $patient->email }}</p>
+
+                      <hr>
+                      <h5>Address</h5>
+                      <p>{{ $patient->address }}</p>
+
+                      <h5>Phone</h5>
+                      <p>{{ $patient->phone }}</p>
+
+                      <h5>Gender</h5>
+                      <p>{{ $patient->sex }}</p>
+
+                      <h5>Age</h5>
+                      <p>{{ $patient->age }}</p>
+
+                    </div>
+                    <!-- /.post -->  
+                  </div>
+  
+
+                  <!-- EDIT DOCTOR -->
+                  <div class="tab-pane" id="settings">
+                    <form class="form-horizontal" action="{{ route('update_patient') }}" method="POST">
+                      @csrf
+
+                      <!-- First name -->
+                      <div class="form-group row">
+                        <label for="inputName" class="col-sm-2 col-form-label">Name</label>
+                        <div class="col-sm-10">
+                          <input type="text" value="{{ $patient->name }}" class="form-control" name="name" required>
+                        </div>
+                      </div>
+
+                      <!-- Doctor -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Doctor Appointed</label>
+                        <div class="col-sm-10">
+                          @if($doctors->count() != null)
+                          <select name="doctor" id="" class="form-control">
+                            @foreach($doctors as $doctor)
+                              <option value="{{ $doctor->id }}" @if($patient->doctor_id == $doctor->id) selected @endif>{{ $doctor->username }}</option>
+                            @endforeach
+                          </select>
+                          @else
+                            <select name="doctor" id="" class="form-control" disabled>
+                                <option value="" >No doctor found</option>
+                            </select>
+                          @endif
+                        </div>
+                      </div>
+
+
+                      <!-- Hospital -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Hospital</label>
+                        <div class="col-sm-10">
+                          <select name="hospital" id="" class="form-control" disabled>
+                            @foreach($hospitals as $hospital)
+                              <option value="{{ $hospital->id }}" @if($patient->hospital_id == $hospital->id) selected @endif>{{ $hospital->name }}</option>
+                            @endforeach
+                          </select>
+                        </div>
+                      </div>
+
+
+                      <!-- Blood group -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Blood Group</label>
+                        <div class="col-sm-10">
+                          <input type="text"  value="{{ $patient->blood_group }}" class="form-control" name="blood_group">
+                        </div>
+                      </div>
+
+                      <!-- E-Mail -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">E-Mail</label>
+                        <div class="col-sm-10">
+                          <input type="text"  value="{{ $patient->email }}" class="form-control" name="email">
+                        </div>
+                      </div>
+
+                      <!-- Address  -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Address</label>
+                        <div class="col-sm-10">
+                          <input type="text"  value="{{ $patient->address }}" class="form-control" name="address">
+                        </div>
+                      </div>
+
+                      <!-- Phone -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Phone</label>
+                        <div class="col-sm-10">
+                          <input type="text"  value="{{ $patient->phone }}" class="form-control" name="phone">
+                        </div>
+                      </div>
+
+                      <!-- Gender -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Gender</label>
+                        <div class="col-sm-10">
+                          <input type="text"  value="{{ $patient->sex }}" class="form-control" name="gender">
+                        </div>
+                      </div>
+
+                      <!-- Age -->
+                      <div class="form-group row">
+                        <label for="inputEmail" class="col-sm-2 col-form-label">Age</label>
+                        <div class="col-sm-10">
+                          <input type="text"  value="{{ $patient->age }}" class="form-control" name="age">
+                        </div>
+                      </div>
+
+                      <input type="hidden" name="patient_id" value="{{ $patient->id }}">
+
+
+                        <!-- Update button -->
+                        <div class="form-group row">
+                          <div class="col-sm-10">
+                            <input type="submit"  class="btn btn-primary" value="UPDATE">
+                          </div>
+                        </div>
+                    </form>
+                  </div>
+                  <!-- /.tab-pane -->
+                </div>
+                <!-- /.tab-content -->
+              </div><!-- /.card-body -->
+            </div>
+            <!-- /.card -->
+          </div>
+          <!-- /.col -->
         </div>
-    </div>
-  </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+    </section>
+    <!-- /.content -->
+  </div> 
   <!-- /.content-wrapper -->
-
-
-  <script src="{{ asset('js/jquery.min.js') }}"></script>
-  <!-- SWEET ALERT -->
-  <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-
-  <script>
-      @if(Session::has('patient_deleted'))
-      swal({
-        title: "PATIENT DELETED",
-        text: "{{ Session::get('department_deleted') }}",
-        icon: "info",
-        button: "CLOSE",
-      });
-    @endif
-
-    @if(Session::has('patient_registered'))
-      swal({
-        title: "PATIENT REGISTERED",
-        text: "{{ Session::get('patient_registered') }}",
-        icon: "success",
-        button: "CLOSE",
-      });
-    @endif
-
-    @if(Session::has('patient_admitted'))
-      swal({
-        title: "ADMITTED SUCCESSFULLY",
-        text: "{{ Session::get('patient_admitted') }}",
-        icon: "info",
-        button: "CLOSE",
-      });
-    @endif
-
-    @if(Session::has('patient_discharged'))
-      swal({
-        title: "DISCHARGED",
-        text: "{{ Session::get('patient_discharged') }}",
-        icon: "info",
-        button: "CLOSE",
-      });
-    @endif
-
-    @if(Session::has('patient_updated'))
-      swal({
-        title: "UPDATED",
-        text: "{{ Session::get('patient_updated') }}",
-        icon: "info",
-        button: "CLOSE",
-      });
-    @endif
-  </script>
-
-
-    <!-- <script>
-        $(document).ready(function(){
-            $('#patients_table').DataTable({
-                "scrollX": true
-            });
-            $('.dataTables_length').addClass('bs-select');
-        });
-    </script> -->
-
 @include('include.footer')

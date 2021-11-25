@@ -22,21 +22,27 @@ class User extends Authenticatable
     // protected $fillable = [
     //     'first_name',
     //     'last_name',
+    //     'username',
     //     'email',
     //     'mobile',
-    //     'cnic',
     //     'age',
     //     'blood_group',
     //     'address',
-    //     'password',
-    //     'dob',
     //     'gender',
-    //     'profile_img',
-    //     'username',
     //     'role',
+    //     'profile_image',
+    //     'password',
+    //     'degree',
+    //     'specialization_id',
+    //     'hospital_id',
+    //     'doctor_id',
+    //     'from',
+    //     'to',
+    //     'visiting_charge',
+    //     'status',
     // ];
 
-    public $timestamps = false;
+    // public $timestamps = false;
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -52,7 +58,7 @@ class User extends Authenticatable
      *
      * @var array
      */
-    protected $casts = [
-        'email_verified_at' => 'datetime',
-    ];
+    // protected $casts = [
+    //     'email_verified_at' => 'datetime',
+    // ];
 }
