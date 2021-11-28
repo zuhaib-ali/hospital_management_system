@@ -14,42 +14,9 @@
   <link rel="stylesheet" href="../../plugins/datatables-responsive/css/responsive.bootstrap4.min.css">
   <link rel="stylesheet" href="../../plugins/datatables-buttons/css/buttons.bootstrap4.min.css">
 
-  @if( request()->is('/') )
-    <title> Dashboard </title>
-    @elseif( request()->is('appointments') )
-      <title> Appointments </title>
 
-      @elseif( request()->is('getPatientData') )
-      <title> Appointment Detail </title>
+<title> HMS </title>
 
-      @elseif( request()->is('locations') || request()->is('uLocations') )
-      <title> Locations </title>
-      @elseif( request()->is('aUsers') )
-      <title> Users </title>
-      @elseif( request()->is('users') )
-      <title> Users </title>
-      @elseif( request()->is('patients') )
-      <title> Admitted Patients </title>
-      @elseif( request()->is('dpatients') )
-      <title> Discharged Patients </title>
-      @elseif( request()->is('addPatients') )
-      <title> Add Patients </title>
-      @elseif( request()->is('patients') )
-      <title> Patients </title>
-      @elseif( request()->is('pharmacy/medicines') || request()->is('pharmacists/categories') || request()->is('pharmacy/pharmacists') )
-      <title> Phramacy </title>
-
-      @elseif( request()->is('emailLetter') )
-      <title> Email Letter Template </title>
-
-       @elseif( request()->is('trackingSheet') )
-      <title> Weekly Tracking Sheet </title>
-
-      @elseif( request()->is('fix_appointment') )
-      <title> Appointment </title>
-
-
-  @endif
 
   <!-- Google Font: Source Sans Pro -->
   <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback">
@@ -90,10 +57,10 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#" role="button"><i class="fas fa-bars"></i></a>
       </li>
-      <li class="nav-item d-none d-sm-inline-block">
+      {{-- <li class="nav-item d-none d-sm-inline-block">
         <a href="index3.html" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="#" class="nav-link">Contact</a>
-      </li>
+      </li> --}}
     </ul>

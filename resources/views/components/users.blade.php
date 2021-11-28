@@ -1,6 +1,6 @@
 @include('include.header')
 
-@include('include.navbar')    
+@include('include.navbar')
 
 @include('include.sidebar')
 
@@ -32,8 +32,8 @@
                 <div class="card">
               <div class="card-header">
                 <h1>
-                Staff/Admin
-                <button href="" class="btn btn-success pull-right" data-toggle="modal" data-target="#add"> 
+                Staff
+                <button href="" class="btn btn-success pull-right" data-toggle="modal" data-target="#add">
                 <i class="fa fa-plus"> Add Staff</i>
                 </button>
                 </h1>
@@ -58,7 +58,7 @@
                   @foreach($staffs as $staff)
                     <tr>
                         <th>{{ $sno++ }}</th>
-                        <th> <img src="{{asset('images')}}/{{$staff->profile_img}}" class="img-circle elevation-2" style=" width:50px; height:50px "> 
+                        <th> <img src="{{asset('images')}}/{{$staff->profile_img}}" class="img-circle elevation-2" style=" width:50px; height:50px ">
                         </th>
                         <th>{{ $staff->username }} </th>
                         <th>{{ $staff->mobile }}</th>
@@ -70,7 +70,7 @@
                           <a href="{{ route('delete-staff') }}" class="btn btn-sm btn-danger"> <i class="icon-trash"></i> </a>
                         </th>
                     </tr>
-                  @endforeach                       
+                  @endforeach
                  </tbody>
                 </table>
               </div>
@@ -80,7 +80,7 @@
                 </div>
             </div>
         </div>
-    
+
     </section>
     <!-- /.content -->
   </div>
@@ -165,12 +165,12 @@
                 </select>
               </div>
 
-              <div class="form-group">          
+              <div class="form-group">
 							    <label>Profile Photo</label>
 							    <input type="file" class="form-control" name="photo">
 							</div>
 
-                            
+
 				    </div>
 				      <div class="modal-footer">
 				        	<button type="button" class="btn btn-danger pull-left" data-dismiss="modal"><i class="ft-x"> Close </i></button>

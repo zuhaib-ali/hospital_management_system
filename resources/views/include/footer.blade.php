@@ -1,16 +1,23 @@
 <footer class="main-footer">
-    <strong>Copyright &copy; 2014-2020 <a href="https://adminlte.io">AdminLTE.io</a>.</strong>
-    All rights reserved.
+    <strong>Copyright &copy; 2021-22 .</strong> All rights reserved.
     <div class="float-right d-none d-sm-inline-block">
-      <b>Version</b> 3.1.0-rc
-    </div>    
-  </footer>
+        <p class=""> Coded with
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="rgba(231, 81, 90, 0.4196078431)"
+                stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                class="feather feather-heart">
+                <path style="color:#e7515a;"
+                    d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z">
+                </path>
+            </svg>
+        </p>
+    </div>
+</footer>
 
-  <!-- Control Sidebar -->
-  <aside class="control-sidebar control-sidebar-dark">
+<!-- Control Sidebar -->
+<aside class="control-sidebar control-sidebar-dark">
     <!-- Control sidebar content goes here -->
-  </aside>
-  <!-- /.control-sidebar -->
+</aside>
+<!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 
@@ -20,7 +27,7 @@
 <script src="{{ asset('plugins/jquery-ui/jquery-ui.min.js') }}"></script>
 <!-- Resolve conflict in jQuery UI tooltip with Bootstrap tooltip -->
 <script>
-  $.widget.bridge('uibutton', $.ui.button)
+    $.widget.bridge('uibutton', $.ui.button)
 </script>
 <!-- Bootstrap 4 -->
 <script src="{{ asset('plugins/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
@@ -43,7 +50,9 @@
 <!-- overlayScrollbars -->
 <script src="{{ asset('plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js') }}"></script>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js" integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw==" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"
+integrity="sha512-VEd+nq25CkR676O+pLBnDW09R7VQX9Mdiij052gVCp5yVH3jGtH70Ho/UUv4mJDsEdTvqRCFZg0NKGiojGnUCw=="
+crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <!-- AdminLTE App -->
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
 <!-- AdminLTE for demo purposes -->
@@ -65,35 +74,83 @@
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
 <script>
-  $(document).ready(function () {
-    $('#divs').fadeOut(4000);
-  });
+    $(document).ready(function() {
+        $('#divs').fadeOut(4000);
+    });
 </script>
 
+<script>
+    @if (Session::has('doctor_created'))
+        swal("{{ Session::get('doctor_created') }}", "Doctor Added Successfully", "success");
+    @endif
 
-@if(Session::has("staff_success"))
-  <script>
-    toastr.success("{{ Session::get('staff_success') }}");
-  </script>
-@endif
-
-
-@if(Session::has("staff_info"))
-  <script>
-    toastr.success("{{ Session::get('staff_info') }}");
-  </script>
-@endif
+    @if (Session::has('doctor_created'))
+        swal("{{ Session::get('doctor_created') }}", "Doctor Added Successfully", "success");
+    @endif
 
 
-@if($errors->any())
-  @foreach($errors->all() as $error)
+    @if (Session::has('updated'))
+        swal("Doctor Updated", "{{ Session::get('updated') }}", "info");
+    @endif
+
+
+    @if (Session::has('deleted'))
+        swal("{{ Session::get('deleted') }}", " Deleted successfully!", "info");
+    @endif
+</script>
+
+@if (Session::has('staff_success'))
     <script>
-      toastr.error("{{ $error }}");
+        toastr.success("{{ Session::get('staff_success') }}");
     </script>
-  @endforeach
-  
+@endif
+
+
+@if (Session::has('staff_info'))
+    <script>
+        toastr.success("{{ Session::get('staff_info') }}");
+    </script>
+@endif
+
+@if (Session::has('role_added'))
+    <script>
+        toastr.success("{{ Session::get('role_added') }}");
+    </script>
+@endif
+
+@if (Session::has('added'))
+    <script>
+        toastr.success("{{ Session::get('added') }}");
+    </script>
+@endif
+
+@if (Session::has('updated'))
+    <script>
+        toastr.success("{{ Session::get('updated') }}");
+    </script>
+@endif
+
+@if (Session::has('deleted'))
+    <script>
+        toastr.error("{{ Session::get('deleted') }}");
+    </script>
+@endif
+
+@if (Session::has('error'))
+    <script>
+        toastr.error("{{ Session::get('error') }}");
+    </script>
+@endif
+
+@if ($errors->any())
+    @foreach ($errors->all() as $error)
+        <script>
+            toastr.error("{{ $error }}");
+        </script>
+    @endforeach
+
 @endif
 
 </body>
-</html>
 
+</html>

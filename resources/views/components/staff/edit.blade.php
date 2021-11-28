@@ -1,6 +1,6 @@
 @include('include.header')
 
-@include('include.navbar')    
+@include('include.navbar')
 
 @include('include.sidebar')
 
@@ -68,7 +68,7 @@
                         <label for="address">Address</label>
                         <textarea name="address" id="" cols="30" rows="3" class="form-control" required>{{ $staff->address }}</textarea>
                     </div>
-                    
+
                     <div class="form-row">
                         <div class="form-group col-4">
                             <label for="age">Age</label>

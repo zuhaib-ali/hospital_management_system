@@ -5,7 +5,7 @@ use App\Http\Controllers\UserController;
 use App\Http\Controllers\Login;
 use App\Http\Controllers\components;
 use App\Http\Controllers\LocationController;
-use App\Http\Controllers\adminController; 
+use App\Http\Controllers\adminController;
 use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\SendMailController;
 use App\Http\Controllers\CategoryController;
@@ -17,6 +17,8 @@ use App\Http\Controllers\SpecializationController;
 use App\Http\Controllers\LabtestController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\PatientController;
+use App\Http\Controllers\PermissionController;
+use App\Http\Controllers\RolesController;
 
 use App\Models\Location;
 use App\Models\Doctor;
@@ -25,8 +27,8 @@ use App\Models\Specialization;
 use App\Models\Patient;
 use App\Models\Cart;
 use App\Models\User;
-
-
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Session;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -40,7 +42,7 @@ use App\Models\User;
 
 
 Route::group(["middleware" => "user_auth"], function(){
-    
+
     Route::get("/", function(){
         return view("admin.index", [
             "patients" => Patient::where("status", "admitted")->get(),
@@ -97,7 +99,7 @@ Route::group(["middleware" => "user_auth"], function(){
     Route::get("/edit-staff", [UserController::class, 'editStaff'])->name('edit-staff');
     Route::post("/edit-staff/update", [UserController::class, 'updateStaff'])->name('update-staff');
     Route::get("/delete-staff", [UserController::class, 'deleteStaff'])->name('delete-staff');
-    
+
 
 
 
@@ -107,12 +109,25 @@ Route::group(["middleware" => "user_auth"], function(){
         $locations = DB::table('locations')->get();
         return view('components.locations')->with(['locations'=>$locations]);
     })->name('locations');
-    
+
     Route::post('addLocation', [components::class, 'addLocation'] );
     Route::get('delLocation/{id}', [components::class, 'delLocation'] );
     Route::get('viewLocation', [components::class, 'viewLocation'] );
     Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');
     Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
+
+    //Permissions
+    Route::get("/permissions",[PermissionController::class,"index"]);
+    Route::get("/delete_prm/{id}",[PermissionController::class,"delete"]);
+    Route::get("/edit_prm/{id}",[PermissionController::class,"edit"]);
+    Route::post("/add_permission",[PermissionController::class,"store"]);
+    Route::post("/update_prm",[PermissionController::class,"update"]);
+
+
+    //Roles
+    Route::get("/roles",[RolesController::class,"index"]);
+    Route::get("/add_role_form",[RolesController::class,"create"]);
+    Route::post("/add_role",[RolesController::class,"store"]);
 
     //User Locations
     Route::get('/uLocations', function(){
@@ -127,28 +142,9 @@ Route::group(["middleware" => "user_auth"], function(){
     })->name('uLocations');
 });
 
-// INDEX VIEW
-// Route::get('/', function () {
-//     if(Session::has('user')){
-//         $patients       = DB::table('patients')->where('status','admitted')->get();
-//         $locations      = DB::table('locations')->get();
-//         $appointments   = DB::table('appointments')->get();
-//         $carts          = DB::table('carts')->get();
-//         return view('admin.index')->with([
-//             'patients'      =>  $patients,
-//             'locations'     =>  $locations,
-//             'appointments'  =>  $appointments,
-//             'carts'         =>  $carts
-//         ]);    
-//     }else{
-//         return redirect()->route('login');
-//     }
-// })->name('index');
-
-
 Route::get('/addPatients', function () {
     if(Session::has('user')){
-        return view('components.addPatients');    
+        return view('components.addPatients');
     }else{
         return redirect()->route('login');
     }
@@ -170,14 +166,6 @@ Route::get('/sign_up', function(){
     }
     return view('sign_up');
 })->name('signUp');
-
-
-
-
-
-
-
-
 
 Route::get('/users', function(){
     if(Session::has('user')){
@@ -204,7 +192,6 @@ Route::get('addLetter', function(){
     ]);
 })->name('addLetter');
 
-
 // APPOITMENTS VIEW
 Route::get('/appointments', function(){
     if(Session::has('user')){
@@ -214,7 +201,7 @@ Route::get('/appointments', function(){
             'appointments'  =>  $appointments,
             'locations'     =>  Location::all(),
             'carts'         =>  $carts
-        ]);    
+        ]);
     }else{
         return redirect()->route('login');
     }
@@ -251,18 +238,18 @@ Route::get('/pateints/data', function(){
 
 
 // EDIT PROFILE GET
-Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile'); 
+Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
 
 // UPDATE PROFILE POST
 Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
 
- 
+
 
 // APPOITMENT FIX VIEW
-Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment'); 
+Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
 
 //Dr Appointment
-Route::post('/drAppointment', [AppointmentController::class, 'drAppointment'])->name('drAppointment'); 
+Route::post('/drAppointment', [AppointmentController::class, 'drAppointment'])->name('drAppointment');
 
 
 // SUBMIT APPOINTMENT
