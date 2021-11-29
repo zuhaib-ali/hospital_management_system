@@ -118,6 +118,18 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
     </script>
 @endif
 
+@if (Session::has('role_updated'))
+    <script>
+        toastr.success("{{ Session::get('role_updated') }}");
+    </script>
+@endif
+
+@if (Session::has('role_deleted'))
+    <script>
+        toastr.error("{{ Session::get('role_deleted') }}");
+    </script>
+@endif
+
 @if (Session::has('added'))
     <script>
         toastr.success("{{ Session::get('added') }}");

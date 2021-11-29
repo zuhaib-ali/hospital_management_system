@@ -128,6 +128,10 @@ Route::group(["middleware" => "user_auth"], function(){
     Route::get("/roles",[RolesController::class,"index"]);
     Route::get("/add_role_form",[RolesController::class,"create"]);
     Route::post("/add_role",[RolesController::class,"store"]);
+    Route::get("/edit_role/{id}",[RolesController::class,"edit"]);
+    Route::post("/update_role",[RolesController::class,"update"]);
+    Route::get("/delete_role/{id}",[RolesController::class,"delete"]);
+
 
     //User Locations
     Route::get('/uLocations', function(){

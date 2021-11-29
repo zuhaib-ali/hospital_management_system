@@ -1,5 +1,6 @@
 @php
 use Illuminate\Support\Facades\DB;
+
 @endphp
 @include('include.header')
 
@@ -97,9 +98,12 @@ use Illuminate\Support\Facades\DB;
                                                 @endforeach
                                             </td>
                                             <td>
-                                                <a href="" class="btn btn-primary btn-sm icon-pencil"
+                                                @php
+                                                    $role_id = Crypt::encrypt($role->id);
+                                                @endphp
+                                                <a href="{{ url("/edit_role/".$role_id) }}" class="btn btn-primary btn-sm icon-pencil"
                                                     style="border-radius:5px;"></a>
-                                                <a href="" class="btn btn-danger btn-sm" style="border-radius:5px;"><i
+                                                <a href="{{ url("/delete_role/".$role_id) }}" class="btn btn-danger btn-sm" style="border-radius:5px;"><i
                                                         class="fas fa-trash"></i></a>
                                             </td>
                                         </tr>
@@ -122,54 +126,6 @@ use Illuminate\Support\Facades\DB;
 <!-- /.content-wrapper -->
 
 
-<!-- ADD DOCTOR MODAL -->
-<form method="POST" action="{{ url('/add_Role') }}" enctype='multipart/form-data'>
-    @csrf
-    <!-- Modal -->
-    <div class="modal fade" id="add" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title">Add Role</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                </div>
-                <div class="modal-body">
-                    <div class="form-row">
-
-                        <!-- FIRST NAME -->
-                        <div class="form-group col-sm-12">
-                            <label for="first_name">Role</label>
-                            <input type="text" class="form-control" name="Role" maxlength=12 placeholder="Enter Role"
-                                required>
-                        </div>
-
-                        <div class="form-group col-sm-12">
-                            <label for="first_name">Description</label>
-                            <textarea name="description" class="form-control" cols="30" rows="10"></textarea>
-                        </div>
-                    </div>
-                </div>
-
-                <!-- MODAL FOOTER -->
-                <div class="modal-footer">
-                    <!-- RESET -->
-                    <button type="reset" class="btn btn-sm btn-secondary">
-                        <i class="ft-x"></i>
-                        Reset
-                    </button>
-
-                    <!-- SUBMIT -->
-                    <button type="submit" class="btn btn-sm btn-primary">
-                        <i class="fa fa-plus"></i>
-                        Save
-                    </button>
-                </div>
-            </div>
-        </div>
-    </div>
-</form>
 
 
 <!-- SWEET ALERT -->
