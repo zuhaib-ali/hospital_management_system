@@ -15,13 +15,8 @@ class CreateAppointmentsTable extends Migration
     {
         Schema::create('appointments', function (Blueprint $table) {
             $table->id();
-            $table->string('type');
-            $table->string('patient_name');
-            $table->unsignedInteger('patient_id');
+            $table->unsignedInteger('sender_id');
             $table->unsignedInteger('doctor_id');
-            $table->unsignedInteger('location_id');
-            $table->unsignedInteger('hospital_id');
-            $table->text('note');
             $table->timestamps();
         });
     }

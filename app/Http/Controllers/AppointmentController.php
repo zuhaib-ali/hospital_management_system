@@ -9,76 +9,34 @@ use App\Models\User;
 use App\Models\Cart;
 use App\Models\Doctor;
 use App\Models\Specialization;
-
-
 use DB;
 
+class AppointmentController extends Controller{
+    public function show(){
+        return view('components.appointments', [
+            'appointments' => Appointment::all(),
+            'users' => User::all(),
+        ]);
+    }
 
-class AppointmentController extends Controller
-{
+
     // APPOINTMENT VIEW
     public function appointmentView(Request $request){
         $patient = $request->session()->get('user');
-
-        if($request->session()->has('user')){
-            return view('components.add_appointment', [
-                'locations'         =>  Location::all(),
-                'patient'           =>  $patient,
-                'carts'             =>  Cart::all(),
-                'doctors'           =>  Doctor::all(),
-                'specializations'   => Specialization::all(),
-            ]);
-        }else{
-            return redirect()->route('login');
-        }
-    }
-    
-    // SUBMIT APPOINTMENT
-    public function submitAppointment(Request $request){
-        $request->validate([
-            'appointment_type' => 'required',
-            'location' => 'required',
-            'form_note' => 'required',
+        return view('components.add_appointment', [
+            'doctors' =>  User::where("role", "doctor")->get(),
         ]);
-        
-        $appointment = Appointment::create([
-            'type' => $request->appointment_type,
-            'patient_id' => $request->user_id,
-            'patient_name' => $request->patient_name,
-            'location_id' => $request->location,
-            'doctor_id' => 0,
-            'hospital_id' => 0,
-            'note' => $request->form_note,
-        ]);   
-
-        if($appointment == true){
-            return back()->with('success', 'Your appointment successfully added!');
-        }else{
-            return back()->with('failed', 'Failed to sent appointment!');
-        }
-
     }
 
+    // Send Appointment
+    public function sendAppointment(Request $request){
+        $request->validate(['doctor' => 'required']);
 
-    public function drAppointment(Request $request){
-
-       $appointment = Appointment::create([
-            'type' => $request->type,
-            'patient_id' => $request->patient_id,
-            'patient_name' => $request->patient_name,
-            'location_id' => $request->location_id,
-            'doctor_id' => $request->doctor_id,
-            'hospital_id' => $request->location_id,
-            'note' => $request->note,
+        Appointment::create([
+            'sender_id' => $request->session()->get('user')->id,
+            'doctor_id'=> $request->doctor
         ]);   
-
-        if($appointment == true){
-            return back()->with('success', 'Your appointment successfully added!');
-        }else{
-            return back()->with('failed', 'Failed to sent appointment!');
-        }
-
-
+        return back()->with('success', 'Appointment sent.');
     }
 
     public function getPatientData($id)

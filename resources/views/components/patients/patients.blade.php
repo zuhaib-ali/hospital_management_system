@@ -238,55 +238,6 @@
                                                 
                                                 <!-- VIEW PATIENT -->
                                                 <a href="{{ route('patinet_information', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-primary"><i class="fas fa-info"></i> </a>
-                                                <div class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true" id="patient_id_{{ $patient->id }}">
-                                                    <div class="modal-dialog modal-lg">
-                                                        <div class="modal-content">
-                                                            <div class="card">
-                                                                <div class="card-header">
-                                                                    <h4>{{ $patient->name }}  <span style="color:darkblue;">{{ $patient->status }}</span></h4>
-                                                                </div>
-                                                                <div class="card-body patient_information">
-                                                                    <div class="row">
-                                                                        <div class="col-sm-4">
-                                                                            <img src="{{ asset('patients_images/'.$patient->image) }}" style="width:250px; height:300px; border-radius:10%;">
-                                                                        </div>
-                                                                        <div class="col-sm-8 p-3">
-                                                                            <table style="width:100%; height:100%;">
-                                                                                <tr>
-                                                                                    <th>Name:</th>
-                                                                                    <td>{{ $patient->name }}</td>
-                                                                                    <th>Age:</th>
-                                                                                    <td>NA</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Sex:</th>
-                                                                                    <td>{{ $patient->sex }}</td>
-                                                                                    <th>Blood Group:</th>
-                                                                                    <td>{{ $patient->blood_group }}</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>E-Mail:</th>
-                                                                                    <td>{{ $patient->email }}</td>
-                                                                                    <th>Phone:</th>
-                                                                                    <td>{{ $patient->phone}}</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Doctor:</th>
-                                                                                    <td>{{ $doctors->find($patient->doctor_id)->first_name }} {{ $doctors->find($patient->doctor_id)->last_name }}</td>
-                                                                                </tr>
-                                                                                <tr>
-                                                                                    <th>Address:</th>
-                                                                                    <td>{{ $patient->address }}</td>
-                                                                                </tr>
-
-                                                                            </table>
-                                                                        </div>
-                                                                    </div>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div>
-                                                </div>
                                                 
                                                 <!-- EDIT PATIENT -->
                                                 <button class="btn btn-sm btn-outline-secondary" title="edit" data-toggle="modal" data-target="#edit_patient_{{$patient->id}}"> <i class="fas fa-edit"></i></button>    
@@ -306,11 +257,11 @@
                                                                     <div class="row">
                                                                         <div class="form-group col-sm-6">
                                                                             <label for="patient_name">Name</label>
-                                                                            <input type="text" name="patient_name" class="form-control" value="{{ $patient->name }}" required>
+                                                                            <input type="text" name="name" class="form-control" value="{{ $patient->name }}" required>
                                                                         </div>
                                                                         <div class="form-group col-sm-6">
                                                                             <label for="e_mail">E-Mail</label>
-                                                                            <input type="email" name="e_mail" id="department-name" class="form-control" value="{{ $patient->email }}" required>
+                                                                            <input type="email" name="email" id="department-name" class="form-control" value="{{ $patient->email }}" required>
                                                                         </div>
                                                                     </div>
                                                                     
@@ -327,7 +278,7 @@
 
                                                                         <div class="form-group col-sm-3">
                                                                             <label for="image">Age</label>
-                                                                            <input type="text" name="age" value="null" class="form-control" required>
+                                                                            <input type="text" name="age" value="{{ $patient->age }}" class="form-control" required>
                                                                         </div>
 
                                                                         <div class="form-group col-sm-4">
@@ -348,7 +299,7 @@
                                                                     <div class="row">
                                                                         <div class="form-group col-sm-6">
                                                                             <label for="doctor">Doctor</label>
-                                                                            <!-- <input type="text" name="doctor" list="doctors" value="{{ $doctors->find($patient->doctor_id)->first_name }} {{ $doctors->find($patient->doctor_id)->last_name }}" class="form-control" required> -->
+                                                                            {{-- <input type="text" name="doctor" list="doctors" value="{{ $doctors->find($patient->doctor_id)->first_name }} {{ $doctors->find($patient->doctor_id)->last_name }}" class="form-control" required> --}}
 
                                                                             <select name="doctor" class="form-control" required>
                                                                                 @if(count($doctors) != 0)

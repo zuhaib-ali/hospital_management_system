@@ -76,37 +76,31 @@
               <div class="card-body">
                 <div class="tab-content">
                   <div class="active tab-pane" id="activity">
-                    <!-- Post -->
-                    <div class="post">  
-                      <h5>Appointed Doctor</h5>
-                      <p>{{ $patient->doctor }}</p>
-                      
-                      <hr>
-                      <h5>Hospital</h5>
-                      <p>{{ $patient->hospital_name }}</p>
-                      
 
-                      <hr>
-                      <h5>Blood Group</h5>
-                      <p>{{ $patient->blood_group }}</p>
+                    <!-- Details -->
+                    <div class="details">  
+                      <dl class="data_list">
+                        <dt>Appointed Doctor</dt>
+                        <dd>{{ $patient->doctor }}</dd>
 
-                      <hr>
-                      <h5>E-Mail</h5>
-                      <p>{{ $patient->email }}</p>
+                        <dt>Hospital</dt>
+                        <dd>{{ $patient->hospital_name }}</dd>
 
-                      <hr>
-                      <h5>Address</h5>
-                      <p>{{ $patient->address }}</p>
+                        <dt>E-Mail</dt>
+                        <dd>{{ $patient->email }}</dd>
 
-                      <h5>Phone</h5>
-                      <p>{{ $patient->phone }}</p>
+                        <dt>Address</dt>
+                        <dd>{{ $patient->address }}</dd>
 
-                      <h5>Gender</h5>
-                      <p>{{ $patient->sex }}</p>
+                        <dt>Phone</dt>
+                        <dd>{{ $patient->phone }}</dd>
 
-                      <h5>Age</h5>
-                      <p>{{ $patient->age }}</p>
+                        <dt>Gender</dt>
+                        <dd>{{ $patient->sex }}</dd>
 
+                        <dt>Age</dt>
+                        <dd>{{ $patient->age }}</dd>
+                      </dl>
                     </div>
                     <!-- /.post -->  
                   </div>

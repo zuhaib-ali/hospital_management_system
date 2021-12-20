@@ -46,13 +46,13 @@
             <!-- FIRST NAME -->
             <div class="form-group col-12">  
               <label for="first_name"><span style="color:red;">*</span>Title</label>
-              <input type="text" class="form-control" name="title" value="{{$tmp->title}}">
+              <input type="text" class="form-control" name="title" value="@if($tmp != null) {{$tmp->title}} @endif">
             </div>
             <br>
             <!-- LAST NAME -->
             <div class="form-group col-12">
               <label for="last_name"><span style="color:red;">*</span>Body</label>
-              <textarea class="form-control" name="body" cols="5" rows="4">{{ $tmp->body }}</textarea>
+              <textarea class="form-control" name="body" cols="5" rows="4">@if($tmp != null){{ $tmp->body }} @endif</textarea>
             </div>
           </div>
 

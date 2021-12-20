@@ -549,6 +549,7 @@ class ComposerStaticInitb79edf6ea8449122001d0e2f3cb995e0
         'App\\Http\\Controllers\\PatientController' => __DIR__ . '/../..' . '/app/Http/Controllers/PatientController.php',
         'App\\Http\\Controllers\\PermissionController' => __DIR__ . '/../..' . '/app/Http/Controllers/PermissionController.php',
         'App\\Http\\Controllers\\PharmacistController' => __DIR__ . '/../..' . '/app/Http/Controllers/PharmacistController.php',
+        'App\\Http\\Controllers\\RolesController' => __DIR__ . '/../..' . '/app/Http/Controllers/RolesController.php',
         'App\\Http\\Controllers\\SendMailController' => __DIR__ . '/../..' . '/app/Http/Controllers/SendMailController.php',
         'App\\Http\\Controllers\\SpecializationController' => __DIR__ . '/../..' . '/app/Http/Controllers/SpecializationController.php',
         'App\\Http\\Controllers\\UserController' => __DIR__ . '/../..' . '/app/Http/Controllers/UserController.php',

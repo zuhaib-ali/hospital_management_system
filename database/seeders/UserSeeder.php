@@ -26,6 +26,7 @@ class UserSeeder extends Seeder
             "gender" => "male",
             "profile_img" => "admin.png",
             "role" => "admin",
+            "role_id" => 1,
         ]);
     }
 }

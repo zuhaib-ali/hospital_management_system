@@ -76,21 +76,6 @@ class DoctorController extends Controller
                 'to' => $request->to,
                 
             ]);
-            // $doctor_created = Doctor::create([
-            //     'doctor_name' => $request->first_name." ".$request->last_name,
-            //     'email' => $request->email,
-            //     'degree' => $request->degree,
-            //     'location_id' => $request->hospital_id,
-            //     'phone' => $request->phone,
-            //     'visiting_charge' => $request->visiting_charge,
-            //     'gender' => $request->gender,
-            //     'from' => $request->from,
-            //     'to' => $request->to,
-            //     'address' => $request->address,
-            //     'avater' => $avater_name,
-            //     'specialization_id' => (int)$request->specialist,
-            //     'password' => Hash::make($request->password)
-            // ]);
 
             if($doctor){
                 ClosingDay::create([
@@ -195,5 +180,21 @@ class DoctorController extends Controller
         if($doctor->delete()){
             return redirect()->route("doctors")->with('deleted', "Doctor ".$name." deleted.");
         }
+    }
+
+    // Get doctor
+    public function getDoctor($id){
+        return User::leftJoin('specializations', 'users.specialization_id', 'specializations.id')
+            ->leftJoin('locations', 'users.hospital_id', 'locations.id')
+            ->select(
+                'users.*',
+                'specializations.name as specialization',
+                'specializations.description',
+                'locations.name as branch',
+                'locations.email as branch_email',
+                'locations.address as branch_address',
+            )
+            ->where('users.id', $id)
+            ->first();
     }
 }

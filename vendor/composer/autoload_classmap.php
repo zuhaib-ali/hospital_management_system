@@ -21,6 +21,7 @@ return array(
     'App\\Http\\Controllers\\PatientController' => $baseDir . '/app/Http/Controllers/PatientController.php',
     'App\\Http\\Controllers\\PermissionController' => $baseDir . '/app/Http/Controllers/PermissionController.php',
     'App\\Http\\Controllers\\PharmacistController' => $baseDir . '/app/Http/Controllers/PharmacistController.php',
+    'App\\Http\\Controllers\\RolesController' => $baseDir . '/app/Http/Controllers/RolesController.php',
     'App\\Http\\Controllers\\SendMailController' => $baseDir . '/app/Http/Controllers/SendMailController.php',
     'App\\Http\\Controllers\\SpecializationController' => $baseDir . '/app/Http/Controllers/SpecializationController.php',
     'App\\Http\\Controllers\\UserController' => $baseDir . '/app/Http/Controllers/UserController.php',

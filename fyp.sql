@@ -1,14 +1,13 @@
 -- phpMyAdmin SQL Dump
--- version 5.0.1
+-- version 5.0.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Nov 29, 2021 at 06:08 AM
--- Server version: 10.4.11-MariaDB
--- PHP Version: 7.4.3
+-- Generation Time: Dec 18, 2021 at 05:25 AM
+-- Server version: 10.4.17-MariaDB
+-- PHP Version: 8.0.0
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
-SET AUTOCOMMIT = 0;
 START TRANSACTION;
 SET time_zone = "+00:00";
 
@@ -19,7 +18,7 @@ SET time_zone = "+00:00";
 /*!40101 SET NAMES utf8mb4 */;
 
 --
--- Database: `hms`
+-- Database: `fyp`
 --
 
 -- --------------------------------------------------------
@@ -30,16 +29,19 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `appointments` (
   `id` bigint(20) UNSIGNED NOT NULL,
-  `type` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `patient_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `patient_id` int(10) UNSIGNED NOT NULL,
+  `sender_id` int(10) UNSIGNED NOT NULL,
   `doctor_id` int(10) UNSIGNED NOT NULL,
-  `location_id` int(10) UNSIGNED NOT NULL,
-  `hospital_id` int(10) UNSIGNED NOT NULL,
-  `note` text COLLATE utf8mb4_unicode_ci NOT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `appointments`
+--
+
+INSERT INTO `appointments` (`id`, `sender_id`, `doctor_id`, `created_at`, `updated_at`) VALUES
+(1, 3, 2, '2021-12-17 07:27:17', NULL),
+(2, 3, 4, '2021-12-17 07:27:34', NULL);
 
 -- --------------------------------------------------------
 
@@ -104,7 +106,9 @@ CREATE TABLE `closing_days` (
 
 INSERT INTO `closing_days` (`id`, `sunday`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `doctor_id`, `created_at`, `updated_at`) VALUES
 (1, NULL, NULL, NULL, NULL, NULL, 'friday', 'saturday', 2, '2021-11-21 04:56:34', '2021-11-21 05:17:05'),
-(2, NULL, NULL, NULL, NULL, NULL, 'friday', NULL, 4, '2021-11-21 05:28:52', '2021-11-21 05:28:52');
+(2, NULL, NULL, NULL, NULL, NULL, 'friday', NULL, 4, '2021-11-21 05:28:52', '2021-11-21 05:28:52'),
+(3, NULL, NULL, 'tuesday', NULL, NULL, 'friday', NULL, 5, '2021-12-16 02:56:02', '2021-12-16 02:56:02'),
+(4, 'sunday', NULL, NULL, NULL, NULL, 'friday', 'saturday', 2, '2021-12-16 04:53:18', '2021-12-16 04:53:18');
 
 -- --------------------------------------------------------
 
@@ -144,6 +148,13 @@ CREATE TABLE `doctors` (
   `updated_at` timestamp NULL DEFAULT NULL,
   `specialization_id` int(10) UNSIGNED NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `doctors`
+--
+
+INSERT INTO `doctors` (`id`, `doctor_name`, `email`, `degree`, `visiting_charge`, `gender`, `phone`, `from`, `to`, `avater`, `address`, `location_id`, `password`, `created_at`, `updated_at`, `specialization_id`) VALUES
+(1, 'allam ibrahim', 'allam@gmail.com', 'MBBS: diagnostic specialist', 1000, 'male', '03333333334', '10', '9', NULL, 'hakra muhalla, ali khan, kamber.', 1, 'doctor1', NULL, NULL, 1);
 
 -- --------------------------------------------------------
 
@@ -263,7 +274,6 @@ CREATE TABLE `migrations` (
 --
 
 INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
-(1, '2014_10_12_000000_create_users_table', 1),
 (2, '2014_10_12_100000_create_password_resets_table', 1),
 (3, '2019_08_19_000000_create_failed_jobs_table', 1),
 (4, '2021_06_07_165141_create_locations_table', 1),
@@ -279,10 +289,11 @@ INSERT INTO `migrations` (`id`, `migration`, `batch`) VALUES
 (14, '2021_08_03_071435_create_labs_table', 1),
 (15, '2021_10_18_083217_create_closing_days_table', 1),
 (16, '2021_10_22_070448_create_patients_table', 1),
-(17, '2021_10_22_093506_create_appointments_table', 1),
 (18, '2021_10_22_104830_add_specialization_id_to_doctors', 1),
 (20, '2021_11_28_131210_create_permissions_table', 2),
-(23, '2021_11_28_140050_create_roles_table', 3);
+(23, '2021_11_28_140050_create_roles_table', 3),
+(24, '2014_10_12_000000_create_users_table', 4),
+(28, '2021_10_22_093506_create_appointments_table', 5);
 
 -- --------------------------------------------------------
 
@@ -324,7 +335,8 @@ CREATE TABLE `patients` (
 --
 
 INSERT INTO `patients` (`id`, `user_id`, `name`, `email`, `address`, `phone`, `sex`, `age`, `blood_group`, `image`, `status`, `created_at`, `updated_at`, `doctor_id`) VALUES
-(1, 5, 'zuhaib soomro', 'zuhaibsoomro25@gmail.com', 'Larkana', '11111111111', 'male', '20', 'A+', NULL, 'admitted', '2021-11-23 08:47:38', '2021-11-23 12:47:51', 2);
+(1, 5, 'zuhaib soomro', 'zuhaibsoomro25@gmail.com', 'Larkana', '11111111111', 'male', '21', 'A+', NULL, 'admitted', '2021-11-23 08:47:38', '2021-12-16 03:47:44', 5),
+(2, 3, 'Bilal Ali', 'bilal.jessar11@gmail.com', 'Kotri', '123123123', 'male', '24', 'A+', NULL, 'new', '2021-12-16 03:49:30', '2021-12-16 03:49:30', 4);
 
 -- --------------------------------------------------------
 
@@ -335,7 +347,7 @@ INSERT INTO `patients` (`id`, `user_id`, `name`, `email`, `address`, `phone`, `s
 CREATE TABLE `permissions` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `permission` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `description` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `description` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
@@ -345,8 +357,17 @@ CREATE TABLE `permissions` (
 --
 
 INSERT INTO `permissions` (`id`, `permission`, `description`, `created_at`, `updated_at`) VALUES
-(1, 'Users', 'Through this permission you can manage users ..!!', NULL, NULL),
-(2, 'Appointments', 'xyz', NULL, NULL);
+(1, 'Appointments', NULL, NULL, NULL),
+(2, 'Branches', NULL, NULL, NULL),
+(3, 'Doctors', NULL, NULL, NULL),
+(4, 'Laboratories', NULL, NULL, NULL),
+(5, 'Patients', NULL, NULL, NULL),
+(6, 'Reports', NULL, NULL, NULL),
+(7, 'Pharmacy', NULL, NULL, NULL),
+(8, 'Manage Roles', NULL, NULL, NULL),
+(9, 'Settings', NULL, NULL, NULL),
+(10, 'Specialization', NULL, NULL, NULL),
+(11, 'Users', NULL, NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -378,6 +399,14 @@ CREATE TABLE `roles` (
   `created_at` timestamp NULL DEFAULT NULL,
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `roles`
+--
+
+INSERT INTO `roles` (`id`, `role`, `desc`, `permission_id`, `created_at`, `updated_at`) VALUES
+(1, 'admin', NULL, '[\"1\", \"2\", \"3\",\"4\",\"5\",\"6\",\"7\", \"8\", \"9\", \"10\", \"11\"]', NULL, NULL),
+(2, 'doctor', 'Can see patients\' and own information and appointments.', '[\"3\",\"4\",\"5\",\"6\"]', NULL, NULL);
 
 -- --------------------------------------------------------
 
@@ -416,6 +445,13 @@ CREATE TABLE `templates` (
   `updated_at` timestamp NULL DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
 
+--
+-- Dumping data for table `templates`
+--
+
+INSERT INTO `templates` (`id`, `title`, `body`, `created_at`, `updated_at`) VALUES
+(1, 'HMS', 'Hello Mr.[[Full_name]] It is to inform you that today is your appoinment at [[Location]] . Please visit us soon ..!!\r\nContact us in any emergency \r\nEmail :- [[Email]]\r\nPhone No :- [[Phone]]', NULL, NULL);
+
 -- --------------------------------------------------------
 
 --
@@ -425,17 +461,18 @@ CREATE TABLE `templates` (
 CREATE TABLE `users` (
   `id` bigint(20) UNSIGNED NOT NULL,
   `first_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `username` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `last_name` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
+  `username` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `email` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
+  `mobile` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `age` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `blood_group` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `gender` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
   `profile_img` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `address` text COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `password` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL,
-  `role` varchar(255) COLLATE utf8mb4_unicode_ci NOT NULL DEFAULT 'user',
+  `role` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT 'user',
+  `role_id` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `degree` varchar(255) COLLATE utf8mb4_unicode_ci DEFAULT NULL,
   `specialization_id` int(10) UNSIGNED DEFAULT NULL,
   `hospital_id` int(10) UNSIGNED DEFAULT NULL,
@@ -453,14 +490,11 @@ CREATE TABLE `users` (
 -- Dumping data for table `users`
 --
 
-INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `mobile`, `age`, `blood_group`, `gender`, `profile_img`, `address`, `password`, `role`, `degree`, `specialization_id`, `hospital_id`, `doctor_id`, `from`, `to`, `visiting_charge`, `status`, `created_at`, `updated_at`, `remember_token`) VALUES
-(1, 'fadmin', 'ladmin', 'admin', 'admin@admin.com', '03333333333', NULL, NULL, 'male', 'admin.png', 'admin address', '$2y$10$3raFQCMv44QykcQxLNAdpurvooyI4xa.Usa//Hi.Sbv4RgdP9/.WK', 'admin', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(2, 'doctor', '1', 'doctor 1', 'doctor1@gmail.com', '0333333333', NULL, NULL, 'male', NULL, 'Doctor 1 address', '$2y$10$mEB7SvOl2rfK.TABARhJNOsZjhYHiYiM0RodW7ppRP1WUo1ZEFGda', 'doctor', 'MBBS', 1, 1, NULL, '05:59', '20:02', '1500', NULL, '2021-11-21 04:56:34', '2021-11-21 05:17:05', NULL),
-(5, 'zuhaib', 'soomro', 'zuhaib soomro', 'zuhaibsoomro25@gmail.com', '03333333333', '21', 'a+', 'male', NULL, 'sdfgsdfg', '$2y$10$L.tZv.uEsJIC8D7vx2zrqOTP483y27a3giz14Gl6BoHejQdrI6AVC', 'user', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-23 08:25:00', '2021-11-23 08:25:00', NULL),
-(6, 'staff', '1', 'staff 1', 'staff1@gmail.com', '01111111111', '20', NULL, 'male', NULL, 'staff 1 address', '$2y$10$VrOeLn45XuCjknau2YtNOu38TqXvFe/KRVWdtfwixY28h63fDzKq2', 'pharmacist', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-25 00:22:14', '2021-11-25 01:11:20', NULL),
-(9, 'staff', '2', 'staff 2', 'staff2@gmail.com', '02222222222', '24', NULL, 'male', '1637821181_staff_2_C:\\xampp\\tmp\\php88C3.tmp', 'staff 2 address', '$2y$10$WsXpgA78eCnLJtCELavCF./TuGAbzfPhXa3/YEevrmGmUgvBKP/BW', 'laboratarian', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-25 01:19:41', '2021-11-25 01:19:41', NULL),
-(10, 'staff', '3', 'staff 3', 'staff3@gmail.com', '033333333333', '23', NULL, 'male', NULL, 'staff 3 address', '$2y$10$0q3RNo8ge7WWodFylDr8m.63NEKm4IFqfK6Z4b5NEbr.6dD/9V85u', 'receptionist', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-25 01:25:58', '2021-11-25 01:25:58', NULL),
-(11, 'staff', '4', 'staff 4', 'staff4@gmail.com', '044444444444', '40', NULL, 'other', NULL, 'staff 4 address', '$2y$10$ffZOUT2c1NRcDltaOmRMrujwNhAYQ9Gnzgk73sjnzeLzgLyMNaXdK', 'nurse', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-11-25 01:26:35', '2021-11-25 01:26:35', NULL);
+INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `mobile`, `age`, `blood_group`, `gender`, `profile_img`, `address`, `password`, `role`, `role_id`, `degree`, `specialization_id`, `hospital_id`, `doctor_id`, `from`, `to`, `visiting_charge`, `status`, `created_at`, `updated_at`, `remember_token`) VALUES
+(1, 'fadmin', 'ladmin', 'admin', 'admin@admin.com', '03333333333', '21', 'o+', 'male', 'admin.png', 'admin address', '$2y$10$wWGt1oTB//u3O/xvE6II3OAjLXy34PPbU1fBJZ0KxesvqmXBgA5Y2', 'admin', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-17 06:59:07', NULL),
+(2, 'doctor', '1', 'doctor 1', 'doctor1@gmail.com', '0333333333', NULL, NULL, 'male', '1639648398_doctor_1.C:\\xampp\\tmp\\phpAC18.tmp', 'doctor 1 address', '$2y$10$u9h39J748gmmQ3AowdQs1.DpOIVKL7bUY0M5j9uD8KvPKcIzXAACi', 'doctor', '2', 'MBBS', 1, 1, NULL, '20:57', '06:56', '1000', NULL, '2021-12-16 04:53:18', '2021-12-16 05:17:10', NULL),
+(3, 'user', 'user 1', 'user user 1', 'user1@gmail.com', '01111111111', '21', 'o+', 'male', NULL, 'user 1 address', '$2y$10$DdDQTp3ol3vddypUMD.4U.KotcplsvqUm3jkVeG83LWtkB.Y8DvyC', 'user', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-16 05:20:34', '2021-12-16 06:37:13', NULL),
+(4, 'doctor', '2', 'doctor 2', 'doctor2@gmail.com', '02222222222', NULL, NULL, 'male', '1639648398_doctor_1.C:\\xampp\\tmp\\phpAC18.tmp', 'doctor 2 address', '$2y$10$u9h39J748gmmQ3AowdQs1.DpOIVKL7bUY0M5j9uD8KvPKcIzXAACi', 'doctor', '2', 'MBBS 2', 2, 2, NULL, '20:57', '06:56', '2000', NULL, '2021-12-16 04:53:18', '2021-12-16 05:17:10', NULL);
 
 --
 -- Indexes for dumped tables
@@ -597,7 +631,7 @@ ALTER TABLE `users`
 -- AUTO_INCREMENT for table `appointments`
 --
 ALTER TABLE `appointments`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `carts`
@@ -615,7 +649,7 @@ ALTER TABLE `categories`
 -- AUTO_INCREMENT for table `closing_days`
 --
 ALTER TABLE `closing_days`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 
 --
 -- AUTO_INCREMENT for table `departments`
@@ -627,7 +661,7 @@ ALTER TABLE `departments`
 -- AUTO_INCREMENT for table `doctors`
 --
 ALTER TABLE `doctors`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
 
 --
 -- AUTO_INCREMENT for table `failed_jobs`
@@ -663,19 +697,19 @@ ALTER TABLE `medicines`
 -- AUTO_INCREMENT for table `migrations`
 --
 ALTER TABLE `migrations`
-  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=24;
+  MODIFY `id` int(10) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=29;
 
 --
 -- AUTO_INCREMENT for table `patients`
 --
 ALTER TABLE `patients`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `permissions`
 --
 ALTER TABLE `permissions`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
 -- AUTO_INCREMENT for table `pharmacists`
@@ -699,13 +733,13 @@ ALTER TABLE `specializations`
 -- AUTO_INCREMENT for table `templates`
 --
 ALTER TABLE `templates`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 
 --
 -- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
-  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
+  MODIFY `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
 COMMIT;
 
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;

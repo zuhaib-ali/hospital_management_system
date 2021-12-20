@@ -73,9 +73,39 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.print.min.js') }}"></script>
 <script src="{{ asset('plugins/datatables-buttons/js/buttons.colVis.min.js') }}"></script>
 
+<script src="https://cdn.jsdelivr.net/npm/select2@4.1.0-rc.0/dist/js/select2.min.js"></script>
 <script>
+    // In your Javascript (external .js resource or <script> tag)
+    $(document).ready(function() {
+        $('.doctor_appointment').select2();
+    });
+
     $(document).ready(function() {
         $('#divs').fadeOut(4000);
+    });
+
+    $(document).on("change","select.role_change",function(){
+        let role = $(this).children("option:selected").text();
+        $(document).find("input.role_name").val(role);
+    });
+
+
+    $(document).on('change', '.doctor_appointment', function(){
+        $.ajax({
+            url: "{{ url('/get-doctor-for-appointment') }}"+"/"+$(this).val(),
+            type:"GET",
+            success:function(data){
+                $('#appointment-doctor-name').text(data.username);
+                $('#appointment-doctor-email').text(data.email);
+                $('#appointment-doctor-mobile').text(data.mobile);
+                $('#appointment-specialization-name').text(data.specialization);
+                $('#appointment-specialization-description').text(data.description);
+                $('#appointment-branch-name').text(data.branch);
+                $('#appointment-branch-email').text(data.branch_email);
+                $('#appointment-branch-address').text(data.branch_address);
+                $("#doctor-appointment").prop("hidden", false);
+            }
+        });
     });
 </script>
 
@@ -109,6 +139,12 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 @if (Session::has('staff_info'))
     <script>
         toastr.success("{{ Session::get('staff_info') }}");
+    </script>
+@endif
+
+@if (Session::has('user_deleted'))
+    <script>
+        toastr.success("{{ Session::get('user_deleted') }}");
     </script>
 @endif
 
@@ -160,7 +196,6 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             toastr.error("{{ $error }}");
         </script>
     @endforeach
-
 @endif
 
 </body>

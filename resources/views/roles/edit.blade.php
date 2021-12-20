@@ -1,6 +1,6 @@
 @php
-    use Illuminate\Support\Facades\DB;
-    $permissions = DB::table('permissions')->get();
+use Illuminate\Support\Facades\DB;
+$permissions = DB::table('permissions')->get();
 @endphp
 @include('include.header')
 
@@ -70,13 +70,12 @@
                             </div>
 
                             <div class="form-group col-4 form-check form-switch">
-                                @php
-                                    foreach (json_decode($role->permission_id, true) as $perm) {
-                                        $selected = $perm == $permission->id ? 'checked' : '';
-                                    }
-                                @endphp
                                 <input type="checkbox" value="{{ $permission->id }}" name="permission_id[]"
-                                    class="form-check-input" {{ $selected }}>
+                                    class="form-check-input" @php
+                                        foreach (json_decode($role->permission_id, true) as $key => $value) {
+                                            if($permission->id == $value){ echo "checked"; }
+                                        }
+                                    @endphp>
                             </div>
                         </div>
                     @endforeach

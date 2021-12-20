@@ -15,9 +15,37 @@ use DB;
 class SendMailController extends Controller
 {
 
+    // Send Mail
+    public function sendMail($sender_id, $doctor_id){
+        $sender = User::find($sender_id);
+        $doctor = User::find($doctor_id);
+        $location = Location::find($doctor->hospital_id);
+        $tmp = Template::where('id','1')->first();
+
+        if($tmp->body  == true){
+            $tmp->body = str_replace("[[Full_name]]",$sender->username, $tmp->body);
+            $tmp->body = str_replace("[[Location]]",$location->name.", ".$location->address, $tmp->body);
+            $tmp->body = str_replace("[[Email]]",$location->email, $tmp->body);
+            $tmp->body = str_replace("[[Phone]]",$location->phone, $tmp->body);
+
+            // MAIL CONTENT 
+            $mail_content = [
+                'title'     => $tmp->title,
+                'body'      => $tmp->body,
+                'hospital'  => $location->name,
+            ];
+            
+            // Mailing to...
+            $mail_sent = Mail::to($sender->email)->send(new SendMail($mail_content));
+            return back()->with('mail_sent', "The mail sent to ".$sender->email);
+            
+        }else{
+            return back()->with('failed','E-Mail Template does not exists');
+        }        
+    }
+
     // Add template.
-    public function addTmp(Request $request)
-    {
+    public function addTmp(Request $request){
         if($request->editor1 || $request->title != NULL)
         {
             $tmp  =   DB::table('templates')->where('id','1')->update(['body'=>$request->editor1]);

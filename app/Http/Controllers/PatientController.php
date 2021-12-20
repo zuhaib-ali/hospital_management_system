@@ -43,79 +43,91 @@ class PatientController extends Controller
             $image_name = time()."-".str_replace(" ", "-", $request->patient_name)."-".$request->image;    
         }
         
-            $patient_registered = Patient::create([
-                "user_id" => $request->user_id,
-                "name" => $request->patient_name,
-                "email" => $request->e_mail,
-                "address" => $request->address,
-                "phone" => $request->phone,
-                "sex" => $request->sex,
-                "age" => $request->age,
-                "blood_group" => $request->blood_group,
-                "doctor_id" => $request->doctor,
-                "status" => "new",
-                "image" => $image_name,
-            ]);
+        $patient_registered = Patient::create([
+            "user_id" => $request->user_id,
+            "name" => $request->patient_name,
+            "email" => $request->e_mail,
+            "address" => $request->address,
+            "phone" => $request->phone,
+            "sex" => $request->sex,
+            "age" => $request->age,
+            "blood_group" => $request->blood_group,
+            "doctor_id" => $request->doctor,
+            "status" => "new",
+            "image" => $image_name,
+        ]);
 
-            if($patient_registered == true){
-                if($request->image != null){
-                    $request->image->move(public_path("patients_images"), $image_name);
-                }
-                return redirect()->route("patients")->with("patient_registered", "Pateint ".$request->patient_name." is registered.");
+        if($patient_registered == true){
+            if($request->image != null){
+                $request->image->move(public_path("patients_images"), $image_name);
             }
+            return redirect()->route("patients")->with("patient_registered", "Pateint ".$request->patient_name." is registered.");
+        }
     }
 
 
     // ADMIT
     public function admit(Request $request){
-            $patient_id = $request->post('patient_id');
-            $patient_admitted = DB::table('patients')->where('id',$patient_id)->update(['status'=>'admitted']);
-            if($patient_admitted == true){
-                return redirect()->back()->with("patient_admitted", "Patient admitted");
-            }            
+        $patient_id = $request->post('patient_id');
+        $patient_admitted = DB::table('patients')->where('id',$patient_id)->update(['status'=>'admitted']);
+        if($patient_admitted == true){
+            return redirect()->back()->with("patient_admitted", "Patient admitted");
+        }            
     }
 
     // Admitted Patients
     public function admitted(Request $request){
-            return view("components.patients.admitted", [
-                "patients"=>Patient::where("status", "admitted")->get(),
-                "doctors"=>User::where("role", "doctor")->get()
-            ]);  
+        return view("components.patients.admitted", [
+            "patients"=>Patient::where("status", "admitted")->get(),
+            "doctors"=>User::where("role", "doctor")->get()
+        ]);  
     }
 
     // DISCHARGE
     public function discharge(Request $request){
-            $patient = Patient::find($request->patient_id);
-            $patient->status = "discharged";
-            $patient_discharged = $patient->update();
-            if($patient_discharged == true){
-                return redirect()->back()->with("patient_discharged", "Successfully discharged ".$patient->name);    
-            }
+        $patient = Patient::find($request->patient_id);
+        $patient->status = "discharged";
+        $patient_discharged = $patient->update();
+        if($patient_discharged == true){
+            return redirect()->back()->with("patient_discharged", "Successfully discharged ".$patient->name);    
+        }
     }
 
     // Discharged Patients
     public function discharged(Request $request){
-            return view("components.patients.discharged", [
-                "patients"=>Patient::where("status", "discharged")->get(),
-                "doctors"=>User::where("role", "doctor")->get()
-            ]);  
+        return view("components.patients.discharged", [
+            "patients"=>Patient::where("status", "discharged")->get(),
+            "doctors"=>User::where("role", "doctor")->get()
+        ]);  
     }
 
     // UPDATE
     public function update(Request $request){
-            $patient = Patient::find($request->patient_id);
-            $patient->name = $request->name;
-            $patient->email = $request->email;
-            $patient->sex = $request->gender;
-            $patient->blood_group = $request->blood_group;
-            $patient->doctor_id = $request->doctor;
-            $patient->phone = $request->phone;
-            $patient->address = $request->address;
-            $patient->age = $request->age;
-            $patient_updated = $patient->update();
-            if($patient_updated == true){
-                return redirect()->back()->with("patient_updated", "Patient name ".$request->patient_name." details updated");
-            }
+        $request->validate([
+            'name' => 'required',
+            'email' => 'required',
+            'sex' => 'required',
+            'blood_group' => 'required',
+            'doctor' => 'required',
+            'phone' => 'required',
+            'address' => 'required',
+            'age' => 'required',
+        ]);
+
+        
+        $patient = Patient::find($request->patient_id);
+        $patient->name = $request->name;
+        $patient->email = $request->email;
+        $patient->sex = $request->sex;
+        $patient->blood_group = $request->blood_group;
+        $patient->doctor_id = $request->doctor;
+        $patient->phone = $request->phone;
+        $patient->address = $request->address;
+        $patient->age = $request->age;
+        $patient_updated = $patient->update();
+        if($patient_updated == true){
+            return redirect()->back()->with("patient_updated", "Patient name ".$request->patient_name." details updated");
+        }
     }
 
     // DELETE

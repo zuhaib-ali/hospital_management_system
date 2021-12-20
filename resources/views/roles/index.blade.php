@@ -41,10 +41,8 @@ use Illuminate\Support\Facades\DB;
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="{{ route('index') }}" class="text-red"> <i
-                                    class="fas fa-home"></i> Home</a></li>
-                        <li class="breadcrumb-item active text-blue"> <a href="#"><i class="">
-                                    Roles</i></a> </li>
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}" class="text-red"> <i class="fas fa-home"></i> Home</a></li>
+                        <li class="breadcrumb-item active text-blue"> <a href="#"><i class="">Roles</i></a> </li>
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->

@@ -15,10 +15,9 @@
                 </div><!-- /.col -->
                 <div class="col-sm-6">
                     <ol class="breadcrumb float-sm-right">
-                        <li class="breadcrumb-item"><a href="">Home</a></li>
-                        <li class="breadcrumb-item"><a href="">Roles</a> </li>
+                        <li class="breadcrumb-item"><a href="{{ route('index') }}">Home</a></li>
+                        <li class="breadcrumb-item"><a href="{{ url('/roles') }}">Roles</a> </li>
                         <li class="breadcrumb-item ative">Add Role</li>
-                        {{-- <li class="breadcrumb-item ative">Edit</li> --}}
                     </ol>
                 </div><!-- /.col -->
             </div><!-- /.row -->
@@ -57,16 +56,14 @@
 
                     <br>
 
-                    <label for="email">Permissions</label> <br>
+                    <h2>Permissions</h2>
                     @foreach ($permissions as $permission)
                         <div class="form-row">
                             <div class="form-group col-8">
-                                {{-- <br> --}}
                                 <label> {{ $permission->permission }} </label>
                             </div>
 
                             <div class="form-group col-4 form-check form-switch">
-                                 {{-- <br> --}}
                                 <input type="checkbox" value="{{ $permission->id }}" name="permission_id[]" class="form-check-input">
                             </div>
                         </div>

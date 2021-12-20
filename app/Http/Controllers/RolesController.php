@@ -11,7 +11,7 @@ class RolesController extends Controller
 {
     public function index()
     {
-        $roles = DB::table('roles')->get();
+        $roles = DB::table('roles')->where("role", "!=", "admin")->get();
         return view("roles.index", compact("roles"));
     }
 
@@ -52,8 +52,7 @@ class RolesController extends Controller
         }
     }
 
-    public function edit($id)
-    {
+    public function edit($id){
         $role_id = Crypt::decrypt($id);
         // echo $role_id;
         $role = DB::table('roles')->where("id",$role_id)->first();

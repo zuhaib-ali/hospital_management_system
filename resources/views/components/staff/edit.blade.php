@@ -72,7 +72,7 @@
                     <div class="form-row">
                         <div class="form-group col-4">
                             <label for="age">Age</label>
-                            <input type="text" value="{{ $staff->age}}" name="age" class="form-control" required>
+                            <input type="text" value="{{ $staff->age }}" name="age" class="form-control">
                         </div>
 
                         <div class="form-group col-4">
@@ -86,11 +86,15 @@
 
                         <div class="form-group col-4">
                             <label for="age">Role</label>
-                            <select name="role" id="" class="form-control">
-                                <option value="pharmacist" @if($staff->role == "pharmacist") selected @endif>Pharmacist</option>
-                                <option value="laboratarian" @if($staff->role == "laboratarian") selected @endif>Laboratarian</option>
-                                <option value="receptionist" @if($staff->role == "receptionist") selected @endif>Receptionist</option>
-                                <option value="nurse" @if($staff->role == "nurse") selected @endif>Nurse</option>
+                            <select name="role_id" id="" class="form-control role_change">
+                                <option value="" hidden disabled selected>-- Roles --</option>
+                                @foreach ($roles as $role)
+                                    <option value="{{ $role->id }}"  @if ($role->id == $staff->role_id)
+                                        selected
+                                    @endif > {{ $role->role }} </option>
+                                @endforeach
+                            <input type="hidden" name="role" class="role_name" value="{{ $staff->role }}">
+
                             </select>
                         </div>
                     </div>
@@ -98,7 +102,8 @@
                 </div>
 
                 <!-- footer -->
-                <div class="card-footer d-flex justify-content-end">
+                <div class="card-footer d-flex">
+
                     <div class="form-group">
                         <input type="hidden" value="{{ $staff->id }}" name="id">
                         <input type="submit" class="btn btn-info" value="Update">

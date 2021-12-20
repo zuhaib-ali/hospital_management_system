@@ -8,7 +8,7 @@
 		<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
 
 		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
-		
+
 		<!-- <link rel="stylesheet" href="css/style.css"> -->
 		<link rel="stylesheet" href="{{ asset('css/login_css/style.css') }}">
 
@@ -43,34 +43,34 @@
 
 				<!-- CENTER -->
 				<center>
-				@if(session('success')) 
+				@if(session('success'))
 					<div class="alert alert-success alert-dismissible col-lg-6" id="divs">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						{{session('success')}}
 					</div>
 					@endif
 
-					@if(session('login_failed')) 
+					@if(session('login_failed'))
 					<div class="alert alert-danger alert-dismissible col-lg-6" id="divs">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						{{session('login_failed')}}
 					</div>
 					@endif
 
-					@if(session('null')) 
+					@if(session('null'))
 					<div class="alert alert-primary alert-dismissible col-lg-6" id="divs">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						{{session('null')}}
 					</div>
 					@endif
 
-					@if(session('logout')) 
+					@if(session('logout'))
 					<div class="alert alert-warning alert-dismissible col-lg-6" id="divs">
 						<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
 						{{session('logout')}}
 					</div>
 					@endif
-				</center>	
+				</center>
 				<!-- /CENTER -->
 
 				<!-- <div class="row justify-content-center">
@@ -93,7 +93,7 @@
 								<div class="form-group">
 									<input type="email" name='email' class="form-control" placeholder="E-Mail"  style="border:2px solid white;">
 								</div>
-								
+
 								<!-- Password field -->
 								<div class="form-group">
 									<input id="password-field" name='password' type="password" class="form-control" placeholder="Password"   style="border:2px solid white;">
@@ -123,7 +123,7 @@
 							<div class="social d-flex text-center">
 								<a href="#" class="px-2 py-2 mr-md-1 rounded" style="background-color:#4267B2; color:white;"><span class="ion-logo-facebook mr-2"></span><span class="iconify" data-icon="ion-logo-facebook" data-inline="false"></span> Facebook</a>
 								<a href="#" class="px-2 py-2 ml-md-1 rounded" style="background-color:#1DA1F2; color:white;"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-							</div> 
+							</div>
 							<br>
 
 							<p class="w-100 text-center">&mdash; Don't Have An Account &mdash;</p>
@@ -147,7 +147,7 @@
 
 		<script>
 			$(document).ready(function(){
-				
+
 				$('#divs').fadeOut(4000);
 			});
 		</script>

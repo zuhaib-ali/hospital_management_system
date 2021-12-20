@@ -23,18 +23,6 @@
       </div><!-- /.container-fluid -->
     </div>
     <!-- /.content-header -->
-    
-    @if(Session::has('updated'))
-      <br>
-      <div class="text-center text-bold m-3 py-2" style="background-color:lightgreen; color:blue;" id="message">
-        {{ Session::get('updated') }}
-      </div>
-    @elseif(Session::has('failed'))
-      <br>
-      <div class="text-center text-bold m-3 py-2" style="background-color:lightred; color:white;" id="message">
-        {{ Session::get('failed') }}
-      </div>
-    @endif
 
     <div class="card mx-3">
       <div class="card-header text-center text-bold" style="background-color:#3f51b5; color:red;">
@@ -72,13 +60,6 @@
               <label for="mobile"><span style="color:red;">*</span>Mobile</label>
               <input type="text" class="form-control" name="mobile" placeholder="MOBILE" value="{{ $user->mobile }}" required>
             </div>
-
-            <!-- CNIC -->
-            <div class="form-group col-4">
-              <label for="cnic"><span style="color:red;">*</span>CNIC</label>
-              <input type="text" class="form-control" name="cnic" placeholder="CNIC" value="{{ $user->cnic }}" required>
-            </div>
-
           </div>
 
           <!-- ADDRESS -->
@@ -100,12 +81,6 @@
             <div class="form-group col-3">
               <label for="blood_group"><span style="color:red;">*</span>Blood Group</label>
               <input type="text" name="blood_group" class="form-control" placeholder="BLOOD GROUP" value="{{ $user->blood_group }}" required>
-            </div>
-
-            <!-- DATE OF BIRTH -->
-            <div class="form-group col-3">
-              <label for="dob"><span style="color:red;">*</span>Date of Birth</label>
-              <input type="text" name="dob" class="form-control" placeholder="DATE OF BIRTH" value="{{ $user->dob }}" required>
             </div>
 
             <!-- GENDER -->
@@ -133,8 +108,3 @@
   </div>
 
 @include('include.footer')
-<script>
-  $(document).ready(function(){
-    $('#message').fadeOut(3000);
-  });
-</script>

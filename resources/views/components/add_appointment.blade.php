@@ -11,12 +11,12 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1 class="m-0">Add Appointment</h1>
+            <h1 class="m-0"></h1>
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
               <li class="breadcrumb-item"><a href="/">Home</a></li>
-              <li class="breadcrumb-item active">Add Appointment</li>
+              <li class="breadcrumb-item active">Take Appointment</li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -25,7 +25,7 @@
 
 
     <main class="m-3">
-      <card class="card">
+      {{-- <card class="card">
         <card class="card-body">
           <div class="row">
 
@@ -226,9 +226,84 @@
                 </div>
           </div>
         </div>
-      </div>
+      </div> --}}
       <!--Modal End-->
       
+
+      <div class="card">
+        <div class="card-header"><center><h4>Take Appointment</h4></center></div>
+        <div class="card-body">
+          <center>
+            <form action="{{ route('send-appointment') }}" method="POST"  style="width:400px;">
+              @csrf
+              <!-- Select doctor -->
+              <div class="form-group">
+                <select class="doctor_appointment form-control" name="doctor" required>
+                  <option value="" hidden disabled selected>-- Search Doctor --</option>
+                  @foreach($doctors as $doctor)
+                    <option value="{{ $doctor->id }}">{{ $doctor->username }}</option>
+                  @endforeach
+                </select>
+              </div>
+
+              <!-- Submit appointment -->
+              <div class="form-group">
+                <input type="submit" class="btn btn-success" value="SUBMIT">
+              </div>
+            </form>
+          </center>
+
+          <div class="contaier" id="doctor-appointment" hidden>
+            <div class="row">
+              <div class="col-12"><img src="" alt="" id="appointment-doctor-image"></div>
+            </div>
+
+            <div class="row">
+              <div class="col-4">
+
+                <!-- Basic Information -->
+                <h4>Basic Information</h4>
+                <dl class="data_list">
+                  <dt>Doctor Name</dt>
+                  <dd id="appointment-doctor-name"></dd>
+
+                  <dt>E-Mail</dt>
+                  <dd id="appointment-doctor-email"></dd>
+
+                  <dt>Phone</dt>
+                  <dd id="appointment-doctor-mobile"></dd>                  
+                </dl>
+              </div>
+
+              <!-- Specialization  -->
+              <div class="col-4">
+                <h4>Specialization</h4>
+                <dl class="data_list">
+                  <dt>Specialization</dt>
+                  <dd id="appointment-specialization-name"></dd>
+                  <dt>Description</dt>
+                  <dd id="appointment-specialization-description"></dd>
+                </dl>
+              </div>
+
+              <!-- Branch Information -->
+              <div class="col-4">
+                <h4>Branch</h4>
+                <dl class="data_list">
+                  <dt>City</dt>
+                  <dd id="appointment-branch-name"></dd>
+
+                  <dt>E-Mail</dt>
+                  <dd id="appointment-branch-email"></dd>
+
+                  <dt>Address</dt>
+                  <dd id="appointment-branch-address"></dd>
+                </dl>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </main>
   </div>
   <!-- /.content-wrapper -->
@@ -236,110 +311,11 @@
   <!-- SWEET ALERT -->
   <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
-
-
   <!-- JQUERY -->
   <script src="{{ asset('js/jquery.min.js') }}"></script>
 @include('include.footer')
 
 <script>
-  $(document).ready(function(){
-    // ON VALUE CHANGE
-    $('#location').change(function() {
-        // GETTING LOCATION VALUE SELECTED
-        var location_value = $(this).val();
-        var lName = $('#location option:selected').text();
-        
-        // SHOW MODAL 
-        if(location_value !== "NONE"){ //Compare it and if true
-            $('#lName').val(lName);
-            $('#myModal').modal("show"); //Open Modal
-        }
-    });
-    $("#select_checkup_type").click(function(){
-      // var checkup_type_value = ; // GETTING CHECKUP TYPE.
-      $("#appointment_type").val($("#checkup_type").val()); // INSERTING CHECKUP TYPE IN FORM HIDDEN FIELD.
-      var note = $("#note").val(); // GETTING NOTE VALUE.
-      $("#form_note").val(note); // INSERTING NOTE VALUE IN FORM HIDDEN FIELD.
-    });
-
-    var dr;
-    var doctor_id;
-    var doctor_name;
-    var spcl_id;
-    var speciality;
-    var detail;
-
-    var location_name;
-    var location_id;
-
-    var hospital_id;
-
-    $("#doctor").change(function(){
-      var hospital;
-      if(dr = $("#doctor").val()){
-        // DOCTORS
-        @foreach($doctors as $doctor)
-          if({{ $doctor->id }} == dr){
-            // DOCTOR ID
-            hospital = {{ $doctor->hospital_id }};
-            doctor_name = "{{ $doctor->first_name }} {{$doctor->last_name}}";
-            spcl_id  =     "{{ $doctor->specialist }}";
-            doctor_id = "{{ $doctor->id }}";
-
-          }
-        @endforeach
-      }
-
-      if(spcl_id != null){
-        @foreach($specializations as $speciality)
-          if({{ $speciality->id }} == spcl_id){
-            speciality = "{{ $speciality->name }}";
-            detail     = "{{ $speciality->description }}";
-          }
-        @endforeach
-      }
-
-      if(hospital !== undefined || hospital !== null){
-        @foreach($locations as $location)
-          if({{ $location->id }} == hospital){
-            location_name = "{{ $location->name }}";
-            location_id = "{{ $location->id }}";
-          }
-        @endforeach
-      }
-
-      if(location_id == hospital){
-        $("#detail").hide();
-        $("#location_of_doctor").val(location_name); // HOSPITAL NAME
-        $("#doctor-name").val(doctor_name); // DOCTOR NAME
-        $("#speciality").val(speciality); // DOCTOR speciality 
-        $("#patient_name_in_doctor_appointment").val($("#patient_name_in_doctor_modal").val()); // PATIENT NAME
-
-        $("#abt").click(function(){
-          $("#detail").toggle();
-          $("#detail").val(detail);
-        });
-        $("#select_by_doctor_modal").modal("show");  // MODAL SHOWING
-      }
-      
-    });
-
-
-    $("#drAdd").click(function(){
-      $("#doctor_id").val(doctor_id); // DOCTOR ID
-        $("#hospital_id").val(location_id); // HOSPITAL ID
-        $("#location_id").val(location_id); // location_id
-      $("#type").val(speciality);
-      var note = $("#note_in_doctor_modal").val();
-      $("#drNote").val(note);
-
-    });
-    
-  });
-</script>
-
-  
 
 <!-- SWEET ALERT -->
 <script>
@@ -360,3 +336,4 @@
     });
   @endif
 </script>
+

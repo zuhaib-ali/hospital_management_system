@@ -41,18 +41,25 @@ use Illuminate\Support\Facades\Session;
 */
 
 
-Route::group(["middleware" => "user_auth"], function(){
+Route::group(["middleware" => "user_auth"], function () {
 
-    Route::get("/", function(){
+    // Index
+    Route::get("/", function () {
         return view("admin.index", [
-            "patients" => Patient::where("status", "admitted")->get(),
-            "locations" => Location::all(),
-            "appointments" => Appointment::all(),
-            "doctors" => User::where("role", "doctor")->get(),
-            "specializations" => Specialization::all(),
-            "carts" => Cart::all(),
+            "appointments" => Appointment::all()->count(),
+            "doctors" => User::where("role", "doctor")->get()->count(),
+            "locations" => Location::all()->count(),
+            "patients" => Patient::where("status", "admitted")->get()->count(),
+            "specializations" => Specialization::all()->count(),
+            "carts" => Cart::all()->count(),
+            "users" => User::where('role', "!=", 'admin')->get()->count(),
         ]);
     })->name("index");
+
+    // '''''''''''''''''''''''   APPOINTMENTS   '''''''''''''''''''''''
+    Route::get('appoointments', [AppointmentController::class, 'show'])->name('appointments');
+    Route::post('appointments/send-appointment', [AppointmentController::class, 'sendAppointment'])->name("send-appointment");
+    Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
 
     // '''''''''''''''''''''''   SPECIALIZATIONS   '''''''''''''''''''''''
     Route::get('specializations', [SpecializationController::class, 'index'])->name('specializations');
@@ -66,12 +73,11 @@ Route::group(["middleware" => "user_auth"], function(){
     Route::post('/doctors/update_doctor', [DoctorController::class, "update"])->name('update_doctor');
     Route::get('/doctors/view', [DoctorController::class, 'viewDoctor'])->name('view_doctor');
     Route::get("doctors/delete", [DoctorController::class, "delete"])->name("delete_doctor");
-
-
+    Route::get('/get-doctor-for-appointment/{id}', [DoctorController::class, "getDoctor"]);
 
     // ''''''''''''''''''''''  PATIENTS   '''''''''''''''''''''''
-    Route::post("admin/patients/add-new-patients", [PatientController::class, "add"])->name("add_new_patient");
-    Route::post("admin/patients/update-patient", [PatientController::class, "update"])->name("update_patient");
+    Route::post("patients/add-new-patients", [PatientController::class, "add"])->name("add_new_patient");
+    Route::post("patients/update-patient", [PatientController::class, "update"])->name("update_patient");
     Route::get("patients", [PatientController::class, "index"])->name("patients");
     Route::get("patients/delete-patient", [PatientController::class, "delete"])->name("delete_patient");
     Route::get("patients/admit-patients", [PatientController::class, "admit"])->name("admit_patient");
@@ -83,58 +89,80 @@ Route::group(["middleware" => "user_auth"], function(){
 
 
     // *************************************** Staff *********************************
-    Route::get('/aUsers', function(){
+    Route::get('/aUsers', function () {
         $staffs = DB::table('users')
             ->where('role', '!=', 'admin')
-            ->where("role", "!=", "user")
-            ->where("role", "!=", "doctor")
             ->get();
+        $roles = DB::table('roles')->get();
 
         return view('components.users')->with([
-            'staffs'=>$staffs
+            'staffs' => $staffs,
+            'roles' =>  $roles
         ]);
     })->name('aUsers');
 
-    Route::post('/add-staff', [UserController::class, 'addStaff'] )->name('add-staff');
+    Route::post('/add-staff', [UserController::class, 'addStaff'])->name('add-staff');
     Route::get("/edit-staff", [UserController::class, 'editStaff'])->name('edit-staff');
     Route::post("/edit-staff/update", [UserController::class, 'updateStaff'])->name('update-staff');
-    Route::get("/delete-staff", [UserController::class, 'deleteStaff'])->name('delete-staff');
+    Route::get("/delete-staff/{id}", [UserController::class, 'deleteStaff'])->name('delete-staff');
 
 
 
 
     // **************************** LOCATION ****************************
     // Admin Locations
-    Route::get('/locations', function(){
+    Route::get('/locations', function () {
         $locations = DB::table('locations')->get();
-        return view('components.locations')->with(['locations'=>$locations]);
+        return view('components.locations')->with(['locations' => $locations]);
     })->name('locations');
 
-    Route::post('addLocation', [components::class, 'addLocation'] );
-    Route::get('delLocation/{id}', [components::class, 'delLocation'] );
-    Route::get('viewLocation', [components::class, 'viewLocation'] );
+    Route::post('addLocation', [components::class, 'addLocation']);
+    Route::get('delLocation/{id}', [components::class, 'delLocation']);
+    Route::get('viewLocation', [components::class, 'viewLocation']);
     Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');
     Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
 
-    //Permissions
-    Route::get("/permissions",[PermissionController::class,"index"]);
-    Route::get("/delete_prm/{id}",[PermissionController::class,"delete"]);
-    Route::get("/edit_prm/{id}",[PermissionController::class,"edit"]);
-    Route::post("/add_permission",[PermissionController::class,"store"]);
-    Route::post("/update_prm",[PermissionController::class,"update"]);
+    // **************************** SEND MAIL ****************************
+    Route::get('appointments/send-mail/{sender}/{doctor}', [SendMailController::class, 'sendMail']);
+    // Route::get('appointments/send_mail/{}', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
+    Route::post('/addLetterTemplate', [SendMailController::class, 'addLetterTemplate'])->name('addLetterTemplate');
+    Route::post('addTmp', [SendMailController::class, 'addTmp']);
+    Route::get('/emailLetter', function () {
+        if (Session::has('user')) {
+            $tmp = DB::table('templates')->where('id', '1')->first();
+            return view('components.emailLetter')->with(['data' => $tmp]);
+        } else {
+            return redirect()->route('login');
+        }
+    })->name('emailLetter');
+    
+    // Add mail template view.
+    Route::get('addLetter', function () {
+        $tmp = DB::table('templates')->get();
+        return view('mail.add_letter')->with([
+            'data'  =>  $tmp
+        ]);
+    })->name('addLetter');
+
+    // *************************************** Permissions *********************************
+    Route::get("/permissions", [PermissionController::class, "index"]);
+    Route::get("/delete_prm/{id}", [PermissionController::class, "delete"]);
+    Route::get("/edit_prm/{id}", [PermissionController::class, "edit"]);
+    Route::post("/add_permission", [PermissionController::class, "store"]);
+    Route::post("/update_prm", [PermissionController::class, "update"]);
 
 
-    //Roles
-    Route::get("/roles",[RolesController::class,"index"]);
-    Route::get("/add_role_form",[RolesController::class,"create"]);
-    Route::post("/add_role",[RolesController::class,"store"]);
-    Route::get("/edit_role/{id}",[RolesController::class,"edit"]);
-    Route::post("/update_role",[RolesController::class,"update"]);
-    Route::get("/delete_role/{id}",[RolesController::class,"delete"]);
+    // *************************************** Roles *********************************
+    Route::get("/roles", [RolesController::class, "index"]);
+    Route::get("/add_role_form", [RolesController::class, "create"]);
+    Route::post("/add_role", [RolesController::class, "store"]);
+    Route::get("/edit_role/{id}", [RolesController::class, "edit"]);
+    Route::post("/update_role", [RolesController::class, "update"]);
+    Route::get("/delete_role/{id}", [RolesController::class, "delete"]);
 
 
     //User Locations
-    Route::get('/uLocations', function(){
+    Route::get('/uLocations', function () {
         $locations = DB::table('locations')->get();
         $carts          = DB::table('carts')->get();
         return view('components.uLocations')->with(
@@ -147,80 +175,41 @@ Route::group(["middleware" => "user_auth"], function(){
 });
 
 Route::get('/addPatients', function () {
-    if(Session::has('user')){
+    if (Session::has('user')) {
         return view('components.addPatients');
-    }else{
+    } else {
         return redirect()->route('login');
     }
 })->name('addPatients');
 
 // login view
-Route::get('/login', function(){
-    if(Session::has('user')){
+Route::get('/login', function () {
+    if (Session::has('user')) {
         return back();
-    }else{
+    } else {
         return view('login');
     }
 })->name('login');
 
 // Signup view
-Route::get('/sign_up', function(){
-    if(Session::has('user')){
+Route::get('/sign_up', function () {
+    if (Session::has('user')) {
         return back();
     }
     return view('sign_up');
 })->name('signUp');
 
-Route::get('/users', function(){
-    if(Session::has('user')){
-        $users = DB::table('users')->where('role','user')->get();
-        return view('components.users2')->with(['users'=>$users]);
-    }else{
+Route::get('/users', function () {
+    if (Session::has('user')) {
+        $users = DB::table('users')->where('role', 'user')->get();
+        return view('components.users2')->with(['users' => $users]);
+    } else {
         return redirect()->route('login');
     }
 })->name('users');
 
-Route::get('/emailLetter', function(){
-    if(Session::has('user')){
-        $tmp = DB::table('templates')->where('id','1')->first();
-        return view('components.emailLetter')->with(['data'=>$tmp]);
-    }else{
-        return redirect()->route('login');
-    }
-})->name('emailLetter');
 
-Route::get('addLetter', function(){
-    $tmp = DB::table('templates')->get();
-    return view('components.mail.Add_letter')->with([
-        'data'  =>  $tmp
-    ]);
-})->name('addLetter');
-
-// APPOITMENTS VIEW
-Route::get('/appointments', function(){
-    if(Session::has('user')){
-        $carts          = DB::table('carts')->get();
-        $appointments = Appointment::all();
-        return view('components.appointments')->with([
-            'appointments'  =>  $appointments,
-            'locations'     =>  Location::all(),
-            'carts'         =>  $carts
-        ]);
-    }else{
-        return redirect()->route('login');
-    }
-})->name('appointments');
-
-
-
-// ALL PATIENTS
-// Route::get('/all_patients', function(){
-//     $patients = DB::table('patients')->get();
-//     return view('components.allPatients', ['patients'=>$patients]);
-// })->name('all_patients');
-
-
-Route::get('uLabs', function(){
+Route::get('uLabs', function () {
     $carts          = DB::table('carts')->get();
     $labs           = DB::table('labs')->get();
 
@@ -233,13 +222,9 @@ Route::get('uLabs', function(){
 });
 
 
-Route::get('/pateints/data', function(){
-    return json_encode(array('data'=>User::where("role", "user")->get()));
+Route::get('/pateints/data', function () {
+    return json_encode(array('data' => User::where("role", "user")->get()));
 })->name("patients_data");
-
-
-
-
 
 // EDIT PROFILE GET
 Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
@@ -248,22 +233,7 @@ Route::get('/edit_profile', [UserController::class, 'editProfile'])->name('edit_
 Route::post('/update_profile', [UserController::class, 'updateProfile'])->name('update_profile');
 
 
-
-// APPOITMENT FIX VIEW
-Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
-
-//Dr Appointment
-Route::post('/drAppointment', [AppointmentController::class, 'drAppointment'])->name('drAppointment');
-
-
-// SUBMIT APPOINTMENT
-Route::post('/submit_appointment', [AppointmentController::class, 'submitAppointment'])->name('submit_appointment');
-
-Route::post('appointments/appointment_by_doctor',[AppointmentController::class, 'drAppointment'])->name("appointment_by_doctor");
-
-Route::get('getPatientData/{id}',[AppointmentController::class,'getPatientData']);
-
-
+Route::get('getPatientData/{id}', [AppointmentController::class, 'getPatientData']);
 
 // ERASE APPOINTMENT
 Route::get('appointments/trash_appointment', [AppointmentController::class, 'trash'])->name('trash_appointment');
@@ -298,22 +268,14 @@ Route::post("admin/departments/add-new-department", [DepartmentController::class
 
 
 // Add Patient
-Route::post('addPatient', [components::class, 'addPatient'] );
+Route::post('addPatient', [components::class, 'addPatient']);
 
 // Discharge Patient
-Route::get('dicharge/{id}', [components::class, 'dicharge'] );
+Route::get('dicharge/{id}', [components::class, 'dicharge']);
 
 //Erase Patient Record
-Route::get('erase/{id}', [components::class, 'erase'] );
+Route::get('erase/{id}', [components::class, 'erase']);
 
-
-// **************************** SEND MAIL ****************************
-// SEND MAIL
-Route::get('appointments/send_mail', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
-
-Route::post('/addLetterTemplate', [SendMailController::class, 'addLetterTemplate'])->name('addLetterTemplate');
-
-Route::post('addTmp', [SendMailController::class, 'addTmp']);
 
 // **************************** PHARMACY ****************************
 // CATEGORIES
@@ -376,5 +338,5 @@ Route::get('settings', [components::class, 'settings']);
 
 
 //Reports
-Route::get('trackingSheet',[reportController::class,'trackingSheet'])->name('trackingSheet');
-Route::get('printSheet/{pid}/{lid}/{aid}',[reportController::class,'printSheet']);
+Route::get('trackingSheet', [reportController::class, 'trackingSheet'])->name('trackingSheet');
+Route::get('printSheet/{pid}/{lid}/{aid}', [reportController::class, 'printSheet']);
