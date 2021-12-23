@@ -12,6 +12,13 @@ use App\Models\Specialization;
 use DB;
 
 class AppointmentController extends Controller{
+    public function showAppointmentsToAdmin(){
+        return view('admin.appointments.index', [
+            'appointments' => Appointment::all(),
+            'users' => User::all(),
+        ]);    
+    }
+
     public function show(){
         return view('components.appointments', [
             'appointments' => Appointment::all(),
@@ -19,11 +26,10 @@ class AppointmentController extends Controller{
         ]);
     }
 
-
     // APPOINTMENT VIEW
     public function appointmentView(Request $request){
         $patient = $request->session()->get('user');
-        return view('components.add_appointment', [
+        return view('users.appointment', [
             'doctors' =>  User::where("role", "doctor")->get(),
         ]);
     }

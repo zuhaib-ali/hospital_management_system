@@ -3,57 +3,76 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Location;
+
 
 class LocationController extends Controller
 {
-    // ADDING LOCATION
-    public function addLocation(Request $request){
-        $request->validate([
-            'city'=>['required'],
-        ]);
-        
-        // INSERTING LOCATION TO DATABASE
-        $location = Location::create([
-            'city' => $request->city
-        ]);
-        
-        // IF LOCATION INSERTED RETURN BACK
-        if($location == true){
-            return back();
-        }
 
-        
+    public function index(){
+        return view('admin.branches.index', [
+            'branches' => Location::all()
+        ]);
     }
 
+    public function create(Request $request){
+        $request->validate([
+            'hospital' => 'required',
+            'city' => 'required',
+            'zip_code' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'contact' => 'required'
+        ]);
+
+        DB::table('locations')->insert([
+            'hospital' => $request->hospital,
+            'city' => $request->city,
+            'zip_code' => $request->zip_code,
+            'address' => $request->address,
+            'email' => $request->email,
+            'contact' => $request->contact
+        ]);
+        return back()->with('success', $request->hospital." branch created.");
+    }
+
+    public function delete(Request $request){
+        Location::find($request->id)->delete();
+        return back()->with('failed', "Branch deleted successfully");
+    }
+
+
     // EDIT LOCATION VIEW
-    public function editLocation(Request $request){
-        if($request->session()->has('user')){
-            $location = Location::find($request->id);
-            return view('components.edit_location', ['location'=>$location]);
-        }else{
-            return redirect()->route('login');
-        }
+    public function edit(Request $request){
+        $location = Location::find($request->id);
+        return view('admin.branches.edit', ['location'=>$location]);
     }
 
     // UPDATE LOCATION
-    public function updateLocation(Request $request){
+    public function update(Request $request){
         $request->validate([
-            "location_name" => "required",
-            "e_mail" => "required|email",
-            "address" => "required",
-            "phone" => "required",
+            'hospital' => 'required',
+            'city' => 'required',
+            'zip_code' => 'required',
+            'address' => 'required',
+            'email' => 'required',
+            'contact' => 'required'
         ]);
+        
         // RETRIEVING LOCATION BY ID.
-        $location = Location::find($request->location_id);
+        $location = Location::find($request->id);
         
         // ASSINGING NEW VALUE.
-        $location->name = $request->location_name;
-        $location->email = $request->e_mail;
+        $location->hospital = $request->hospital;
+        $location->city = $request->city;
+        $location->zip_code = $request->zip_code;
         $location->address = $request->address;
-        $location->phone = $request->phone;
+        $location->email = $request->email;
+        $location->contact = $request->contact;
+
         if($location->update()){
-            return redirect()->route('locations')->with('update_message', "Location Updated Successfully!");
+            return redirect()->route('admin.branches')->with('update_message', "Location updated successfully!");
         }
     }
 }

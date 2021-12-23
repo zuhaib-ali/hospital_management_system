@@ -116,45 +116,49 @@
                         @endif
 
                         @if($per == 5)
-                            <!-- PATIENTS -->
-                            <li class="nav-item">
-                                <a class="nav-link @if (Request::url() == Request::is('all_patients') || Request::url() == Request::is('admitted_patients') || Request::url() == Request::is('dpatients')) active @endif()">
-                                    <i class="ft-users"></i>
-                                    <p>
-                                        Patients
-                                        <i class="fas fa-angle-left right"></i>
-                                    </p>
-                                </a>
+                            @if(Session::get('user')->role == 'admin')
+                                <!-- PATIENTS -->
+                                <li class="nav-item">
+                                    <a class="nav-link @if (Request::url() == Request::is('all_patients') || Request::url() == Request::is('admitted_patients') || Request::url() == Request::is('dpatients')) active @endif()">
+                                        <i class="ft-users"></i>
+                                        <p>
+                                            Patients
+                                            <i class="fas fa-angle-left right"></i>
+                                        </p>
+                                    </a>
 
-                                <ul class="nav nav-treeview">
-                                    <!-- ALL PATIENTS -->
-                                    <li class="nav-item">
-                                        <a href="{{ route('patients') }}" class="nav-link @if (Request::url() == Request::is('patients')) active @endif()"
-                                            class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>All Patients</p>
-                                        </a>
-                                    </li>
+                                    <ul class="nav nav-treeview">
+                                        <!-- ALL PATIENTS -->
+                                        <li class="nav-item">
+                                            <a href="{{ route('patients') }}" class="nav-link @if (Request::url() == Request::is('patients')) active @endif()"
+                                                class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>All Patients</p>
+                                            </a>
+                                        </li>
 
-                                    <!-- ADMITTED PATIENTS -->
-                                    <li class="nav-item">
-                                        <a href="{{ route('admitted_patients') }}" class="nav-link @if (Request::url() == Request::is('admit-patients')) active @endif()"
-                                            class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Admitted</p>
-                                        </a>
-                                    </li>
+                                        <!-- ADMITTED PATIENTS -->
+                                        <li class="nav-item">
+                                            <a href="{{ route('admitted_patients') }}" class="nav-link @if (Request::url() == Request::is('admit-patients')) active @endif()"
+                                                class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Admitted</p>
+                                            </a>
+                                        </li>
 
-                                    <!-- DISCHARGED PATIENTS -->
-                                    <li class="nav-item">
-                                        <a href="{{ route('discharged_patients') }}"
-                                            class="nav-link @if (Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
-                                            <i class="far fa-circle nav-icon"></i>
-                                            <p>Discharged</p>
-                                        </a>
-                                    </li>   
-                                </ul>
-                            </li>
+                                        <!-- DISCHARGED PATIENTS -->
+                                        <li class="nav-item">
+                                            <a href="{{ route('discharged_patients') }}"
+                                                class="nav-link @if (Request::url() == Request::is('dpatients')) active @endif()" class="nav-link">
+                                                <i class="far fa-circle nav-icon"></i>
+                                                <p>Discharged</p>
+                                            </a>
+                                        </li>   
+                                    </ul>
+                                </li>
+                            @elseif(Session::get('user')->role == 'doctor')
+
+                            @endif
                         @endif
 
                         @if($per == 6)

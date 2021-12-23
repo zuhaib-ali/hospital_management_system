@@ -15,10 +15,12 @@ class CreateLocationsTable extends Migration
     {
         Schema::create('locations', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->string('email')->unique();
+            $table->string('hospital');
+            $table->string('city');
+            $table->string('zip_code');
             $table->string('address');
-            $table->string('phone');
+            $table->string('email');
+            $table->string('contact');
             $table->string('logo')->nullable();
         });
     }

@@ -14,15 +14,11 @@ class PatientController extends Controller
 {
     // INDEX
     public function index(Request $request){
-        if($request->session()->has("user") == true){
-            return view("components.patients.patients", [
-                "users" => User::where("role", 'user')->get(),
-                "patients" => Patient::all(),
-                "doctors" => User::where("role", "doctor")->get(),
-            ]);
-        }else{
-            return redirect()->route("login");
-        }
+        return view("admin.patients.index", [
+            "users" => User::where("role", 'user')->get(),
+            "patients" => Patient::all(),
+            "doctors" => User::where("role", "doctor")->get(),
+        ]);
     }
 
     // ADD
@@ -95,7 +91,7 @@ class PatientController extends Controller
 
     // Discharged Patients
     public function discharged(Request $request){
-        return view("components.patients.discharged", [
+        return view("admin.patients.discharged", [
             "patients"=>Patient::where("status", "discharged")->get(),
             "doctors"=>User::where("role", "doctor")->get()
         ]);  
@@ -106,7 +102,7 @@ class PatientController extends Controller
         $request->validate([
             'name' => 'required',
             'email' => 'required',
-            'sex' => 'required',
+            'gender' => 'required',
             'blood_group' => 'required',
             'doctor' => 'required',
             'phone' => 'required',
@@ -118,7 +114,7 @@ class PatientController extends Controller
         $patient = Patient::find($request->patient_id);
         $patient->name = $request->name;
         $patient->email = $request->email;
-        $patient->sex = $request->sex;
+        $patient->sex = $request->gender;
         $patient->blood_group = $request->blood_group;
         $patient->doctor_id = $request->doctor;
         $patient->phone = $request->phone;
@@ -132,31 +128,40 @@ class PatientController extends Controller
 
     // DELETE
     public function delete(Request $request){
-            $patient = Patient::find($request->patient_id);
-            $patient_name = $patient->name;
-            if($patient->delete() == true){
-                return redirect()->route("patients")->with("patient_deleted", "Patient ".$patient_name." deleted.");
-            }
+        $patient = Patient::find($request->patient_id);
+        $patient_name = $patient->name;
+        if($patient->delete() == true){
+            return redirect()->route("patients")->with("patient_deleted", "Patient ".$patient_name." deleted.");
+        }
     }
 
     // SHOW
     public function show(Request $request){
         // return empty(Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->first());
-            return view("components.patients.patient_information", [
-                'patient' => Patient::leftJoin("users", "patients.doctor_id", "=", "users.id")
-                    ->leftJoin("locations", "users.hospital_id", "=", "locations.id")
-                    ->where("patients.id", $request->patient_id)
-                    ->select(
-                        "patients.*",
-                        "users.id as doctor_id",
-                        "users.username as doctor",
-                        "users.hospital_id",
-                        "locations.name as hospital_name"
-                    )
-                    ->first(),
-                "hospitals" => Location::all(),
-                'doctors' => User::where("role", "doctor")->get(),
-                'appointments' => Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->get(),
-            ]);
+        return view("admin.patients.patient_information", [
+            'patient' => Patient::leftJoin("users", "patients.doctor_id", "=", "users.id")
+                ->leftJoin("locations", "users.hospital_id", "=", "locations.id")
+                ->where("patients.id", $request->patient_id)
+                ->select(
+                    "patients.*",
+                    "users.id as doctor_id",
+                    "users.username as doctor",
+                    "users.hospital_id",
+                    "locations.hospital as hospital",
+                    "locations.city as branch_city"
+                )
+                ->first(),
+            "hospitals" => Location::all(),
+            'doctors' => User::where("role", "doctor")->get(),
+            // 'appointments' => Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->get(),
+        ]);
+    }
+
+    public function showPatientsToDoctor(Request $request){
+        return view("admin.doctors.index", [
+            "users" => User::where("role", 'user')->get(),
+            "patients" => Patient::where('doctor_id', $request->session()->get('user')->id)->get(),
+            "doctors" => User::where("role", "doctor")->get(),
+        ]);
     }
 }

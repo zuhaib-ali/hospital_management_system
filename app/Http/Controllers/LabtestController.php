@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use App\Models\Patient;
 use App\Models\Doctor;
 use App\Models\Labtest;
@@ -14,7 +15,7 @@ class LabtestController extends Controller
 
 
     public function labReports(){
-        return view("components.lab.lab_reports", [
+        return view("admin.lab.lab_reports", [
             "patients"      => Patient::all(),
             "doctors"       => Doctor::all(),
             "lab_tests"     => Labtest::all(),
@@ -42,41 +43,39 @@ class LabtestController extends Controller
         ]);
 
         if($labtest_created == true){
-            return redirect()->route("lab_reports")->with("labtest_created", "Lab test created successfully for patient ". $request->patient);
+            return redirect()->route("admin.lab_reports")->with("labtest_created", "Lab test created successfully for patient ". $request->patient);
         }
     }
 
 
     public function addLab(Request $request)
     {
-        $labCreated = Lab::create([
+        $request->validate([
+            'name' => 'required',
+            'hospital' => 'required',
+            'from' => 'required',
+            'to' => 'required',
+        ]);
+        DB::table('labs')->insert([
             "name"=>$request->name,
-            "hospital"=>$request->hospital,
+            "location_id"=>$request->hospital,
             "from"=>$request->from,
             "to"=>$request->to,
         ]);
 
-        if($labCreated == true){
-            return redirect()->route("lab_reports")->with("labCreated", "Lab Created Successfully For Hospital ". $request->hospital);
-        }
+        return redirect()->route("admin.lab_reports")->with("labCreated", "Lab Created Successfully For Hospital ". $request->hospital);
     }
 
     // DELETE
     public function delete(Request $request){
-        
-        if($request->session()->has("user") == true){
-            if(Labtest::find($request->lab_test_id)->delete() == true){
-                return redirect()->route("lab_reports")->with("lab_test_deleted", "Lab test deleted successfully from database.");
-            }
-        }else{
-            return redirect()->route("login");
+        if(Labtest::find($request->lab_test_id)->delete() == true){
+            return redirect()->route("admin.lab_reports")->with("lab_test_deleted", "Lab test deleted successfully from database.");
         }
-        
     }
 
     // EIDT
     public function edit(Request $request){
-        return view("components.lab.edit", [
+        return view("admin.lab.edit", [
             "lab_test"=>Labtest::find($request->lab_test_id),
             "doctors"=>Doctor::all(),
             "patients"=>Patient::all(),
@@ -85,21 +84,16 @@ class LabtestController extends Controller
 
     // UPDATE
     public function update(Request $request){
-        if($request->session()->has("user") === true){
-            $lab_test = Labtest::find($request->lab_test_id);
+        $lab_test = Labtest::find($request->lab_test_id);
 
-            $lab_test->date = $request->date;
-            $lab_test->patient = $request->patient;
-            $lab_test->refered_by_doctor = $request->refered_by_doctor;
-            $lab_test->template = $request->template;
-            $lab_test->report = $request->report;
-            // IF UPDATED
-            if($lab_test->update() == true){
-                return redirect()->route("lab_reports")->with("lab_test_updated", $request->patient." lab test updated.");
-            }
-        }else{
-            return redirect()->route("login");
+        $lab_test->date = $request->date;
+        $lab_test->patient = $request->patient;
+        $lab_test->refered_by_doctor = $request->refered_by_doctor;
+        $lab_test->template = $request->template;
+        $lab_test->report = $request->report;
+        // IF UPDATED
+        if($lab_test->update() == true){
+            return redirect()->route("admin.lab_reports")->with("lab_test_updated", $request->patient." lab test updated.");
         }
-        
     }
 }

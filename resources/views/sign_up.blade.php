@@ -64,7 +64,7 @@
 		      			<a><h3 class="mb-4 text-center" id="signup_title">SIGN UP</h3></a>
 
 				<!-- SIGNUP FORM -->
-		      	<form method="POST" action="{{ route('sign_up') }}" class="signup-form" enctype='multipart/form-data' autocomplete="off">
+		      	<form method="POST" action="{{ route('register') }}" class="signup-form" enctype='multipart/form-data' autocomplete="off">
 					@csrf
                     <!-- First Name -->
 		      		<div class="form-group">
@@ -132,7 +132,7 @@
                     <!-- Address -->
 		      		<div class="form-group">
 						<strong>Address</strong>
-						<textarea name="address" id="address" cols="50" rows="10" class='form-control'></textarea>
+						<textarea name="address" id="address" cols="30" rows="3" class='form-control'></textarea>
 						@error('address')
 							<p class="error_message"> {{ $message }}</p>
 						@enderror
@@ -186,7 +186,7 @@
 	          </form>
 
 					<p class="w-100 text-center">&mdash; If You've Already Account &mdash;</p>
-					<a href="{{ route('login') }}" class="btn btn-light col-lg-12">login</a>
+					<a href="{{ route('login_view') }}" class="btn btn-light col-lg-12">login</a>
 		      		</div>
 				</div>
 			</div>

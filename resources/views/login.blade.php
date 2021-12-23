@@ -128,7 +128,7 @@
 
 							<p class="w-100 text-center">&mdash; Don't Have An Account &mdash;</p>
 
-							<a href="{{ route('sign_up') }}" class="btn btn-light col-lg-12">
+							<a href="{{ route('signup') }}" class="btn btn-light col-lg-12">
 								Signup
 							</a>
 						</div>

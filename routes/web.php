@@ -41,11 +41,10 @@ use Illuminate\Support\Facades\Session;
 */
 
 
-Route::group(["middleware" => "user_auth"], function () {
+Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function () {
 
-    // Index
-    Route::get("/", function () {
-        return view("admin.index", [
+    Route::get('/', function(){
+        return view('admin.index', [
             "appointments" => Appointment::all()->count(),
             "doctors" => User::where("role", "doctor")->get()->count(),
             "locations" => Location::all()->count(),
@@ -54,38 +53,48 @@ Route::group(["middleware" => "user_auth"], function () {
             "carts" => Cart::all()->count(),
             "users" => User::where('role', "!=", 'admin')->get()->count(),
         ]);
-    })->name("index");
+    })->name('admin.index');
 
     // '''''''''''''''''''''''   APPOINTMENTS   '''''''''''''''''''''''
-    Route::get('appoointments', [AppointmentController::class, 'show'])->name('appointments');
-    Route::post('appointments/send-appointment', [AppointmentController::class, 'sendAppointment'])->name("send-appointment");
-    Route::get('/fix_appointment', [AppointmentController::class, 'appointmentView'])->name('fix_appointment');
+    Route::get('/appointments', [AppointmentController::class, 'showAppointmentsToAdmin'])->name('admin.appointments');
+
+    // '''''''''''''''''''''''   BRANCHES   '''''''''''''''''''''''
+    Route::get('/branches', [LocationController::class, 'index'])->name('admin.branches');
+    Route::get('/{id}/edit_location', [LocationController::class, 'edit'])->name('admin.edit_location');
+    Route::post('/update_location', [LocationController::class, 'update'])->name('admin.update_location');
+    Route::post('/branch/create', [LocationController::class, 'create'])->name("admin.create_branch");
+    Route::get('/branch/delete', [LocationController::class, 'delete'])->name("admin.delete_branch");
 
     // '''''''''''''''''''''''   SPECIALIZATIONS   '''''''''''''''''''''''
-    Route::get('specializations', [SpecializationController::class, 'index'])->name('specializations');
-    Route::post('add_specialization', [SpecializationController::class, 'addSpecialization'])->name('add_specialization');
-    Route::post('specialization/update', [SpecializationController::class, 'addSpecialization'])->name('update-specialization');
-    Route::get('specialization/delete', [SpecializationController::class, 'delete'])->name('delete-specialization');
+    Route::get('/specializations', [SpecializationController::class, 'index'])->name('admin.specializations');
+    Route::post('/add_specialization', [SpecializationController::class, 'create'])->name('admin.add_specialization');
+    Route::post('/specialization/update', [SpecializationController::class, 'addSpecialization'])->name('admin.update-specialization');
+    Route::get('/specialization/delete', [SpecializationController::class, 'delete'])->name('admin.delete-specialization');
+
 
     // '''''''''''''''''''''''   DOCTORS   '''''''''''''''''''''''
-    Route::get('/doctors', [DoctorController::class, 'index'])->name('doctors');
-    Route::post('/doctors/add', [DoctorController::class, 'addDoctor'])->name('add_doctor');
-    Route::post('/doctors/update_doctor', [DoctorController::class, "update"])->name('update_doctor');
-    Route::get('/doctors/view', [DoctorController::class, 'viewDoctor'])->name('view_doctor');
-    Route::get("doctors/delete", [DoctorController::class, "delete"])->name("delete_doctor");
+    Route::get('/doctors', [DoctorController::class, 'index'])->name('admin.doctors');
+    Route::post('/doctors/add', [DoctorController::class, 'addDoctor'])->name('admin.add_doctor');
+    Route::post('/doctors/update_doctor', [DoctorController::class, "update"])->name('admin.update_doctor');
+    Route::get('/doctors/view', [DoctorController::class, 'viewDoctor'])->name('admin.view_doctor');
+    Route::get("/doctor/delete", [DoctorController::class, "delete"])->name("admin.delete_doctor");
     Route::get('/get-doctor-for-appointment/{id}', [DoctorController::class, "getDoctor"]);
 
     // ''''''''''''''''''''''  PATIENTS   '''''''''''''''''''''''
-    Route::post("patients/add-new-patients", [PatientController::class, "add"])->name("add_new_patient");
-    Route::post("patients/update-patient", [PatientController::class, "update"])->name("update_patient");
-    Route::get("patients", [PatientController::class, "index"])->name("patients");
-    Route::get("patients/delete-patient", [PatientController::class, "delete"])->name("delete_patient");
-    Route::get("patients/admit-patients", [PatientController::class, "admit"])->name("admit_patient");
-    Route::get("patients/admitted-patients", [PatientController::class, "admitted"])->name('admitted_patients');
-    Route::get("patients/discharge-patient", [PatientController::class, "discharge"])->name('discharge_patient');
-    Route::get("patients/discharged-patients", [PatientController::class, "discharged"])->name('discharged_patients');
-    Route::get("patients/patinet-information", [PatientController::class, "show"])->name('patinet_information');
+    Route::get("/patients", [PatientController::class, "index"])->name("admin.patients");
+    Route::post("/patients/add-new-patients", [PatientController::class, "add"])->name("admin.add_new_patient");
+    Route::post("/patients/update-patient", [PatientController::class, "update"])->name("admin.update_patient");
+    Route::get("patients/delete-patient", [PatientController::class, "delete"])->name("admin.delete_patient");
+    Route::get("patients/admit-patients", [PatientController::class, "admit"])->name("admin.admit_patient");
+    Route::get("patients/admitted-patients", [PatientController::class, "admitted"])->name('admin.admitted_patients');
+    Route::get("patients/discharge-patient", [PatientController::class, "discharge"])->name('admin.discharge_patient');
+    Route::get("patients/discharged-patients", [PatientController::class, "discharged"])->name('admin.discharged_patients');
+    Route::get("patients/patient-information", [PatientController::class, "show"])->name('admin.patinet_information');
+    Route::get("/show/patients", [PatientController::class, "showPatientsToDoctor"])->name('admin.show_patients_to_doctor');
 
+    // LAB REPORTS VIEW
+    route::get('lab-test/lab-reports', [LabtestController::class, "labReports"])->name("admin.lab_reports");    
+    route::post('admin/lab-test/addLab', [LabtestController::class, "addLab"])->name("admin.addLab");
 
 
     // *************************************** Staff *********************************
@@ -95,84 +104,121 @@ Route::group(["middleware" => "user_auth"], function () {
             ->get();
         $roles = DB::table('roles')->get();
 
-        return view('components.users')->with([
+        return view('admin.users.index')->with([
             'staffs' => $staffs,
             'roles' =>  $roles
         ]);
-    })->name('aUsers');
+    })->name('admin.users');
+    Route::post('/add-staff', [UserController::class, 'addStaff'])->name('admin.add-staff');
+    Route::get("/edit-staff", [UserController::class, 'editStaff'])->name('admin.edit-staff');
+    Route::post("/edit-staff/update", [UserController::class, 'updateStaff'])->name('admin.update-staff');
+    Route::get("/delete-staff/{id}", [UserController::class, 'deleteStaff'])->name('admin.delete-staff');
 
-    Route::post('/add-staff', [UserController::class, 'addStaff'])->name('add-staff');
-    Route::get("/edit-staff", [UserController::class, 'editStaff'])->name('edit-staff');
-    Route::post("/edit-staff/update", [UserController::class, 'updateStaff'])->name('update-staff');
-    Route::get("/delete-staff/{id}", [UserController::class, 'deleteStaff'])->name('delete-staff');
+    // Index
+    // Route::get("/", function () {
+    //     return view("admin.index", [
+    //         "appointments" => Appointment::all()->count(),
+    //         "doctors" => User::where("role", "doctor")->get()->count(),
+    //         "locations" => Location::all()->count(),
+    //         "patients" => Patient::where("status", "admitted")->get()->count(),
+    //         "specializations" => Specialization::all()->count(),
+    //         "carts" => Cart::all()->count(),
+    //         "users" => User::where('role', "!=", 'admin')->get()->count(),
+    //     ]);
+    // })->name("index");
 
+    // // **************************** LOCATION ****************************
+    // // Admin Locations
+    // Route::get('/locations', function () {
+    //     $locations = DB::table('locations')->get();
+    //     return view('components.locations')->with(['locations' => $locations]);
+    // })->name('locations');
 
+    // Route::post('addLocation', [components::class, 'addLocation']);
+    // Route::get('delLocation/{id}', [components::class, 'delLocation']);
+    // Route::get('viewLocation', [components::class, 'viewLocation']);
+    // Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');
+    // Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
 
-
-    // **************************** LOCATION ****************************
-    // Admin Locations
-    Route::get('/locations', function () {
-        $locations = DB::table('locations')->get();
-        return view('components.locations')->with(['locations' => $locations]);
-    })->name('locations');
-
-    Route::post('addLocation', [components::class, 'addLocation']);
-    Route::get('delLocation/{id}', [components::class, 'delLocation']);
-    Route::get('viewLocation', [components::class, 'viewLocation']);
-    Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');
-    Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
-
-    // **************************** SEND MAIL ****************************
-    Route::get('appointments/send-mail/{sender}/{doctor}', [SendMailController::class, 'sendMail']);
-    // Route::get('appointments/send_mail/{}', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
-    Route::post('/addLetterTemplate', [SendMailController::class, 'addLetterTemplate'])->name('addLetterTemplate');
-    Route::post('addTmp', [SendMailController::class, 'addTmp']);
-    Route::get('/emailLetter', function () {
-        if (Session::has('user')) {
-            $tmp = DB::table('templates')->where('id', '1')->first();
-            return view('components.emailLetter')->with(['data' => $tmp]);
-        } else {
-            return redirect()->route('login');
-        }
-    })->name('emailLetter');
+    // // **************************** SEND MAIL ****************************
+    // Route::get('appointments/send-mail/{sender}/{doctor}', [SendMailController::class, 'sendMail']);
+    // // Route::get('appointments/send_mail/{}', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
+    // Route::post('/addLetterTemplate', [SendMailController::class, 'addLetterTemplate'])->name('addLetterTemplate');
+    // Route::post('addTmp', [SendMailController::class, 'addTmp']);
+    // Route::get('/emailLetter', function () {
+    //     if (Session::has('user')) {
+    //         $tmp = DB::table('templates')->where('id', '1')->first();
+    //         return view('components.emailLetter')->with(['data' => $tmp]);
+    //     } else {
+    //         return redirect()->route('login');
+    //     }
+    // })->name('emailLetter');
     
-    // Add mail template view.
-    Route::get('addLetter', function () {
-        $tmp = DB::table('templates')->get();
-        return view('mail.add_letter')->with([
-            'data'  =>  $tmp
-        ]);
-    })->name('addLetter');
+    // // Add mail template view.
+    // Route::get('addLetter', function () {
+    //     $tmp = DB::table('templates')->get();
+    //     return view('mail.add_letter')->with([
+    //         'data'  =>  $tmp
+    //     ]);
+    // })->name('addLetter');
 
-    // *************************************** Permissions *********************************
-    Route::get("/permissions", [PermissionController::class, "index"]);
-    Route::get("/delete_prm/{id}", [PermissionController::class, "delete"]);
-    Route::get("/edit_prm/{id}", [PermissionController::class, "edit"]);
-    Route::post("/add_permission", [PermissionController::class, "store"]);
-    Route::post("/update_prm", [PermissionController::class, "update"]);
-
-
-    // *************************************** Roles *********************************
-    Route::get("/roles", [RolesController::class, "index"]);
-    Route::get("/add_role_form", [RolesController::class, "create"]);
-    Route::post("/add_role", [RolesController::class, "store"]);
-    Route::get("/edit_role/{id}", [RolesController::class, "edit"]);
-    Route::post("/update_role", [RolesController::class, "update"]);
-    Route::get("/delete_role/{id}", [RolesController::class, "delete"]);
+    // // *************************************** Permissions *********************************
+    // Route::get("/permissions", [PermissionController::class, "index"]);
+    // Route::get("/delete_prm/{id}", [PermissionController::class, "delete"]);
+    // Route::get("/edit_prm/{id}", [PermissionController::class, "edit"]);
+    // Route::post("/add_permission", [PermissionController::class, "store"]);
+    // Route::post("/update_prm", [PermissionController::class, "update"]);
 
 
-    //User Locations
-    Route::get('/uLocations', function () {
-        $locations = DB::table('locations')->get();
-        $carts          = DB::table('carts')->get();
-        return view('components.uLocations')->with(
-            [
-                'locations' =>  $locations,
-                'carts'     =>  $carts
-            ]
-        );
-    })->name('uLocations');
+    // // *************************************** Roles *********************************
+    // Route::get("/roles", [RolesController::class, "index"]);
+    // Route::get("/add_role_form", [RolesController::class, "create"]);
+    // Route::post("/add_role", [RolesController::class, "store"]);
+    // Route::get("/edit_role/{id}", [RolesController::class, "edit"]);
+    // Route::post("/update_role", [RolesController::class, "update"]);
+    // Route::get("/delete_role/{id}", [RolesController::class, "delete"]);
+
+
+    // //User Locations
+    // Route::get('/uLocations', function () {
+    //     $locations = DB::table('locations')->get();
+    //     $carts          = DB::table('carts')->get();
+    //     return view('components.uLocations')->with(
+    //         [
+    //             'locations' =>  $locations,
+    //             'carts'     =>  $carts
+    //         ]
+    //     );
+    // })->name('uLocations');
 });
+
+
+// Doctors routing
+Route::group(['prefix'=>'doctor', 'middleware'=>'doctorAuth'], function(){
+    Route::get('/', function(){
+        return view('doctors.index', [
+            'patients' => Patient::where('doctor_id', session()->get('user')->id)->get()->count(),
+            'appointments' => Appointment::where('doctor_id', session()->get('user')->id)->get()->count(),
+        ]);
+    })->name('doctor');
+    Route::get('/appointments', [DoctorController::class, 'appointments'])->name('doctor.appointments');
+    Route::get('/patients', [DoctorController::class, 'doctors'])->name('doctor.patients');
+});
+
+
+
+// User Routing
+Route::group(['prefix'=>'user', 'middleware'=>'userAuth'], function(){
+    Route::get('/', function(){
+        return view('users.index',[
+            'doctors' => User::where('role', 'doctor')->get(),
+        ]);
+    })->name('user.index');
+
+    Route::post('appointments/send-appointment', [AppointmentController::class, 'sendAppointment'])->name("user.send-appointment");
+    Route::get('/appointment', [AppointmentController::class, 'appointmentView'])->name('user.appointment');
+});
+
 
 Route::get('/addPatients', function () {
     if (Session::has('user')) {
@@ -182,22 +228,6 @@ Route::get('/addPatients', function () {
     }
 })->name('addPatients');
 
-// login view
-Route::get('/login', function () {
-    if (Session::has('user')) {
-        return back();
-    } else {
-        return view('login');
-    }
-})->name('login');
-
-// Signup view
-Route::get('/sign_up', function () {
-    if (Session::has('user')) {
-        return back();
-    }
-    return view('sign_up');
-})->name('signUp');
 
 Route::get('/users', function () {
     if (Session::has('user')) {
@@ -251,11 +281,30 @@ Route::get('appointments/trashed_appointments/delete', [AppointmentController::c
 #Route::post('/edit_profile', [UserController::class, 'editProfile'])->name('edit_profile');
 
 
-// signup post
-Route::post('/sign_up', [UserController::class, 'create_user'])->name('sign_up');
+// SIGNUP
+Route::get('/sign_up', function () {
+    if (Session::has('user')) {
+        return back();
+    }
+    return view('sign_up');
+})->name('signup');
+Route::post('/sign_up', [UserController::class, 'create_user'])->name('register');
 
-// login post
+// LOGIN
+Route::get('/', function () {
+    if (Session::has('user')) {
+        return back();
+    } else {
+        return view('login');
+    }
+})->name('login_view');
 Route::post('/login', [Login::class, 'loginUser'])->name('login');
+
+// Logout
+Route::get('/logout', function(){
+    session()->forget('user');
+    return redirect()->route('login_view');
+})->name('logout');
 
 
 // '''''''''''''''''''''''   DEPARTMENTS   '''''''''''''''''''''''
@@ -313,14 +362,6 @@ route::post('addToCart', [PharmacistController::class, 'addToCart'])->name('addT
 // DELETE PHARMACIST
 route::get('pharmacy/pharmacists/delete', [PharmacistController::class, 'delete'])->name('delete_pharmacist');
 
-
-// --------------------- LAB TESTS -------------------------
-// LAB REPORTS VIEW
-route::get('admin/lab-test/lab-reports', [LabtestController::class, "labReports"])->name("lab_reports");
-
-//Add Lab
-route::post('admin/lab-test/addLab', [LabtestController::class, "addLab"])->name("addLab");
-
 // ADD LAB REPORT
 route::post("add_lab_report", [LabtestController::class, "add"])->name("add_lab_report");
 // DELETE LAB TEST
@@ -330,8 +371,6 @@ route::get("admin/lab-test/edit-lab-test", [LabtestController::class, "edit"])->
 // UPDATE LAB TEST
 route::post("admin/lab-test/update-lab-test", [LabtestController::class, "update"])->name("update_lab_report");
 
-// logout
-Route::get('logout', [UserController::class, 'logoutUser'])->name('logout');
 
 // SETTINGS
 Route::get('settings', [components::class, 'settings']);

@@ -44,8 +44,16 @@ class Kernel extends HttpKernel
             \Illuminate\Routing\Middleware\SubstituteBindings::class,
         ],
 
-        "user_auth" => [
+        "userAuth" => [
             \App\Http\Middleware\UserAuth::class,
+        ],
+
+        "doctorAuth" => [
+            \App\Http\Middleware\DoctorAuth::class,
+        ],
+
+        "adminAuth" => [
+            \App\Http\Middleware\AdminAuth::class,
         ],
     ];
 

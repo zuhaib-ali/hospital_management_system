@@ -14,14 +14,14 @@ class DoctorController extends Controller
 {
     // INDEX
     public function index(Request $request){
-        return view('components.doctors.index', [
+        return view('admin.doctors.index', [
             "doctors" => User::leftJoin("locations", "users.hospital_id", "=", "locations.id")
             ->leftJoin("specializations", "users.specialization_id", "=", "specializations.id")
             ->where("role", "doctor")
             ->select(
                 "users.*",
                 "specializations.name as specialization_name",
-                "locations.name as hospital_name",
+                "locations.city as branch",
             )
             ->get(),
             'hospitals'=>Location::all(),
@@ -96,7 +96,7 @@ class DoctorController extends Controller
                     $request->avater->move(public_path('doctors_avatar'), $avater_name);
                 }
                 // REDIRECTING TO DOCTORS VIEW
-                return redirect()->route('doctors')->with('doctor_created', "Doctor ". $request->first_name." ".$request->last_name);
+                return redirect()->route('admin.doctors')->with('doctor_created', "Doctor ". $request->first_name." ".$request->last_name);
             }else{
                 return back();
             }
@@ -106,7 +106,7 @@ class DoctorController extends Controller
     // View doctor
     public function viewDoctor(Request $request){
 
-        return view('components.doctors.view_doctor', [
+        return view('admin.doctors.view_doctor', [
             "doctor" => User::leftJoin("locations", "users.hospital_id", "=", "locations.id")
             ->leftJoin("specializations", "users.specialization_id", "=", "specializations.id")
             ->join("closing_days", "users.id", "=", "closing_days.doctor_id")
@@ -117,10 +117,11 @@ class DoctorController extends Controller
                 "specializations.id as specialization_id",
                 "specializations.description as specialization_description",
                 "locations.id as location_id",
-                "locations.name as location_name",
-                "locations.email as location_email",
-                "locations.address as location_address",
-                "locations.phone as location_phone",
+                "locations.hospital as branch_name",
+                "locations.city as branch_city",
+                "locations.address as branch_address",
+                "locations.email as branch_email",
+                "locations.contact as branch_phone",
                 "closing_days.sunday",
                 "closing_days.monday",
                 "closing_days.tuesday",
@@ -131,16 +132,16 @@ class DoctorController extends Controller
             )
             ->first(),
             'specializations'=>Specialization::all(),
-            'hospitals'=>Location::all(),
+            'branches'=>Location::all(),
         ]);
     }
 
     // Update
     public function update(Request $request){
         $udpated = false;
-
+        
         $doctor = User::find($request->doctor_id);
-
+        
         $doctor->first_name = $request->first_name;
         $doctor->last_name = $request->last_name;
         $doctor->username = $request->first_name." ".$request->last_name;
@@ -168,7 +169,7 @@ class DoctorController extends Controller
             }
         }
         if($updated){
-            return redirect()->route('doctors')->with('updated', $request->doctor_name." Updated");
+            return redirect()->route('admin.doctors')->with('updated', $request->doctor_name." Updated");
         }else{
             return back()->with('updated', "Failed to updated doctor ".$request->doctor_name);
         }   
@@ -178,7 +179,7 @@ class DoctorController extends Controller
         $doctor = User::find($request->doctor_id);
         $name = $doctor->username;
         if($doctor->delete()){
-            return redirect()->route("doctors")->with('deleted', "Doctor ".$name." deleted.");
+            return redirect()->route("admin.doctors")->with('deleted', "Doctor ".$name." deleted.");
         }
     }
 

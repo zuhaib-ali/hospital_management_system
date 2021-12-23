@@ -61,7 +61,7 @@ class UserController extends Controller
                 $request->profile_img->move(public_path('images'), $image_new_name);
             }
             $request->session()->flash('success', 'Successfully Inserted');
-            return redirect()->route('login');
+            return redirect()->route('login_view');
         } else {
             return back()->with('failed', 'Failed to Insert');
         }
@@ -108,14 +108,7 @@ class UserController extends Controller
             return back()->with('failed', 'Record Failed To Update');
         }
     }
-
-    // Loging out user.
-    public function logoutUser(Request $request)
-    {
-        $request->session()->forget('user');
-        return redirect('login')->with('logout', 'Logout Successfull');
-    }
-
+    
     // Add staff
     public function addStaff(Request $request)
     {

@@ -49,6 +49,7 @@
               <input type="text" class="form-control" name="title" value="@if($tmp != null) {{$tmp->title}} @endif">
             </div>
             <br>
+            
             <!-- LAST NAME -->
             <div class="form-group col-12">
               <label for="last_name"><span style="color:red;">*</span>Body</label>
