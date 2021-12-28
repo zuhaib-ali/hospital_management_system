@@ -8,11 +8,11 @@
 
             <!-- USER PROFILE IMAGE -->
             <div class="image">
-                @if (Session::get('user')->profile_img != null)
+                @if (Session::get('user')->profile_img)
                     <img src="{{ asset('profile_images') }}/{{ Session::get('user')->profile_img }}"
                         class="img-circle elevation-2" alt="User Image" style='width:50px; height:50px'>
                 @else
-                    <img src="{{ asset('images/user.png') }}" class="img-circle elevation-2" alt="User Image"
+                    <img src="{{ asset('profile_images/admin.png') }}" class="img-circle elevation-2" alt="User Image"
                         style='width:50px; height:50px'>
                 @endif
             </div>
@@ -39,16 +39,23 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                 <li class="nav-item">
-                    <a href="{{ route('user.index') }}" class="nav-link @if (Route::currentRouteName() == 'admin.index') active @endif()">
+                    <a href="{{ route('doctor.index') }}" class="nav-link @if (Route::currentRouteName() == 'doctor.index') active @endif()">
                         <i class="fas fa-columns"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('user.appointment') }}" class="nav-link @if (Route::currentRouteName() == 'admin.appointments') active @endif()">
+                    <a href="{{ route('doctor.appointments') }}" class="nav-link @if (Route::currentRouteName() == 'doctor.appointments') active @endif()">
                         <i class="fas fa-columns"></i>
-                        <p>Appointment</p>
+                        <p>Appointments</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('doctor.patients') }}" class="nav-link @if (Route::currentRouteName() == 'doctor.patients') active @endif()">
+                        <i class="fas fa-columns"></i>
+                        <p>Patients</p>
                     </a>
                 </li>
 

@@ -84,8 +84,8 @@
                                       <td>{{ $specialization->name }}</td>
                                       <td>{{ $specialization->description }}</td>
                                       <td>
-                                        <a href="" class="btn btn-sm btn-warning me-3">EDIT</a>
-                                        <a href="{{ route('admin.delete-specialization', ['id' => $specialization->id]) }}" class="btn btn-sm btn-danger">DELETE</a>
+                                        <a href="" class="btn btn-sm btn-warning me-3"><i class="fas fa-edit"></i></a>
+                                        <a href="{{ route('admin.delete-specialization', ['id' => $specialization->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                       </td>
                                     </tr>
                                   @endforeach        

@@ -64,7 +64,7 @@
 
 @include('include.navbar')    
 
-@include('include.sidebar')
+@include('doctors.sidebar')
   
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -77,7 +77,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"> <a href="{{ route('index') }}"><i class="fas fa-home"></i> Home </a></li>
+              <li class="breadcrumb-item"> <a href="{{ route('doctor.index') }}"><i class="fas fa-home"></i> Home </a></li>
               <li class="breadcrumb-item active"> <a><i class="fas fa-user-injured"></i> Patients </a></li>
             </ol>
           </div><!-- /.col -->
@@ -92,106 +92,6 @@
         <div class="card">
             <div class="card-header">
                 <h3 class="card-title"><i class="fas fa-user-injured"></i> PATIENTS - {{ count($patients) }}</h3>
-
-                <!-- PATIENT REGISTRATION -->
-                <button class="btn btn-sm btn-success pull-right" data-toggle="modal" data-target="#add_new_patient_modal"> <i class="fas fa-plus"></i></button>    
-                    <form class="form" method="POST" action="{{ route('add_new_patient') }}" enctype="multipart/form-data">
-                        @csrf
-                        <div class="modal" tabindex="-1" role="dialog" id="add_new_patient_modal">
-                            <div class="modal-dialog" role="document">
-                                <div class="modal-content">
-                                    <div class="modal-header">
-                                        <h5 class="modal-title">Register a new patient</h5>
-                                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                            <span aria-hidden="true">&times;</span>
-                                        </button>
-                                    </div>
-                                    <div class="modal-body">
-                                        <div class="row">
-                                            <div class="form-group col-sm-6">
-                                                <label for="patient_name">Name</label>
-                                                <input type="text" name="patient_name" list="patients" id="patient_name_in_registration_modal" class="form-control" required>
-                                                <datalist id="patients">
-                                                    @if(count($users) != 0)
-                                                        @foreach($users as $user)
-                                                            <option value="{{ $user->first_name }} {{ $user->last_name }}"></option>
-                                                        @endforeach
-                                                    @endif
-                                                </datalist>
-                                            </div>
-                                            <div class="form-group col-sm-6">
-                                                <label for="e_mail">E-Mail</label>
-                                                <input type="email" name="e_mail" id="email_in_registraion_modal" class="form-control" required>
-                                            </div>
-                                        </div>
-                                        
-                                        <div class="row">
-                                            <div class="form-group col-sm-3">
-                                                <label for="image">Age</label>
-                                                <input type="text" name="age" id="age_in_registraion_modal" class="form-control" required>
-                                            </div>
-
-                                            <div class="form-group col-sm-4">
-                                                <label for="sex">Sex</label>
-                                                <select name="sex" id="gender_in_registraion_modal"  class="form-control" required>
-                                                    <option value="male">Male</option>
-                                                    <option value="female">Female</option>
-                                                    <option value="other">Other</option>
-                                                </select>
-                                            </div>
-
-                                            <div class="form-group col-sm-5">
-                                                <label for="blood_group">Blood Group</label>
-                                                <select name="blood_group" id="" class="form-control">
-                                                    <option value="A+">A+</option>
-                                                    <option value="B+">B+</option>
-                                                    <option value="O+">O+</option>
-                                                    <option value="AB+">AB+</option>
-                                                    <option value="A-">A-</option>
-                                                    <option value="B-">B-</option>
-                                                    <option value="O-">O-</option>
-                                                    <option value="AB-">AB-</option>
-                                                </select>
-                                            </div>
-                                        </div>
-
-                                        <div class="row">
-                                            <div class="form-group col-sm-6">
-                                                <label for="doctor">Doctor</label>
-                                                <select name="doctor" id="doctor_in_registraion_modal" class="form-control" required>
-                                                    @if(count($doctors) != 0)
-                                                        @foreach($doctors as $doctor)
-                                                            <option value="{{ $doctor->id }}">{{ $doctor->first_name }} {{ $doctor->last_name }}</option>
-                                                        @endforeach
-                                                    @endif
-                                                </select>
-                                            </div>
-                                            
-                                            <div class="form-group col-sm-6">
-                                                <label for="phone">Phone</label>
-                                                <input type="number" id="phone_in_registraion_modal" name="phone" class="form-control" required>
-                                            </div>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="address">Address</label>
-                                            <textarea name="address" id="address_in_registraion_modal" cols="30" rows="3" class="form-control" required></textarea>
-                                        </div>
-
-                                        <div class="form-group">
-                                            <label for="image">Image</label>
-                                            <input type="file" name="image" class="form-control" >
-                                            <input type="hidden" name="user_id" id="user_id_in_registration_modal">
-                                        </div>
-                                    </div>
-                                    <div class="modal-footer">
-                                        <input type="submit" class="btn btn-primary" value="Register">
-                                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div><!-- /MODAL TO ADD DEPARTMENT -->
-                    </form>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
@@ -226,118 +126,21 @@
                                                 @else
                                                     <p style="color:blue; font-weight:bold">{{ $patient->status }}</p>
                                                 @endif
-                                            </td> 
+                                            </td>
                                             <td class="patient_actions">
                                                 <!-- ADMIT/DISCHARGE PATIENT -->
-                                                @if($patient->status != "admitted")
+                                                {{-- @if($patient->status != "admitted")
                                                     <a href="{{ route('admit_patient', ['patient_id'=>$patient->id]) }}" title="admit" class="btn btn-sm btn-outline-success"><i class="fas fa-procedures"></i></a>
                                                 @else
                                                     <a href="{{ route('discharge_patient', ['patient_id'=>$patient->id]) }}" title="discharge"  class="btn btn-sm btn-outline-dark"><i class="fas fa-walking"></i></a>
-                                                @endif
+                                                @endif --}}
                                                 
                                                 
                                                 <!-- VIEW PATIENT -->
-                                                <a href="{{ route('patinet_information', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-primary"><i class="fas fa-info"></i> </a>
+                                                <a href="{{ route('doctor.patinet_information', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-primary"><i class="fas fa-info"></i> </a>
                                                 
-                                                <!-- EDIT PATIENT -->
-                                                <button class="btn btn-sm btn-outline-secondary" title="edit" data-toggle="modal" data-target="#edit_patient_{{$patient->id}}"> <i class="fas fa-edit"></i></button>    
-                                                <form class="form" method="POST" action="{{ route('update_patient', ['patient_id'=>$patient->id]) }}" enctype="multipart/form-data">
-                                                    @csrf
-                                                    <div class="modal" tabindex="-1" role="dialog" id="edit_patient_{{$patient->id}}">
-                                                        <div class="modal-dialog" role="document">
-                                                            <div class="modal-content">
-                                                                <div class="modal-header">
-                                                                    <h5 class="modal-title">Edit {{ $patient->name }}</h5>
-                                                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                                                    <span aria-hidden="true">&times;</span>
-                                                                    </button>
-                                                                </div>
-                                                                <div class="modal-body">
-                                                                    <div class="row">
-                                                                        <div class="form-group col-sm-6">
-                                                                            <label for="patient_name">Name</label>
-                                                                            <input type="text" name="name" class="form-control" value="{{ $patient->name }}" required>
-                                                                        </div>
-                                                                        <div class="form-group col-sm-6">
-                                                                            <label for="e_mail">E-Mail</label>
-                                                                            <input type="email" name="email" id="department-name" class="form-control" value="{{ $patient->email }}" required>
-                                                                        </div>
-                                                                    </div>
-                                                                    
-                                                                    <div class="row">
-                                                                        <div class="form-group col-sm-4">
-                                                                            <label for="sex">Sex</label>
-                                                                            <input type="text" name="sex" value="{{ $patient->sex }}" list="gender" required  class="form-control" >
-                                                                            <datalist id="gender">
-                                                                                <option value="male">
-                                                                                <option value="female">
-                                                                                <option value="other">
-                                                                            </datalist>
-                                                                        </div>
-
-                                                                        <div class="form-group col-sm-3">
-                                                                            <label for="image">Age</label>
-                                                                            <input type="text" name="age" value="{{ $patient->age }}" class="form-control" required>
-                                                                        </div>
-
-                                                                        <div class="form-group col-sm-4">
-                                                                            <label for="blood_group">Blood Group</label>
-                                                                            <select name="blood_group" id="" class="form-control">
-                                                                                <option value="A+">A+</option>
-                                                                                <option value="B+">B+</option>
-                                                                                <option value="O+">O+</option>
-                                                                                <option value="AB+">AB+</option>
-                                                                                <option value="A-">A-</option>
-                                                                                <option value="B-">B-</option>
-                                                                                <option value="O-">O-</option>
-                                                                                <option value="AB-">AB-</option>
-                                                                            </select>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="row">
-                                                                        <div class="form-group col-sm-6">
-                                                                            <label for="doctor">Doctor</label>
-                                                                            {{-- <input type="text" name="doctor" list="doctors" value="{{ $doctors->find($patient->doctor_id)->first_name }} {{ $doctors->find($patient->doctor_id)->last_name }}" class="form-control" required> --}}
-
-                                                                            <select name="doctor" class="form-control" required>
-                                                                                @if(count($doctors) != 0)
-                                                                                    @foreach($doctors as $doctor)
-                                                                                        @if($doctor->id == $patient->doctor_id)
-                                                                                            <option value="{{ $doctor->id }}" selected>{{ $doctor->first_name }} {{ $doctor->last_name }}</option>
-                                                                                        @else
-                                                                                            <option value="{{ $doctor->id }}">{{ $doctor->first_name }} {{ $doctor->last_name }}</option>
-                                                                                        @endif
-                                                                                        
-                                                                                    @endforeach
-                                                                                @endif
-                                                                            </select>
-                                                                        </div>
-                                                                        
-                                                                        <div class="form-group col-sm-6">
-                                                                            <label for="phone">Phone</label>
-                                                                            <input type="number" name="phone" value="{{ $patient->phone }}" class="form-control" required>
-                                                                        </div>
-                                                                    </div>
-
-                                                                    <div class="form-group">
-                                                                        <label for="address">Address</label>
-                                                                        <textarea name="address" id="description" cols="30" rows="3" class="form-control" required>{{ $patient->address }}</textarea>
-                                                                    </div>
-                                                                </div>
-                                                                <div class="modal-footer">
-                                                                    <input type="submit" class="btn btn-primary" value="Update">
-                                                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                                                </div>
-                                                            </div>
-                                                        </div>
-                                                    </div><!-- /MODAL TO ADD PATIENT -->
-                                                </form>
-                                                
-                                
-
                                                 <!-- DELETE PATIENT -->
-                                                <a href="{{ route('delete_patient', ['patient_id'=>$patient->id]) }}" title="delete" class="btn btn-sm btn-outline-danger" style="color:red;"><i class="fas fa-trash"></i></a>
+                                                {{-- <a href="{{ route('doctor.delete_patient', ['patient_id'=>$patient->id]) }}" title="delete" class="btn btn-sm btn-outline-danger" style="color:red;"><i class="fas fa-trash"></i></a> --}}
                                             </td> 
                                         </tr>
                                         @endforeach

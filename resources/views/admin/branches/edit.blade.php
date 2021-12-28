@@ -9,7 +9,7 @@
     <br>
     <div class="card mx-3">
       <div class="card-header text-center text-bold" style="background-color:#3f51b5; color:white;">
-        EDIT LOCATION
+        EDIT BRANCH
       </div>
       <div class="card-body p-2">
         <form action="{{ route('admin.update_location') }}" method="POST" class="form col-12">

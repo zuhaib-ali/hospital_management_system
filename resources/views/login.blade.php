@@ -118,12 +118,6 @@
 									</div>
 								</div>
 							</form>
-
-							<p class="w-100 text-center">&mdash; Or Sign In With &mdash;</p>
-							<div class="social d-flex text-center">
-								<a href="#" class="px-2 py-2 mr-md-1 rounded" style="background-color:#4267B2; color:white;"><span class="ion-logo-facebook mr-2"></span><span class="iconify" data-icon="ion-logo-facebook" data-inline="false"></span> Facebook</a>
-								<a href="#" class="px-2 py-2 ml-md-1 rounded" style="background-color:#1DA1F2; color:white;"><span class="ion-logo-twitter mr-2"></span> Twitter</a>
-							</div>
 							<br>
 
 							<p class="w-100 text-center">&mdash; Don't Have An Account &mdash;</p>

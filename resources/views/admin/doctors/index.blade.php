@@ -132,13 +132,13 @@
                         <!-- FIRST NAME -->
                         <div class="form-group col-sm-6">
                             <label for="first_name">First Name</label>
-                            <input type="text" class="form-control" name="first_name" maxlength=12 placeholder="abc">
+                            <input type="text" class="form-control" name="first_name" maxlength=18 placeholder="abc">
                         </div>
 
                         <!-- LAST NAME -->
                         <div class="form-group col-sm-6">
                             <label for="last_name">Last Name</label>
-                            <input type="text" class="form-control" name="last_name" maxlength=12 placeholder="xyz">
+                            <input type="text" class="form-control" name="last_name" maxlength=15 placeholder="xyz">
                         </div>
                     </div>
 
@@ -194,8 +194,8 @@
                         <!-- PHONE -->
                         <div class="form-group col-sm-4">
                             <label for="phone">Phone</label>
-                            <input type="number" class="form-control" name="phone" maxlength=13
-                                placeholder="0333-xxxxxxx">
+                            <input type="text" class="form-control" name="phone" maxlength=13
+                                placeholder="0333xxxxxxx">
                         </div>
 
                         <!-- VISITING CHARGE -->
@@ -282,12 +282,6 @@
 
                 <!-- MODAL FOOTER -->
                 <div class="modal-footer">
-                    <!-- RESET -->
-                    <button type="reset" class="btn btn-sm btn-secondary">
-                        <i class="ft-x"></i>
-                        Reset
-                    </button>
-
                     <!-- SUBMIT -->
                     <button type="submit" class="btn btn-sm btn-primary">
                         <i class="fa fa-plus"></i>

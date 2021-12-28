@@ -214,7 +214,12 @@
                                         @foreach($patients as $patient)
                                         <tr>
                                             <td>{{ $no++ }}</td> 
-                                            <td><img src="{{url('patients_images')}}/{{$patient->image}}" class="img-circle elevation-2" style=" width:50px; height:50px "></td> 
+                                            @if($patient->image != null)
+                                                <td><img src="{{url('patients_images')}}/{{$patient->image}}" class="img-circle elevation-2" style=" width:50px; height:50px "></td> 
+                                            @else
+                                                <td><img src="{{url('profile_images')}}/{{$patient->profile_img}}" class="img-circle elevation-2" style=" width:50px; height:50px "></td> 
+                                            @endif
+                                            
                                             <td>{{ $patient->name}}</td> 
                                             <td style="text-transform:none;">{{ $patient->email }}</td> 
                                             <td>{{ $patient->phone }}</td> 
@@ -240,7 +245,7 @@
                                                 <a href="{{ route('admin.patinet_information', ['patient_id'=>$patient->id]) }}"  class="btn btn-sm btn-outline-primary"><i class="fas fa-info"></i> </a>
                                                 
                                                 <!-- EDIT PATIENT -->
-                                                <button class="btn btn-sm btn-outline-secondary" title="edit" data-toggle="modal" data-target="#edit_patient_{{$patient->id}}"> <i class="fas fa-edit"></i></button>    
+                                                {{-- <button class="btn btn-sm btn-outline-secondary" title="edit" data-toggle="modal" data-target="#edit_patient_{{$patient->id}}"> <i class="fas fa-edit"></i></button>    
                                                 <!-- EDIT PATIENT MODAL -->
                                                 <form class="form" method="POST" action="{{ route('admin.update_patient', ['patient_id'=>$patient->id]) }}" enctype="multipart/form-data">
                                                     @csrf
@@ -299,9 +304,8 @@
                                                                     <div class="row">
                                                                         <div class="form-group col-sm-6">
                                                                             <label for="doctor">Doctor</label>
-                                                                            {{-- <input type="text" name="doctor" list="doctors" value="{{ $doctors->find($patient->doctor_id)->first_name }} {{ $doctors->find($patient->doctor_id)->last_name }}" class="form-control" required> --}}
 
-                                                                            <select name="doctor" class="form-control" required>
+                                                                            <select name="doctor" class="form-control" required autocomplete="off">
                                                                                 @if(count($doctors) != 0)
                                                                                     @foreach($doctors as $doctor)
                                                                                         @if($doctor->id == $patient->doctor_id)
@@ -333,7 +337,7 @@
                                                             </div>
                                                         </div>
                                                     </div><!-- /MODAL TO ADD PATIENT -->
-                                                </form>
+                                                </form> --}}
                                                 
                                 
 

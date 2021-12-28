@@ -34,10 +34,10 @@
                         <div class="card-header">
                             <h1>
                                 Users/Staff
-                                <button href="" class="btn btn-success pull-right" data-toggle="modal"
+                                <!-- <button href="" class="btn btn-success pull-right" data-toggle="modal"
                                     data-target="#add">
                                     <i class="fa fa-plus"> Add User</i>
-                                </button>
+                                </button> -->
                             </h1>
                         </div>
                         <!-- /.card-header -->

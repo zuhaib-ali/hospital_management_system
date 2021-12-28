@@ -139,20 +139,6 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function () {
     // Route::get('viewLocation', [components::class, 'viewLocation']);
     // Route::get('{id}/edit_location', [LocationController::class, 'editLocation'])->name('edit_location');
     // Route::post('update_location', [LocationController::class, 'updateLocation'])->name('update_location');
-
-    // // **************************** SEND MAIL ****************************
-    // Route::get('appointments/send-mail/{sender}/{doctor}', [SendMailController::class, 'sendMail']);
-    // // Route::get('appointments/send_mail/{}', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
-    // Route::post('/addLetterTemplate', [SendMailController::class, 'addLetterTemplate'])->name('addLetterTemplate');
-    // Route::post('addTmp', [SendMailController::class, 'addTmp']);
-    // Route::get('/emailLetter', function () {
-    //     if (Session::has('user')) {
-    //         $tmp = DB::table('templates')->where('id', '1')->first();
-    //         return view('components.emailLetter')->with(['data' => $tmp]);
-    //     } else {
-    //         return redirect()->route('login');
-    //     }
-    // })->name('emailLetter');
     
     // // Add mail template view.
     // Route::get('addLetter', function () {
@@ -200,9 +186,32 @@ Route::group(['prefix'=>'doctor', 'middleware'=>'doctorAuth'], function(){
             'patients' => Patient::where('doctor_id', session()->get('user')->id)->get()->count(),
             'appointments' => Appointment::where('doctor_id', session()->get('user')->id)->get()->count(),
         ]);
-    })->name('doctor');
+    })->name('doctor.index');
+
+    // **************************** Appointments ****************************
     Route::get('/appointments', [DoctorController::class, 'appointments'])->name('doctor.appointments');
-    Route::get('/patients', [DoctorController::class, 'doctors'])->name('doctor.patients');
+    Route::get('/appointment/delete', [AppointmentController::class, 'delete'])->name('doctor.delete_appointment');
+    Route::get('/get-appointment-for-doctor/{id}', [AppointmentController::class, 'getAppointmentForDoctor'])->name('doctor.delete_appointment');
+
+
+    // **************************** SEND MAIL ****************************
+    Route::post('appointments/send-mail/{sender}/{doctor}', [SendMailController::class, 'sendMail']);
+    // Route::get('appointments/send_mail/{}', [SendMailController::class, 'sendMailToUser'])->name('send_mail');
+    // Route::post('/addLetterTemplate', [SendMailController::class, 'addLetterTemplate'])->name('addLetterTemplate');
+    // Route::post('addTmp', [SendMailController::class, 'addTmp']);
+    // Route::get('/emailLetter', function () {
+    //     if (Session::has('user')) {
+    //         $tmp = DB::table('templates')->where('id', '1')->first();
+    //         return view('components.emailLetter')->with(['data' => $tmp]);
+    //     } else {
+    //         return redirect()->route('login');
+    //     }
+    // })->name('emailLetter');
+
+    // **************************** Patients ****************************
+    Route::get('/patients', [DoctorController::class, 'patients'])->name('doctor.patients');
+    Route::get("patients/patient-information", [PatientController::class, "show"])->name('doctor.patinet_information');
+    Route::get("patients/delete-patient", [PatientController::class, "delete"])->name("doctor.delete_patient");
 });
 
 

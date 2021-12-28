@@ -135,9 +135,6 @@
 							</div>
 				      	</div>
 				      	<div class="modal-footer">
-				        	<button type="button" class="btn btn-danger pull-left" data-dismiss="modal">
-                  <i class="ft-x"> Close </i>
-                  </button>
 				        	<button type="submit" class="btn btn-primary">
                   <i class="fa fa-plus"> Save </i> 
                   </button>
@@ -152,13 +149,6 @@
 @if(Session::get('update_message'))
   <script> console.log('updated')</script>
 @endif
-
-@if(session('success'))
-<script>
-  toastr.info("{{ session('success') }}");
-</script>
-@endif
-
 
 @if(session('delLoc'))
 <script>

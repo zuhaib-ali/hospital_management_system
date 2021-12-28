@@ -31,7 +31,7 @@
 
 @include('include.navbar')
 
-@include('doctors.doctor_layout')
+@include('doctors.sidebar')
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -44,7 +44,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item active" style="color:blue;"> <a href="{{ route('index') }}"><i class="fas fa-home"> Home</i></a></li>
+              <li class="breadcrumb-item active" style="color:blue;"> <a href="{{ route('doctor.index') }}"><i class="fas fa-home"> Home</i></a></li>
             </ol>
           </div><!-- /.col -->
         </div><!-- /.row -->
@@ -54,12 +54,12 @@
 
     <!-- Main content -->
     <section class="content p-3" style="">
-      <div class="container d-flex flex-wrap justify-content-between">
+      <div class="container d-flex flex-wrap">
 
         <!-- Patients -->
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-primary p-3">
-            <a href="{{ route('doctor.patients') }}">
+            <a href="{{ route('doctor.appointments') }}">
               <span> <i class="fas fa-user-injured"></i></span>
               <span class="float-right">
                 <h1>{{ $appointments }}</h1>
@@ -70,7 +70,7 @@
         </div>
 
         <!-- Laborataries -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-warning p-3">
             <a href="">
               <span> <i class="fas fa-vials"></i></span>
@@ -80,7 +80,7 @@
               </span>
             </a>
           </div>
-        </div>
+        </div> --}}
         
 
         <!-- Patients -->
@@ -97,7 +97,7 @@
         </div>
 
         <!-- Settings -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-success p-3">
             <a href="">
               <span> <i class="fas fa-file-medical text-white"></i></span>
@@ -106,7 +106,7 @@
               </span>
             </a>
           </div>
-        </div>
+        </div> --}}
         
       </div><
     </section>

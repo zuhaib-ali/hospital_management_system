@@ -24,17 +24,13 @@ class UserController extends Controller
             'password' =>  ['required', 'min:5', 'max:25'],
             'confirm_password' => ['required', 'min:5', 'max:25', 'same:password'],
             'gender' => 'required',
-            // 'profile_img' => ['required', 'mimes:jpeg, jpg, png, PNG, JPG, JPEG', 'max:3000'],
         ]);
 
-        if ($request->profile != null) {
+        $image_new_name = null;
+        if ($request->profile_img != null) {
             // Image new name
-            $image_new_name = time() . '_' . $request->first_name . '_' . $request->last_name . '.' . $request->profile_img;
-        } else {
-            $image_new_name = null;
+            $image_new_name = time().'_'.$request->profile_img->getClientOriginalName();
         }
-
-
 
         // User creating.
         $user_created = User::create([
@@ -43,12 +39,10 @@ class UserController extends Controller
             'username' => $request->first_name . " " . $request->last_name,
             'email' => $request->email,
             'mobile' => $request->mobile,
-            // 'cnic' => $request->cnic,
             'age' => $request->age,
             'blood_group' => $request->blood_group,
             'address' => $request->address,
             'password' => Hash::make($request->confirm_password),
-            // 'dob' => "10/22/2021",
             'gender' => $request->gender,
             'role' => $request->role,
             'profile_img' => $image_new_name,
@@ -58,7 +52,7 @@ class UserController extends Controller
         if ($user_created == true) {
             // moving image to public folder
             if ($request->profile_img != null) {
-                $request->profile_img->move(public_path('images'), $image_new_name);
+                $request->profile_img->move(public_path('profile_images'), $image_new_name);
             }
             $request->session()->flash('success', 'Successfully Inserted');
             return redirect()->route('login_view');

@@ -107,6 +107,24 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             }
         });
     });
+
+    $("#send_mail_trigger").click(function(){
+        var id = $(this).attr('data');
+        $.ajax({
+            url:"{{ url('doctor/get-appointment-for-doctor') }}"+'/'+id,
+            type: 'GET',
+            success:function(data){
+                $('#sendMailModal .modal-title').text("Mail to, "+data.first_name+" "+data.last_name);
+                $('#email_message').text(
+                    "You're informed that your appointment is accepted,"+
+                    "visit the hospital at"
+                );
+                
+                $('#sendMailModal').modal('show');
+            }
+        });
+        
+    });
 </script>
 
 <script>

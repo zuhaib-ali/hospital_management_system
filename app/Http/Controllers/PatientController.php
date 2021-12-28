@@ -16,7 +16,11 @@ class PatientController extends Controller
     public function index(Request $request){
         return view("admin.patients.index", [
             "users" => User::where("role", 'user')->get(),
-            "patients" => Patient::all(),
+            "patients" => Patient::leftJoin('users', 'patients.user_id', 'users.id')
+                ->select(
+                    'patients.*',
+                    'users.profile_img'
+                )->get(),
             "doctors" => User::where("role", "doctor")->get(),
         ]);
     }
@@ -36,7 +40,7 @@ class PatientController extends Controller
         ]);
 
         if($request->image != null){
-            $image_name = time()."-".str_replace(" ", "-", $request->patient_name)."-".$request->image;    
+            $image_name = time()."_".$request->image->getClientOriginalName();    
         }
         
         $patient_registered = Patient::create([
@@ -57,7 +61,7 @@ class PatientController extends Controller
             if($request->image != null){
                 $request->image->move(public_path("patients_images"), $image_name);
             }
-            return redirect()->route("patients")->with("patient_registered", "Pateint ".$request->patient_name." is registered.");
+            return redirect()->route("admin.patients")->with("patient_registered", "Pateint ".$request->patient_name." is registered.");
         }
     }
 
@@ -131,7 +135,7 @@ class PatientController extends Controller
         $patient = Patient::find($request->patient_id);
         $patient_name = $patient->name;
         if($patient->delete() == true){
-            return redirect()->route("patients")->with("patient_deleted", "Patient ".$patient_name." deleted.");
+            return redirect()->route("admin.patients")->with("patient_deleted", "Patient ".$patient_name." deleted.");
         }
     }
 
@@ -151,6 +155,7 @@ class PatientController extends Controller
                     "locations.city as branch_city"
                 )
                 ->first(),
+            'users' => User::where('role', 'user')->get(),
             "hospitals" => Location::all(),
             'doctors' => User::where("role", "doctor")->get(),
             // 'appointments' => Appointment::where("patient_id", $request->patient_id)->orWhere("patient_id", Patient::find($request->patient_id)->user_id)->get(),

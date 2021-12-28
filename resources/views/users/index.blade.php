@@ -54,7 +54,7 @@
 
     <!-- Main content -->
     <section class="content p-3" style="">
-      <div class="container d-flex flex-wrap justify-content-between">
+      <div class="container d-flex flex-wrap">
 
         <!-- Appointments -->
         <div class="col-lg-4 col-md-6 col-sm-12">

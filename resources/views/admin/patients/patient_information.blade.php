@@ -17,7 +17,12 @@
 
 @include('include.navbar')    
 
-@include('admin.sidebar')
+@if(Session::get('user')->role == 'admin')
+  @include('admin.sidebar')
+@else
+  @include('doctors.sidebar')
+@endif
+
 
   <!-- Content Wrapper. Contains page content -->
   <div class="content-wrapper">
@@ -49,14 +54,20 @@
             <div class="card card-primary card-outline">
               <div class="card-body box-profile">
                 <div class="text-center">
-                  <img class="profile-user-img img-fluid img-circle" src="" alt="Patient photo" style="width:100px; height:100px;">
+                  @if($patient->image != null)
+                    <img class="profile-user-img img-fluid img-circle" src="{{ asset('patient_images') }}/{{ $patient->image }}" alt="Patient photo" style="width:100px; height:100px;">
+                  @else
+                    <img class="profile-user-img img-fluid img-circle" src="@if($users != null) {{ asset('profile_images') }}/{{ $users->find($patient->user_id)->profile_img }} @endif" alt="Patient photo" style="width:100px; height:100px;">
+                  @endif
+                  
                 </div>
 
                 <h3 class="profile-username text-center">{{ $patient->name }}</h3>
 
                 <p class="text-muted text-center">{{$patient->status }}</p>
-
-                <a href="{{ route('admin.delete_patient', ['patient_id'=>$patient->id]) }}" class="btn btn-danger btn-block"><b> <i class=" fas fa-trash-alt"></i> DELETE</b></a>
+                @if(Session::get('user')->role == 'admin')
+                <a href="{{ route('doctor.delete_patient', ['patient_id'=>$patient->id]) }}" class="btn btn-danger btn-block"><b> <i class=" fas fa-trash-alt"></i> DELETE</b></a>
+                @endif
               </div>
               <!-- /.card-body -->
             </div>
@@ -70,7 +81,9 @@
               <div class="card-header p-2">
                 <ul class="nav nav-pills">
                   <li class="nav-item"><a class="nav-link active" href="#activity" data-toggle="tab">Details</a></li>
+                  @if(Session::get('user')->role == 'admin')
                   <li class="nav-item"><a class="nav-link" href="#settings" data-toggle="tab">Edit</a></li>
+                  @endif
                 </ul>
               </div><!-- /.card-header -->
               <div class="card-body">

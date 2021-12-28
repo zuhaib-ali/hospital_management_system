@@ -88,15 +88,30 @@ class AppointmentController extends Controller{
     }
 
     // DELETE APPOINTMENT
-    public function delete(Request $request){
-        $force_detele_appointment = Appointment::withTrashed()->find($request->id)->forceDelete();
-        if($request->session()->has('user')){
-            if($force_detele_appointment == true){
-                return back()->with('appintment_force_deleted', "Appointment deleted from record!");
-            }
-        }else{
-            return redircet()->route('login');
-        }
+    // public function delete(Request $request){
+    //     $force_detele_appointment = Appointment::withTrashed()->find($request->id)->forceDelete();
+    //     if($request->session()->has('user')){
+    //         if($force_detele_appointment == true){
+    //             return back()->with('appintment_force_deleted', "Appointment deleted from record!");
+    //         }
+    //     }else{
+    //         return redircet()->route('login');
+    //     }
         
+    // }
+
+    public function delete(Request $request){
+        Appointment::find($request->id)->delete();
+        return back()->with('error', 'Appointment deleted.');
+
+    }
+
+    public function getAppointmentForDoctor($id){
+        return Appointment::join('users', 'appointments.sender_id', 'users.id')
+            ->select(
+                'users.*',
+            )
+            ->where('appointments.id', $id)
+            ->first();
     }
 }

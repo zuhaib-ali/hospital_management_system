@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use App\Models\Appointment;
 use App\Models\Location;
 use App\Models\Doctor;
+use App\Models\Patient;
 use App\Models\User;
 use App\Models\Specialization;
 use App\Models\ClosingDay;
@@ -33,8 +35,8 @@ class DoctorController extends Controller
     public function addDoctor(Request $request){
             // VALIDATING DOCTOR REQUIRED INFORMATION
             $request->validate([
-                'first_name' => 'required|max:12',
-                'last_name' => 'required|max:12',
+                'first_name' => 'required|max:18',
+                'last_name' => 'required|max:15',
                 'email' => 'required|unique:doctors',
                 'degree' => 'required',
                 'hospital_id' => 'required',
@@ -48,14 +50,12 @@ class DoctorController extends Controller
                 'password' => "required",
                 'confirm_password' => "required|same:password",
             ]);
-
             // AVATAR NEW NAME
+            $avater_name = null;
             if($request->avater != null){
-                $avater_name = time()."_".$request->first_name.'_'.$request->last_name.'.'.$request->avater;
-            }else{
-                $avater_name = null;
+                $avater_name = time()."_".$request->avater->getClientOriginalName();
             }
-
+                
             // CREATING DOCTOR
             $doctor = User::create([
                 "first_name" => $request->first_name,
@@ -89,16 +89,15 @@ class DoctorController extends Controller
                     "doctor_id" => $doctor->id,
                 ]);
             }
-
             if($doctor == true){
                 // SAVING IMAGE TO PUBLIC PATH
                 if($request->avater != null){
-                    $request->avater->move(public_path('doctors_avatar'), $avater_name);
+                    $request->avater->move(public_path('doctor_images'), $avater_name);
                 }
                 // REDIRECTING TO DOCTORS VIEW
-                return redirect()->route('admin.doctors')->with('doctor_created', "Doctor ". $request->first_name." ".$request->last_name);
+                return redirect()->route('admin.doctors')->with('success', "Doctor ". $request->first_name." ".$request->last_name);
             }else{
-                return back();
+                return back()->with('error', "Failed to create doctor");
             }
     }
 
@@ -197,5 +196,20 @@ class DoctorController extends Controller
             )
             ->where('users.id', $id)
             ->first();
+    }
+
+    public function appointments(Request $request){
+        return view('doctors.appointments', [
+            "appointments" => Appointment::where('doctor_id', $request->session()->get('user')->id)->get(),
+            "users" => User::all()
+        ]);
+    }
+
+    public function patients(){
+        return view('doctors.patients', [
+            'patients' => Patient::where('doctor_id', session()->get('user')->id)->get(),
+            'doctors' => User::where('role', 'doctor')->get(),
+            'users' => User::all()
+        ]);
     }
 }
