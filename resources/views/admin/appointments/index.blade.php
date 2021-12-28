@@ -44,7 +44,6 @@
                                       <th>Sender</th>
                                       <th>Doctor</th>
                                       <th>Created At</th>
-                                      <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -67,11 +66,6 @@
                                         @endif
 
                                         <td>{{ $appointment->created_at->format('M d, y')}}</td>
-                                        <td><a href="#" class="btn btn-sm btn-primary"><i class="fas fa-eye"></i></a></td>
-                                        @if($users->find($appointment->doctor_id) != null && $users->find($appointment->sender_id) != null)
-                                          {{-- <td><a class='btn btn-primary' href="{{ url('appointments/send-mail/') }}/{{$users->find($appointment->sender_id)->id}}/{{$users->find($appointment->doctor_id)->id}}"><i class="fas fa-envelope"></i></a></td> --}}
-                                        @endif
-                                        
                                       </tr>
                                     @endforeach
                                   @endif

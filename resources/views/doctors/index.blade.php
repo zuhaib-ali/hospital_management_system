@@ -56,11 +56,11 @@
     <section class="content p-3" style="">
       <div class="container d-flex flex-wrap">
 
-        <!-- Patients -->
+        <!-- Appiontments -->
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-primary p-3">
             <a href="{{ route('doctor.appointments') }}">
-              <span> <i class="fas fa-user-injured"></i></span>
+              <span> <i class="fas fa-handshake"></i></span>
               <span class="float-right">
                 <h1>{{ $appointments }}</h1>
                 <p>APPOINTMENTS</p>
@@ -108,7 +108,7 @@
           </div>
         </div> --}}
         
-      </div><
+      </div>
     </section>
     <!-- /.content -->
   </div>

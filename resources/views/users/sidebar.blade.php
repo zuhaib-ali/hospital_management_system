@@ -39,16 +39,23 @@
             <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
 
                 <li class="nav-item">
-                    <a href="{{ route('user.index') }}" class="nav-link @if (Route::currentRouteName() == 'admin.index') active @endif()">
+                    <a href="{{ route('user.index') }}" class="nav-link @if (Route::currentRouteName() == 'user.index') active @endif()">
                         <i class="fas fa-columns"></i>
                         <p>Dashboard</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
-                    <a href="{{ route('user.appointment') }}" class="nav-link @if (Route::currentRouteName() == 'admin.appointments') active @endif()">
-                        <i class="fas fa-columns"></i>
+                    <a href="{{ route('user.appointment') }}" class="nav-link @if (Route::currentRouteName() == 'user.appointment') active @endif()">
+                        <i class="fas fa-handshake"></i>
                         <p>Appointment</p>
+                    </a>
+                </li>
+
+                <li class="nav-item">
+                    <a href="{{ route('user.settings') }}" class="nav-link @if (Route::currentRouteName() == 'user.settings') active @endif()">
+                        <i class="fas fa-user-cog"></i>
+                        <p>Settings</p>
                     </a>
                 </li>
 

@@ -192,4 +192,31 @@ class UserController extends Controller
             return back()->with("error","Something Went Wrong");
         }
     }
+
+    public function edit(Request $request){
+        return view('users.edit', [
+            'user' => User::find($request->session()->get('user')->id),
+        ]);
+    }
+
+    public function update(Request $request){
+        $request->validate([
+            'first_name' => 'required',
+            'last_name' => 'required',
+            'address' => 'required',
+            'mobile' => 'required',
+            'gender' => 'required',
+        ]);
+
+        $user = User::find($request->id);
+        $user->first_name = $request->first_name;
+        $user->last_name = $request->last_name;
+        $user->username = $request->first_name." ".$request->last_name;
+        $user->address = $request->address;
+        $user->mobile = $request->mobile;
+        $user->gender = $request->gender;
+        $user->update();
+
+        return back()->with('info', "Profile udpated");
+    }
 }

@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Generation Time: Dec 28, 2021 at 05:27 AM
+-- Generation Time: Dec 28, 2021 at 08:57 AM
 -- Server version: 10.4.17-MariaDB
 -- PHP Version: 8.0.0
 
@@ -470,7 +470,7 @@ CREATE TABLE `users` (
 
 INSERT INTO `users` (`id`, `first_name`, `last_name`, `username`, `email`, `mobile`, `age`, `blood_group`, `gender`, `profile_img`, `address`, `password`, `role`, `role_id`, `degree`, `specialization_id`, `hospital_id`, `doctor_id`, `from`, `to`, `visiting_charge`, `status`, `created_at`, `updated_at`, `remember_token`) VALUES
 (1, 'fadmin', 'ladmin', 'admin', 'admin@admin.com', '03333333333', NULL, NULL, 'male', NULL, 'admin address', '$2y$10$A5jRFqgWFyEIrapBcg5AHOv/.3xCztZOj0tE0njUkYde2poiOMv96', 'admin', '1', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL),
-(3, 'zuhaib', 'ali', 'zuhaib ali', 'zuhaibsoomro25@gmail.com', '011111111111', NULL, 'a+', 'male', '1640583919_Zuhaib.jpg', 'qasim chowk road, hyderabad', '$2y$10$p9V9ixRWjwsd4vZxPTkDe.bfOhJvaQjvCYJ/2iZNKaeokQxg4gztS', 'user', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-27 00:45:19', '2021-12-27 00:45:19', NULL),
+(3, 'zuhaib', 'ali', 'zuhaib ali', 'zuhaibsoomro25@gmail.com', '03333936465', NULL, 'a+', 'male', '1640583919_Zuhaib.jpg', 'Hakra muhalla, ali khan, kamber', '$2y$10$p9V9ixRWjwsd4vZxPTkDe.bfOhJvaQjvCYJ/2iZNKaeokQxg4gztS', 'user', NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, NULL, '2021-12-27 00:45:19', '2021-12-28 02:09:27', NULL),
 (4, 'ADIL', 'ALI', 'ADIL ALI', 'adil@gmail.com', '01111111111', NULL, NULL, 'male', '1640594243_adil.jpg', 'Global Medical Services Hospital, Plot D-135 Block D,Back Side Of Midway Shopping Mall,6th Road, Sat', '$2y$10$Eey4pho31phfQkkHMjkU9.NIZwGqSGqCf8dWrCQM6AErXuofFCy76', 'doctor', NULL, 'MS Clinical Psychology, BS Psychology', 14, 2, NULL, '03:37', '03:40', '2000', NULL, '2021-12-27 03:37:23', '2021-12-27 03:37:23', NULL),
 (5, 'Prof. Dr. Zamir', 'A Siddique', 'Prof. Dr. Zamir A Siddique', 'zamirsiddique@gmail.com', '02222222221', NULL, NULL, 'male', NULL, '52 shahrah e faisal, karachi, doctor 2 address.', '$2y$10$F/F8BCkoKNeI.M4GRxcdZeWLituRQtweJlyPwHoSmRQCULPItUQx2', 'doctor', NULL, 'MBBS, M.Phil (Clinical Pharmacology), M.D (Cardiology), Dip Diab. (Diplomate Diabetology)', 2, 2, NULL, '02:00', '17:00', '2500', NULL, '2021-12-27 03:49:31', '2021-12-27 03:52:54', NULL);
 

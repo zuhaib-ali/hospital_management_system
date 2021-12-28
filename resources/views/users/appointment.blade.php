@@ -15,7 +15,7 @@
           </div><!-- /.col -->
           <div class="col-sm-6">
             <ol class="breadcrumb float-sm-right">
-              <li class="breadcrumb-item"><a href="/">Home</a></li>
+              <li class="breadcrumb-item"><a href="{{ route('user.index') }}">Home</a></li>
               <li class="breadcrumb-item active">Take Appointment</li>
             </ol>
           </div><!-- /.col -->
@@ -248,7 +248,7 @@
 
               <!-- Submit appointment -->
               <div class="form-group">
-                <input type="submit" class="btn btn-success" value="SUBMIT">
+                <input type="submit" class="btn btn-success" id="appointment-submit-button" value="SUBMIT" hidden>
               </div>
             </form>
           </center>

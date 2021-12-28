@@ -60,22 +60,10 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-primary p-3">
             <a href="{{ route('user.appointment') }}">
-              <span> <i class="fas fa-calendar-check"></i></span>
+              <span> <i class="fas fa-handshake"></i></span>
               <span class="float-right">
                 <p>TAKE APPOINTMENT</p>
                 <p>Doctors: {{ $doctors->count() }}</p>
-              </span>
-            </a>
-          </div>
-        </div>
-
-        <!-- Settings -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
-          <div class="card bg-primary p-3">
-            <a href="">
-              <span> <i class="fas fa-file-medical text-white"></i></span>
-              <span class="float-right text-white">
-                <p>SETTINGS</p>
               </span>
             </a>
           </div>

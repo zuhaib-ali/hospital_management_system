@@ -190,7 +190,7 @@ class DoctorController extends Controller
                 'users.*',
                 'specializations.name as specialization',
                 'specializations.description',
-                'locations.name as branch',
+                'locations.city as branch',
                 'locations.email as branch_email',
                 'locations.address as branch_address',
             )

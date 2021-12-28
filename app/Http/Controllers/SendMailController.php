@@ -23,28 +23,15 @@ class SendMailController extends Controller
             return back()->with('info', 'Sender does not exists.');
         }
         $location = Location::find($doctor->hospital_id);
-        $tmp = Template::where('id','1')->first();
+        $mail_content = [
+            'title'     => "Appointment Mail",
+            'body'      => $request->email_message." on ".$request->appointment_date." at ".$request->appointment_time,
+            'hospital'  => $location->name,
+        ];
         
-        // if($tmp->body  == true){
-            // $tmp->body = str_replace("[[Full_name]]",$sender->username, $tmp->body);
-            // $tmp->body = str_replace("[[Location]]",$location->name.", ".$location->address, $tmp->body);
-            // $tmp->body = str_replace("[[Email]]",$location->email, $tmp->body);
-            // $tmp->body = str_replace("[[Phone]]",$location->phone, $tmp->body);
-
-            // MAIL CONTENT 
-            $mail_content = [
-                'title'     => "Appointment Mail",
-                'body'      => $request->email_message." ".$request->appointment_date." ".$request->appointment_time,
-                'hospital'  => $location->name,
-            ];
-            
-            // Mailing to...
-            $mail_sent = Mail::to($sender->email)->send(new SendMail($mail_content));
-            return back()->with('mail_sent', "The mail sent to ".$sender->email);
-            
-        // }else{
-        //     return back()->with('failed','E-Mail Template does not exists');
-        // }        
+        // Mailing to...
+        $mail_sent = Mail::to($sender->email)->send(new SendMail($mail_content));
+        return back()->with('mail_sent', "The mail sent to ".$sender->email);
     }
 
     // Add template.

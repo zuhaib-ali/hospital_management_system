@@ -67,7 +67,7 @@
                 </li>
 
                 <!-- Laboratories -->
-                <li class="nav-item">
+                {{-- <li class="nav-item">
                     <a class="nav-link">
                         <i class="fas fa-vials"></i>
                         <p>Laboratories</p>
@@ -99,7 +99,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
 
                 <!-- Patients -->
                 <li class="nav-item">

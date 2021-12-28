@@ -91,8 +91,9 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
 
 
     $(document).on('change', '.doctor_appointment', function(){
+        console.log('hellow rold');
         $.ajax({
-            url: "{{ url('/get-doctor-for-appointment') }}"+"/"+$(this).val(),
+            url: "{{ url('user/get-doctor-for-appointment') }}"+"/"+$(this).val(),
             type:"GET",
             success:function(data){
                 $('#appointment-doctor-name').text(data.username);
@@ -104,6 +105,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
                 $('#appointment-branch-email').text(data.branch_email);
                 $('#appointment-branch-address').text(data.branch_address);
                 $("#doctor-appointment").prop("hidden", false);
+                $("#appointment-submit-button").prop("hidden", false);
             }
         });
     });
@@ -114,10 +116,10 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
             url:"{{ url('doctor/get-appointment-for-doctor') }}"+'/'+id,
             type: 'GET',
             success:function(data){
-                $('#sendMailModal .modal-title').text("Mail to, "+data.first_name+" "+data.last_name);
+                $('#sendMailModal .modal-title').text("Mail to, "+data.email);
                 $('#email_message').text(
-                    "You're informed that your appointment is accepted,"+
-                    "visit the hospital at"
+                    "You're Informed That Your Appointment Is Fixed, "+
+                    "Visit The Hospital "
                 );
                 
                 $('#sendMailModal').modal('show');

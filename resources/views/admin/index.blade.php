@@ -97,7 +97,7 @@
         </div>
       
         <!-- Laborataries -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-warning p-3">
             <a href="">
               <span> <i class="fas fa-vials"></i></span>
@@ -107,7 +107,7 @@
               </span>
             </a>
           </div>
-        </div>
+        </div> --}}
 
         <!-- Patients -->
         <div class="col-lg-4 col-md-6 col-sm-12">
@@ -123,7 +123,7 @@
         </div>
       
         <!-- Reports -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-success p-3">
             <a href="{{ route('admin.lab_reports') }}">
               <span> <i class="fas fa-file-alt"></i></span>
@@ -132,10 +132,10 @@
               </span>
             </a>
           </div>
-        </div>
+        </div> --}}
       
         <!-- Pharmacists -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-danger p-3">
             <a href="">
               <span> <i class="fas fa-file-medical text-white"></i></span>
@@ -145,7 +145,7 @@
               </span>
             </a>
           </div>
-        </div>
+        </div> --}}
       
         <!-- Manage Roles -->
         {{-- <div class="col-lg-4 col-md-6 col-sm-12">
@@ -160,7 +160,7 @@
         </div> --}}
       
         <!-- Settings -->
-        <div class="col-lg-4 col-md-6 col-sm-12">
+        {{-- <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-primary p-3">
             <a href="">
               <span> <i class="fas fa-file-medical text-white"></i></span>
@@ -169,13 +169,13 @@
               </span>
             </a>
           </div>
-        </div>
+        </div>  --}}
       
         <!-- Specializations -->
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-success p-3">
             <a href="{{ route('admin.specializations') }}">
-              <span> <i class="fas fa-file-medical text-white"></i></span>
+              <span> <i class="fas fa-file-export text-white"></i></span>
               <span class="float-right text-white">
                 <h1>{{ $specializations }}</h1>
                 <p>SPECIALIZATIONS</p>
@@ -188,7 +188,7 @@
         <div class="col-lg-4 col-md-6 col-sm-12">
           <div class="card bg-danger p-3">
             <a href="">
-              <span> <i class="fas fa-file-medical text-white"></i></span>
+              <span> <i class="fas fa-users text-white"></i></span>
               <span class="float-right text-white">
                 <h1>{{ $users }}</h1>
                 <p>USERS</p>

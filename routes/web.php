@@ -78,7 +78,6 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function () {
     Route::post('/doctors/update_doctor', [DoctorController::class, "update"])->name('admin.update_doctor');
     Route::get('/doctors/view', [DoctorController::class, 'viewDoctor'])->name('admin.view_doctor');
     Route::get("/doctor/delete", [DoctorController::class, "delete"])->name("admin.delete_doctor");
-    Route::get('/get-doctor-for-appointment/{id}', [DoctorController::class, "getDoctor"]);
 
     // ''''''''''''''''''''''  PATIENTS   '''''''''''''''''''''''
     Route::get("/patients", [PatientController::class, "index"])->name("admin.patients");
@@ -114,25 +113,7 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function () {
     Route::post("/edit-staff/update", [UserController::class, 'updateStaff'])->name('admin.update-staff');
     Route::get("/delete-staff/{id}", [UserController::class, 'deleteStaff'])->name('admin.delete-staff');
 
-    // Index
-    // Route::get("/", function () {
-    //     return view("admin.index", [
-    //         "appointments" => Appointment::all()->count(),
-    //         "doctors" => User::where("role", "doctor")->get()->count(),
-    //         "locations" => Location::all()->count(),
-    //         "patients" => Patient::where("status", "admitted")->get()->count(),
-    //         "specializations" => Specialization::all()->count(),
-    //         "carts" => Cart::all()->count(),
-    //         "users" => User::where('role', "!=", 'admin')->get()->count(),
-    //     ]);
-    // })->name("index");
-
     // // **************************** LOCATION ****************************
-    // // Admin Locations
-    // Route::get('/locations', function () {
-    //     $locations = DB::table('locations')->get();
-    //     return view('components.locations')->with(['locations' => $locations]);
-    // })->name('locations');
 
     // Route::post('addLocation', [components::class, 'addLocation']);
     // Route::get('delLocation/{id}', [components::class, 'delLocation']);
@@ -163,19 +144,6 @@ Route::group(['prefix'=>'admin', "middleware" => "adminAuth"], function () {
     // Route::get("/edit_role/{id}", [RolesController::class, "edit"]);
     // Route::post("/update_role", [RolesController::class, "update"]);
     // Route::get("/delete_role/{id}", [RolesController::class, "delete"]);
-
-
-    // //User Locations
-    // Route::get('/uLocations', function () {
-    //     $locations = DB::table('locations')->get();
-    //     $carts          = DB::table('carts')->get();
-    //     return view('components.uLocations')->with(
-    //         [
-    //             'locations' =>  $locations,
-    //             'carts'     =>  $carts
-    //         ]
-    //     );
-    // })->name('uLocations');
 });
 
 
@@ -210,8 +178,8 @@ Route::group(['prefix'=>'doctor', 'middleware'=>'doctorAuth'], function(){
 
     // **************************** Patients ****************************
     Route::get('/patients', [DoctorController::class, 'patients'])->name('doctor.patients');
-    Route::get("patients/patient-information", [PatientController::class, "show"])->name('doctor.patinet_information');
-    Route::get("patients/delete-patient", [PatientController::class, "delete"])->name("doctor.delete_patient");
+    Route::get("/patients/patient-information", [PatientController::class, "show"])->name('doctor.patinet_information');
+    Route::get("/patients/delete-patient", [PatientController::class, "delete"])->name("doctor.delete_patient");
 });
 
 
@@ -224,8 +192,16 @@ Route::group(['prefix'=>'user', 'middleware'=>'userAuth'], function(){
         ]);
     })->name('user.index');
 
+    // ***************** Appointments *******************
     Route::post('appointments/send-appointment', [AppointmentController::class, 'sendAppointment'])->name("user.send-appointment");
     Route::get('/appointment', [AppointmentController::class, 'appointmentView'])->name('user.appointment');
+
+    // ***************** Settings *******************
+    Route::get('/settings/edit', [UserController::class, 'edit'])->name('user.settings');
+    Route::post('/settings/update', [UserController::class, 'update'])->name('user.update_user');
+
+    // ***************** Doctor detail *******************
+    Route::get('/get-doctor-for-appointment/{id}', [DoctorController::class, "getDoctor"]);
 });
 
 

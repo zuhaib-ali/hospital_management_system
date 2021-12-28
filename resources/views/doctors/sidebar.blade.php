@@ -47,14 +47,14 @@
 
                 <li class="nav-item">
                     <a href="{{ route('doctor.appointments') }}" class="nav-link @if (Route::currentRouteName() == 'doctor.appointments') active @endif()">
-                        <i class="fas fa-columns"></i>
+                        <i class="fas fa-handshake"></i>
                         <p>Appointments</p>
                     </a>
                 </li>
 
                 <li class="nav-item">
                     <a href="{{ route('doctor.patients') }}" class="nav-link @if (Route::currentRouteName() == 'doctor.patients') active @endif()">
-                        <i class="fas fa-columns"></i>
+                        <i class="fas fa-user-injured"></i>
                         <p>Patients</p>
                     </a>
                 </li>
