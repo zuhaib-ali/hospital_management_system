@@ -61,7 +61,7 @@
 
                                         <td>{{ $appointment->created_at->format('M d, y')}}</td>
                                         <td>
-                                          <button type="button" id="send_mail_trigger" data="{{ $appointment->id }}" class='btn btn-sm btn-primary'><i class="fas fa-envelope"></i></button>
+                                          <button type="button" class="send_mail_trigger" data="{{ $appointment->id }}" class='btn btn-sm btn-primary'><i class="fas fa-envelope"></i></button>
                                           <a href="{{ route('doctor.delete_appointment', ['id' => $appointment->id]) }}" class="btn btn-sm btn-danger"><i class="fas fa-trash"></i></a>
                                         </td>
                                       </tr>

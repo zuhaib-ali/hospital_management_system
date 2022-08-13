@@ -110,7 +110,7 @@ crossorigin="anonymous" referrerpolicy="no-referrer"></script>
         });
     });
 
-    $("#send_mail_trigger").click(function(){
+    $(".send_mail_trigger").click(function(){
         var id = $(this).attr('data');
         $.ajax({
             url:"{{ url('doctor/get-appointment-for-doctor') }}"+'/'+id,
